@@ -3,9 +3,14 @@ nixPkgs = ["openjdk17"]
 
 [phases.build]
 cmds = [
-    "./gradlew clean bootJar --no-daemon",
-    "ls -la build/libs/",
-    "file build/libs/backend-app.jar"
+    "echo '=== Starting build ==='",
+    "./gradlew clean bootJar --no-daemon --stacktrace",
+    "echo '=== Build completed ==='", 
+    "find . -name '*.jar' -type f",
+    "ls -laR build/",
+    "pwd && whoami",
+    "echo '=== Checking JAR file ==='",
+    "if [ -f build/libs/backend-app.jar ]; then echo 'JAR exists'; file build/libs/backend-app.jar; else echo 'JAR NOT FOUND'; fi"
 ]
 
 [phases.start]
