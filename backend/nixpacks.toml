@@ -1,8 +1,14 @@
-[phases.build]
-cmds = ["./gradlew clean bootJar --no-daemon"]
+[phases.setup]
+nixPkgs = ["openjdk17"]
+
+[phases.build] 
+cmds = [
+    "chmod +x ./gradlew",
+    "./gradlew clean bootJar --no-daemon --stacktrace"
+]
 
 [phases.start]
-cmd = "java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/backend-app.jar"
+cmd = "java -Dserver.port=$PORT -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -jar build/libs/backend-app.jar"
 
 [variables]
-JAVA_OPTS = "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
+GRADLE_OPTS = "-Dorg.gradle.daemon=false"

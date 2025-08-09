@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "npm-9"]
+
+[phases.build]
+cmds = [
+    "npm ci",
+    "npm run build"
+]
+
+[phases.start]
+cmd = "npx serve -s dist -p $PORT"
+
+[variables]
+NODE_ENV = "production"
