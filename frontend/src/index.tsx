@@ -4,6 +4,7 @@ import { store } from "./app/store";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
 
+import "./styles/tailwind.css";
 import "./styles/globals.css";
 import "./styles/styleguide.css";
 import "./styles/nice-select.css";

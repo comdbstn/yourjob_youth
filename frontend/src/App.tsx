@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppRouter from "./AppRouter"; 
 
-const userId = localStorage.getItem("userId");
-const userType = localStorage.getItem("userType");
-const token = localStorage.getItem("token");
+// 브라우저 환경에서만 실행
+const initializeAuth = () => {
+  if (typeof window === 'undefined') return;
+  
+  const userId = localStorage.getItem("userId");
+  const userType = localStorage.getItem("userType");
+  const token = localStorage.getItem("token");
 
-if (userId) {
-  sessionStorage.setItem("userId", userId);
-}
-if (userType) {
-  sessionStorage.setItem("userType", userType);
-}
-if (token) {
-  sessionStorage.setItem("token", token);
-}
+  if (userId) {
+    sessionStorage.setItem("userId", userId);
+  }
+  if (userType) {
+    sessionStorage.setItem("userType", userType);
+  }
+  if (token) {
+    sessionStorage.setItem("token", token);
+  }
+};
 
 const App: React.FC = () => {
+  useEffect(() => {
+    initializeAuth();
+  }, []);
+
   return (
     <AppRouter />
   );
