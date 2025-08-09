@@ -12,14 +12,21 @@ COPY build.gradle.kts ./
 COPY gradle.properties ./
 COPY settings.gradle.kts ./
 
-# Download dependencies
-RUN gradle dependencies --no-daemon || true
+# Copy gradle wrapper if exists
+COPY gradle/ gradle/ 2>/dev/null || true
+COPY gradlew* ./ 2>/dev/null || true
+
+# Make gradlew executable
+RUN chmod +x gradlew 2>/dev/null || true
+
+# Download dependencies with better error handling
+RUN gradle dependencies --no-daemon --stacktrace || true
 
 # Copy source code
 COPY src src
 
-# Build application
-RUN gradle clean build --no-daemon -x test
+# Build application with verbose logging
+RUN gradle clean build --no-daemon -x test --stacktrace --info
 
 # Production stage
 FROM eclipse-temurin:17-jre-alpine AS production
