@@ -2,10 +2,7 @@
 nixPkgs = ["openjdk17"]
 
 [phases.build]
-cmds = [
-    "./gradlew clean bootJar --no-daemon",
-    "ls -la build/libs/"
-]
+cmds = ["./gradlew clean bootJar --no-daemon"]
 
 [phases.start]
-cmd = "java -Dserver.port=$PORT -jar build/libs/backend-app.jar"
+cmd = "java -jar build/libs/backend-app.jar"
