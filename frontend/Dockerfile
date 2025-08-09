@@ -66,13 +66,13 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
   CMD curl -f http://localhost:${PORT:-80} || exit 1
 
 # Expose ports
-EXPOSE $PORT 80 443
+EXPOSE 3000 $PORT 80 443
 
 # Railway uses PORT environment variable for frontend
 ENV PORT=${PORT:-80}
 
-# Start nginx with dynamic port
-CMD ["sh", "-c", "sed -i \"s/listen 80/listen $PORT/g\" /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
+# Start nginx with port 3000 for docker-compose
+CMD ["sh", "-c", "sed -i 's/listen 80/listen 3000/g' /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
 
 # Development stage
 FROM node:20-alpine AS development
