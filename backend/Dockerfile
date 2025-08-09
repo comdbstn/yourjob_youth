@@ -1,90 +1,24 @@
-# Multi-stage build for Kotlin/Spring Boot backend
-FROM gradle:8-jdk17-alpine AS builder
-
-# Install build dependencies
-RUN apk add --no-cache curl
-
-# Set working directory
-WORKDIR /home/gradle/project
-
-# Copy gradle files first for better layer caching
-COPY build.gradle.kts ./
-COPY gradle.properties ./
-COPY settings.gradle.kts ./
-
-# Copy gradle wrapper if exists
-COPY gradle/ gradle/ 2>/dev/null || true
-COPY gradlew* ./ 2>/dev/null || true
-
-# Make gradlew executable
-RUN chmod +x gradlew 2>/dev/null || true
-
-# Download dependencies with better error handling
-RUN gradle dependencies --no-daemon --stacktrace || true
-
-# Copy source code
-COPY src src
-
-# Build application with verbose logging
-RUN gradle clean build --no-daemon -x test --stacktrace --info
-
-# Production stage
-FROM eclipse-temurin:17-jre-alpine AS production
-
-# Install runtime dependencies
-RUN apk add --no-cache curl netcat-openbsd tzdata
-
-# Set timezone
-ENV TZ=Asia/Seoul
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-
-# Create app user for security
-RUN addgroup -g 1000 app && adduser -u 1000 -G app -h /app -D app
+# Simple single-stage build for troubleshooting
+FROM gradle:8-jdk17-alpine
 
 # Set working directory
 WORKDIR /app
 
-# Copy built application from builder stage
-COPY --from=builder /home/gradle/project/build/libs/*.jar app.jar
+# Copy all files
+COPY . .
 
-# Create necessary directories
-RUN mkdir -p /app/uploads /app/logs /app/ssl
-RUN chown -R app:app /app
+# Install runtime dependencies
+RUN apk add --no-cache curl
 
-# Switch to non-root user
-USER app
+# Build and run in single stage
+RUN gradle clean build --no-daemon -x test --stacktrace
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost:8082/actuator/health || exit 1
+# Expose port
+EXPOSE $PORT 8082
 
-# Expose ports
-EXPOSE $PORT 8082 8443 5005
-
-# JVM optimization for containers
-ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:G1HeapRegionSize=16m -XX:+UseStringDeduplication -Djava.security.egd=file:/dev/./urandom"
-
-# Application profile
-ENV SPRING_PROFILES_ACTIVE=production
-
-# Railway uses PORT environment variable
+# Set JVM options
+ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 ENV SERVER_PORT=${PORT:-8082}
 
 # Start application
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$SERVER_PORT -jar app.jar"]
-
-# Development stage
-FROM production AS development
-
-# Switch back to root for development tools
-USER root
-
-# Install development tools
-RUN apk add --no-cache bash vim less
-
-# Enable remote debugging
-ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
-ENV SPRING_PROFILES_ACTIVE=local
-
-# Switch back to app user
-USER app
+CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$SERVER_PORT -jar build/libs/*.jar"]
