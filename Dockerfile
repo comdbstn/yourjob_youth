@@ -31,33 +31,27 @@ RUN echo 'server { \
     index index.html; \
     \
     # Security headers \
-    add_header X-Frame-Options "SAMEORIGIN" always; \
-    add_header X-Content-Type-Options "nosniff" always; \
+    add_header X-Frame-Options SAMEORIGIN always; \
+    add_header X-Content-Type-Options nosniff always; \
     add_header X-XSS-Protection "1; mode=block" always; \
     \
-    # Main location for React SPA \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-        add_header Cache-Control "no-cache, no-store, must-revalidate"; \
+    # Health check endpoint \
+    location /health { \
+        access_log off; \
+        return 200 "healthy"; \
+        add_header Content-Type text/plain; \
     } \
     \
-    # Static assets with long-term caching \
+    # Static assets caching \
     location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ { \
         expires 1y; \
         add_header Cache-Control "public, immutable"; \
-        add_header Access-Control-Allow-Origin "*"; \
     } \
     \
-    # Admin static files \
-    location /admin/ { \
-        try_files $uri $uri/ /admin/index.html; \
-    } \
-    \
-    # Health check \
-    location /health { \
-        access_log off; \
-        return 200 "healthy\\n"; \
-        add_header Content-Type text/plain; \
+    # Main React SPA routing \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+        add_header Cache-Control "no-cache, no-store, must-revalidate"; \
     } \
 }' > /etc/nginx/conf.d/default.conf
 
