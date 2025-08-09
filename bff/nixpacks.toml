@@ -1,17 +1,22 @@
 [phases.setup]
-nixPkgs = ["openjdk17"]
+nixPkgs = ["openjdk17", "bash"]
 
 [phases.build] 
 cmds = [
-    "ls -la ./gradlew",
+    "echo 'Starting BFF build process'",
+    "pwd",
+    "ls -la",
+    "file ./gradlew",
+    "head -1 ./gradlew",
+    "dos2unix ./gradlew || true",
     "chmod +x ./gradlew",
     "ls -la ./gradlew",
     "./gradlew --version",
-    "./gradlew clean bootJar --no-daemon --stacktrace --info"
+    "GRADLE_OPTS='-Dorg.gradle.daemon=false' ./gradlew clean bootJar --no-daemon --stacktrace --info"
 ]
 
 [phases.start]
 cmd = "java -Dserver.port=$PORT -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -jar build/libs/bff-app.jar"
 
 [variables]
-GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx2048m"
+GRADLE_OPTS = "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx1g"
