@@ -72,10 +72,9 @@ module.exports = {
       template: path.resolve(__dirname, "public", "index.html"),
     }),
     new Dotenv({
-      path:
-        process.env.NODE_ENV === "production"
-          ? "./.env.production"
-          : "./.env.development",
+      path: "./.env",
+      safe: false,
+      defaults: true,
     }),
     //new webpack.DefinePlugin({
     //  'process.env': JSON.stringify(process.env)
