@@ -9,4 +9,4 @@ cmds = [
 ]
 
 [phases.start]
-cmd = "java -jar ./build/libs/backend-app.jar"
+cmd = "java -jar /app/build/libs/*.jar"
