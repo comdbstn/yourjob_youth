@@ -1,0 +1,8 @@
+[phases.build]
+cmds = ["./gradlew clean bootJar --no-daemon"]
+
+[phases.start]  
+cmd = "java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/bff-app.jar"
+
+[variables]
+JAVA_OPTS = "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
