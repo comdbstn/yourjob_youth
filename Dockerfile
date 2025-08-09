@@ -7,13 +7,15 @@ COPY frontend/package*.json ./
 RUN npm ci --no-audit --prefer-offline
 COPY frontend/ ./
 
-# Set build-time environment variables
-ARG REACT_APP_API_BASE_URL
-ARG REACT_APP_BFF_BASE_URL
-ARG REACT_APP_FIREBASE_API_KEY
-ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
-ENV REACT_APP_BFF_BASE_URL=$REACT_APP_BFF_BASE_URL
-ENV REACT_APP_FIREBASE_API_KEY=$REACT_APP_FIREBASE_API_KEY
+# Set build-time environment variables with defaults
+ENV REACT_APP_API_BASE_URL=https://yourjobyouth-production.up.railway.app
+ENV REACT_APP_BFF_BASE_URL=https://yourjobyouth-production.up.railway.app
+ENV REACT_APP_FIREBASE_API_KEY=AIzaSyAZBQTYJI6wVIh8xiBtdfxBPtzDTxxlk4c
+ENV REACT_APP_FIREBASE_AUTH_DOMAIN=your-5932b.firebaseapp.com
+ENV REACT_APP_FIREBASE_PROJECT_ID=your-5932b
+ENV REACT_APP_FIREBASE_STORAGE_BUCKET=your-5932b.firebasestorage.app
+ENV REACT_APP_FIREBASE_MESSAGING_SENDER_ID=1007615852085
+ENV REACT_APP_FIREBASE_APP_ID=1:1007615852085:web:78e6e0af8bd37dba0efb7c
 
 RUN npm run build
 
