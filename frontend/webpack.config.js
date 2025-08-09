@@ -75,6 +75,7 @@ module.exports = {
       path: "./.env",
       safe: false,
       defaults: true,
+      systemvars: true, // 시스템 환경변수(REACT_APP_*)도 빌드 타임에 사용
     }),
     //new webpack.DefinePlugin({
     //  'process.env': JSON.stringify(process.env)
