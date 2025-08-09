@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.ResumeMapper">
+    <insert id="insertResume" parameterType="map" useGeneratedKeys="true" keyProperty="resumeId">
+        insert into resumes
+        (job_seeker_id, title, address, birth, careerType, email, englishName,
+        gender, name, nationality, phone, picturePath, spellingText, visa)
+        VALUES (
+        #{jobSeekerId},#{title},#{address},#{birth},#{careerType},#{email},#{englishName},
+        #{gender},#{name},#{nationality},#{phone},#{picturePath},#{spellingText},#{visa}
+        )
+    </insert>
+    <insert id="insertResumeActivities" parameterType="map">
+        insert into resume_activities
+        (resume_id, activityType, description, organizationName, startDate, endDate)
+        VALUES
+        (#{resume_id},#{activityType},#{description},#{organizationName},#{startDate}
+        ,#{endDate})
+    </insert>
+    <insert id="insertResumeAwards" parameterType="map">
+        insert into resume_awards
+        (resume_id, awardName, awardYear, awardingOrganization, description)
+        VALUES
+        (#{resume_id},#{awardName},#{awardYear},#{awardingOrganization},#{description})
+    </insert>
+    <insert id="insertResumeCareers" parameterType="map">
+        insert into resume_careers
+        (resume_id, companyName, endDate, isCurrent, jobTitle, position, responsibilities, startDate)
+        VALUES
+        (#{resume_id},#{companyName},#{endDate},#{isCurrent},#{jobTitle},#{position},#{responsibilities},#{startDate})
+    </insert>
+    <insert id="insertResumeCerts" parameterType="map">
+        insert into resume_certifications
+        (resume_id, acquisitionDate, certificationName, issuingOrganization)
+        VALUES
+        (#{resume_id},#{acquisitionDate},#{certificationName},#{issuingOrganization})
+    </insert>
+    <insert id="insertResumeEdus" parameterType="map">
+        insert into resume_educations
+        (resume_id, additionalMajor, additionalMajorType, admissionDate, department, gpa, graduationDate, graduationStatus, lastSchool, region, schoolName, totalCredits, transferStatus)
+        VALUES
+        (#{resume_id},#{additionalMajor},#{additionalMajorType},#{admissionDate},#{department},#{gpa},#{graduationDate},#{graduationStatus},#{lastSchool},#{region},#{schoolName},#{totalCredits},#{transferStatus})
+    </insert>
+    <insert id="insertResumeEmpPrf" parameterType="map">
+        insert into resume_employmentprf
+        (resume_id, disabledGrade, hasMilitaryService, isDisabled, isEmploymentProtected, isEmploymentSupport, isVeteran, militaryServiceClass, militaryServiceJoinDate, militaryServiceOutDate, militaryServiceStatus)
+        VALUES
+        (#{resume_id},#{disabledGrade},#{hasMilitaryService},#{isDisabled},#{isEmploymentProtected},#{isEmploymentSupport},#{isVeteran},#{militaryServiceClass},#{militaryServiceJoinDate},#{militaryServiceOutDate},#{militaryServiceStatus})
+    </insert>
+    <insert id="insertResumeLngs" parameterType="map">
+        insert into resume_languages
+        (resume_id, language, readingLevel, speakingLevel, writingLevel)
+        VALUES
+        (#{resume_id},#{language},#{readingLevel},#{speakingLevel},#{writingLevel})
+    </insert>
+    <insert id="insertResumeSflIntros" parameterType="map">
+        insert into resume_selfintroductions
+        (resume_id, title, content)
+        VALUES
+        (#{resume_id},#{title},#{content})
+    </insert>
+    <delete id="deleteResumeActivities" parameterType="int">
+        delete from resume_activities where resume_id = #{resumeId}
+    </delete>
+    <delete id="deleteResumeAwards" parameterType="int">
+        delete from resume_awards where resume_id = #{resumeId}
+    </delete>
+    <delete id="deleteResumeCareers" parameterType="int">
+        delete from resume_careers where resume_id = #{resumeId}
+    </delete>
+    <delete id="deleteResumeCerts" parameterType="int">
+        delete from resume_certifications where resume_id = #{resumeId}
+    </delete>
+    <delete id="deleteResumeEdus" parameterType="int">
+        delete from resume_educations where resume_id = #{resumeId}
+    </delete>
+    <delete id="deleteResumeEmpPrf" parameterType="int">
+        delete from resume_employmentprf where resume_id = #{resumeId}
+    </delete>
+    <delete id="deleteResumeLngs" parameterType="int">
+        delete from resume_languages where resume_id = #{resumeId}
+    </delete>
+    <delete id="deleteResumeSflIntros" parameterType="int">
+        delete from resume_selfintroductions where resume_id = #{resumeId}
+    </delete>
+    <select id="selectResumeDetail" parameterType="int" resultType="com.yourjob.backend.entity.ResumeResponse">
+        select
+        resume_id as resumeId,
+        job_seeker_id as jobSeekerId,
+        title as title,
+        gender as gender,
+        birth as birth,
+        careerType as careerType,
+        phone as phone,
+        englishName as englishName,
+        name as name,
+        profile_img_idx as profileImgIdx,
+        picturePath as picturePath,
+        apostiu_img_idx as apostiuImgIdx,
+        address as address,
+        nationality as nationality,
+        email as email,
+        visa as visa,
+        created_at as created_at
+        from resumes where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeEducations" parameterType="int" resultType="map">
+        select
+        *
+        from resume_educations where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeLanguages" parameterType="int" resultType="map">
+        select
+        *
+        from resume_languages where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeCareers" parameterType="int" resultType="map">
+        select
+        *
+        from resume_careers where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeActivities" parameterType="int" resultType="map">
+        select
+        *
+        from resume_activities where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeCertifications" parameterType="int" resultType="map">
+        select
+        *
+        from resume_certifications where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeAwards" parameterType="int" resultType="map">
+        select
+        *
+        from resume_awards where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeEmpPrf" parameterType="int" resultType="map">
+        select
+        *
+        from resume_employmentprf where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeSelfIntro" parameterType="int" resultType="map">
+        select
+        *
+        from resume_selfintroductions where resume_id = #{resumeId}
+    </select>
+    <select id="selectResumeList" parameterType="map" resultType="com.yourjob.backend.entity.ResumeRequest">
+        select
+            a.resume_id AS resumeId,
+            a.title AS title,
+            a.created_at AS createdAt,
+            a.title as title,
+            a.status as status,
+            a.created_at as created_at,
+            c.startDate AS carrerStartDate,
+            c.endDate AS carrerEndDate,
+            b.account_id as userId,
+            a.picturePath as photoUrl,
+            a.name as name,
+            a.birth as birth,
+            a.gender as gender,
+            a.nationality as country,
+            a.region as region,
+            a.isPublic as isPublic
+        from resumes a
+        LEFT JOIN users b
+            ON a.resume_id = b.user_id
+        LEFT JOIN resume_careers c
+            ON a.resume_id = c.resume_id
+        where 1 = 1
+        <if test='userId != null and userId != ""'>
+            and job_seeker_id = #{userId}
+        </if>
+        order by created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+    <select id="selectResumeListCnt" parameterType="map" resultType="int">
+        select
+        count(*)
+        from resumes
+        where job_seeker_id = #{userId}
+    </select>
+    <update id="updateResume" parameterType="com.yourjob.backend.entity.ResumeRequest">
+        update resumes set
+        title = #{title},
+        address = #{address},
+        birth = #{birth},
+        careerType = #{careerType},
+        email = #{email},
+        englishName = #{englishName},
+        gender = #{gender},
+        name = #{name},
+        nationality = #{nationality},
+        phone = #{phone},
+        picturePath = #{picturePath},
+        spellingText = #{spellingText},
+        visa = #{visa},
+        updated_at = NOW()
+        where resume_id = #{resumeId}
+    </update>
+    <delete id="deleteResume" parameterType="int">
+        delete from resumes where resume_id = #{resumeId}
+    </delete>
+    <update id="updateResumeProfileImgIdx" parameterType="map">
+        update resumes set
+        profile_img_idx = #{profileImgIdx},
+        updated_at = NOW()
+        where resume_id = #{resumeId}
+    </update>
+    <update id="updateResumeApostiImgIdx" parameterType="map">
+        update resumes set
+        apostiu_img_idx = #{apostiuImgIdxStr},
+        updated_at = NOW()
+        where resume_id = #{resumeId}
+    </update>
+    <update id="updateResumePublicStatus" parameterType="map">
+        update resumes set
+        isPublic = #{isPublic},
+        updated_at = NOW()
+        where resume_id = #{resumeId}
+    </update>
+</mapper>

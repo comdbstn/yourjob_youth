@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+	
+    <link rel="stylesheet" type="text/css" href="/css/corpmypage.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+	<script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<header>
+		<nav>
+			<div class="nav-container">
+				<div class="container  flex-row items-center">
+					<div class="logo">
+						<a href="/" class="title"><img src="/img/logo.png"></a>
+						<div class="logo_txt">유학생 채용 플랫폼</div>
+					</div>
+					<div class="top_search">
+						<div class="search_box"><input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="유학생 채용정보를 검색해 보세요."></div>
+						<div class="top_search_btn"><img class="union" src="/img/union.svg" alt="Union" /></div>
+					</div>
+				</div>
+			</div>
+			<div class="menu-container">
+				<div class="container flex-row items-center item_between">
+					<ul class="menunavi">
+						<li><a href="/corpmem/mypage.html" class="notosanscjkkr-bold-mine-shaft-18px">홈</a></li>
+						<li><a href="/corpmem/jobpost.html" class="notosanscjkkr-bold-mine-shaft-18px">공고등록</a></li>
+						<li><a href="/corpmem/applicant.html" class="notosanscjkkr-bold-mine-shaft-18px">공고·지원자관리</a></li>
+						<li><a href="/corpmem/search.html" class="notosanscjkkr-bold-mine-shaft-18px">인재검색</a></li>
+						<li><a href="/corpmem/talent.html" class="notosanscjkkr-bold-mine-shaft-18px">인재관리</a></li>
+					</ul>
+					<ul class="userNav">
+						<!-- 로그인후 노출 -->
+						<li><a href="/corpmem/paid_history.html" class="text-12">유료 이용내역</a></li>
+						<li><a href="/corpmem/mypage.html" class="text-12"><i class="fa-regular fa-user"></i></a></li>
+						<li><a href="#" class="logOut">로그아웃</a></li>
+						<!-- 로그인후 노출 end -->
+
+						<!-- 로그인전 노출
+						<li><a href="/member/join.html" class="text-12">회원가입</a></li>
+						로그인전 노출 end -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- header end -->
+
+    <div class="container-center-horizontal">
+        <div class="crop-wrap screen">
+
+
+			<!-- container -->
+			<div class="container">				
+				
+				<!-- corpmodify -->
+				<div class="corpmodify">
+					<div class="join_box">
+						<div class="box_title">계정 정보</div>
+						<div class="input_field">
+							<div class="span">아이디</div>
+							<input type="text" class="form-control formfild" placeholder="아이디를 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">비밀번호</div>
+							<input type="password" class="form-control formfild" placeholder="비밀번호를 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">비밀번호 확인</div>
+							<input type="re_password" class="form-control formfild" placeholder="한 번 더 입력해 주세요.">
+						</div>
+					</div>
+
+
+					<div class="join_box">
+						<div class="box_title">담당자 정보</div>
+						<div class="input_field">
+							<div class="span">담당자 명</div>
+							<input type="text" class="form-control formfild" placeholder="이름을 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">담당자 휴대폰 번호</div>
+							<input type="text" class="form-control formfild" placeholder="- 를 제외하고 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">담당자 이메일</div>
+							<div class="file_cus">
+								<label>
+									<input type="text" class="form-control formfild" placeholder="이메일을 입력해 주세요.">
+									<button type="button" class="file_btn">인증코드 보내기</button>
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div class="join_box">
+						<div class="box_title">기업 정보</div>
+						<div class="input_field">
+							<div class="span">기업명</div>
+							<div class="file_cus">
+								<label>
+									<input type="text" class="form-control formfild" placeholder="기업명을 입력해 주세요.">
+									<button type="button" class="file_btn">찾기</button>
+								</label>
+							</div>
+
+						</div>
+						<div class="input_field">
+							<div class="span">사업자등록번호</div>
+							<input type="text" class="form-control formfild" placeholder="사업자등록번호를 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">대표자</div>
+							<input type="text" class="form-control formfild" placeholder="대표자 이름을 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">사업자등록증(고유번호증) 또는<br />사업자등록증명원</div>
+
+							<div class="file_cus">
+								<label>
+									<input type="file" name="file_name" class="form-control formfild">
+									<div class="file_name ellipsis">첨부파일을 선택해주세요.</div>
+									<div class="file_btn">찾기</div>
+								</label>
+							</div>
+			
+						</div>
+			
+						<p>
+							-사업자등록증이 없는 기업, 단체는 담당자 명함과 재직증명서를 제출해 주세요.<br />-2MB 이하의 JPG, PDF
+							파일만 첨부할 수 있습니다.(최대 2개)
+						</p>
+				
+						<div class="input_field">
+							 <div class="span">기업 구분</div>
+							 <div class="chk_box">
+								<div class="flex-row items-center">
+									<input id="use_gradebot1" type="radio" name="use_gradebot" value="1"  checked="checked">
+									<label for="use_gradebot1">대기업</label>
+									<input id="use_gradebot2" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot2">중소기업</label>
+									<input id="use_gradebot3" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot3">공공기관/공기업</label>
+									<input id="use_gradebot4" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot4">외국계기업</label>
+									<input id="use_gradebot5" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot5">중견기업</label>
+								</div>
+								<div class="flex-row items-center">
+									<input id="use_gradebot6" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot6">비영리단체/협회/재단</label>
+									<input id="use_gradebot7" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot7">스타트업</label>
+									<input id="use_gradebot8" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot8">금융권</label>
+									<input id="use_gradebot9" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot9">병원</label>
+									<input id="use_gradebot10" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot10">동아리/학생자치단체</label>
+								</div>
+								<div class="flex-row items-center">
+									<input id="use_gradebot1" type="radio" name="use_gradebot" value="1">
+									<label for="use_gradebot1">기타</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="input_field">
+							<div class="span">사원수</div>
+							<input type="number" class="form-control formfild" placeholder="사원수를 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">자본금</div>
+							<input type="number" class="form-control formfild" placeholder="자본금을 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">매출액</div>
+							<input type="number" class="form-control formfild" placeholder="매출액을 입력해 주세요.">
+						</div>
+						<div class="input_field">
+							<div class="span">당기순익</div>
+							<input type="number" class="form-control formfild" placeholder="당기순익을 입력해 주세요.">
+						</div>
+					</div>
+
+					<div class="btnBox">
+						<button type="button" class="form_btn"  id="complete_ok">수정하기</button>
+						<button type="button" class="home_btn" id="cancle">취소</button>
+					</div>
+				</div>
+				<!-- corpmodify end -->
+
+			</div>
+			<!-- container end-->
+
+        </div>
+    </div>
+
+
+	<!-- footer -->
+	<footer>
+		<div class="footer_wrap">
+			<div class="footer_link">
+				<ul>
+					<li>이용약관</li>
+					<li>개인정보처리방침</li>
+				</ul>
+			</div>
+	
+			<div class="footer_con">
+				<div class="container">
+
+					<div class="footer_box">
+						<div class="footer_info">
+							<ul>
+								<li>고객센터 : 0000-0000</li>
+								<li>FAX : 00-0000-0000</li>
+								<li>E-mail : abcd@gmail.com</li>
+							</ul>
+							<ul>
+								<li>서울시 서초구 서초대로 301</li>
+								<li>대표 : 홍길동</li>
+								<li>사업자등록번호 : 000-00-00000</li>
+							</ul>
+							<ul>
+								<li>Copyright ©아이비리거. All rights reserved.</li>
+							</ul>
+						</div>
+						<div class="urjob"><img src="/img/f_logo.png"></div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer end -->
+
+<script>
+$(document).ready(function () {
+    $(".file_cus input[type=file]").on("change", function() {
+        const fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".file_name").text(fileName || "첨부파일을 선택해주세요.");
+    });
+	
+	/* 수정하기 클릭이벤트 */
+	$("#complete_ok").on('click',function() {
+		//window.location.href="join_complete.html";
+	});
+
+	/* 취소 클릭이벤트 */
+	$("#cancle").on('click',function() {
+		window.location.href="mypage.html";
+	});
+});
+</script>
+</body>
+</html>

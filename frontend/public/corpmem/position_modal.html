@@ -1,0 +1,90 @@
+<link rel="stylesheet" type="text/css" href="/css/nice-select.css" />
+<script src="/js/jquery.nice-select.js"></script>
+
+<!-- 모달창  -->
+<div id="addmodal">	
+	<div class="modal_title"><h2>포지션 제안하기</h2></div>	
+	<div class="positon_select">
+		<select name="s-status">
+			<option value="">[(주)유어잡]문구, 캐릭터 디자인 정규직 채용(경력&신입)</option>
+			<option value="">[(주)유어잡]패키지 디자이너 채용</option>
+			<option value="">[(주)유어잡]기획 경력직 채용</option>
+			<option value="">[(주)유어잡]개발자 상시채용</option>
+		</select>
+	</div>
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+		<div class="positon-form">
+			<label for="">후보자명</label>
+			<p>홍길동(남,30세)</p>
+		</div>
+		<div class="positon-form">
+			<label for="">제안 포지션명</label>
+			<input type="text" class="form-control" id="position" name="position" placeholder="제안 포지션명을 입력해 주세요.">
+		</div>
+		<div class="positon-form">
+			<label for="">제안 내용</label>
+			<textarea id="txtContent" name="txtContent" class="form-control" placeholder="제안 내용을 입력해 주세요."></textarea>
+		</div>
+		<div class="positon-form">
+			<label for="">포지션 정보</label>
+			<textarea id="txtContent" name="txtContent" class="form-control" placeholder="포지션 정보에 대한 내용을 입력해 주세요."></textarea>
+		</div>
+		<div class="positon-form">
+			<label for="">담당자</label>
+			<input type="text" class="form-control" id="position" name="position" value="인사팀 김남길" placeholder="당담자">
+		</div>
+
+		<div class="modal_btnBox mt35">
+			<button type="button" class="modal_submit" id="send_prop">제안 보내기</button>
+			<a href="#close-modal" rel="modal:close"><button type="button" class="modal_close">취소</button></a>
+		</div>
+	</form>
+</div>
+<script>
+$(document).ready(function() {
+	$('select').niceSelect();
+
+	/* 포지션 제안하기 모달창열기 */
+	$('.modal_btnBox').on("click", "#send_prop", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'positionSend_modal.html',
+			largeModal: "small-modal", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/*
+	//등록, 수정
+	$("#btn_insert").click(function(){
+		$('#btn_insert').attr('disabled');
+
+		var formData = $("form[name=chkForm]").serialize() ;
+
+		$.ajax({
+			type : 'post',
+			url : 'chkpwd.php',
+			data : formData,
+			dataType : 'json',
+			error: function(xhr, status, error){
+				alert(error);
+			},
+			success : function(result){
+				if (result.msg == "SUCCESS"){
+					$('#btn_insert').removeAttr('disabled');
+					$('#addmodal').modal().hide();
+					$("#chk").val(result.chk);
+					$("#chkForm").attr("action","boardView.php").submit();
+				}else{
+					alert(result.msg);
+					$('#btn_insert').removeAttr('disabled');
+				}
+			}
+		});
+
+	});
+	*/
+});
+</script>

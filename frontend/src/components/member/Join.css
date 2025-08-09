@@ -1,0 +1,278 @@
+/* screen - join */
+.join {
+  align-items: center;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  padding: 50px 0;
+  width: 450px;
+  margin: 0 auto;
+}
+
+.join .title {
+  display: contents;
+  color: var(--primary);
+  font-size: var(--font-size-xxxxl);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: normal;
+  width: 100%;
+}
+
+.join .overlap {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 16px 0;
+  padding-left: 70px;
+}
+
+.join .naverBtn {
+  background-color: #2db400;
+  gap: 58px;
+  margin-top: 65px;
+  width: 100%;
+}
+
+.join .naver_icon {
+  width: 31px;
+  height: 28px;
+}
+
+.join .kakaoBtn {
+  background-color: #ffe600;
+  gap: 46px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.join .kakao_icon {
+  width: 31px;
+  height: 28.612px;
+}
+
+.join .appleBtn {
+  background-color: var(--black);
+  gap: 72px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.join .apple_icon {
+  width: 23.042px;
+  height: 28.282px;
+}
+
+.join .gmailBtn {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  gap: 65px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.join .gmail_icon {
+  width: 29.04px;
+  height: 29.636px;
+}
+
+.join .emailJoinBtn {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  gap: 65px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.join .input {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  border-radius: 20px;
+  width: 100%;
+  padding: 19px 15px;
+}
+
+.white_txt {
+  color: var(--white) !important;
+}
+
+.join h1 {
+  display: flex;
+  color: transparent;
+  font-size: var(--font-size-xxxxl);
+  width: 100%;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.join span {
+  color: #333333;
+  font-weight: 500;
+}
+
+.join span:nth-child(1) {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.join span:nth-child(2) {
+  color: #2e7fdb;
+  font-weight: 600;
+}
+
+.join .joinTab {
+  align-items: flex-start;
+  display: flex;
+  margin-top: 60px;
+  width: 100%;
+}
+
+.join .joinTab a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  width: 50%;
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  color: var(--black);
+}
+
+.join .joinTab a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  height: 3px;
+  background-color: var(--black);
+}
+
+.join .joinTab a:nth-child(2) {
+  color: var(--txtcol02);
+}
+
+.join .joinTab a:nth-child(2)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  height: 1px;
+  background-color: var(--linecol04);
+}
+
+.social_login_buttons {
+  width: 100%;
+}
+
+.email_join_form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.email_join_form input,
+.email_join_form select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--linecol02);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.joinBtn {
+  padding: 12px;
+  background-color: #2e7fdb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.joinBtn:hover {
+  background-color: #1b6ac9;
+}
+
+/* Mobile */
+.join_container_mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-family-noto_sans_cjk_kr-medium);
+}
+
+.join_container_mobile .header {
+  display: block;
+  text-align: center;
+
+  margin-top: 70px;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 130%;
+  padding: 0;
+  letter-spacing: -1px;
+}
+
+.join_container_mobile h1 strong {
+  font-weight: 900;
+  color: #2f80dc;
+}
+
+.join_container_mobile.tabs {
+  display: flex;
+  border-bottom: #cbcbcb 1px solid;
+  width: calc(100% - 20px);
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.join_container_mobile.tabs button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0;
+  font-size: 16px;
+}
+
+.join_container_mobile.tabs button:nth-child(1) {
+  border-bottom: black 3px solid;
+}
+
+.join_container_mobile.tabs button:nth-child(2) {
+  color: #cbcbcb;
+}
+
+.join .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.join .form-group label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 130%;
+}
+
+.join .form-group input {
+  padding: 10px;
+  border-radius: 18px;
+  border: 1px solid var(--linecol02);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.join .visa-checkbox {
+  margin-top: 10px;
+}
+
+.join .popup_overlay {
+  width: 80%;
+}

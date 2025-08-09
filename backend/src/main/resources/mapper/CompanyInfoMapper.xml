@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yourjob.backend.mapper.CompanyInfoMapper">
+
+  <!-- 엔티티의 필드와 테이블 컬럼을 매핑하는 ResultMap -->
+  <resultMap id="CompanyInfoResultMap" type="com.yourjob.backend.entity.CompanyInfo">
+    <id property="userId" column="user_id"/>
+    <result property="companyName" column="company_name"/>
+    <result property="employeeCount" column="number_of_employees"/>
+    <result property="capitalAmount" column="capital_amount"/>
+    <result property="revenueAmount" column="revenue_amount"/>
+    <result property="netIncome" column="net_income"/>
+    <result property="address" column="address"/>
+    <result property="website" column="website"/>
+    <result property="logo_url" column="logo_url"/>
+  </resultMap>
+
+  <select id="selectCompanyById" parameterType="int" resultMap="CompanyInfoResultMap">
+    SELECT user_id, company_name, number_of_employees, capital_amount, revenue_amount, net_income, address, website, logo_url
+    FROM company_profile
+    WHERE user_id = #{userId}
+  </select>
+
+  <insert id="insertCompany" parameterType="com.yourjob.backend.entity.CompanyInfo">
+    INSERT INTO company_profile 
+      (user_id, company_name, number_of_employees, capital_amount, revenue_amount, net_income, address, website, logo_url)
+    VALUES 
+      (#{userId}, #{companyName}, #{employeeCount}, #{capitalAmount}, #{revenueAmount}, #{netIncome}, #{address}, #{website}, #{logo_url})
+  </insert>
+
+  <update id="updateCompany" parameterType="com.yourjob.backend.entity.CompanyInfo">
+    UPDATE company_profile
+    SET
+      company_name = #{companyName},
+      number_of_employees = #{employeeCount},
+      capital_amount = #{capitalAmount},
+      revenue_amount = #{revenueAmount},
+      net_income = #{netIncome},
+      address = #{address},
+      website = #{website},
+      logo_url = #{logo_url}
+    WHERE user_id = #{userId}
+  </update>
+
+  <delete id="deleteCompany" parameterType="int">
+    DELETE FROM company_profile
+    WHERE user_id = #{userId}
+  </delete>
+
+</mapper>

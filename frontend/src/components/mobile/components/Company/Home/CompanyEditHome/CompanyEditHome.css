@@ -1,0 +1,238 @@
+.mobileCompanyEditHome_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.mobileCompanyEditHome_Container .contentSection {
+  width: 100%;
+  padding: 40px 20px;
+  border-top: 1px solid var(--line_col_04, #dfdfdf);
+  border-bottom: 1px solid var(--line_col_04, #dfdfdf);
+  background: var(--bg_gr_03, #fbfbfb);
+  line-height: 1.5;
+}
+
+.mobileCompanyEditHome_Container .contentSection h3 {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.mobileCompanyEditHome_Container .contentSection .input_default {
+  background-color: white;
+  width: 100%;
+}
+
+.mobileCompanyEditHome_Container .contentSection .rows {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobileCompanyEditHome_Container .contentSection .row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileCompanyEditHome_Container .contentSection .row p .essential {
+  color: #ff6a6a;
+  font-size: 20px;
+  font-weight: 700;
+  vertical-align: bottom;
+  line-height: 1;
+}
+
+.mobileCompanyEditHome_Container .contentSection .row p {
+  font-size: 16px;
+  color: #535353;
+  padding-left: 10px;
+  font-weight: 500;
+}
+
+.mobileCompanyEditHome_Container .contentSection {
+  border-top: 1px #dfdfdf solid;
+  border-bottom: 1px #dfdfdf solid;
+  background-color: #fbfbfb;
+  padding: 40px 20px;
+}
+
+.mobileCompanyEditHome_Container .contentSection h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.mobileCompanyEditHome_Container .contentSection h4 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.mobileCompanyEditHome_Container .contentSection h4 strong {
+  color: #ff0000;
+}
+
+.mobileCompanyEditHome_Container .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobileCompanyEditHome_Container .inputs .input_default {
+  background-color: #ffffff;
+}
+
+.mobileCompanyEditHome_Container .inputs .inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+  width: 100%;
+}
+
+.mobileCompanyEditHome_Container .chk_box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 100%;
+}
+
+.mobileCompanyEditHome_Container .chk_box .flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.mobileCompanyEditHome_Container .blueLabel {
+  font-size: small;
+  color: blue;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.mobileCompanyEditHome_Container .budle {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  .emailBox {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.mobileCompanyEditHome_Container .budle .blueBtn {
+  width: 100%;
+  max-width: 110px;
+  .input_default {
+    width: 100%;
+    min-width: none;
+  }
+}
+
+.btnBox.mobileCompanyEditHome_btn_area {
+  margin-top: 60px;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.btnBox.mobileCompanyEditHome_btn_area button {
+  width: 100%;
+  padding: 0;
+  height: 50px;
+  border-radius: 15px;
+}
+/* CompanyEditHome.css */
+
+.mobileCompanyEditHome_Container .budle {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  align-items: center; /* 수직 가운데 정렬 */
+  max-width: 100%;
+  .at-sign {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+  }
+}
+
+.mobileCompanyEditHome_Container .budle .emailBox {
+  display: flex;
+  gap: 10px;
+  flex: 1; /* budle 영역에서 남은 공간을 전부 차지 */
+}
+
+.mobileCompanyEditHome_Container .budle .emailBox .input_default {
+  flex: 1; /* 두 input_default가 1:1 비율로 폭을 나눔 */
+}
+
+/* 인증 버튼은 고정 너비로 두되, emailBox와 같은 줄에 위치하도록 */
+.mobileCompanyEditHome_Container .budle .blueBtn {
+  flex-shrink: 0; /* 너비가 줄어들지 않도록 */
+  width: 110px; /* 원하시는 고정 너비로 조정 */
+}
+/* emailBox 래퍼가 flex item 안에서 줄바꿈 하지 않도록 */
+.mobileCompanyEditHome_Container .budle {
+  display: flex;
+  flex-wrap: nowrap; /* <--- 추가 */
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+}
+
+/* emailBox 에서 두 input이 1:1 비율로 나뉘도록, 남은 공간을 모두 차지 */
+.mobileCompanyEditHome_Container .budle .emailBox {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+  min-width: 0; /* <--- 추가: flex-item 내부가 줄어들 수 있게 */
+}
+
+/* input_default 가 flex-item 내부에서 줄어들도록 */
+.mobileCompanyEditHome_Container .budle .emailBox .input_default {
+  flex: 1;
+  min-width: 0; /* <--- 추가: 자식 input이 컨테이너 크기에 맞춰 줄어듦 */
+}
+
+/* 인증 버튼은 고정 너비 */
+.mobileCompanyEditHome_Container .budle .blueBtn {
+  flex-shrink: 0;
+  width: 110px;
+  max-width: 110px;
+}
+/* 모든 .budle 컨테이너를 한 줄 flex, 자식이 줄어들 수 있도록 설정 */
+.mobileCompanyEditHome_Container .budle {
+  display: flex;
+  flex-wrap: nowrap; /* 한 줄로 유지 */
+  align-items: center; /* 수직 중앙 정렬 */
+  gap: 10px;
+  width: 100%;
+}
+
+/* budle 내부의 모든 input_default 는 남은 공간을 1:1 로 차지 */
+.mobileCompanyEditHome_Container .budle .input_default {
+  flex: 1;
+  min-width: 0; /* flex-item 이 줄어들 수 있도록 */
+}
+
+/* budle 내부의 버튼/라벨(blueBtn)은 고정 너비, 줄어들지 않음 */
+.mobileCompanyEditHome_Container .budle .blueBtn,
+.mobileCompanyEditHome_Container .budle label.blueBtn {
+  flex-shrink: 0; /* 공간이 부족해도 줄어들지 않음 */
+  width: 110px; /* 원하는 고정 너비로 조정 */
+  max-width: 110px;
+}

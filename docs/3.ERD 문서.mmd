@@ -1,0 +1,303 @@
+erDiagram
+    %% 사용자 관련 테이블
+    USERS ||--o{ RESUMES : "작성"
+    USERS ||--o{ JOB_POSTINGS : "등록"
+    USERS ||--o{ APPLICATIONS : "지원"
+    USERS ||--o{ COMMUNITY_POSTS : "작성"
+    USERS ||--o{ COMMUNITY_COMMENTS : "작성"
+    USERS ||--o{ JOB_SCRAP : "스크랩"
+    USERS ||--o{ CORPS_SCRAP : "스크랩"
+    USERS ||--o| COMPANY_PROFILE : "소유"
+    USERS ||--o{ PAYMENTS : "결제"
+    USERS ||--o{ FILE_ATTACH : "첨부"
+    
+    %% 이력서 관련 테이블
+    RESUMES ||--|{ RESUME_EDUCATIONS : "포함"
+    RESUMES ||--|{ RESUME_CAREERS : "포함"
+    RESUMES ||--|{ RESUME_CERTIFICATIONS : "포함"
+    RESUMES ||--|{ RESUME_LANGUAGES : "포함"
+    RESUMES ||--|{ RESUME_ACTIVITIES : "포함"
+    RESUMES ||--|{ RESUME_AWARDS : "포함"
+    RESUMES ||--|{ RESUME_SELFINTRODUCTIONS : "포함"
+    RESUMES ||--o| RESUME_EMPLOYMENTPRF : "포함"
+    RESUMES ||--o{ CORPS_SCRAP : "스크랩됨"
+    RESUMES ||--o{ CORPS_VIEW : "조회됨"
+    RESUMES ||--o{ APPLICATIONS : "사용됨"
+    RESUMES ||--o{ JOB_OFFERS : "제안받음"
+    
+    %% 채용공고 관련 테이블
+    JOB_POSTINGS ||--o{ APPLICATIONS : "지원받음"
+    JOB_POSTINGS ||--o{ JOB_OFFERS : "제안"
+    JOB_POSTINGS ||--|{ JOB_POSTINGS_JOBTYPE : "포함"
+    JOB_POSTINGS ||--|{ JOB_POSTINGS_EMPJOBTYPE : "포함"
+    JOB_POSTINGS ||--o{ JOB_SCRAP : "스크랩됨"
+    JOB_POSTINGS }|--|| JOB_CATEGORIES : "분류됨"
+    
+    JOB_TYPES ||--o{ JOB_POSTINGS_JOBTYPE : "사용됨"
+    CORPORATE_TYPES ||--o{ CORPS : "분류"
+    
+    %% 커뮤니티 관련 테이블
+    COMMUNITY_CATEGORIES ||--o{ COMMUNITY_POSTS : "분류"
+    COMMUNITY_POSTS ||--o{ COMMUNITY_COMMENTS : "포함"
+    COMMUNITY_POSTS ||--o{ COMMUNITY_POST_TAGS : "태그"
+    COMMUNITY_POSTS ||--o{ COMMUNITY_LIKES : "받음"
+    COMMUNITY_POSTS ||--o{ COMMUNITY_POST_RECOMMEND : "추천받음"
+    COMMUNITY_COMMENTS ||--o{ COMMUNITY_COMMENT_RECOMMENDS : "추천받음"
+    COMMUNITY_COMMENTS ||--o{ COMMUNITY_COMMENTS_REPORT : "신고됨"
+    COMMUNITY_COMMENTS ||--o{ COMMUNITY_COMMENTS_BLOCK : "차단됨"
+    
+    %% 결제 및 상품 관련 테이블
+    PRODUCTS ||--o{ PAYMENTS : "판매"
+    PAYMENTS ||--o{ BANNERS : "광고"
+    
+    %% 교육 및 지역 관련 테이블
+    DOMESTIC_UNIVERSITY }o--o{ MAJOR : "전공"
+    INTERNATIONAL_UNIVERSITY }o--o{ REGION : "위치"
+    COUNTRY }o--o{ REGION : "포함"
+    
+    %% 주요 테이블 정의
+    USERS {
+        int user_id PK
+        varchar account_id UK
+        varchar password_hash
+        varchar user_type
+        varchar name
+        varchar englishName
+        varchar email
+        varchar phone
+        varchar address
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+    
+    COMPANY_PROFILE {
+        int id PK
+        int user_id FK
+        varchar company_name
+        int employee_count
+        double capital_amount
+        double revenue_amount
+        varchar address
+        varchar website
+        varchar logo_url
+        datetime created_at
+        datetime updated_at
+    }
+    
+    CORPS {
+        int user_id PK
+        varchar account_id
+        varchar password_hash
+        varchar company_name
+        varchar business_rgst_numb
+        varchar company_address
+        int corp_type FK
+        int employ_cnt
+        datetime created_at
+        datetime updated_at
+    }
+    
+    RESUMES {
+        int resume_id PK
+        int job_seeker_id FK
+        int profile_img_idx
+        varchar title
+        varchar name
+        varchar email
+        varchar phone
+        varchar address
+        varchar careerType
+        varchar status
+        datetime created_at
+        datetime updated_at
+    }
+    
+    RESUME_EDUCATIONS {
+        int educations_id PK
+        int resume_id FK
+        varchar schoolName
+        varchar department
+        varchar graduationStatus
+        varchar admissionDate
+        varchar graduationDate
+        varchar gpa
+    }
+    
+    RESUME_CAREERS {
+        int careers_id PK
+        int resume_id FK
+        varchar companyName
+        varchar jobTitle
+        varchar position
+        varchar startDate
+        varchar endDate
+        boolean isCurrent
+    }
+    
+    RESUME_CERTIFICATIONS {
+        int certifications_id PK
+        int resume_id FK
+        varchar certificationName
+        varchar issuingOrganization
+        varchar acquisitionDate
+    }
+    
+    JOB_POSTINGS {
+        int job_id PK
+        int employer_id FK
+        varchar title
+        text description
+        varchar location
+        varchar job_type
+        decimal salary
+        varchar status
+        int views
+        varchar deadline
+        int yourjob_fileidx
+        int company_fileidx
+        datetime created_at
+        datetime updated_at
+    }
+    
+    JOB_POSTINGS_JOBTYPE {
+        int jobtype_id PK
+        int job_id FK
+        varchar job_type
+    }
+    
+    JOB_TYPES {
+        int job_type_id PK
+        varchar job_type_name UK
+        datetime created_at
+        datetime updated_at
+    }
+    
+    JOB_CATEGORIES {
+        int job_category_id PK
+        varchar job_category_name UK
+        datetime created_at
+        datetime updated_at
+    }
+    
+    APPLICATIONS {
+        int application_id PK
+        int job_id FK
+        int job_seeker_id FK
+        int resume_id FK
+        varchar status
+        varchar coverletter
+        varchar attach_files_idx
+        datetime created_at
+        datetime updated_at
+    }
+    
+    JOB_OFFERS {
+        int joboffer_id PK
+        int job_id FK
+        int employer_id
+        int job_seeker_id
+        int resume_id FK
+        varchar message
+        varchar position
+        varchar status
+        varchar interview_status
+        datetime created_at
+        datetime updated_at
+    }
+    
+    COMMUNITY_POSTS {
+        int post_id PK
+        int user_id FK
+        int category_id FK
+        varchar type
+        varchar title
+        varchar writer
+        text content
+        int views
+        int likes
+        char del_yn
+        varchar STATUS
+        datetime created_at
+        datetime updated_at
+    }
+    
+    COMMUNITY_COMMENTS {
+        int comment_id PK
+        int post_id FK
+        int user_id FK
+        varchar writer
+        text content
+        int recomment_id
+        int likes
+        char del_yn
+        datetime created_at
+        datetime updated_at
+    }
+    
+    COMMUNITY_CATEGORIES {
+        int category_id PK
+        varchar name
+        varchar description
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PRODUCTS {
+        bigint id PK
+        varchar product_id
+        varchar status
+        varchar type
+        varchar name
+        varchar explosure_type
+        int period_days
+        int exposure_count
+        int price
+        text product_type
+        datetime created_at
+        datetime updated_at
+    }
+    
+    PAYMENTS {
+        bigint id PK
+        varchar payment_id
+        varchar user_id FK
+        varchar product_name
+        varchar job_postings_name
+        bigint job_postings_id
+        varchar start_date
+        varchar end_date
+        varchar amount
+        varchar status
+        int exposure_count
+        boolean is_ended
+        datetime created_at
+        datetime updated_at
+    }
+    
+    BANNERS {
+        bigint id PK
+        varchar banner_id
+        varchar group_name
+        varchar title
+        varchar image_url
+        varchar status
+        varchar start_date
+        varchar end_date
+        text link_target
+        datetime created_at
+        datetime updated_at
+    }
+    
+    FILE_ATTACH {
+        int file_attach_id PK
+        int user_id FK
+        int con_id
+        varchar type
+        varchar year_date
+        varchar file_name
+        varchar file_ext
+        varchar file_path_s3
+        datetime created_at
+        datetime updated_at
+    }

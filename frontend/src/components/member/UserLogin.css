@@ -1,0 +1,360 @@
+/* screen - join */
+.login_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login {
+  align-items: center;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  padding: 50px 0;
+  width: 450px;
+  margin: 0 auto;
+}
+
+.login .title {
+  display: contents;
+  color: var(--primary);
+  font-size: var(--font-size-xxxxl);
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: normal;
+  width: 100%;
+}
+
+.login .overlap {
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 16px 0;
+  padding-left: 70px;
+}
+
+.login .naverBtn {
+  background-color: #2db400;
+  gap: 58px;
+  margin-top: 65px;
+  width: 100%;
+}
+
+.login .naver_icon {
+  width: 31px;
+  height: 28px;
+}
+
+.login .kakaoBtn {
+  background-color: #ffe600;
+  gap: 46px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.login .kakao_icon {
+  width: 31px;
+  height: 28.612px;
+}
+
+.login .appleBtn {
+  background-color: var(--black);
+  gap: 72px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.login .apple_icon {
+  width: 23.042px;
+  height: 28.282px;
+}
+
+.login .gmailBtn {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  gap: 65px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.login .gmail_icon {
+  width: 29.04px;
+  height: 29.636px;
+}
+
+.login .emailLoginBtn {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  gap: 65px;
+  margin-top: 23px;
+  width: 100%;
+}
+
+.login .email_icon {
+  width: 29.04px;
+  height: 29.636px;
+}
+
+.login .email_login_popup {
+  width: 100%;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.login .email_login_popup .popup_content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.login .email_login_popup .popup_content .button_container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+}
+
+.login .email_login_popup .popup_content .email_input {
+  padding: 12px;
+  border: 1px solid var(--linecol02);
+  border-radius: 10px;
+  font-size: var(--font-size-m);
+}
+
+.login .email_login_popup .popup_content .password_input {
+  padding: 12px;
+  border: 1px solid var(--linecol02);
+  border-radius: 10px;
+  font-size: var(--font-size-m);
+}
+
+.login .email_login_popup .popup_content .email_login_button {
+  width: 100%;
+  padding: 17px;
+  background-color: #2e7fdb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+}
+
+.login .email_login_popup .popup_content .close_popup {
+  width: 100%;
+  padding: 12px;
+  background-color: #2e7fdb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+}
+
+.login .input {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  border-radius: 20px;
+  width: 100%;
+  padding: 19px 15px;
+  margin-bottom: 10px;
+}
+
+.login .label {
+  padding-left: 10px;
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  color: var(--txtcol02);
+}
+
+.login .white_txt {
+  color: var(--white) !important;
+}
+
+.login h1 {
+  display: flex;
+  color: transparent;
+  font-size: var(--font-size-xxxxl);
+  width: 100%;
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.login span {
+  color: #333333;
+  font-weight: 500;
+}
+
+.login span:nth-child(1) {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.login span:nth-child(2) {
+  color: #2e7fdb;
+  font-weight: 600;
+}
+
+.login .loginTab {
+  align-items: flex-start;
+  display: flex;
+  margin-top: 60px;
+  width: 100%;
+}
+
+.login .loginTab a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  width: 50%;
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  color: var(--txtcol02);
+}
+
+.login .loginTab a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--linecol04);
+}
+
+.login .loginTab a.active {
+  color: var(--black);
+}
+
+.login .loginTab a.active::after {
+  height: 3px;
+  background-color: var(--black);
+}
+
+/* Email Signup Form 추가 스타일 */
+.email_signup_form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.email_signup_form input,
+.email_signup_form select {
+  padding: 12px 15px;
+  border: 1px solid var(--linecol02);
+  border-radius: 10px;
+  font-size: var(--font-size-m);
+}
+
+.email_signup_button {
+  padding: 12px;
+  background-color: #2e7fdb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+
+.email_signup_button:hover {
+  background-color: #1b6ac9;
+}
+
+.login .signup_link {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.login .signup_link_txt {
+  color: var(--txtcol02);
+}
+
+.login .signup_link_txt a {
+  display: inline-block;
+}
+
+/* Mobile */
+.login_container_mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-family-noto_sans_cjk_kr-medium);
+}
+
+.login_container_mobile .header {
+  margin-top: 70px;
+}
+.login_container_mobile .header p {
+  color: #2f80dc;
+}
+.login_container_mobile .main_btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 0 20px;
+  margin-top: 60px;
+}
+.login_container_mobile .main_btns button {
+  height: 60px;
+  width: 100%;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login_container_mobile .main_btns button:nth-child(1) {
+  background-color: #2db400;
+  color: white;
+  border-radius: 15px;
+  gap: 32.26px;
+}
+.login_container_mobile .main_btns button:nth-child(2) {
+  background-color: #ffe600;
+  color: black;
+  border-radius: 15px;
+  gap: 16.06px;
+}
+.login_container_mobile .main_btns button:nth-child(3) {
+  background-color: black;
+  color: white;
+  border-radius: 15px;
+  gap: 36.7px;
+}
+.login_container_mobile .main_btns button:nth-child(4) {
+  background-color: white;
+  border: #cbcbcb 1px solid;
+  color: black;
+  border-radius: 15px;
+  gap: 36.7px;
+}
+
+.login_container_mobile .or {
+  font-size: 20px;
+  font-weight: 700;
+  color: #a8a8a8;
+  font-family: var(--font-family-noto_sans_cjk_kr-medium);
+}
+.login_container_mobile .bottomBtn {
+  height: 60px;
+  width: calc(100% - 40px);
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2f80dc;
+  color: white;
+  border-radius: 15px;
+  gap: 36.7px;
+}
+.login_container_mobile .bottomLabel {
+  color: #8f8f8f;
+  font-size: 15px;
+}

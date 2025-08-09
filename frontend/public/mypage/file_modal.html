@@ -1,0 +1,53 @@
+
+<!-- 모달창  -->
+<div id="addmodal">	
+	<div class="modal_title mb20">
+		<h2>보관함</h2>
+	</div>
+
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+
+		<div class="fileStorage">
+			<div class="mypc">
+				<button type="button" class="mypcBtn" id="mypcBtn">내PC</button>
+			</div>
+			<div class="card">
+				<ul class="card_head">
+					<li class="w1 txtcenter">구분</li>
+					<li class="w2">파일명</li>
+					<li class="w3">등록일</li>
+				</ul>
+				<ul class="card_body active">
+					<li class="w1"><input type="checkbox" id="chk[]" name="chk[]" value="1" class="check_box"> 증명서</li>
+					<li class="w2 ellipsis">증명서.jpg</li>
+					<li class="w3">2024.10.10</li>
+				</ul>
+				<ul class="card_body active">
+					<li class="w1"><input type="checkbox" id="chk[]" name="chk[]" value="1" class="check_box"> 포트폴리오</li>
+					<li class="w2 ellipsis">http://portfolio.com/web</li>
+					<li class="w3">2024.10.10</li>
+				</ul>
+				<ul class="card_body">
+					<li class="w1"><input type="checkbox" id="chk[]" name="chk[]" value="1" class="check_box"> 아포스티유</li>
+					<li class="w2 ellipsis">아포스티유.jpg</li>
+					<li class="w3">2024.10.10</li>
+				</ul>
+			</div>
+		</div>
+
+
+		<div class="modal_sbtn mt20">
+			<div class="btnm">
+				<button type="button" class="btns ApplyBtn" id="AttachFile">첨부하기</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+$(document).ready(function() {
+	$("#AttachFile").on('click',function() {
+		$.modal.close();
+	});
+});
+</script>

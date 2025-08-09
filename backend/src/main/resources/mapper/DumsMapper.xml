@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yourjob.backend.mapper.DumsMapper">
+    <!-- [Domestic University] 매핑 -->
+    <insert id="insertDomesticUniversity"
+            parameterType="com.yourjob.backend.entity.DomesticUniversityRequest"
+            useGeneratedKeys="true"
+            keyProperty="universityId"
+            keyColumn="university_id">
+        INSERT INTO domestic_university (
+            year_of_survey,
+            survey_round,
+            university_name,
+            university_code,
+            university_category,
+            branch_type,
+            university_type,
+            region,
+            college_name,
+            college_code,
+            department_code,
+            department_name,
+            day_night_type,
+            department_characteristics,
+            department_status,
+            major_category,
+            mid_category,
+            sub_category,
+            internal_category,
+            course_duration,
+            degree_program,
+            department_location,
+            department_location_detail,
+            created_at,
+            updated_at
+        )
+        VALUES (
+            #{yearOfSurvey},
+            #{surveyRound},
+            #{universityName},
+            #{universityCode},
+            #{universityCategory},
+            #{branchType},
+            #{universityType},
+            #{region},
+            #{collegeName},
+            #{collegeCode},
+            #{departmentCode},
+            #{departmentName},
+            #{dayNightType},
+            #{departmentCharacteristics},
+            #{departmentStatus},
+            #{majorCategory},
+            #{midCategory},
+            #{subCategory},
+            #{internalCategory},
+            #{courseDuration},
+            #{degreeProgram},
+            #{departmentLocation},
+            #{departmentLocationDetail},
+            NOW(),
+            NOW()
+        )
+    </insert>
+    <update id="updateDomesticUniversity"
+            parameterType="com.yourjob.backend.entity.DomesticUniversityRequest">
+        UPDATE domestic_university
+        SET
+            year_of_survey = #{yearOfSurvey},
+            survey_round = #{surveyRound},
+            university_name = #{universityName},
+            university_code = #{universityCode},
+            university_category = #{universityCategory},
+            branch_type = #{branchType},
+            university_type = #{universityType},
+            region = #{region},
+            college_name = #{collegeName},
+            college_code = #{collegeCode},
+            department_code = #{departmentCode},
+            department_name = #{departmentName},
+            day_night_type = #{dayNightType},
+            department_characteristics = #{departmentCharacteristics},
+            department_status = #{departmentStatus},
+            major_category = #{majorCategory},
+            mid_category = #{midCategory},
+            sub_category = #{subCategory},
+            internal_category = #{internalCategory},
+            course_duration = #{courseDuration},
+            degree_program = #{degreeProgram},
+            department_location = #{departmentLocation},
+            department_location_detail = #{departmentLocationDetail},
+            updated_at = NOW()
+        WHERE university_id = #{domesticUniversityId}
+    </update>
+    <delete id="deleteDomesticUniversity" parameterType="int">
+        DELETE FROM domestic_university
+        WHERE university_id = #{domesticUniversityId}
+    </delete>
+    <select id="selectDomesticUniversityDetail"
+        parameterType="int"
+        resultType="com.yourjob.backend.entity.DomesticUniversityResponse">
+
+    SELECT
+        university_id AS domesticUniversityId,
+        year_of_survey AS yearOfSurvey,
+        survey_round AS surveyRound,
+        university_name AS universityName,
+        university_code AS universityCode,
+        university_category AS universityCategory,
+        branch_type AS branchType,
+        university_type AS universityType,
+        region,
+        college_name AS collegeName,
+        college_code AS collegeCode,
+        department_code AS departmentCode,
+        department_name AS departmentName,
+        day_night_type AS dayNightType,
+        department_characteristics AS departmentCharacteristics,
+        department_status AS departmentStatus,
+        major_category AS majorCategory,
+        mid_category AS midCategory,
+        sub_category AS subCategory,
+        internal_category AS internalCategory,
+        course_duration AS courseDuration,
+        degree_program AS degreeProgram,
+        department_location AS departmentLocation,
+        department_location_detail AS departmentLocationDetail,
+        created_at,
+        updated_at
+    FROM domestic_university
+    WHERE university_id = #{domesticUniversityId}
+    </select>
+
+    <select id="selectDomesticUniversityList"
+        parameterType="map"
+        resultType="com.yourjob.backend.entity.DomesticUniversityRequest">
+
+    SELECT
+        university_id AS domesticUniversityId,
+        year_of_survey AS yearOfSurvey,
+        survey_round AS surveyRound,
+        university_name AS universityName,
+        university_code AS universityCode,
+        university_category AS universityCategory,
+        branch_type AS branchType,
+        university_type AS universityType,
+        region,
+        college_name AS collegeName,
+        college_code AS collegeCode,
+        department_code AS departmentCode,
+        department_name AS departmentName,
+        day_night_type AS dayNightType,
+        department_characteristics AS departmentCharacteristics,
+        department_status AS departmentStatus,
+        major_category AS majorCategory,
+        mid_category AS midCategory,
+        sub_category AS subCategory,
+        internal_category AS internalCategory,
+        course_duration AS courseDuration,
+        degree_program AS degreeProgram,
+        department_location AS departmentLocation,
+        department_location_detail AS departmentLocationDetail,
+        created_at,
+        updated_at
+    FROM domestic_university
+    
+    <if test="keyword != null and keyword != ''">
+        WHERE university_name LIKE CONCAT('%', #{keyword}, '%')
+    </if>
+    
+    ORDER BY created_at DESC
+    LIMIT #{offSetNumb}, #{size}
+    </select>
+    
+    <select id="selectUniversityNameList" resultType="string" parameterType="map">
+        SELECT DISTINCT university_name
+        FROM domestic_university
+        <if test="keyword != null and keyword != ''">
+            WHERE university_name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        ORDER BY university_name
+    </select>
+
+    <select id="selectDomesticUniversityMajors"
+            resultType="string">
+        SELECT DISTINCT department_name
+        FROM domestic_university
+        ORDER BY department_name
+    </select>
+
+    <!-- [International University] 매핑 -->
+    <insert id="insertInternationalUniversity" parameterType="com.yourjob.backend.entity.InternationalUniversityRequest" useGeneratedKeys="true" keyProperty="internationalUniversityId">
+        INSERT INTO international_university
+        (university_name, location, region, created_at, updated_at)
+        VALUES
+        (#{name}, #{location}, #{region}, NOW(), NOW())
+    </insert>
+    <update id="updateInternationalUniversity" parameterType="com.yourjob.backend.entity.InternationalUniversityRequest">
+        UPDATE international_university SET
+        university_name = #{name},
+        location = #{location},
+        region = #{region},
+        updated_at = NOW()
+        WHERE university_id = #{internationalUniversityId}
+    </update>
+
+    <delete id="deleteInternationalUniversity" parameterType="int">
+        DELETE FROM international_university WHERE university_id = #{internationalUniversityId}
+    </delete>
+
+    <select id="selectInternationalUniversityDetail" parameterType="int" resultType="com.yourjob.backend.entity.InternationalUniversityResponse">
+        SELECT international_university_id as internationalUniversityId, name, location, region, created_at, updated_at
+        FROM international_university
+        WHERE international_university_id = #{internationalUniversityId}
+    </select>
+
+    <select id="selectInternationalUniversityList" parameterType="map" resultType="com.yourjob.backend.entity.InternationalUniversityRequest">
+        SELECT 
+            international_university_id as internationalUniversityId,
+            university_name as universityName,
+            location,
+            region,
+            created_at, updated_at
+        FROM international_university
+        <if test="keyword != null and keyword != ''">
+        WHERE university_name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        ORDER BY created_at DESC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <!-- [Major] 매핑 -->
+    <insert id="insertMajor" parameterType="com.yourjob.backend.entity.MajorRequest" useGeneratedKeys="true" keyProperty="majorId">
+        INSERT INTO major
+        (majorName)
+        VALUES
+        (#{majorName})
+    </insert>
+    <update id="updateMajor" parameterType="com.yourjob.backend.entity.MajorRequest">
+        UPDATE major SET
+        majorName = #{majorName}
+        WHERE major_id = #{majorId}
+    </update>
+    <delete id="deleteMajor" parameterType="int">
+        DELETE FROM major WHERE major_id = #{majorId}
+    </delete>
+    <select id="selectMajorDetail" parameterType="int" resultType="com.yourjob.backend.entity.MajorResponse">
+        SELECT major_id as majorId, majorName
+        FROM major
+        WHERE major_id = #{majorId}
+    </select>
+    <select id="selectMajorList" parameterType="map" resultType="com.yourjob.backend.entity.MajorRequest">
+        SELECT major_id as majorId, majorName
+        FROM major
+        ORDER BY majorName ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <!-- [Certificate List] 매핑 -->
+    <insert id="insertCertificate" parameterType="com.yourjob.backend.entity.CertificateListRequest" useGeneratedKeys="true" keyProperty="certificateId">
+        INSERT INTO certificate_list
+        (certificate_name, certificate_type, certificate_issuer)
+        VALUES
+        (#{certificateName}, #{certificateType}, #{certificateIssuer})
+    </insert>
+    <update id="updateCertificate" parameterType="com.yourjob.backend.entity.CertificateListRequest">
+        UPDATE certificate_list SET
+        certificate_name = #{certificateName},
+        certificate_type = #{certificateType},
+        certificate_issuer = #{certificateIssuer}
+        WHERE certificate_id = #{certificateId}
+    </update>
+    <delete id="deleteCertificate" parameterType="int">
+        DELETE FROM certificate_list WHERE certificate_id = #{certificateId}
+    </delete>
+    <select id="selectCertificateDetail" parameterType="int" resultType="com.yourjob.backend.entity.CertificateListResponse">
+        SELECT certificate_id as certificateId, certificate_name, certificate_type, certificate_issuer
+        FROM certificate_list
+        WHERE certificate_id = #{certificateId}
+    </select>
+    <select id="selectCertificateList" parameterType="map" resultType="com.yourjob.backend.entity.CertificateListRequest">
+        SELECT certificate_id as certificateId, certificate_name, certificate_type, certificate_issuer
+        FROM certificate_list
+        ORDER BY certificate_name ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <!-- [University Classification] 매핑 -->
+    <insert id="insertUniversityClassification" parameterType="com.yourjob.backend.entity.UniversityClassificationRequest" useGeneratedKeys="true" keyProperty="classificationId">
+        INSERT INTO university_classification
+        (classification)
+        VALUES
+        (#{classification})
+    </insert>
+    <update id="updateUniversityClassification" parameterType="com.yourjob.backend.entity.UniversityClassificationRequest">
+        UPDATE university_classification SET
+        classification = #{classification}
+        WHERE classification_id = #{classificationId}
+    </update>
+    <delete id="deleteUniversityClassification" parameterType="int">
+        DELETE FROM university_classification WHERE classification_id = #{classificationId}
+    </delete>
+    <select id="selectUniversityClassificationDetail" parameterType="int" resultType="com.yourjob.backend.entity.UniversityClassificationResponse">
+        SELECT classification_id as classificationId, classification
+        FROM university_classification
+        WHERE classification_id = #{classificationId}
+    </select>
+    <select id="selectUniversityClassificationList" parameterType="map" resultType="com.yourjob.backend.entity.UniversityClassificationRequest">
+        SELECT classification_id as classificationId, classification
+        FROM university_classification
+        ORDER BY classification ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <!-- [Graduation Status] 매핑 -->
+    <insert id="insertGraduationStatus" parameterType="com.yourjob.backend.entity.GraduationStatusRequest" useGeneratedKeys="true" keyProperty="graduationStatusId">
+        INSERT INTO graduation_status
+        (status)
+        VALUES
+        (#{status})
+    </insert>
+    <update id="updateGraduationStatus" parameterType="com.yourjob.backend.entity.GraduationStatusRequest">
+        UPDATE graduation_status SET
+        status = #{status}
+        WHERE graduation_status_id = #{graduationStatusId}
+    </update>
+    <delete id="deleteGraduationStatus" parameterType="int">
+        DELETE FROM graduation_status WHERE graduation_status_id = #{graduationStatusId}
+    </delete>
+    <select id="selectGraduationStatusDetail" parameterType="int" resultType="com.yourjob.backend.entity.GraduationStatusResponse">
+        SELECT graduation_status_id as graduationStatusId, status
+        FROM graduation_status
+        WHERE graduation_status_id = #{graduationStatusId}
+    </select>
+    <select id="selectGraduationStatusList" parameterType="map" resultType="com.yourjob.backend.entity.GraduationStatusRequest">
+        SELECT graduation_status_id as graduationStatusId, status
+        FROM graduation_status
+        ORDER BY status ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <!-- [Region] 매핑 -->
+    <insert id="insertRegion" parameterType="com.yourjob.backend.entity.RegionRequest" useGeneratedKeys="true" keyProperty="regionId">
+        INSERT INTO region
+        (regionName, regionType)
+        VALUES
+        (#{regionName}, #{regionType})
+    </insert>
+    <update id="updateRegion" parameterType="com.yourjob.backend.entity.RegionRequest">
+        UPDATE region SET
+        regionName = #{regionName},
+        regionType = #{regionType}
+        WHERE region_id = #{regionId}
+    </update>
+    <delete id="deleteRegion" parameterType="int">
+        DELETE FROM region WHERE region_id = #{regionId}
+    </delete>
+    <select id="selectRegionDetail" parameterType="int" resultType="com.yourjob.backend.entity.RegionResponse">
+        SELECT region_id as regionId, regionName, regionType
+        FROM region
+        WHERE region_id = #{regionId}
+    </select>
+    <select id="selectRegionList" parameterType="map" resultType="com.yourjob.backend.entity.RegionRequest">
+        SELECT region_id as regionId, regionName, regionType
+        FROM region
+        ORDER BY regionName ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <insert id="insertCountry" parameterType="com.yourjob.backend.entity.CountryRequest" useGeneratedKeys="true" keyProperty="countryId">
+        INSERT INTO country
+        (country_code, country_name, nation, continent, country_number, created_at, updated_at)
+        VALUES
+        (#{countryCode}, #{countryName}, #{nation}, #{continent}, #{countryNumber}, NOW(), NOW())
+    </insert>
+
+    <update id="updateCountry" parameterType="com.yourjob.backend.entity.CountryRequest">
+        UPDATE country SET
+        country_code = #{countryCode},
+        country_name = #{countryName},
+        nation = #{nation},
+        continent = #{continent},
+        country_number = #{countryNumber},
+        updated_at = NOW()
+        WHERE country_id = #{countryId}
+    </update>
+
+    <delete id="deleteCountry" parameterType="int">
+        DELETE FROM country WHERE country_id = #{countryId}
+    </delete>
+
+    <select id="selectCountryDetail" parameterType="int" resultType="com.yourjob.backend.entity.CountryResponse">
+        SELECT country_id as countryId,
+            country_code as countryCode,
+            country_name as countryName,
+            nation,
+            continent,
+            country_number as countryNumber,
+            created_at, updated_at
+        FROM country
+        WHERE country_id = #{countryId}
+    </select>
+
+    <select id="selectCountryList" parameterType="map" resultType="com.yourjob.backend.entity.CountryRequest">
+        SELECT country_id as countryId,
+            country_code as countryCode,
+            country_name as countryName,
+            nation,
+            continent,
+            country_number as countryNumber,
+            created_at, updated_at
+        FROM country
+        WHERE 1=1
+        <if test="keyword != null and keyword != ''">
+            AND (country_name LIKE CONCAT('%', #{keyword}, '%') OR country_code LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY created_at DESC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <!-- [Integrated View] 매핑 -->
+    <select id="selectDumsIntegratedList" parameterType="map" resultType="com.yourjob.backend.entity.DumsIntegratedView">
+        SELECT DISTINCT
+            id,
+            dataType,
+            code,
+            name,
+            status,
+            createdAt,
+            updatedAt
+        FROM (
+            SELECT 
+                university_id as id,
+                'DOMESTIC_UNIVERSITY' as dataType,
+                university_code as code,
+                university_name as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM domestic_university
+            UNION ALL
+            SELECT 
+                international_university_id as id,
+                'INTERNATIONAL_UNIVERSITY' as dataType,
+                NULL as code,
+                university_name as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM international_university
+            UNION ALL
+            SELECT 
+                major_id as id,
+                'MAJOR' as dataType,
+                NULL as code,
+                major_name as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM major
+            UNION ALL
+            SELECT 
+                certificate_id as id,
+                'CERTIFICATE' as dataType,
+                NULL as code,
+                certificate_name as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM certificate_list
+            UNION ALL
+            SELECT 
+                classification_id as id,
+                'UNIVERSITY_CLASSIFICATION' as dataType,
+                NULL as code,
+                classification as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM university_classification
+            UNION ALL
+            SELECT 
+                graduation_status_id as id,
+                'GRADUATION_STATUS' as dataType,
+                NULL as code,
+                status as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM graduation_status
+            UNION ALL
+            SELECT 
+                region_id as id,
+                'REGION' as dataType,
+                NULL as code,
+                region_name as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM region
+            UNION ALL
+            SELECT 
+                country_id as id,
+                'COUNTRY' as dataType,
+                country_code as code,
+                country_name as name,
+                NULL as status,
+                created_at as createdAt,
+                updated_at as updatedAt
+            FROM country
+        ) AS integrated_view
+        WHERE 1=1
+        <if test="dataType != null and dataType != ''">
+            AND dataType = #{dataType}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (name LIKE CONCAT('%', #{keyword}, '%') OR code LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY name ASC
+        <if test="offSetNumb != null and size != null">
+            LIMIT #{offSetNumb}, #{size}
+        </if>
+    </select>
+
+    <select id="selectDumsIntegratedCount" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM (
+            SELECT 
+                'DOMESTIC_UNIVERSITY' as dataType,
+                university_id as id,
+                university_name as name,
+                university_code as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM domestic_university
+            UNION ALL
+            SELECT 
+                'INTERNATIONAL_UNIVERSITY' as dataType,
+                international_university_id as id,
+                university_name as name,
+                NULL as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM international_university
+            UNION ALL
+            SELECT 
+                'MAJOR' as dataType,
+                major_id as id,
+                major_name as name,
+                NULL as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM major
+            UNION ALL
+            SELECT 
+                'CERTIFICATE' as dataType,
+                certificate_id as id,
+                certificate_name as name,
+                NULL as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM certificate_list
+            UNION ALL
+            SELECT 
+                'UNIVERSITY_CLASSIFICATION' as dataType,
+                classification_id as id,
+                classification as name,
+                NULL as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM university_classification
+            UNION ALL
+            SELECT 
+                'GRADUATION_STATUS' as dataType,
+                graduation_status_id as id,
+                status as name,
+                NULL as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM graduation_status
+            UNION ALL
+            SELECT 
+                'REGION' as dataType,
+                region_id as id,
+                region_name as name,
+                NULL as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM region
+            UNION ALL
+            SELECT 
+                'COUNTRY' as dataType,
+                country_id as id,
+                country_name as name,
+                country_code as code,
+                NULL as status,
+                created_at,
+                updated_at
+            FROM country
+        ) AS integrated_view
+        WHERE 1=1
+        <if test="dataType != null and dataType != ''">
+            AND dataType = #{dataType}
+        </if>
+        <if test="keyword != null and keyword != ''">
+            AND (name LIKE CONCAT('%', #{keyword}, '%') OR code LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+    </select>
+
+    <select id="selectAllRegions" resultType="com.yourjob.backend.entity.RegionRequest">
+        SELECT
+            region_id as regionId,
+            region_name as regionName,
+            region_type as regionType,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM region
+        ORDER BY region_id ASC
+    </select>
+
+    <!-- [Corporate Type] 매핑 -->
+    <insert id="insertCorporateType" parameterType="com.yourjob.backend.entity.CorporateTypeRequest" useGeneratedKeys="true" keyProperty="corporateTypeId">
+        INSERT INTO corporate_types
+        (corporate_type_name, created_at, updated_at)
+        VALUES
+        (#{corporateTypeName}, NOW(), NOW())
+    </insert>
+
+    <update id="updateCorporateType" parameterType="com.yourjob.backend.entity.CorporateTypeRequest">
+        UPDATE corporate_types SET
+        corporate_type_name = #{corporateTypeName},
+        updated_at = NOW()
+        WHERE corporate_type_id = #{corporateTypeId}
+    </update>
+
+    <delete id="deleteCorporateType" parameterType="int">
+        DELETE FROM corporate_types WHERE corporate_type_id = #{corporateTypeId}
+    </delete>
+
+    <select id="selectCorporateTypeDetail" parameterType="int" resultType="com.yourjob.backend.entity.CorporateTypeResponse">
+        SELECT 
+            corporate_type_id as corporateTypeId,
+            corporate_type_name as corporateTypeName,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM corporate_types
+        WHERE corporate_type_id = #{corporateTypeId}
+    </select>
+
+    <select id="selectCorporateTypeList" parameterType="map" resultType="com.yourjob.backend.entity.CorporateTypeRequest">
+        SELECT 
+            corporate_type_id as corporateTypeId,
+            corporate_type_name as corporateTypeName,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM corporate_types
+        <if test="keyword != null and keyword != ''">
+            WHERE corporate_type_name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        ORDER BY corporate_type_name ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectAllCorporateTypes" resultType="com.yourjob.backend.entity.CorporateTypeResponse">
+        SELECT 
+            corporate_type_id as corporateTypeId,
+            corporate_type_name as corporateTypeName,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM corporate_types
+        ORDER BY corporate_type_id ASC
+    </select>
+
+    <!-- [Job Type] 매핑 -->
+    <insert id="insertJobType" parameterType="com.yourjob.backend.entity.JobTypeRequest" useGeneratedKeys="true" keyProperty="jobTypeId">
+        INSERT INTO job_types
+        (job_type_name, created_at, updated_at)
+        VALUES
+        (#{jobTypeName}, NOW(), NOW())
+    </insert>
+
+    <update id="updateJobType" parameterType="com.yourjob.backend.entity.JobTypeRequest">
+        UPDATE job_types SET
+        job_type_name = #{jobTypeName},
+        updated_at = NOW()
+        WHERE job_type_id = #{jobTypeId}
+    </update>
+
+    <delete id="deleteJobType" parameterType="int">
+        DELETE FROM job_types WHERE job_type_id = #{jobTypeId}
+    </delete>
+
+    <select id="selectJobTypeDetail" parameterType="int" resultType="com.yourjob.backend.entity.JobTypeResponse">
+        SELECT 
+            job_type_id as jobTypeId,
+            job_type_name as jobTypeName,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM job_types
+        WHERE job_type_id = #{jobTypeId}
+    </select>
+
+    <select id="selectJobTypeList" parameterType="map" resultType="com.yourjob.backend.entity.JobTypeRequest">
+        SELECT 
+            job_type_id as jobTypeId,
+            job_type_name as jobTypeName,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM job_types
+        <if test="keyword != null and keyword != ''">
+            WHERE job_type_name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        ORDER BY job_type_name ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectAllJobTypes" resultType="com.yourjob.backend.entity.JobTypeResponse">
+        SELECT 
+            job_type_id as jobTypeId,
+            job_type_name as jobTypeName,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM job_types
+        ORDER BY job_type_id ASC
+    </select>
+
+    <!-- [Job Category] 매핑 -->
+    <insert id="insertJobCategory" parameterType="com.yourjob.backend.entity.JobCategoryRequest">
+        INSERT INTO job_categories (job_category_name)
+        VALUES (#{jobCategoryName})
+    </insert>
+
+    <update id="updateJobCategory" parameterType="com.yourjob.backend.entity.JobCategoryRequest">
+        UPDATE job_categories
+        SET job_category_name = #{jobCategoryName},
+            updated_at = NOW()
+        WHERE job_category_id = #{jobCategoryId}
+    </update>
+
+    <delete id="deleteJobCategory" parameterType="int">
+        DELETE FROM job_categories
+        WHERE job_category_id = #{jobCategoryId}
+    </delete>
+
+    <select id="selectJobCategoryDetail" parameterType="int" resultType="com.yourjob.backend.entity.JobCategoryResponse">
+        SELECT job_category_id as jobCategoryId,
+               job_category_name as jobCategoryName,
+               created_at as createdAt,
+               updated_at as updatedAt
+        FROM job_categories
+        WHERE job_category_id = #{jobCategoryId}
+    </select>
+
+    <select id="selectJobCategoryList" parameterType="map" resultType="com.yourjob.backend.entity.JobCategoryRequest">
+        SELECT job_category_id as jobCategoryId,
+               job_category_name as jobCategoryName,
+               created_at as createdAt,
+               updated_at as updatedAt
+        FROM job_categories
+        WHERE job_category_name LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY job_category_id ASC
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectAllJobCategories" resultType="com.yourjob.backend.entity.JobCategoryResponse">
+        SELECT job_category_id as jobCategoryId,
+               job_category_name as jobCategoryName,
+               created_at as createdAt,
+               updated_at as updatedAt
+        FROM job_categories
+        ORDER BY job_category_id ASC
+    </select>
+</mapper>

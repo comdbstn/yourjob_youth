@@ -1,0 +1,492 @@
+.jobPostDetail_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+  .backBtn {
+    width: 250px;
+    border: #eaeaea 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 15px;
+    color: gray;
+  }
+}
+
+.jobPostDetail_container .scrapBtn {
+  width: 250px;
+  border: #eaeaea 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 15px;
+  color: gray;
+}
+
+.jobPostDetail_container .btns {
+  display: flex;
+  gap: 10px;
+  /* padding: 10px; */
+  width: calc(100% - 40px);
+  margin-top: 50px;
+  padding: 0 20px;
+}
+
+.jobPostDetail_container .btns button {
+  height: 50px;
+  font-weight: 700;
+  width: 100%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jobPostDetail_container .btns .scrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  border: #a8a8a8 1px solid;
+  color: #a8a8a8;
+}
+
+.jobPostDetail_container .btns .whiteBtn {
+  display: flex;
+  justify-content: center;
+  color: #a8a8a8;
+}
+
+.jobPostDetail_container .btns .blackBtn {
+  background: #545454;
+  color: white;
+}
+
+.jobPostDetail_container .detail_content {
+  margin-top: 50px;
+  padding: 0 20px;
+}
+
+.jobPostDetail_container .detail_content table tr {
+  border: 0;
+}
+
+.jobPostDetail_container .detail_content table td {
+  border: 0;
+  padding: 0;
+}
+
+.jobPostDetail_container .topBtns {
+  width: 100%;
+  border-bottom: #eaeaea 1px solid;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.jobPostDetail_container .topBtns button {
+  width: auto;
+  border-bottom: transparent 3px solid;
+  font-size: 18px;
+  font-weight: 500;
+  /* height: 46px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 10px 22px;
+  color: #8f8f8f;
+}
+
+.jobPostDetail_container .topBtns .selected {
+  color: #2f80dc;
+  border-bottom: #2f80dc 3px solid;
+  font-weight: 700;
+}
+
+.jobPostDetail_container .topBtns button span {
+  display: block;
+}
+
+.jobPostDetail_container .secondBtns {
+  justify-content: center;
+  display: flex;
+  gap: 10px;
+}
+
+.jobPostDetail_container .secondBtns button {
+  color: #8f8f8f;
+}
+
+.jobPostDetail_container h2 {
+  margin: 40px 0;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.jobPostDetail_container .infoSection {
+  padding: 0 20px;
+  width: 100%;
+}
+
+.jobPostDetail_container .infoSection .content {
+  /* display: flex; */
+  /* flex-direction: column; */
+  padding: 20px;
+  background-color: #fbfbfb;
+  border: #dfdfdf solid 1px;
+  border-radius: 15px;
+  gap: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.jobPostDetail_container .infoSection .content .companyTitle {
+  color: #8f8f8f;
+  margin-bottom: 5px;
+}
+
+.jobPostDetail_container .infoSection .content .title {
+  font-size: 20px;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 38px;
+}
+
+.jobPostDetail_container .infoSection .content .imgDiv {
+  width: 150px;
+  height: 75px;
+  background-color: white;
+  border: #eaeaea 1px solid;
+  margin-bottom: 15px;
+}
+
+.jobPostDetail_container .infoSection .content .rows {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-bottom: #eaeaea 1px solid;
+  padding-bottom: 20px;
+}
+
+.jobPostDetail_container .infoSection .content .row {
+  display: flex;
+  flex-wrap: nowrap;
+  /* ← 줄 바꿈 방지 */
+  align-items: center;
+}
+
+/* 첫 번째 <p> (라벨)는 고정 폭 */
+.jobPostDetail_container .infoSection .content .row > p:first-child {
+  flex: 0 0 80px;
+  /* 원하는 고정 폭으로 조정하세요 */
+  white-space: nowrap;
+  /* 라벨 자체도 줄 바꿈 금지 */
+  color: #8f8f8f;
+}
+
+/* 두 번째 <p> (값)는 남은 공간 모두 사용 */
+.jobPostDetail_container .infoSection .content .row > p:last-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  /* flex 아이템이 좁아지도록 허용 */
+  word-break: break-word;
+  /* 단어 단위로 줄 바꿈 */
+}
+
+.jobPostDetail_container .infoSection .content .row > p .bar {
+  display: inline-block;
+  width: 1px;
+  height: 9px;
+  background-color: #8f8f8f;
+  margin: 2px 10px 0 0;
+}
+
+.jobPostDetail_container .detail_content .detailTable {
+  /* padding: 35px; */
+}
+
+.jobPostDetail_container .detail_content .tempate-detailed-summary-root {
+  line-height: 1.5;
+  font-size: 15px;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .detailed-summary-header {
+  margin-bottom: 30px;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  table[align="left"] {
+  margin: 0 auto;
+  max-width: 938px;
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  table[align="left"]
+  td,
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  table[align="left"]
+  th {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  word-break: break-word;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  table[align="left"]
+  tr {
+  border-bottom: 1px solid #eeeeee;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .tbDetailWrap
+  table {
+  border: 1px solid #dddddd;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .tbDetailWrap
+  table
+  th,
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .tbDetailWrap
+  table
+  td {
+  border: 1px solid #dddddd;
+}
+
+/* 모바일 대응을 위한 반응형 스타일 */
+/* @media (max-width: 768px) {
+  table[align="left"] {
+    width: 100%;
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  table[align="left"] td,
+  table[align="left"] th {
+    font-size: 13px;
+    padding: 6px;
+  }
+} */
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .header {
+  margin-bottom: 20px;
+  display: block;
+  text-align: center;
+  word-break: keep-all;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .header
+  .subtitle
+  p {
+  font-size: 24px;
+  color: #333;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .header
+  .subtitle
+  p
+  b {
+  font-weight: 600;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .description-wrap {
+  line-height: 1.5;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .description-wrap
+  .description {
+  margin-bottom: 50px;
+  word-break: keep-all;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .description-wrap
+  .description
+  p {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .description-wrap
+  .description
+  p:first-child {
+  font-weight: 600;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .content-table
+  td {
+  padding: 0;
+  border: 0;
+  font-size: 15px;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .content-table
+  .heading {
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .content-table
+  table
+  tr {
+  border: 0;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  table
+  tr {
+  vertical-align: middle;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  table
+  td {
+  padding: 7px 15px;
+  vertical-align: top;
+  color: #000;
+  font-size: 15px;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  .header {
+  width: 30%;
+  color: #000;
+  background-color: #f6f6f6;
+  display: table-cell;
+  text-align: center;
+  min-width: 100px;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  .header
+  b {
+  font-weight: 600;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  .recruitment-items
+  table
+  td {
+  padding: 0;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  .recruitment-items
+  table
+  td
+  p,
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  .recruitment-items
+  table
+  td
+  p
+  span {
+  font-family: inherit !important;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  p {
+  line-height: 1.75;
+  color: #333;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .recruitment
+  b {
+  font-weight: 600;
+}
+
+.jobPostDetail_container
+  .detail_content
+  .tempate-detailed-summary-root
+  .detailed-summary-contents
+  table
+  tr {
+  border: 0;
+}

@@ -1,0 +1,115 @@
+$card-color: $text !default;
+$card-background-color: $scheme-main !default;
+$card-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1),
+0 0px 0 1px rgba($scheme-invert, 0.02) !default;
+
+$card-header-background-color: transparent !default;
+$card-header-color: $text-strong !default;
+$card-header-padding: 8px 10px !default;
+$card-header-shadow: 0 0.125em 0.25em rgba($scheme-invert, 0.1) !default;
+$card-header-weight: $weight-bold !default;
+
+$card-content-background-color: transparent !default;
+$card-content-padding: 15px !default;
+
+$card-footer-background-color: transparent !default;
+$card-footer-border-top: 1px solid $border-light !default;
+$card-footer-padding: 1rem !default;
+
+$card-media-margin: $block-spacing !default;
+
+.card {
+	background-color: $card-background-color;
+	box-shadow: $card-shadow;
+	color: $card-color;
+	max-width: 100%;
+	position: relative;
+}
+
+.card-header {
+	background-color: $card-header-background-color;
+	align-items: stretch;
+	box-shadow: $card-header-shadow;
+	display: flex;
+}
+
+.card-header-title {
+	align-items: center;
+	// color: $card-header-color;
+	//display: flex;
+	display: block;
+	flex-grow: 1;
+	font-weight: $card-header-weight;
+	padding: $card-header-padding;
+	font-size: $size-4;
+	font-weight: 400;
+
+	&.is-centered {
+		justify-content: center;
+	}
+}
+
+.collapsible-card-wrap {
+	.card-header {
+		box-shadow: none;
+
+		margin: 0 -1rem 0 0;
+
+		&-title {
+			padding: 1.5rem 0;
+		}
+	}
+
+	.card-content {
+		border-top: 1px solid #eee;
+		padding: 1.3rem 0 2rem;
+	}
+}
+
+.card-header-icon {
+	align-items: center;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	padding: 1rem;
+	color: #333;
+}
+
+.card-image {
+	display: block;
+	position: relative;
+}
+
+.card-content {
+	background-color: $card-content-background-color;
+	padding: $card-content-padding;
+}
+
+.card-footer {
+	background-color: $card-footer-background-color;
+	border-top: $card-footer-border-top;
+	align-items: stretch;
+	display: flex;
+}
+
+.card-footer-item {
+	align-items: center;
+	display: flex;
+	flex-basis: 0;
+	flex-grow: 1;
+	flex-shrink: 0;
+	justify-content: center;
+	padding: $card-footer-padding;
+
+	&:not(:last-child) {
+		border-right: $card-footer-border-top;
+	}
+}
+
+// Combinations
+
+.card {
+	.media:not(:last-child) {
+		margin-bottom: $card-media-margin;
+	}
+}

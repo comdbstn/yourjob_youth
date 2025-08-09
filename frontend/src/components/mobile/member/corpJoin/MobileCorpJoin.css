@@ -1,0 +1,106 @@
+.mobile-corp-join-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.mobile-corp-join-container .blueBtn {
+  flex-shrink: 1 !important;
+}
+
+.mobile-corp-join-container .error {
+  color: red;
+}
+
+.mobile-corp-join-container .flexGap10 {
+  min-width: 0 !important;
+}
+
+.mobile-corp-join-container .flexGap10>* {
+  min-width: 0 !important;
+  flex-shrink: 1 !important;
+}
+
+.mobile-corp-join-container .flexGap10>* {
+  flex-shrink: 1 !important;
+}
+
+.mobile-corp-join-container .blueBtn {
+  /* max-width: 30%; */
+  max-width: 180px;
+}
+
+.mobile-corp-join-container section {
+  border-top: 1px #dfdfdf solid;
+  border-bottom: 1px #dfdfdf solid;
+  background-color: #fbfbfb;
+  padding: 40px 20px;
+}
+
+.mobile-corp-join-container section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.mobile-corp-join-container section h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.mobile-corp-join-container section h3 strong {
+  color: #ff0000;
+}
+
+.mobile-corp-join-container .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobile-corp-join-container .inputs .input_default {
+  background-color: #ffffff;
+}
+
+.mobile-corp-join-container .inputs .inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+  width: 100%;
+}
+
+.mobile-corp-join-container .chk_box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 100%;
+  line-height: 180%;
+}
+
+.mobile-corp-join-container .chk_box .flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.mobile-corp-join-container .blueLabel {
+  font-size: small;
+  color: blue;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.mobile-corp-join-container .blueLabel.modify {
+  font-size: 16px;
+  font-weight: 500;
+  color: #2F80DC;
+  text-align: center;
+  margin-top: 30px;
+  line-height: 1.4;
+}

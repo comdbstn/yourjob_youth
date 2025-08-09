@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기업정보 등록</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn isActive">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2" id="pageTitle">기업정보 등록</h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+                <article class="article-area nosearch-area">
+                    <form id="companyForm" enctype="multipart/form-data">
+                        <input type="hidden" id="companyId" name="companyId">
+                        <ul class="list option">
+                            <li class="items">
+                                <span class="title required">아이디</span>
+                                <div class="control">
+                                    <input type="text" id="formAccountId" name="username" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">비밀번호</span>
+                                <div class="control">
+                                    <input type="password" id="formPassword" name="password">
+                                    <small class="text-muted" id="passwordHint" style="display: none;">비밀번호를 변경하지 않으려면 비워두세요</small>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">비밀번호 확인</span>
+                                <div class="control">
+                                    <input type="password" id="formPasswordConfirm">
+                                    <small class="text-muted" id="passwordConfirmHint" style="display: none;">비밀번호를 변경하지 않으려면 비워두세요</small>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">기업명</span>
+                                <div class="control">
+                                    <input type="text" id="formCompanyName" name="companyName" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">담당자명</span>
+                                <div class="control">
+                                    <input type="text" id="formName" name="managerName" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">이메일</span>
+                                <div class="control">
+                                    <input type="email" id="formEmail" name="managerEmail" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">연락처</span>
+                                <div class="control">
+                                    <input type="text" id="formPhone" name="managerPhone" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">홈페이지</span>
+                                <div class="control">
+                                    <input type="text" id="formWebsite" name="website">
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">주소</span>
+                                <div class="control">
+                                    <input type="text" id="formAddress" name="companyAddress">
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">사업자등록번호</span>
+                                <div class="control">
+                                    <input type="text" id="formBusinessNumber" name="businessNumber" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">대표자명</span>
+                                <div class="control">
+                                    <input type="text" id="formRepresentative" name="representative" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">기업유형</span>
+                                <div class="control">
+                                    <select id="formCompanyType" name="companyType" required>
+                                        <option value="">선택해주세요</option>
+                                        <option value="large_company">대기업</option>
+                                        <option value="medium_company">중견기업</option>
+                                        <option value="public_company">공기업</option>
+                                        <option value="foreign_company">외국계</option>
+                                        <option value="mid_sized_company">중소기업</option>
+                                        <option value="non_profit">비영리</option>
+                                        <option value="startup">스타트업</option>
+                                        <option value="financial">금융</option>
+                                        <option value="hospital">병원</option>
+                                        <option value="student_org">학교/학원</option>
+                                        <option value="other">기타</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title required">직원 수</span>
+                                <div class="control">
+                                    <input type="number" id="formEmployeeCount" name="employeeCount" required>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">자본금</span>
+                                <div class="control">
+                                    <input type="text" id="formCapitalAmount" name="capital" placeholder="원 단위">
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">매출액</span>
+                                <div class="control">
+                                    <input type="text" id="formRevenueAmount" name="revenue" placeholder="원 단위">
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">순이익</span>
+                                <div class="control">
+                                    <input type="text" id="formNetIncome" name="profit" placeholder="원 단위">
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">로고 URL</span>
+                                <div class="control">
+                                    <input type="text" id="formLogoUrl" name="logoUrl" placeholder="https://example.com/logo.png">
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title" id="businessCertLabel">사업자등록증</span>
+                                <div class="control file-upload">
+                                    <input
+                                            type="file"
+                                            id="businessCertificate"
+                                            name="businessCertificate"
+                                            accept="image/*,application/pdf"
+                                            style="display: none;"
+                                    />
+                                    <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            id="btnBusinessCertSelect"
+                                    >
+                                        파일 선택
+                                    </button>
+                                    <span id="businessCertFileName">선택된 파일 없음</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="btn-area">
+                            <button type="submit" class="btn btn-success" id="btnSave">등록</button>
+                            <a href="CompanyProfile.html" class="btn btn-primary" id="btnList">목록으로</a>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+</main>
+
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+        const companyForm = document.getElementById('companyForm');
+
+        // URL 파라미터 확인
+        const urlParams = new URLSearchParams(window.location.search);
+        const companyId = urlParams.get('id');
+        const isEditMode = !!companyId;
+
+        // 파일 업로드 관련
+        const fileInput = document.getElementById('businessCertificate');
+        const btnSelect = document.getElementById('btnBusinessCertSelect');
+        const fileNameSpan = document.getElementById('businessCertFileName');
+
+        btnSelect.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileNameSpan.textContent = fileInput.files[0].name;
+            } else {
+                fileNameSpan.textContent = '선택된 파일 없음';
+            }
+        });
+
+        // 로그아웃 버튼
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        // 수정 모드인 경우 데이터 로드
+        if (isEditMode) {
+            document.getElementById('pageTitle').textContent = '기업정보 수정';
+            document.getElementById('btnSave').textContent = '수정';
+            document.getElementById('companyId').value = companyId;
+
+            // 비밀번호 필드 힌트 표시
+            document.getElementById('passwordHint').style.display = 'block';
+            document.getElementById('passwordConfirmHint').style.display = 'block';
+
+            // 비밀번호 필수 해제
+            document.getElementById('formPassword').removeAttribute('required');
+            document.getElementById('formPasswordConfirm').removeAttribute('required');
+
+            // 사업자등록증 레이블 변경
+            document.getElementById('businessCertLabel').classList.remove('required');
+
+            // 기존 데이터 로드
+            loadCompanyData(companyId);
+        }
+
+        // 기업 데이터 로드 함수
+        async function loadCompanyData(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/mdms/company-management/${id}`);
+                if (!response.ok) {
+                    throw new Error('기업 정보를 불러올 수 없습니다.');
+                }
+
+                const data = await response.json();
+
+                // 폼 필드에 데이터 채우기
+                document.getElementById('formAccountId').value = data.accountId || '';
+                document.getElementById('formCompanyName').value = data.companyName || '';
+                document.getElementById('formName').value = data.name || '';
+                document.getElementById('formEmail').value = data.email || '';
+                document.getElementById('formPhone').value = data.phone || '';
+                document.getElementById('formWebsite').value = data.website || '';
+                document.getElementById('formAddress').value = data.address || '';
+                document.getElementById('formEmployeeCount').value = data.employeeCount || '';
+                document.getElementById('formCapitalAmount').value = data.capitalAmount || '';
+                document.getElementById('formRevenueAmount').value = data.revenueAmount || '';
+                document.getElementById('formNetIncome').value = data.netIncome || '';
+                document.getElementById('formLogoUrl').value = data.logoUrl || '';
+
+                // 사업자등록번호와 대표자명은 users 테이블에 없을 수 있으므로
+                // API에서 별도로 조회하거나 빈 값으로 처리
+                document.getElementById('formBusinessNumber').value = data.businessNumber || '';
+                document.getElementById('formRepresentative').value = data.representative || '';
+                document.getElementById('formCompanyType').value = data.companyType || '';
+
+            } catch (error) {
+                console.error('데이터 로드 실패:', error);
+                alert('기업 정보를 불러오는데 실패했습니다.');
+                window.location.href = 'CompanyProfile.html';
+            }
+        }
+
+        // 폼 제출 이벤트
+        companyForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // 비밀번호 일치 검사 (값이 입력된 경우만)
+            const pwd = document.getElementById('formPassword').value;
+            const pwdConfirm = document.getElementById('formPasswordConfirm').value;
+
+            if (pwd || pwdConfirm) {
+                if (pwd !== pwdConfirm) {
+                    return alert('비밀번호가 일치하지 않습니다.');
+                }
+            }
+
+            // 신규 등록 시 비밀번호 필수 체크
+            if (!isEditMode && !pwd) {
+                return alert('비밀번호를 입력해주세요.');
+            }
+
+            // 신규 등록 시 파일 필수 체크
+            const fileInput = document.getElementById('businessCertificate');
+            if (!isEditMode && fileInput.files.length === 0) {
+                return alert('사업자등록증 파일을 업로드해주세요.');
+            }
+
+            if (isEditMode) {
+                // 수정 모드
+                await updateCompany();
+            } else {
+                // 등록 모드
+                await createCompany();
+            }
+        });
+
+        // 기업 정보 생성
+        async function createCompany() {
+            const fileInput = document.getElementById('businessCertificate');
+            const businessCertificate = fileInput.files[0];
+
+            // JSON으로 보낼 데이터 객체 생성
+            const data = {
+                username: document.getElementById('formAccountId').value,
+                password: document.getElementById('formPassword').value,
+                managerName: document.getElementById('formName').value,
+                managerEmail: document.getElementById('formEmail').value,
+                managerPhone: document.getElementById('formPhone').value,
+                companyName: document.getElementById('formCompanyName').value,
+                businessNumber: document.getElementById('formBusinessNumber').value,
+                representative: document.getElementById('formRepresentative').value,
+                companyType: document.getElementById('formCompanyType').value,
+                employeeCount: document.getElementById('formEmployeeCount').value,
+                capital: document.getElementById('formCapitalAmount').value,
+                revenue: document.getElementById('formRevenueAmount').value,
+                profit: document.getElementById('formNetIncome').value,
+                website: document.getElementById('formWebsite').value,
+                companyAddress: document.getElementById('formAddress').value
+            };
+
+            // FormData에 JSON과 파일을 추가
+            const formData = new FormData();
+            formData.append('data', JSON.stringify(data));
+            formData.append('businessCertificate', businessCertificate);
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/auth/corpjoin`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (res.status === 201) {
+                    alert('기업정보가 성공적으로 등록되었습니다.');
+                    return window.location.href = 'CompanyProfile.html';
+                }
+                if (res.status === 409) {
+                    const msg = await res.text();
+                    throw new Error(`이미 존재하는 아이디입니다: ${msg}`);
+                }
+                throw new Error(`기업 등록에 실패했습니다. (status: ${res.status})`);
+
+            } catch (err) {
+                console.error(err);
+                alert(err.message);
+            }
+        }
+
+        // 기업 정보 수정
+        async function updateCompany() {
+            const id = document.getElementById('companyId').value;
+
+            // 수정할 데이터 객체 생성
+            const data = {
+                id: parseInt(id),
+                accountId: document.getElementById('formAccountId').value,
+                name: document.getElementById('formName').value,
+                email: document.getElementById('formEmail').value,
+                phone: document.getElementById('formPhone').value,
+                companyName: document.getElementById('formCompanyName').value,
+                employeeCount: parseInt(document.getElementById('formEmployeeCount').value) || null,
+                capitalAmount: document.getElementById('formCapitalAmount').value,
+                revenueAmount: document.getElementById('formRevenueAmount').value,
+                netIncome: document.getElementById('formNetIncome').value,
+                address: document.getElementById('formAddress').value,
+                website: document.getElementById('formWebsite').value,
+                logoUrl: document.getElementById('formLogoUrl').value
+            };
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/mdms/company-management/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    const result = await res.json();
+                    alert(result.message || '기업정보가 성공적으로 수정되었습니다.');
+                    window.location.href = 'CompanyProfile.html';
+                } else {
+                    const error = await res.json();
+                    throw new Error(error.message || '기업 정보 수정에 실패했습니다.');
+                }
+
+            } catch (err) {
+                console.error(err);
+                alert(err.message);
+            }
+        }
+    });
+</script>
+</body>
+</html>

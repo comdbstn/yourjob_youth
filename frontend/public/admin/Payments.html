@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 페이지네이션 스타일 */
+        .pagination-area {
+            margin-top: 20px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        /* 로딩 인디케이터 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            border-radius: 5px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-body {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .modal-footer {
+            text-align: right;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* 행 선택기 스타일 */
+        .row-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #pageSize {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="./Payments.html" class="btn isActive">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">결제관리</h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+
+                <article class="article-area">
+
+                    <!-- 상단 버튼 영역 -->
+                    <div class="btn-area--top">
+                        <button type="button" class="btn btn-danger btn-small" id="deleteSelectedBtn">삭제</button>
+                        <button type="button" class="btn btn-success btn-small" id="addPaymentBtn">등록</button>
+                    </div>
+                    <!-- //상단 버튼 영역 -->
+
+                    <!-- 상단 검색 영역 -->
+                    <div class="search-area">
+                        <div class="search--select select-box">
+
+                            <div class="control">
+                                <select class="select" id="statusFilter">
+                                    <option value="">상태</option>
+                                    <option value="paid">입금완료</option>
+                                    <option value="pending">입금대기</option>
+                                    <option value="canceled">취소됨</option>
+                                    <option value="refunded">환불됨</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <select class="select" id="productNameFilter">
+                                    <option value="">상품명</option>
+                                    <option value="VVIP 공고 노출">VVIP 공고 노출</option>
+                                    <option value="VIP 공고 노출">VIP 공고 노출</option>
+                                    <option value="SPECIAL 공고 노출">SPECIAL 공고 노출</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <select class="select" id="paymentMethodFilter">
+                                    <option value="">결제방법</option>
+                                    <option value="bank">무통장입금</option>
+                                    <option value="card">카드결제</option>
+                                    <option value="phone">휴대폰결제</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <select class="select" id="paymentStatusFilter">
+                                    <option value="">입금상태</option>
+                                    <option value="paid">입금완료</option>
+                                    <option value="pending">입금대기</option>
+                                </select>
+                            </div>
+
+                            <div class="select--date">
+                                <div class="control">
+                                    <input type="date" id="startDateFilter" class="select">
+                                </div>
+                                <div class="control">
+                                    <input type="date" id="endDateFilter" class="select">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="search--text">
+                            <div class="control">
+                                <input type="text" id="keywordFilter" placeholder="검색어를 입력하세요">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="searchBtn">검색</button>
+                        </div>
+                    </div>
+                    <!-- //상단 검색 영역 -->
+
+                    <!-- 테이블 -->
+                    <section class="table-area">
+                        <div class="table-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 일시 -->
+                                    <col width="200px"/> <!-- 아이디 -->
+                                    <col width="250px"/> <!-- 상품명 -->
+                                    <col width="170px"/> <!-- 채용공고 -->
+                                    <col width="250px"/> <!-- 상품상태(유효기간/건수) -->
+                                    <col width="110px"/> <!-- 결제금액 -->
+                                    <col width="100px"/> <!-- 결제방법 -->
+                                    <col width="100px"/> <!-- 입금상태 -->
+                                    <col width="160px"/> <!-- 연락처 -->
+                                    <col width="120px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="control">
+                                            <input id="selectAllCheckbox" type="checkbox" class="checked--all">
+                                        </div>
+                                    </th>
+                                    <th>번호</th>
+                                    <th>결제일시</th>
+                                    <th>아이디</th>
+                                    <th>상품명</th>
+                                    <th>채용공고</th>
+                                    <th>상품상태 (기간,건수)</th>
+                                    <th>결제금액</th>
+                                    <th>결제방법</th>
+                                    <th>입금상태</th>
+                                    <th>연락처</th>
+                                    <th>관리자툴</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="table-content">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 일시 -->
+                                    <col width="200px"/> <!-- 아이디 -->
+                                    <col width="250px"/> <!-- 상품명 -->
+                                    <col width="170px"/> <!-- 채용공고 -->
+                                    <col width="250px"/> <!-- 상품정보(기간/건수) -->
+                                    <col width="110px"/> <!-- 결제금액 -->
+                                    <col width="100px"/> <!-- 결제방법 -->
+                                    <col width="100px"/> <!-- 입금상태 -->
+                                    <col width="160px"/> <!-- 연락처 -->
+                                    <col width="120px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <tbody id="paymentsTableBody">
+                                <!-- 데이터가 JavaScript로 채워집니다 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!-- //테이블 -->
+
+                    <!-- 페이지네이션 -->
+                    <div class="row-selector">
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="pagination-area">
+                        <div class="pagination" id="pagination">
+                            <!-- 페이지네이션이 JavaScript로 채워집니다 -->
+                        </div>
+                        <div class="pagination-info" id="paginationInfo">
+                            <!-- 페이지 정보가 JavaScript로 채워집니다 -->
+                        </div>
+                    </div>
+                    <!-- //페이지네이션 -->
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- 상태 변경 모달 -->
+    <div class="modal" id="statusModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>결제 상태 변경</h2>
+                <span class="close" id="closeStatusModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="statusSelect">상태 선택:</label>
+                    <select id="statusSelect" class="form-control">
+                        <option value="paid">입금완료</option>
+                        <option value="pending">입금대기</option>
+                        <option value="canceled">취소됨</option>
+                        <option value="refunded">환불됨</option>
+                    </select>
+                </div>
+                <input type="hidden" id="selectedPaymentId">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveStatusBtn">저장</button>
+                <button type="button" class="btn btn-secondary" id="cancelStatusBtn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 확인 모달 -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>확인</h2>
+                <span class="close" id="closeConfirmModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmYesBtn">예</button>
+                <button type="button" class="btn btn-secondary" id="confirmNoBtn">아니오</button>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // API 기본 URL
+        const API_BASE_URL = window.__CONFIG__ ? window.__CONFIG__.API_BASE_URL : 'http://localhost:8082/api/v1';
+
+        // 현재 페이지 정보
+        const state = {
+            currentPage     : 0,
+            pageSize        : 10,
+            totalPages      : 0,
+            totalElements   : 0,
+            selectedPayments: new Set(),
+            filters         : {
+                status       : '',
+                productName  : '',
+                paymentMethod: '',
+                paymentStatus: '',
+                keyword      : '',
+                startDate    : '',
+                endDate      : ''
+            },
+            payments        : [] // 현재 페이지의 결제 데이터
+        };
+
+        // DOM 요소들
+        const elements = {
+            paymentsTableBody: document.getElementById('paymentsTableBody'),
+            pagination       : document.getElementById('pagination'),
+            paginationInfo   : document.getElementById('paginationInfo'),
+            searchBtn        : document.getElementById('searchBtn'),
+            deleteSelectedBtn: document.getElementById('deleteSelectedBtn'),
+            addPaymentBtn: document.getElementById('addPaymentBtn'),
+            selectAllCheckbox: document.getElementById('selectAllCheckbox'),
+            pageSize         : document.getElementById('pageSize'),
+            loadingOverlay   : document.getElementById('loadingOverlay'),
+
+            // 필터 요소들
+            statusFilter       : document.getElementById('statusFilter'),
+            productNameFilter  : document.getElementById('productNameFilter'),
+            paymentMethodFilter: document.getElementById('paymentMethodFilter'),
+            paymentStatusFilter: document.getElementById('paymentStatusFilter'),
+            startDateFilter    : document.getElementById('startDateFilter'),
+            endDateFilter      : document.getElementById('endDateFilter'),
+            keywordFilter      : document.getElementById('keywordFilter'),
+
+            // 상태 변경 모달
+            statusModal      : document.getElementById('statusModal'),
+            closeStatusModal : document.getElementById('closeStatusModal'),
+            saveStatusBtn    : document.getElementById('saveStatusBtn'),
+            cancelStatusBtn  : document.getElementById('cancelStatusBtn'),
+            statusSelect     : document.getElementById('statusSelect'),
+            selectedPaymentId: document.getElementById('selectedPaymentId'),
+
+            // 확인 모달
+            confirmModal     : document.getElementById('confirmModal'),
+            closeConfirmModal: document.getElementById('closeConfirmModal'),
+            confirmYesBtn    : document.getElementById('confirmYesBtn'),
+            confirmNoBtn     : document.getElementById('confirmNoBtn'),
+            confirmMessage   : document.getElementById('confirmMessage')
+        };
+
+        // 필터링 옵션들에 change 이벤트 리스너 추가
+        const filterElements = [
+            'statusFilter',
+            'productNameFilter',
+            'paymentMethodFilter',
+            'paymentStatusFilter',
+            'startDateFilter',
+            'endDateFilter'
+        ];
+
+        // 각 필터링 요소에 change 이벤트 리스너 추가
+        filterElements.forEach(elementId => {
+            document.getElementById(elementId).addEventListener('change', handleFilterChange);
+        });
+
+        // 필터 변경 이벤트 핸들러
+        function handleFilterChange() {
+            // 현재 필터 값들을 상태에 반영
+            updateFiltersFromDOM();
+            // 첫 페이지로 이동
+            state.currentPage = 0;
+            // 변경된 필터로 데이터 로드
+            loadPayments();
+        }
+
+        // DOM에서 필터 값을 가져와 state에 업데이트하는 함수
+        function updateFiltersFromDOM() {
+            state.filters = {
+                status: elements.statusFilter.value,
+                productName: elements.productNameFilter.value,
+                paymentMethod: elements.paymentMethodFilter.value,
+                paymentStatus: elements.paymentStatusFilter.value,
+                startDate: elements.startDateFilter.value,
+                endDate: elements.endDateFilter.value,
+                keyword: elements.keywordFilter.value
+            };
+        }
+
+        // 초기화 - 이벤트 리스너 및 초기 데이터 로드
+        function init() {
+            // 검색 이벤트 리스너
+            elements.searchBtn.addEventListener('click', handleSearch);
+
+            // 전체 선택 체크박스 이벤트 리스너
+            elements.selectAllCheckbox.addEventListener('change', handleSelectAll);
+
+            // 선택 삭제 버튼 이벤트 리스너
+            elements.deleteSelectedBtn.addEventListener('click', confirmBulkDelete);
+
+            // 결제 추가 버튼 이벤트 리스너
+            elements.addPaymentBtn.addEventListener('click', () => {
+                location.href = 'PaymentDetail.html';
+            });
+
+            // 페이지 크기 변경 이벤트 리스너
+            elements.pageSize.addEventListener('change', handlePageSizeChange);
+
+            // 모달 관련 이벤트 리스너
+            elements.closeStatusModal.addEventListener('click', () => hideModal(elements.statusModal));
+            elements.cancelStatusBtn.addEventListener('click', () => hideModal(elements.statusModal));
+            elements.saveStatusBtn.addEventListener('click', handleUpdateStatus);
+
+            elements.closeConfirmModal.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmNoBtn.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmYesBtn.addEventListener('click', handleConfirmYes);
+
+            // 초기 데이터 로드
+            loadPayments();
+        }
+
+        // 로딩 표시/숨김 함수
+        function showLoading() {
+            elements.loadingOverlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            elements.loadingOverlay.style.display = 'none';
+        }
+
+        // 모달 표시/숨김 함수
+        function showModal(modal) {
+            modal.style.display = 'block';
+        }
+
+        function hideModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        // 결제 목록 로드
+        async function loadPayments() {
+            showLoading();
+
+            try {
+                // API URL 구성
+                const params = new URLSearchParams({
+                    page: state.currentPage.toString(),
+                    size: state.pageSize.toString()
+                });
+
+                // 필터 값을 API 파라미터에 추가
+                if (state.filters.status) {
+                    params.append('status', state.filters.status);
+                }
+                if (state.filters.productName) {
+                    params.append('productName', state.filters.productName);
+                }
+                if (state.filters.paymentMethod) {
+                    params.append('paymentMethod', state.filters.paymentMethod);
+                }
+                if (state.filters.paymentStatus) {
+                    params.append('depositStatus', state.filters.paymentStatus);
+                }
+                if (state.filters.startDate) {
+                    params.append('startDate', state.filters.startDate);
+                }
+                if (state.filters.endDate) {
+                    params.append('endDate', state.filters.endDate);
+                }
+                if (state.filters.keyword) {
+                    params.append('keyword', state.filters.keyword);
+                }
+
+                const url = `${API_BASE_URL}/admin/payment?${params.toString()}`;
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                const data = await response.json();
+
+                // 응답이 페이징된 구조인지 확인
+                if (data.content !== undefined) {
+                    // 페이징된 구조인 경우
+                    state.totalElements = data.totalElements || 0;
+                    state.totalPages = data.totalPages || 0;
+                    state.currentPage = data.number !== undefined ? data.number : state.currentPage;
+                    state.payments = data.content || [];
+                } else if (Array.isArray(data)) {
+                    // 배열 형태인 경우 - 페이징 처리
+                    state.totalElements = data.length;
+                    state.totalPages = Math.ceil(data.length / state.pageSize);
+                    const start = state.currentPage * state.pageSize;
+                    const end = Math.min(start + state.pageSize, data.length);
+                    state.payments = data.slice(start, end);
+                } else {
+                    // 단일 객체인 경우
+                    state.totalElements = 1;
+                    state.totalPages = 1;
+                    state.currentPage = 0;
+                    state.payments = [data];
+                }
+
+                // 테이블과 페이지네이션 렌더링
+                renderPaymentsTable(state.payments);
+                renderPagination();
+                updatePaginationInfo();
+
+            } catch (error) {
+                console.error('데이터 로드 중 오류:', error);
+                alert('데이터를 불러오는 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 테이블 렌더링
+        function renderPaymentsTable(payments) {
+            elements.paymentsTableBody.innerHTML = '';
+
+            if (payments.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="12" style="text-align: center; padding: 20px;">데이터가 없습니다.</td>`;
+                elements.paymentsTableBody.appendChild(row);
+                return;
+            }
+
+            payments.forEach((payment, index) => {
+                //const displayIndex = state.currentPage * state.pageSize + index + 1;
+                const displayIndex = state.totalElements - (state.currentPage * state.pageSize + index);
+
+                // 상태 텍스트 매핑
+                const statusText = getStatusText(payment.status);
+
+                // 노출 정보 (기간별/건별)
+                let exposureInfo = '';
+                if (payment.maxExposureCount > 0) {
+                    exposureInfo = `클릭: ${payment.exposureCount}/${payment.maxExposureCount}`;
+                } else {
+                    exposureInfo = `${payment.startDate} ~ ${payment.endDate}`;
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>
+                    <div class="control">
+                        <input type="checkbox" class="checked--node" data-id="${payment.id}">
+                    </div>
+                </td>
+                <td>${displayIndex}</td>
+                <td>${formatDate(payment.createdAt) || '-'}</td>
+                <td>${payment.accountId || '-'}</td>
+                <td>${payment.productName || '-'}</td>
+                <td>${payment.jobPostingsName || '-'}</td>
+                <td>${exposureInfo}</td>
+                <td>${formatAmount(payment.amount) || '-'}</td>
+                <td>${getPaymentMethodText(payment.paymentMethod)}</td>
+                <td>${statusText}</td>
+                <td>${payment.phoneNumber || '-'}</td>
+                <td>
+                    <div class="admin--tool">
+                        <button type="button" class="btn btn-warning" onclick="location.href='PaymentDetail.html?id=${payment.id}'">수정</button>
+                        <button type="button" class="btn btn-danger" onclick="window.confirmDelete(${payment.id})">삭제</button>
+                    </div>
+                </td>
+            `;
+
+                elements.paymentsTableBody.appendChild(row);
+            });
+
+            // 체크박스 이벤트 리스너 등록
+            document.querySelectorAll('.checked--node').forEach(cb => {
+                cb.addEventListener('change', updateSelectAllStatus);
+            });
+        }
+
+        // 날짜 포맷 함수
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            try {
+                const date = new Date(dateStr);
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+
+                return `${year}-${month}-${day} ${hours}:${minutes}`;
+            } catch (e) {
+                return dateStr;
+            }
+        }
+
+        // 결제 방법 텍스트 변환 함수
+        function getPaymentMethodText(method) {
+            const methodMap = {
+                'card': '카드결제',
+                'bank': '무통장입금',
+                'phone': '휴대폰결제'
+            };
+            return methodMap[method] || method || '-';
+        }
+
+        // 금액 포맷 함수
+        function formatAmount(amount) {
+            if (!amount) return '-';
+
+            // 숫자 형태로 변환
+            const numAmount = parseFloat(amount.replace ? amount.replace(/[^\d]/g, '') : amount);
+
+            // 천 단위 쉼표 추가
+            return numAmount.toLocaleString() + '원';
+        }
+
+        // 상태 텍스트 반환 함수
+        function getStatusText(status) {
+            const statusMap = {
+                'paid'     : '입금완료',
+                'pending'  : '입금대기',
+                'cancelled': '취소됨',
+                'refunded' : '환불됨'
+            };
+            return statusMap[status] || status || '-';
+        }
+
+        // 페이지네이션 렌더링
+        function renderPagination() {
+            elements.pagination.innerHTML = '';
+
+            const currentPage = state.currentPage;
+            const totalPages = state.totalPages;
+
+            if (totalPages <= 0) return;
+
+            // 페이지 버튼 수 설정
+            const maxPageButtons = 5;
+            const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+            const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+            // 첫 페이지 버튼
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = '<<';
+            firstBtn.disabled = currentPage === 0;
+            firstBtn.addEventListener('click', () => goToPage(0));
+            elements.pagination.appendChild(firstBtn);
+
+            // 이전 페이지 버튼
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.textContent = '<';
+            prevBtn.disabled = currentPage === 0;
+            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            elements.pagination.appendChild(prevBtn);
+
+            // 페이지 번호 버튼들
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn';
+                if (i === currentPage) pageBtn.classList.add('active');
+                pageBtn.textContent = i + 1;
+                pageBtn.addEventListener('click', () => goToPage(i));
+                elements.pagination.appendChild(pageBtn);
+            }
+
+            // 다음 페이지 버튼
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.textContent = '>';
+            nextBtn.disabled = currentPage >= totalPages - 1;
+            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            elements.pagination.appendChild(nextBtn);
+
+            // 마지막 페이지 버튼
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = '>>';
+            lastBtn.disabled = currentPage >= totalPages - 1;
+            lastBtn.addEventListener('click', () => goToPage(totalPages - 1));
+            elements.pagination.appendChild(lastBtn);
+        }
+
+        // 페이지네이션 정보 업데이트
+        function updatePaginationInfo() {
+            const info = elements.paginationInfo;
+
+            if (state.totalElements === 0) {
+                info.textContent = '데이터가 없습니다.';
+            } else {
+                const start = state.currentPage * state.pageSize + 1;
+                const end = Math.min((state.currentPage + 1) * state.pageSize, state.totalElements);
+                info.textContent = `전체 ${state.totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+            }
+        }
+
+        // 페이지 이동 함수
+        function goToPage(page) {
+            if (page < 0 || page >= state.totalPages) return;
+            state.currentPage = page;
+            loadPayments();
+            window.scrollTo(0, 0);
+        }
+
+        // 검색 처리 함수
+        function handleSearch() {
+            // 필터 값 업데이트
+            updateFiltersFromDOM();
+
+            // 첫 페이지로 이동하고 데이터 다시 로드
+            state.currentPage = 0;
+            loadPayments();
+        }
+
+        // 페이지 크기 변경 핸들러
+        function handlePageSizeChange() {
+            state.pageSize = parseInt(elements.pageSize.value);
+            state.currentPage = 0;
+            loadPayments();
+        }
+
+        // 전체 선택 체크박스 처리
+        function handleSelectAll(e) {
+            const isChecked = e.target.checked;
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        }
+
+        // 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+        function updateSelectAllStatus() {
+            const checkboxes = document.querySelectorAll('.checked--node');
+            const checkedCount = document.querySelectorAll('.checked--node:checked').length;
+            elements.selectAllCheckbox.checked = checkboxes.length > 0 && checkedCount === checkboxes.length;
+        }
+
+        // 선택된 아이디들 반환 함수
+        function getSelectedPaymentIds() {
+            const ids = [];
+            document.querySelectorAll('.checked--node:checked').forEach(checkbox => {
+                ids.push(parseInt(checkbox.getAttribute('data-id')));
+            });
+            return ids;
+        }
+
+        // 상태 변경 모달 열기
+        function openStatusModal(paymentId) {
+            // 현재 선택된 결제 찾기
+            const payment = state.payments.find(p => p.id === paymentId);
+            if (payment) {
+                elements.statusSelect.value = payment.status;
+            }
+
+            elements.selectedPaymentId.value = paymentId;
+            showModal(elements.statusModal);
+        }
+
+        // 삭제 확인 모달 열기
+        function confirmDelete(paymentId) {
+            elements.confirmMessage.textContent = `정말 이 결제 정보를 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'delete');
+            elements.confirmYesBtn.setAttribute('data-id', paymentId);
+            showModal(elements.confirmModal);
+        }
+
+        // 일괄 삭제 확인 모달 열기
+        function confirmBulkDelete() {
+            const selectedIds = getSelectedPaymentIds();
+            if (selectedIds.length === 0) {
+                alert('삭제할 항목을 선택해주세요.');
+                return;
+            }
+
+            elements.confirmMessage.textContent = `선택한 ${selectedIds.length}개의 항목을 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'bulkDelete');
+            showModal(elements.confirmModal);
+        }
+
+        // 확인 모달 확인 버튼 처리
+        function handleConfirmYes() {
+            const action = elements.confirmYesBtn.getAttribute('data-action');
+
+            if (action === 'delete') {
+                const paymentId = elements.confirmYesBtn.getAttribute('data-id');
+                deletePayment(paymentId);
+            } else if (action === 'bulkDelete') {
+                bulkDeletePayments();
+            }
+
+            hideModal(elements.confirmModal);
+        }
+
+        // 상태 업데이트 처리
+        async function handleUpdateStatus() {
+            const paymentId = elements.selectedPaymentId.value;
+            const status = elements.statusSelect.value;
+
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/payment/${paymentId}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (!response.ok) {
+                    throw new Error('상태 업데이트 실패');
+                }
+
+                alert('상태가 변경되었습니다.');
+                hideModal(elements.statusModal);
+                loadPayments();
+            } catch (error) {
+                console.error('상태 업데이트 중 오류:', error);
+                alert('상태 업데이트 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 결제 정보 삭제 처리
+        async function deletePayment(paymentId) {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/payment/${paymentId}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('삭제 실패');
+                }
+
+                alert('결제 정보가 삭제되었습니다.');
+                loadPayments();
+            } catch (error) {
+                console.error('삭제 중 오류:', error);
+                alert('삭제 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 일괄 상태 변경 처리
+        async function handleBulkStatusChange(status) {
+            const selectedIds = getSelectedPaymentIds();
+            if (selectedIds.length === 0) {
+                alert('상태를 변경할 항목을 선택해주세요.');
+                return;
+            }
+
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/payment/bulk/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ids: selectedIds, status })
+                });
+
+                if (!response.ok) {
+                    throw new Error('일괄 상태 변경 실패');
+                }
+
+                alert('선택한 항목의 상태가 변경되었습니다.');
+                loadPayments();
+            } catch (error) {
+                console.error('상태 변경 중 오류:', error);
+                alert('상태 변경 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 일괄 삭제 처리
+        async function bulkDeletePayments() {
+            const selectedIds = getSelectedPaymentIds();
+            if (selectedIds.length === 0) return;
+
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/payment/bulk`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ids: selectedIds })
+                });
+
+                if (!response.ok) {
+                    throw new Error('일부 항목 삭제에 실패했습니다.');
+                }
+
+                alert(`${selectedIds.length}개의 결제 정보가 삭제되었습니다.`);
+                loadPayments();
+            } catch (error) {
+                console.error('일괄 삭제 중 오류:', error);
+                alert('일괄 삭제 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        // 전역 함수로 노출 (모달 이벤트를 위함)
+        window.openStatusModal = openStatusModal;
+        window.confirmDelete = confirmDelete;
+
+        init();
+    });
+</script>
+</body>
+</html>

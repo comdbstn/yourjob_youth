@@ -1,0 +1,9 @@
+.RadioBtnContainer {
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}

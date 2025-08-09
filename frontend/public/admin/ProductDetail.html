@@ -1,0 +1,395 @@
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn isActive">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">상품관리 </h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+
+                <article class="article-area nosearch-area">
+
+                    <ul class="list option">
+                        <li class="items">
+                            <span class="title">구분</span>
+                            <div class="form-radio">
+                                <div class="control">
+                                    <input type="radio" name="type" id="typePersonal" value="personal" disabled>
+                                    <span class="text">개인</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="type" id="typeCompany" value="company" disabled>
+                                    <span class="text">기업</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">상태</span>
+                            <div class="form-radio">
+                                <div class="control">
+                                    <input type="radio" name="status" id="statusActive" value="active" disabled>
+                                    <span class="text">사용중</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="status" id="statusInactive" value="inactive" disabled>
+                                    <span class="text">사용중지</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">노출형식</span>
+                            <div class="form-radio">
+                                <div class="control">
+                                    <input type="radio" name="explosureType" id="explosurePeriod" value="기간별" disabled>
+                                    <span class="text">기간별</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="explosureType" id="explosureClick" value="건별" disabled>
+                                    <span class="text">건별</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">상품명 </span>
+                            <div class="control">
+                                <input type="text" id="name" class="text" value="">
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">금액설정</span>
+                            <div class="control">
+                                <!-- 기간별 일수 입력 -->
+                                <input type="number" id="periodDays" class="text" placeholder="기간(일)" style="width: 30%; margin-right: 5px;">
+                                <!-- 건별 횟수 입력 -->
+                                <input type="number" id="exposureCount" class="text" placeholder="횟수" style="width: 30%; margin-right: 5px;">
+                                <!-- 금액 입력 -->
+                                <input type="number" id="price" class="text" placeholder="금액" style="width: 30%;">
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="btn-area">
+                        <button type="button" class="btn btn-success">저장</button>
+                        <a href="#!" class="btn btn-primary">목록으로</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+    </div>
+
+</main>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // API 기본 URL 설정
+        const BASE = window.__CONFIG__?.API_BASE_URL || 'http://localhost:8082/api/v1';
+        const API = `${BASE}/products`;
+
+        // URL 파라미터에서 id 추출
+        const params = new URLSearchParams(location.search);
+        const productId = params.get('id');
+        const isEdit = Boolean(productId); // id가 있으면 수정모드, 없으면 등록모드
+
+        // 폼 요소 참조
+        const fld = {
+            type: {
+                personal: document.getElementById('typePersonal'),
+                company: document.getElementById('typeCompany')
+            },
+            status: {
+                active: document.getElementById('statusActive'),
+                inactive: document.getElementById('statusInactive')
+            },
+            explosureType: {
+                period: document.getElementById('explosurePeriod'),
+                click: document.getElementById('explosureClick')
+            },
+            name: document.getElementById('name'),
+            periodDays: document.getElementById('periodDays'),
+            exposureCount: document.getElementById('exposureCount'),
+            price: document.getElementById('price')
+        };
+
+        // 버튼 참조
+        const btnSave = document.querySelector('.btn.btn-success');
+        const btnList = document.querySelector('.btn.btn-primary');
+
+        // 화면 타이틀 설정
+        const pageTitle = document.querySelector('.title--h2');
+        pageTitle.textContent = isEdit ? '상품 수정' : '상품 등록';
+
+        // radio 활성화
+        document.querySelectorAll('input[type="radio"]').forEach(r => r.disabled = false);
+
+        // 등록모드 기본값 설정
+        if (!isEdit) {
+            fld.type.company.checked = true; // 기업 선택
+            fld.status.active.checked = true; // 사용중 선택
+            fld.explosureType.period.checked = true; // 기간별 선택
+        }
+
+        // 노출형식 변경에 따라 기간/횟수 필드 토글
+        function toggleExposureInputs() {
+            if (fld.explosureType.period.checked) {
+                // 기간별 선택시
+                fld.periodDays.style.display = 'inline-block';
+                fld.exposureCount.style.display = 'none';
+            } else {
+                // 건별(클릭별) 선택시
+                fld.periodDays.style.display = 'none';
+                fld.exposureCount.style.display = 'inline-block';
+            }
+        }
+
+        // 노출형식 이벤트 리스너 등록
+        fld.explosureType.period.addEventListener('change', toggleExposureInputs);
+        fld.explosureType.click.addEventListener('change', toggleExposureInputs);
+
+        // 초기 노출형식 설정 적용
+        toggleExposureInputs();
+
+        // 로딩 표시 함수
+        const showLoading = () => {
+            // 로딩 오버레이가 있으면 표시
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) overlay.style.display = 'flex';
+        };
+
+        const hideLoading = () => {
+            // 로딩 오버레이가 있으면 숨김
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) overlay.style.display = 'none';
+        };
+
+        // 데이터 로드 (수정모드일 때)
+        async function loadProductData() {
+            if (!isEdit) return; // 등록모드면 데이터 로드 불필요
+
+            showLoading();
+            try {
+                const response = await fetch(`${API}/${productId}`);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                const product = await response.json();
+
+                // 폼에 데이터 채우기
+                fld.type.personal.checked = (product.type === 'personal');
+                fld.type.company.checked = (product.type === 'company');
+
+                fld.status.active.checked = (product.status === 'active');
+                fld.status.inactive.checked = (product.status === 'inactive');
+
+                fld.explosureType.period.checked = (product.explosureType === '기간별');
+                fld.explosureType.click.checked = (product.explosureType === '건별');
+
+                fld.name.value = product.name || '';
+                fld.price.value = product.price || '';
+                fld.periodDays.value = product.periodDays || '';
+                fld.exposureCount.value = product.exposureCount || '';
+
+                // 노출형식에 따른 입력란 토글
+                toggleExposureInputs();
+
+            } catch (error) {
+                console.error('상품 데이터 로드 실패:', error);
+                alert('상품정보를 불러오는데 실패했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 저장 함수 (등록/수정)
+        async function saveProduct() {
+            // 필수 입력값 검증
+            if (!fld.name.value.trim()) {
+                alert('상품명을 입력해주세요.');
+                fld.name.focus();
+                return;
+            }
+
+            if (!fld.price.value.trim()) {
+                alert('금액을 입력해주세요.');
+                fld.price.focus();
+                return;
+            }
+
+            // 노출형식에 따른 추가 검증
+            if (fld.explosureType.period.checked && !fld.periodDays.value.trim()) {
+                alert('기간(일)을 입력해주세요.');
+                fld.periodDays.focus();
+                return;
+            }
+
+            if (fld.explosureType.click.checked && !fld.exposureCount.value.trim()) {
+                alert('횟수를 입력해주세요.');
+                fld.exposureCount.focus();
+                return;
+            }
+
+            // 요청 데이터 구성
+            const productData = {
+                name: fld.name.value.trim(),
+                type: fld.type.company.checked ? 'company' : 'personal',
+                status: fld.status.active.checked ? 'active' : 'inactive',
+                explosureType: fld.explosureType.click.checked ? '건별' : '기간별',
+                periodDays: parseInt(fld.periodDays.value) || 0,
+                exposureCount: parseInt(fld.exposureCount.value) || 0,
+                price: parseFloat(fld.price.value) || 0
+            };
+
+            // 수정모드인 경우 productId 추가 불필요 (백엔드에서 처리)
+            if (!isEdit) {
+                // 등록모드인 경우 productId 생성 (예시)
+                const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+                const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+                productData.productId = `PROD-${today}-${random}`;
+
+                // 등록모드에서는 productType 추가 (기본값으로 'standard' 설정)
+                productData.productType = 'standard';
+            }
+
+            // API 요청 설정
+            const url = isEdit ? `${API}/${productId}` : API;
+            const method = isEdit ? 'PUT' : 'POST';
+
+            showLoading();
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(productData)
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                alert(isEdit ? '상품이 성공적으로 수정되었습니다.' : '상품이 성공적으로 등록되었습니다.');
+
+                // 목록 페이지로 이동
+                window.location.href = 'Products.html';
+
+            } catch (error) {
+                console.error('상품 저장 실패:', error);
+                alert('상품 저장에 실패했습니다. 다시 시도해주세요.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        // 이벤트 리스너 등록
+        btnSave.addEventListener('click', saveProduct);
+        btnList.addEventListener('click', () => {
+            window.location.href = 'Products.html';
+        });
+
+        // 초기 데이터 로드
+        loadProductData();
+    });
+</script>
+</body>
+</html>

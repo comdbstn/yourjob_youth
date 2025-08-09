@@ -1,0 +1,44 @@
+<!-- 모달창  -->
+<div id="addmodal">	
+	<div class="modal_title"><h4>선택한 인재를<br>스크랩 인재 페이지로 이동합니다.</h4></div>	
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+		<div class="modal_btnBox mt35">
+			<button type="button" class="modal_submit">확인</button>
+			<a href="#close-modal" rel="modal:close"><button type="button" class="modal_close">취소</button></a>
+		</div>
+	</form>
+</div>
+<script>
+$(document).ready(function() {
+	/*
+	//등록, 수정
+	$("#btn_insert").click(function(){
+		$('#btn_insert').attr('disabled');
+
+		var formData = $("form[name=chkForm]").serialize() ;
+
+		$.ajax({
+			type : 'post',
+			url : 'chkpwd.php',
+			data : formData,
+			dataType : 'json',
+			error: function(xhr, status, error){
+				alert(error);
+			},
+			success : function(result){
+				if (result.msg == "SUCCESS"){
+					$('#btn_insert').removeAttr('disabled');
+					$('#addmodal').modal().hide();
+					$("#chk").val(result.chk);
+					$("#chkForm").attr("action","boardView.php").submit();
+				}else{
+					alert(result.msg);
+					$('#btn_insert').removeAttr('disabled');
+				}
+			}
+		});
+
+	});
+	*/
+});
+</script>

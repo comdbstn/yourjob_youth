@@ -1,0 +1,213 @@
+.talent-manage-container .talent-tab{
+  display: inline-flex;
+  gap: 5px;
+  width: 100%;
+  justify-content: center;
+}
+
+.talent-manage-container .tab_btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 162px;
+  padding: 19px 0;
+  border-radius: 20px;
+  background: var(--white);
+  color: var(--txtcol14);
+  font-size: var(--font-size-xxl);
+  border: 1px solid var(--txtcol14);
+  font-weight: 500;
+  letter-spacing: -0.36px;
+}
+
+.talent-manage-container .tab_btn.active{  
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+}
+
+.talent-manage-container .head_txt{
+  display: flex;
+  color: var(--txtcol05);
+  font-size: var(--font-size-24);
+  font-weight: 700;
+  letter-spacing: -0.48px;
+  margin-bottom: 24px;
+}
+
+.talent-manage-container .tabBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 13px 30px;
+    border-top: 1px solid var(--linecol05);
+    border-bottom: 1px solid var(--linecol05);
+    background: var(--bgcol01);
+}
+
+.talent-manage-container .tabMenu{
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.talent-manage-container .tabMenu a{
+  display: block;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  letter-spacing: -0.32px;
+}
+
+.talent-manage-container .tabMenu a.active{
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.talent-manage-container .search_box{
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--linecol02);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  position: relative;
+  width: 262px;
+}
+
+.talent-manage-container .search_form{
+  border: none;
+}
+
+.talent-manage-container .form-control{
+  display: block;
+  width: 100%;
+  border-radius: 25px;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: #fff;
+  --tw-bg-opacity: 1;
+  padding: 4px 10px;
+  font-size: 14px;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39);
+}
+
+.talent-manage-container .search_btn{
+  align-items: flex-start;
+  color: var(--linecol02);
+  display: flex;
+  justify-content: flex-end;
+  width: 20px;
+}
+
+.talent-manage-container .list_table .w02{
+  width: 130px !important;
+}
+
+.talent-manage-container .list_table .w03{
+  width: 150px !important;
+}
+
+.talent-manage-container .list_table .w04{
+  width: 160px !important;
+}
+
+.talent-manage-container .list_table .w07{
+  width: 72px !important;
+}
+
+.talent-manage-container .list_table .w08{
+  width: 470px !important;
+}
+
+.talent-manage-container .listBtn-Box{
+  display: flex;
+  margin-top: 16px;
+}
+
+.talent-manage-container .list_table .list_thead{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-top: 1px solid var(--linecol04);
+  border-bottom: 1px solid var(--linecol04);
+  background: var(--bgcol01);
+}
+
+.talent-manage-container .list_table .list_thead li{
+  padding: 12px 15px;
+  padding-right: 0;
+  color: var(--txtcol06);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+}
+
+.talent-manage-container .list_table .list_thead li:last-child{
+  padding-right: 15px;
+}
+
+.talent-manage-container .list_table .list_tbody{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--linecol05);
+}
+
+.talent-manage-container .list_table .list_tbody li{
+  padding: 30px 15px;
+  padding-right: 0;
+  font-weight: 400;
+}
+
+.talent-manage-container .list_table .list_tbody li .txt4{
+  color: var(--linecol06);
+  font-size: var(--font-size-m);
+  font-weight: 700;
+}
+
+.talent-manage-container .list_table .list_tbody button{
+  display: flex;
+  height: 50px;
+  padding: 18px 0px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.talent-manage-container .list_table .list_tbody .resuBtn{
+  width: 123px;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-size: var(--font-size-xl);
+}
+
+.talent-manage-container .delBtn{
+  display: flex;
+  width: 93px;
+  padding: 9px 0px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid var(--linecol06);
+  background: var(--white);
+  color: var(--linecol06);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.talent-manage-container .nice-select{
+  display: flex;
+  height: 50px;
+  align-items: center;
+  width: 92px;
+  border: none;
+  padding: 0px;
+}
+

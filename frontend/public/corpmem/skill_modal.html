@@ -1,0 +1,135 @@
+
+<!-- 모달창  -->
+<div id="addmodal" class="viewModal">	
+	<div class="modal_title">스킬 선택</div>	
+
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+		<ul class="select_nav">
+			<li>디자인</li>
+			<li>개발</li>
+			<li>회계</li>
+			<li>3D</li>
+		</ul>
+		<ul class="select_box">
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">photoshop</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">illustrator</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">figma</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">BI디자인</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">CI디자인</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Indesign</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">BX</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">DRC</label></li>
+				</ul>
+			</li>
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Cocos2d</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">CUDA</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Firebase</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">IntelliJ</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">MDD</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Postman</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">SQLD자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">정보처리기능사 자격</label></li>
+				</ul>
+			</li>
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">기업회계 자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">세무회계 자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">전산회계 자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">전산회계운용사 자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">AICPA자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">CPA자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">FAT자격</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">IFRS</label></li>
+				</ul>
+			</li>
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">3Ds max</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">3D Printer</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Autodesk</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Enscape</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">HFSS</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Lumion</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">MudBox</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Navisworks</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">Navisworks</label></li>
+				</ul>
+			</li>
+		</ul>
+
+		<div class="choice_container">
+			<div class="choice_box">
+				<div class="choice_flex">
+					<div class="choice_txt">법무·사무·총무</div>
+					<button type="button"><i class="fa-solid fa-xmark"><span>삭제</span></i></button>
+				</div>
+				<div class="choice_flex">
+					<div class="choice_txt">인천광역시</div>
+					<button type="button"><i class="fa-solid fa-xmark"><span>삭제</span></i></button>
+				</div>
+				<div class="choice_flex">
+					<div class="choice_txt">계약직</div>
+					<button type="button"><i class="fa-solid fa-xmark"><span>삭제</span></i></button>
+				</div>
+			</div>
+			<div class="choice_reset">
+				<button type="button" class="choice_flex">
+					<div class="choice_txt rotate">초기화</div>
+					<i class="fa-solid fa-rotate rotate"><span>삭제</span></i>
+				</button>
+			</div>
+		</div>
+
+
+		<div class="modal_sbtn">
+			<div class="btnm">
+				<button type="button" id="btn_insert" class="btns btn-submit">확인</button>
+				<a href="#close-modal" rel="modal:close"><button type="button" class="btns btn-cancel">취소</button></a>
+			</div>
+		</div>
+	</form>
+
+</div>
+<script>
+$(document).ready(function() {
+	/*
+	//등록, 수정
+	$("#btn_insert").click(function(){
+		$('#btn_insert').attr('disabled');
+
+		var formData = $("form[name=chkForm]").serialize() ;
+
+		$.ajax({
+			type : 'post',
+			url : 'chkpwd.php',
+			data : formData,
+			dataType : 'json',
+			error: function(xhr, status, error){
+				alert(error);
+			},
+			success : function(result){
+				if (result.msg == "SUCCESS"){
+					$('#btn_insert').removeAttr('disabled');
+					$('#addmodal').modal().hide();
+					$("#chk").val(result.chk);
+					$("#chkForm").attr("action","boardView.php").submit();
+				}else{
+					alert(result.msg);
+					$('#btn_insert').removeAttr('disabled');
+				}
+			}
+		});
+
+	});
+	*/
+});
+</script>

@@ -1,0 +1,418 @@
+.proposal-container {
+  padding: 20px 40px;
+}
+
+/* error message text */
+.proposal-container .error-message {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  text-align: start;
+}
+
+.proposal-container .modal-head {
+  margin-bottom: 20px;
+}
+
+.proposal-container .modal-head h2 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.proposal-container .position-select {
+  display: flex;
+  width: 100%;
+  padding: 40px 0;
+  border-radius: 20px;
+  border: 1px solid var(--linecol05);
+  background: var(--bgcol03);
+  justify-content: center;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.proposal-container .position-select select {
+  width: 80%;
+  height: 50px;
+  border-radius: 15px;
+}
+
+.proposal-container .proposal-form {
+  width: 100%;
+}
+
+.proposal-container .form-group {
+  display: flex;
+  align-items: center;
+  padding: 7px 0;
+  width: 100%;
+}
+
+.proposal-container .form-group label {
+  width: 134px;
+  font-weight: 700;
+  color: #555555;
+  font-size: var(--font-size-xxl);
+}
+
+.proposal-container .form-group p {
+  color: #555555;
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+}
+
+.proposal-container .form-group .form-control {
+  border: 1px solid var(--linecol04);
+  border-radius: 20px;
+  padding: 19px 15px;
+  color: #555555;
+  width: calc(100% - 114px);
+}
+
+.proposal-container .form-group textarea.form-control {
+  border: 1px solid var(--linecol04);
+  border-radius: 20px;
+  padding: 19px 15px;
+  color: #555555;
+  width: calc(100% - 114px);
+  height: 140px;
+  resize: none;
+}
+
+.proposal-container .button-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 35px;
+}
+
+.proposal-container .submit-btn,
+.proposal-container .cancel-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  border-radius: 20px;
+  font-size: var(--font-size-xl) !important;
+  font-weight: 500;
+}
+
+.proposal-container .submit-btn {
+  background-color: #3182f6;
+  color: white;
+}
+
+.proposal-container .cancel-btn {
+  background-color: #f2f4f7;
+  color: #333;
+}
+
+.proposal-container .submit-btn:hover {
+  background-color: #1b64da;
+}
+
+.proposal-container .cancel-btn:hover {
+  background-color: #e5e8ed;
+}
+
+.proposal-container__modal-head {
+  padding: 20px 30px;
+  border-bottom: 1px solid var(--linecol02);
+}
+
+.proposal-container__stxt {
+  font-size: var(--font-size-m);
+  color: var(--txtcol06);
+  margin-bottom: 5px;
+}
+
+.proposal-container__txt {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  color: var(--txtcol05);
+}
+
+.proposal-container__modal-body {
+  padding: 30px;
+}
+
+.proposal-container__content {
+  width: 100%;
+}
+
+.proposal-container__contentBox {
+  background-color: var(--bgcol01);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.proposal-container__info-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.proposal-container__info-row:last-child {
+  margin-bottom: 0;
+}
+
+.proposal-container__info-label {
+  font-weight: 500;
+  color: var(--txtcol06);
+  width: 120px;
+  flex-shrink: 0;
+}
+
+.proposal-container__info-value {
+  color: var(--txtcol05);
+  font-weight: 400;
+}
+
+.proposal-container__form-group {
+  margin-bottom: 20px;
+}
+
+.proposal-container__label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--txtcol06);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+
+.proposal-container__required {
+  color: var(--red);
+}
+
+.proposal-container__formfild {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--linecol02);
+  border-radius: 20px;
+  font-size: var(--font-size-m);
+  color: var(--txtcol05);
+}
+
+.proposal-container__message-guide {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: var(--bgcol01);
+  border-radius: 10px;
+  font-size: var(--font-size-s);
+  color: var(--txtcol06);
+  line-height: 1.5;
+}
+
+.proposal-container textarea.proposal-container__formfild {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.proposal-container__modal-sbtn {
+  padding: 0 30px 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.proposal-container__btnm {
+  display: flex;
+  gap: 10px;
+}
+
+.proposal-container__btns {
+  display: flex;
+  padding: 16px 67px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.proposal-container__btn-submit {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+}
+
+.proposal-container__btn-cancel {
+  background-color: var(--white);
+  border: 1px solid var(--text-silver);
+  color: var(--text-silver);
+}
+
+.proposal-container__positon-select {
+  margin-bottom: 20px;
+}
+
+.proposal-container__positon-select select {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--linecol02);
+  border-radius: 20px;
+  font-size: var(--font-size-m);
+  color: var(--txtcol05);
+}
+
+.proposal-container__positon-form {
+  margin-bottom: 20px;
+}
+
+.proposal-container__positon-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--txtcol06);
+  font-size: var(--font-size-l);
+  font-weight: 500;
+}
+
+.proposal-container__positon-form p {
+  padding: 15px;
+  background-color: var(--bgcol01);
+  border-radius: 20px;
+  font-size: var(--font-size-m);
+  color: var(--txtcol05);
+}
+
+.proposal-container__positon-form .form-control {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--linecol02);
+  border-radius: 20px;
+  font-size: var(--font-size-m);
+  color: var(--txtcol05);
+}
+
+.proposal-container__positon-form textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.proposal-container__modal-btnBox {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 35px;
+}
+
+.proposal-container__modal-submit {
+  display: flex;
+  padding: 16px 67px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  cursor: pointer;
+}
+
+.proposal-container__modal-close {
+  display: flex;
+  padding: 16px 67px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  background-color: var(--white);
+  border: 1px solid var(--text-silver);
+  color: var(--text-silver);
+  cursor: pointer;
+}
+
+.form-control.error,
+.nice-select.error {
+  border-color: red;
+}
+
+.proposal-container .form-control.error,
+.proposal-container .nice-select.error {
+  border: 1px solid red !important;
+}
+
+
+@media (max-width: 1023px) {
+
+  .proposal-container {
+    padding: 0;
+  }
+
+  .proposal-container .proposal-form {
+    line-height: 1.5;
+  }
+
+  .proposal-container .position-select {
+    padding: 20px 15px;
+    border-radius: 15px;
+    margin-bottom: 0;
+  }
+
+  .proposal-container .position-select select {
+    width: 100%;
+    /* margin-bottom: 22px; */
+  }
+
+  .proposal-container .form-group {
+    display: block;
+    padding: 0;
+    margin-bottom: 0 !important;
+    margin-top: 22px;
+  }
+
+  .proposal-container .form-group.bundle {
+    display: flex;
+    gap: 15px;
+  }
+
+  .proposal-container .form-group label {
+    display: block;
+    margin-bottom: 11px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+    width: auto;
+    margin-top: 0 !important;
+    padding-left: 5px;
+  }
+
+  .proposal-container .form-group.bundle label {
+    margin-bottom: 0;
+  }
+
+  .proposal-container .form-group .form-control {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    border-radius: 15px;
+  }
+
+  .proposal-container .form-group textarea.form-control {
+    width: 100%;
+  }
+
+  /* .proposal-container .button-box {
+    margin-top: 20px;
+  } */
+
+  .proposal-container .button-box .submit-btn,
+  .proposal-container .button-box .cancel-btn {
+    flex: 1;
+    width: auto;
+    border-radius: 15px;
+  }
+
+  .proposal-container .error-message {
+    width: 100%;
+    text-align: left;
+    margin-left: 0 !important;
+
+  }
+}

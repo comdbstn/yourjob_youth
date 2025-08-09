@@ -1,0 +1,1187 @@
+/* screen - mypage */
+.mypage {
+  align-items: center;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.flex-con {
+  align-items: flex-start;
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.headTitle {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxxxl);
+  font-weight: 700;
+  letter-spacing: -0.03vw;
+  line-height: normal;
+}
+
+.mypage .card {
+  flex-shrink: 0;
+  padding: 40px 40px 0px;
+  border-radius: 20px;
+  width: 100%;
+  border: 1px solid var(--linecol05);
+  margin: 10px 0;
+}
+
+.mypage .card_head {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxxl);
+  font-weight: 700;
+  line-height: normal;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--linecol05);
+  margin-bottom: 20px;
+}
+
+.mypage .card_body {
+  margin-bottom: 20px;
+}
+
+.mypage .card_body dl {
+  display: flex;
+  padding: 20px 0;
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  line-height: normal;
+}
+
+.mypage .card_body dt {
+  width: 15%;
+  color: var(--txtcol02);
+}
+
+.mypage .card_body dd {
+  width: 85%;
+  color: var(--txtcol05);
+  font-weight: 500;
+}
+
+.memDel {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.memDel .deleteBtn {
+  border: none;
+  font-size: var(--font-size-xl);
+  color: var(--text-silver);
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.mypage .formBox {
+  margin-bottom: 20px;
+}
+
+.fildSet {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.fildSet .label {
+  width: 110px;
+  color: var(--txtcol02);
+  font-size: var(--font-size-xl);
+  font-weight: 400;
+  line-height: normal;
+}
+
+.fildSet .input {
+  width: 450px;
+  border-radius: 20px;
+  color: var(--txtcol05) !important;
+  font-size: var(--font-size-xl) !important;
+  font-weight: 500;
+  padding: 15px;
+  border: 1px solid var(--linecol04);
+}
+
+.fildSet .nice-select {
+  width: 450px;
+  border-radius: 20px;
+  color: var(--txtcol05) !important;
+  font-size: var(--font-size-xl) !important;
+  font-weight: 500;
+  padding: 15px;
+  border: 1px solid var(--linecol04);
+}
+
+.fildSet .input::placeholder {
+  color: var(--text-silver) !important;
+  font-size: var(--font-size-xl) !important;
+  font-weight: 400;
+}
+
+.fildSet .nice-select {
+  height: 56px;
+  line-height: 25px;
+}
+
+/* .fildSet .nice-select .current {
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+} */
+
+.chkBox {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid var(--linecol04);
+  padding: 30px;
+  width: calc(100% - 100px);
+}
+
+.chkBox .chkInput {
+  width: 20%;
+}
+
+.chkBox .chkInput label {
+  color: var(--txtcol06);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: normal;
+  user-select: none;
+}
+
+/* 이력서 수정, 등록, 복사 */
+.resume_write {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  margin-top: 80px;
+  width: 100%;
+}
+
+.resume_write_form {
+  width: calc(100% - 243px);
+}
+
+.resume_title {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.resume_title input {
+  border-radius: 20px;
+  border: 1px solid var(--linecol04);
+  background-color: var(--bgcol01);
+  padding: 24px 30px;
+  font-size: var(--font-size-24);
+}
+
+.resume_title input::placeholder {
+  color: var(--text-silver);
+  font-size: var(--font-size-24);
+}
+
+.formProfile {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid var(--linecol04);
+  background-color: var(--bgcol01);
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.formProfile .picture {
+  background: var(--bgcol06);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .picture{width:145px; background: var(--bgcol06); display:flex; justify-content: center; align-items: center;} */
+.formProfile .picture label {
+  padding: 5px 10px;
+  background-color: #777;
+  color: var(--white);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.formProfile .picture input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.mypage .user-profile {
+  width: calc(100% - 145px);
+  padding: 15px 30px;
+  box-sizing: border-box;
+}
+
+.mypage .user-profile_row {
+  display: flex;
+  flex-direction: row;
+}
+
+.mypage .user-profile_row .user-profile_name-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.mypage .user-profile_row .user-profile_name-container .user-profile_name {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxxl);
+}
+
+.mypage .user-profile_row .user-profile_name-container span {
+  color: var(--text-silver);
+  font-size: var(--font-size-xl);
+}
+
+.mypage .user-profile_row .user-profile_name-container .nice-select {
+  display: flex;
+  height: 34px;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid var(--quill-gray);
+  background-color: var(--white);
+  width: 100px;
+  margin-left: 10px;
+}
+
+.mypage .user-profile_row .user-profile_name-container .nice-select .current {
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+}
+
+.mypage .user-profile_detail-contents {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mypage .user-profile_detail-contents .profile_detail {
+  font-size: var(--font-size-xl);
+  color: var(--text-silver);
+  line-height: 26px;
+}
+
+.mypage
+  .user-profile_detail-contents
+  .profile_detail
+  .user-profile_list-container {
+  display: grid;
+  grid-gap: 24px;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.mypage
+  .user-profile_detail-contents
+  .profile_detail
+  .user-profile_list-container
+  dl {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0;
+}
+
+.mypage
+  .user-profile_detail-contents
+  .profile_detail
+  .user-profile_list-container
+  dt {
+  flex-basis: 75px;
+  color: #777;
+}
+
+.mypage
+  .user-profile_detail-contents
+  .profile_detail
+  .user-profile_list-container
+  dd {
+  flex: 1 1 auto;
+}
+
+.user-inform {
+  width: 100%;
+  line-height: normal;
+}
+
+.user-inform dl {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: flex-start;
+  padding: 25px 0;
+  border-bottom: 1px solid var(--linecol05);
+}
+
+.user-inform dt {
+  width: 145px;
+  display: flex;
+  flex-shrink: 0;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxxl);
+  font-weight: 700;
+}
+
+.user-inform dd {
+  width: calc(100% - 145px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-inform dd .resume-item {
+  width: calc(100% - 145px);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-inform dd .row-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-inform .row {
+  width: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+.user-inform .row .SelectBox,
+.user-inform .row .apostille-upload {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 264px;
+  height: 60px;
+  padding: 20px 15px;
+  border-radius: 20px;
+  border: 1px solid var(--linecol04);
+  background-color: var(--white);
+  font-weight: 500;
+  line-height: normal;
+}
+
+.user-inform .row .w01 {
+  width: 173px !important;
+}
+
+.user-inform .row .w02 {
+  width: 287.3px !important;
+}
+
+.user-inform .row .w03 {
+  width: 400px !important;
+}
+
+.user-inform .row .w04 {
+  width: 155px !important;
+  letter-spacing: -0.28px;
+}
+
+.user-inform .row .bg1 {
+  background: var(--bgcol01);
+}
+
+.user-inform .row .txt1 {
+  font-size: var(--font-size-s);
+  line-height: 20px;
+  color: var(--txtcol02);
+}
+
+.user-inform .row .SelectBox .searchbtn {
+  align-items: flex-start;
+  color: var(--linecol02);
+  display: flex;
+  justify-content: flex-end;
+  min-width: 1.25vw;
+  padding: 0.1vw 0.07vw;
+}
+
+.user-inform .row textarea {
+  display: flex;
+  height: 130px;
+  padding: 19px 15px;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid var(--linecol04);
+  background-color: var(--white);
+  resize: none;
+}
+
+.user-inform .row textarea.error {
+  border-color: var(--red);
+}
+
+.user-inform .row textarea::placeholder {
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+}
+
+.user-inform .row .SelectBox .empstat label {
+  width: 50px !important;
+}
+
+.user-inform .row .SelectBox .comnm {
+  width: 65%;
+}
+
+.user-inform .row .SelectBox .comnm label {
+  width: 160px;
+}
+
+.user-inform .row .SelectBox label {
+  display: block;
+  width: 110px;
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+  text-wrap: nowrap;
+}
+
+.user-inform .row .SelectBox label span {
+  color: var(--red);
+}
+
+.user-inform .row .SelectBox .nice-select {
+  display: flex;
+  border: none;
+  padding: 0;
+  position: static;
+}
+
+.user-inform .row .SelectBox .nice-select:after {
+  right: 15px;
+}
+
+.user-inform .row .SelectBox .nice-select .current {
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+}
+
+.user-inform .row .SelectBox .nice-select .list {
+  margin-top: 2px;
+  border-radius: 20px;
+  max-height: 260px;
+  overflow: auto;
+}
+
+.user-inform .row .SelectBox .nice-select .list::-webkit-scrollbar {
+  width: 0.26vw;
+  height: 180px;
+}
+
+/* 스크롤바 배경 */
+.user-inform .row .SelectBox .nice-select .list::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+
+/* 스크롤바의 손잡이 (슬라이더) */
+.user-inform .row .SelectBox .nice-select .list::-webkit-scrollbar-thumb {
+  background-color: var(--bgcol06);
+  border-radius: 10px;
+  width: 4px;
+}
+
+/* 마우스를 올렸을 때 스크롤바의 색상 */
+.user-inform .row .SelectBox .nice-select .list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgcol02);
+}
+
+.user-inform .row .SelectBox input[type="text"] {
+  color: var(--txtcol05);
+  font-size: var(--font-size-m);
+  border: none;
+  height: 100%;
+  border-radius: 6px;
+  height: 45px;
+  padding: 0;
+}
+
+.user-inform .row .adddelBtn {
+  display: flex;
+  width: 60px;
+  height: 60px;
+}
+
+.user-inform .row .preview-btn {
+  width: 100px;
+  border-radius: 20px;
+  background: var(--white);
+  border: 1px solid var(--linecol02);
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-silver);
+  line-height: normal;
+  font-size: var(--font-size-m);
+}
+
+.user-inform .row .transfer {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+  position: relative;
+}
+
+.user-inform .row .military {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+  position: relative;
+}
+
+.user-inform .row .military label {
+  width: 120px;
+}
+
+.user-inform .row .apostille-upload {
+  width: 808px;
+}
+
+.user-inform .row .apostille-upload label {
+  width: 100%;
+  text-align: center;
+  padding: 19px;
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.user-inform .row .apostille-upload input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.user-inform .agreeBox {
+  width: 100%;
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
+}
+
+.user-inform .agreeBox .check_box {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  border-radius: 2px;
+  height: 20px;
+  width: 20px;
+}
+
+.user-inform .agreeBox .txt {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.user-inform .agreeBox .txt span {
+  color: var(--red);
+}
+
+.user-inform .row .personal {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 808px;
+  padding: 10px 0px;
+  border-radius: 20px;
+  border: 1px solid var(--linecol04);
+  background-color: var(--white);
+  font-weight: 500;
+  line-height: normal;
+}
+
+.user-inform .row .personal .personal_title {
+  width: 100%;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--linecol04);
+}
+
+.user-inform .row .personal .personal_title input {
+  width: 100%;
+  border: none;
+  font-weight: 500;
+  line-height: normal;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.user-inform .row .personal .personal_title input::placeholder {
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+}
+
+.user-inform .row .personal .personal_textarea {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.user-inform .row .personal .personal_textarea textarea {
+  width: 100%;
+  height: 100px;
+  border: none;
+  font-weight: 500;
+  line-height: normal;
+  padding: 0px;
+  margin-top: 20px;
+  border-radius: 0;
+}
+
+.user-inform .row .personal .personal_textarea textarea::placeholder {
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+}
+
+.user-inform .row .addBtnbox {
+  display: flex;
+  gap: 10px;
+}
+
+.user-inform .row .addBtnbox button {
+  padding: 10px 15px;
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+  border: 1px solid var(--linecol04);
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 20px;
+}
+
+.user-inform .row .addBtnbox button.active {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.user-inform .infoaddBrn {
+  width: 100%;
+  padding: 15px 0;
+  border-radius: 20px;
+  background-color: #eaeff3;
+  color: var(--primary);
+  font-size: var(--font-size-l);
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.resume_side {
+  width: 243px;
+  position: relative;
+  flex: 1 0;
+}
+
+.resume_side aside {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+  display: inline-block;
+  text-align: left;
+  width: 100%;
+  z-index: 10;
+}
+
+.sidebarBox {
+  width: 100%;
+  border: 1px solid var(--linecol04);
+  border-radius: 20px;
+  padding: 30px 25px;
+}
+
+.sidebarBox li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.sidebarBox li:last-child {
+  margin-bottom: 0;
+}
+
+.sidebarBox li .txt {
+  color: var(--primary);
+  font-size: var(--font-size-l);
+  font-weight: 500;
+  line-height: normal;
+}
+
+.sidebarBox li .txt.active {
+  color: var(--linecol04);
+}
+
+.sidebarBox li .icon {
+  width: 24px;
+  height: 24px;
+}
+
+.ResumeSave {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.ResumeSave button {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background: var(--primary);
+  display: flex;
+  padding: 18px 30px;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  font-size: var(--font-size-xl);
+  line-height: normal;
+}
+
+.table-list table .cell-company {
+  white-space: nowrap;
+  text-align: left;
+  padding-left: 20px;
+  line-height: 12px;
+}
+
+.table-list table .table-list-item {
+  cursor: pointer;
+}
+
+.table-list table .table-list-item:hover {
+  background-color: var(--bgcol03);
+}
+
+.table-list table .company {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-list table .company p {
+  color: var(--txtcol04);
+  font-size: var(--font-size-xxl);
+  line-height: initial;
+}
+
+.table-list table .company .cnm {
+  color: #8f8f8f;
+  font-size: var(--font-size-m);
+  font-weight: 400;
+}
+
+.table-list table .cell-stat {
+  text-align: center;
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+}
+
+.bbstable .check_box {
+  display: block;
+  margin: auto;
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  border-radius: 2px;
+  height: 20px;
+  width: 20px;
+}
+
+/* 포지션지원 */
+.pageTitle .search_box {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--linecol02);
+  border-radius: 20px;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  padding: 19px 15px;
+  position: relative;
+  width: 262px;
+}
+
+.search_form {
+  border: none;
+}
+
+.pageTitle .search_box .searchbtn {
+  align-items: flex-start;
+  color: var(--linecol02);
+  display: flex;
+  justify-content: flex-end;
+  min-width: 1.25vw;
+  padding: 0.1vw 0.07vw;
+}
+
+/* 스크랩 */
+.scrap .cname {
+  line-height: normal;
+  color: var(--txtcol01);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.scrap .info_txt {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.02vw;
+  line-height: normal;
+  min-height: 1.35vw;
+}
+
+.scrap .text-container {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.52vw;
+  margin-top: 0.26vw;
+}
+
+.scrap .cell {
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.scrap .dsc {
+  line-height: normal;
+  margin-top: 1.04vw;
+  color: var(--txtcol01);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.scrapBtn {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.scrapBtn button {
+  align-items: center;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  line-height: initial;
+  padding: 10px 30px;
+  position: relative;
+  font-weight: 500;
+}
+
+.scrapBtn .scrapDelBtn {
+  background-color: var(--white);
+  border: 1px solid var(--linecol06);
+  color: var(--linecol06);
+  font-size: var(--font-size-xl);
+}
+
+/* 버튼 */
+.BtnBox {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 10px;
+  margin: 35px 0;
+}
+
+.BtnBox button {
+  background-color: var(--bgcol03);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-size: var(--font-size-xl);
+  border-radius: 20px;
+  padding: 15px 60px;
+}
+
+.BtnBox.modify {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.BtnBox.modify button {
+  flex: 1;
+  border-radius: 15px;
+}
+
+.BtnBox .listBtn {
+  background-color: var(--btncol);
+  border: 1px solid var(--btncol);
+  color: var(--white);
+}
+
+.BtnBox .submitBtn {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  color: var(--white);
+}
+
+.BtnBox .cancelBtn {
+  background-color: var(--white);
+  border: 1px solid var(--text-silver);
+  color: var(--text-silver);
+}
+
+.ListBtnBox {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 10px;
+  padding: 25px 0;
+}
+
+.ListBtnBox button {
+  align-items: center;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  line-height: initial;
+  padding: 10px 20px;
+  position: relative;
+  width: 100%;
+  font-weight: 500;
+}
+
+.ListBtnBox .resRepleBtn {
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  color: var(--white);
+  width: 100px;
+  height: 50px;
+}
+
+.ListBtnBox .reshomeBtn {
+  background-color: var(--txtcol06);
+  border: 1px solid var(--txtcol06);
+  color: var(--white);
+  text-wrap: nowrap;
+}
+
+.ListBtnBox .resListBtn {
+  background: var(--white);
+  border: 1px solid var(--linecol02);
+  color: var(--text-silver);
+  font-size: var(--font-size-xl);
+  text-wrap: nowrap;
+}
+
+.ListBtnBox .resListBtn.active {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.ListBtnBox .resacceptBtn {
+  background-color: var(--white);
+  border: 1px solid var(--white);
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  text-wrap: nowrap;
+}
+
+.ListBtnBox .resdeleteBtn {
+  background-color: var(--white);
+  border: 1px solid var(--linecol06);
+  color: var(--linecol06);
+  font-size: var(--font-size-xl);
+  text-wrap: nowrap;
+}
+
+.user-inform .row .SelectBox.error,
+/* .user-inform .row .SelectBox.error input, */
+.user-inform .row .SelectBox.error textarea {
+  border-color: var(--red);
+}
+
+.error-message {
+  color: var(--red);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.user-inform .row .personal.error,
+.user-inform .row .personal.error .personal_title input,
+.user-inform .row .personal.error .personal_textarea textarea {
+  border-color: var(--red);
+}
+
+.user-inform .row .personal.error .personal_title input::placeholder,
+.user-inform .row .personal.error .personal_textarea textarea::placeholder {
+  color: var(--red);
+}
+
+.user-inform .row .SelectBox.w01.error,
+.user-inform .row .SelectBox.w02.error,
+.user-inform .row .SelectBox.w03.error,
+.user-inform .row .SelectBox.w04.error {
+  border-color: var(--red);
+}
+
+.user-inform .agreeBox.error .check_box {
+  border-color: var(--red);
+}
+
+.user-inform .agreeBox.error .txt {
+  color: var(--red);
+}
+
+.mypage-profile .imgBox {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.mypage-profile .upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.mypage-profile .upload-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mypage-profile .upload-label i {
+  font-size: 40px;
+  color: #999;
+}
+
+.mypage-profile .photo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mypage-profile .photo i {
+  color: white;
+  font-size: 16px;
+}
+
+.mypage-profile .upload-btn-container {
+  padding-left: 10px;
+  align-content: end;
+}
+
+.mypage-profile .upload-btn {
+  width: 100px;
+  border-radius: 20px;
+  background: var(--white);
+  border: 1px solid var(--linecol02);
+  display: flex;
+  padding: 8px;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-silver);
+  line-height: normal;
+  font-size: var(--font-size-m);
+}
+
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #666;
+  font-size: 14px;
+}
+
+.school-search-container {
+  position: relative;
+  width: 100%;
+}
+
+.school-search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--linecol04);
+  border-radius: 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 2px;
+  padding: 15px;
+}
+
+.school-search-results-wrapper {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.school-search-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: var(--txtcol05);
+  font-size: var(--font-size-m);
+  border-radius: 20px;
+  margin-bottom: 5px;
+}
+
+.school-search-item:hover {
+  background-color: var(--bgcol03);
+}
+
+.school-search-no-results {
+  padding: 12px 15px;
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+  text-align: center;
+  border-radius: 20px;
+}

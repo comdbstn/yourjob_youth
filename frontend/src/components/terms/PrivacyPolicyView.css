@@ -1,0 +1,64 @@
+.privacyPolicyContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.privacyPolicyContainer h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.privacyPolicyContainer .content {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.privacyPolicyContainer section {
+  margin-bottom: 2rem;
+}
+
+.privacyPolicyContainer h2 {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.privacyPolicyContainer p {
+  margin-bottom: 1rem;
+}
+
+.privacyPolicyContainer ol {
+  list-style-type: decimal;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.privacyPolicyContainer ul {
+  list-style-type: disc;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+.privacyPolicyContainer li {
+  margin-bottom: 0.5rem;
+}
+
+/* 들여쓰기 스타일 */
+.privacyPolicyContainer ol > li {
+  margin-left: 1rem;
+}
+
+.privacyPolicyContainer ul > li {
+  margin-left: 1rem;
+}
+
+/* 하위 항목 들여쓰기 */
+.privacyPolicyContainer ol ul,
+.privacyPolicyContainer ul ol,
+.privacyPolicyContainer ul ul {
+  margin-left: 1.5rem;
+} 

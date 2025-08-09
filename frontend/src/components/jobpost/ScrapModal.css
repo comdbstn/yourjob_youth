@@ -1,0 +1,46 @@
+.scrap-modal-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.scrap-modal-container .scrap-modal-title {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -2%;
+  color: #333;
+  margin-bottom: 60px;
+}
+
+.scrap-modal-container .button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.scrap-modal-container .confirm-btn,
+.scrap-modal-container .cancel-btn {
+  padding: 10px 40px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.scrap-modal-container .confirm-btn {
+  background-color: #3182F6;
+  color: white;
+}
+
+.scrap-modal-container .cancel-btn {
+  background-color: #F2F4F7;
+  color: #333;
+}
+
+.scrap-modal-container .confirm-btn:hover {
+  background-color: #1b64da;
+}
+
+.scrap-modal-container .cancel-btn:hover {
+  background-color: #e5e8ed;
+}

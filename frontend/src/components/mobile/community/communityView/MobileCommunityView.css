@@ -1,0 +1,441 @@
+.mobileCommunityView_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileCommunityView_container #content {
+  height: 100%;
+  line-height: 1.5;
+}
+
+.mobileCommunityView_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileCommunityView_container .topBtns {
+  width: 100%;
+  border-bottom: #eaeaea 1px solid;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mobileCommunityView_container .topBtns button {
+  width: auto;
+  border-bottom: transparent 3px solid;
+  font-size: 18px;
+  font-weight: 500;
+  /* height: 46px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 10px 22px;
+  color: #8f8f8f;
+}
+
+.mobileCommunityView_container .topBtns button span {
+  display: block;
+}
+
+.mobileCommunityView_container .topBtns .selected {
+  color: #2f80dc;
+  border-bottom: #2f80dc 3px solid;
+  font-weight: 700;
+}
+
+.mobileCommunityView_container .studentSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileCommunityView_container .countryBtns {
+  width: 100%;
+  /* height: 50px; */
+  border-bottom: #eaeaea 1px solid;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  color: #8f8f8f;
+  /* overflow-x: scroll; */
+
+  /* width: calc(100% - 00px); */
+  padding: 9px 20px;
+  height: auto;
+
+
+
+}
+
+.mobileCommunityView_container .countryBtns .btn-area {
+  -ms-overflow-style: none;
+}
+
+.mobileCommunityView_container .countryBtns .btn-area::-webkit-scrollbar {
+  display: none;
+}
+
+.mobileCommunityView_container .countryBtns .btn-area {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9.5px;
+  overflow: scroll;
+}
+
+.mobileCommunityView_container .countryBtns .btn-area button {
+  padding: 10px 5px;
+  line-height: 1.5;
+  letter-spacing: -1px;
+}
+
+/* 1. 컨테이너가 실제로 스크롤 가능하도록 */
+.countryBtns {
+  width: 100%;
+  display: flex;
+  /* 줄 바꿈을 막고 한 줄에 쭉 나열 */
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  /* auto 혹은 scroll */
+  -webkit-overflow-scrolling: touch;
+  /* 모바일에서 부드러운 스크롤 */
+  white-space: nowrap;
+  /* 텍스트 줄 바꿈 방지 */
+  gap: 20px;
+  padding-bottom: 5px;
+  /* 스크롤바를 위한 여유 */
+}
+
+/* 2. 버튼이 축소되지 않도록 */
+.countryBtns>button {
+  flex: 0 0 auto;
+  /* flex-shrink:0; flex-grow:0; */
+  font-weight: 500;
+}
+
+.mobileCommunityView_container .countryBtns .selected {
+  color: #2f80dc;
+  font-weight: 700;
+}
+
+.mobileCommunityView_container ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+}
+
+.mobileCommunityView_container li {
+  padding: 20px 0 0;
+  /* border-bottom: #eaeaea 1px solid; */
+  display: flex;
+  flex-direction: column;
+  /* gap: 15px; */
+  font-size: 15px;
+  color: #8f8f8f;
+  line-height: 1.5;
+}
+
+.mobileCommunityView_container li:first-child {
+  border-top: 1px solid #eaeaea;
+  margin-top: 23px;
+}
+
+.mobileCommunityView_container li .flexJb p:nth-child(1) {
+  font-size: 16px;
+  color: black;
+}
+
+.mobileCommunityView_container .mentoringSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileCommunityView_container .mentoringSection .headers {
+  width: 100%;
+  height: 50px;
+  border-bottom: #eaeaea 1px solid;
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
+  align-items: center;
+  color: #2f80dc;
+}
+
+.mobileCommunityView_container .contentSection {
+  padding: 0 20px;
+}
+
+
+
+.mobileCommunityView_container .contentSection .headers {
+  /* height: 143px; */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* gap: 15px; */
+  /* justify-content: center; */
+  /* font-size: 15px; */
+  color: #8f8f8f;
+  border-bottom: 1px #eaeaea solid;
+  padding: 27px 0 30px;
+  line-height: 1.5;
+}
+
+.mobileCommunityView_container .contentSection .headers .subtitle {
+  margin-bottom: 5px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #8f8f8f;
+}
+
+.mobileCommunityView_container .contentSection .headers .subtitle .bar {
+  width: 1px;
+  height: 10px;
+  display: inline-block;
+  background-color: #a8a8a8;
+  margin: 0 10px;
+}
+
+.mobileCommunityView_container .contentSection .headers .title {
+  color: #535353;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.mobileCommunityView_container .contentSection .headers .horizontalContent {
+  display: flex;
+  align-items: center;
+  /* gap: 10px; */
+  font-size: 14px;
+}
+
+.mobileCommunityView_container .contentSection .headers .horizontalContent p {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.mobileCommunityView_container .contentSection .headers .horizontalContent .bar {
+  display: inline-block;
+  width: 1px;
+  height: 9px;
+  background-color: #d2d2d2;
+  margin: 0 2%;
+}
+
+
+.mobileCommunityView_container .contentSection .content {
+  padding: 50px 0 158px;
+
+  border-bottom: 1px #eaeaea solid;
+  font-size: 16px;
+  color: #8f8f8f;
+}
+
+.mobileCommunityView_container .contentSection .btns {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  padding: 25px 0 30px;
+}
+
+.mobileCommunityView_container .contentSection .btns button {
+  width: 100px;
+  height: 50px;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.mobileCommunityView_container .contentSection .btns button:nth-child(1) {
+  border: #2f80dc 1px solid;
+  color: #2f80dc;
+}
+
+.mobileCommunityView_container .contentSection .btns button:nth-child(2) {
+  background-color: #545454;
+  color: white;
+}
+
+.mobileCommunityView_container .contentSection .btns button:nth-child(3) {
+  border: #2f80dc 1px solid;
+  color: #2f80dc;
+}
+
+.mobileCommunityView_container .contentSection .btns button:nth-child(4) {
+  border: #2f80dc 1px solid;
+  color: #2f80dc;
+}
+
+.mobileCommunityView_container .contentSection .inputReplySection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-bottom: #eaeaea;
+}
+
+.mobileCommunityView_container .contentSection .inputReplySection p:nth-child(1) {
+  color: #777777;
+  font-size: 14px;
+}
+
+.mobileCommunityView_container .contentSection .inputReplySection .uploadBtnDiv {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.mobileCommunityView_container .contentSection .inputReplySection .uploadBtnDiv button {
+  width: 100px;
+  height: 50px;
+  background-color: #e2eaf3;
+  border-radius: 20px;
+  color: #2f80dc;
+}
+
+.mobileCommunityView_container .replyListSection {
+  width: 100%;
+  border-top: #eaeaea;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileCommunityView_container .replyListSection .replyBtn {
+  margin-right: auto;
+  color: #535353;
+}
+
+.mobileCommunityView_container .replyListSection .subReply {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f9f9f9;
+  height: 100%;
+  width: 100%;
+  padding: 29px 20px;
+  /* margin-bottom: -20px; */
+  border-top: #eaeaea 1px solid;
+  margin-left: -20px;
+  margin-right: -20px;
+  width: calc(100% + 40px);
+  margin-top: -1px;
+}
+
+.mobileCommunityView_container .replyListSection .subReply .replyInputSection {
+  display: flex;
+  gap: 10px;
+}
+
+
+.mobileCommunityView_container .replyListSection .subReply .uploadBtnDiv {
+  background-color: #e2eaf3;
+  color: #2f80dc;
+  font-size: 16px;
+  border-radius: 20px;
+  height: 50px;
+  width: 100px;
+}
+
+.mobileCommunityView_container .replyListSection .replyInput {
+  width: 100%;
+  max-height: 100px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  border: #d2d2d2 1px solid;
+}
+
+.mobileCommunityView_container .replyListSection .replyInput textarea {
+  height: 100%;
+}
+
+.mobileCommunityView_container .replyListSection .replyInput button {
+  margin-left: auto;
+}
+
+.mobileCommunityView_container .replyListSection ul {}
+
+.mobileCommunityView_container .replyListSection li .mainReply {
+  padding-bottom: 25px;
+  border-bottom: #eaeaea 1px solid;
+}
+
+.mobileCommunityView_container .replyListSection li .mainReply .title {
+  font-size: 16px;
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.mobileCommunityView_container .replyListSection li .mainReply .date {
+  font-size: 14px;
+}
+
+
+.mobileCommunityView_container .replyListSection li .mainReply .content {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.mobileCommunityView_container .replyListSection li .mainReply .bottom_div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.mobileCommunityView_container .replyListSection li .mainReply .bottom_div .bottomRightDiv {
+  display: flex;
+  gap: 10px;
+}
+
+.mobileCommunityView_container .replyListSection li .mainReply .bottom_div .bottomRightDiv .recomBtn {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+
+.mobileCommunityView_container .replyListSection li .subReply .bottomRightDiv {
+  display: flex;
+  gap: 10px;
+}
+
+.mobileCommunityView_container .replyListSection li .subReply .bottomRightDiv {
+  display: flex;
+  gap: 10px;
+}
+
+.mobileCommunityView_container .replyListSection li .subReply .bottomRightDiv .recomBtn {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.mobileCommunityView_container .replyListSection li .subReply .flexDiv {
+  display: flex;
+  gap: 10px;
+}
+
+.mobileCommunityView_container .replyListSection li .subReply .columnDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileCommunityView_container .replyListSection li .subReply .columnDiv .title {
+  color: #333333;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.mobileCommunityView_container .replyListSection li .subReply .columnDiv .content {
+  margin-bottom: 20px;
+}

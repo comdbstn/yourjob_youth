@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이력서 정보</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 페이지네이션 스타일 (데이터관리 페이지와 동일하게) */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        /* 로딩 인디케이터 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <!-- 왼쪽 LNB 메뉴 등은 기존 그대로 -->
+        <aside class="lnb">
+            <!-- 로고, 메뉴 등 -->
+            <div class="lnb__logo">
+                <a href="/" class="lnb__logo--link">
+                    <img src="assets/images/logo.png" alt="로고">
+                </a>
+            </div>
+            <ul class="lnb--menu">
+                <li><a href="Jobs.html" class="btn">채용정보</a></li>
+                <li><a href="./Resumes.html" class="btn isActive">이력서정보</a></li>
+                <li><a href="Application.html" class="btn">입사지원</a></li>
+                <li><a href="JobOffers.html" class="btn">포지션제안</a></li>
+                <li><a href="CompanyProfile.html" class="btn">기업정보</a></li>
+                <li><a href="CommunityPost.html" class="btn">커뮤니티</a></li>
+                <li><a href="Payments.html" class="btn">결제관리</a></li>
+                <li><a href="Products.html" class="btn">상품관리</a></li>
+                <li><a href="Banner.html" class="btn">배너관리</a></li>
+                <li>
+                    <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+                </li>
+                <li><a href="DataManagement.html" class="btn">데이터관리</a></li>
+            </ul>
+            <ul class="lnb--menu">
+                <li><a href="Statistics.html" class="btn">통계</a></li>
+                <li><a href="UserManagement.html" class="btn">회원관리</a></li>
+                <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+                <li><a href="Settings.html" class="btn">환경설정</a></li>
+            </ul>
+        </aside>
+
+        <!-- 콘텐츠 영역 -->
+        <div class="contents">
+            <!-- 상단 네비 -->
+            <div class="navigation">
+                <div class="container">
+                    <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+                </div>
+            </div>
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+                <div class="container">
+                    <h2 class="title--h2">이력서정보</h2>
+                </div>
+            </div>
+            <!-- 컨텐츠 영역 -->
+            <div class="content">
+                <div class="container">
+                    <article class="article-area">
+                        <!-- 상단 버튼 영역 -->
+                        <div class="btn-area--top">
+                            <button type="button" class="btn btn-danger btn-small" id="deleteSelected">삭제</button>
+                            <button type="button" class="btn btn-success btn-small" id="showSelected">노출</button>
+                            <button type="button" class="btn btn-warning btn-small" id="hideSelected">비노출</button>
+                        </div>
+
+                        <!-- 상단 검색 영역 -->
+                        <div class="search-area">
+                            <div class="search--select select-box">
+                                <div class="control">
+                                    <select class="select" id="statusFilter">
+                                        <option value="">상태</option>
+                                        <option value="enable">노출</option>
+                                        <option value="disable">비노출</option>
+                                        <option value="pending">대기</option>
+                                    </select>
+                                </div>
+                                <div class="control">
+                                    <select class="select" id="genderFilter">
+                                        <option value="">성별</option>
+                                        <option value="male">남</option>
+                                        <option value="female">여</option>
+                                    </select>
+                                </div>
+                                <div class="select--date">
+                                    <div class="control">
+                                        <input type="date" class="select" id="startDateFilter">
+                                    </div>
+                                    <div class="control">
+                                        <input type="date" class="select" id="endDateFilter">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="search--text">
+                                <div class="control">
+                                    <input type="text" id="keywordFilter" placeholder="검색어를 입력하세요">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="searchBtn">검색</button>
+                            </div>
+                        </div>
+
+                        <!-- 테이블 영역 -->
+                        <section class="table-area">
+                            <div class="table-header">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <colgroup>
+                                        <col width="44px"/>
+                                        <col width="60px"/>
+                                        <col width="140px"/>
+                                        <col width="140px"/>
+                                        <col width="150px"/>
+                                        <col width="100px"/>
+                                        <col width="58px"/>
+                                        <col width="58px"/>
+                                        <col width="110px"/>
+                                        <col width="110px"/>
+                                        <col width="*"/>
+                                        <col width="250px"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="control">
+                                                    <input id="checkAll" type="checkbox" class="checked--all">
+                                                </div>
+                                            </th>
+                                            <th>번호</th>
+                                            <th>등록일시</th>
+                                            <th>사진</th>
+                                            <th>아이디</th>
+                                            <th>이름</th>
+                                            <th>나이</th>
+                                            <th>성별</th>
+                                            <th>경력</th>
+                                            <th>국가</th>
+                                            <th>제목</th>
+                                            <th>관리자툴</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="table-content">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <colgroup>
+                                        <col width="44px"/>
+                                        <col width="60px"/>
+                                        <col width="140px"/>
+                                        <col width="140px"/>
+                                        <col width="150px"/>
+                                        <col width="100px"/>
+                                        <col width="58px"/>
+                                        <col width="58px"/>
+                                        <col width="110px"/>
+                                        <col width="110px"/>
+                                        <col width="*"/>
+                                        <col width="250px"/>
+                                    </colgroup>
+                                    <tbody id="resumeTableBody">
+                                        <!-- 데이터가 동적으로 추가됩니다 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <!-- 페이지네이션 영역 -->
+                        <div class="row-selector" style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                            <select id="pageSize" style="padding: 2px 5px;">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="pagination">
+                            <!-- 페이지 버튼이 동적으로 로드됩니다 -->
+                        </div>
+                        <div class="pagination-info">
+                            <!-- 페이지 정보가 표시됩니다 -->
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+    <script src="./env-config.js"></script>
+    <script>
+        // 상태 관리 객체
+        const state = {
+            currentPage: 0,
+            pageSize: 10,
+            totalPages: 0,
+            totalElements: 0,
+            resumeList: [],
+            filters: {
+                state: '',
+                gender: '',
+                startDate: '',
+                endDate: '',
+                keyword: ''
+            }
+        };
+
+        // DOM 요소 참조
+        const elements = {
+            resumeTableBody: document.getElementById('resumeTableBody'),
+            checkAll: document.getElementById('checkAll'),
+            loadingOverlay: document.getElementById('loadingOverlay'),
+            searchBtn: document.getElementById('searchBtn'),
+            deleteSelectedBtn: document.getElementById('deleteSelected'),
+            showSelectedBtn: document.getElementById('showSelected'),
+            hideSelectedBtn: document.getElementById('hideSelected'),
+            statusFilter: document.getElementById('statusFilter'),
+            genderFilter: document.getElementById('genderFilter'),
+            startDateFilter: document.getElementById('startDateFilter'),
+            endDateFilter: document.getElementById('endDateFilter'),
+            keywordFilter: document.getElementById('keywordFilter')
+        };
+
+        //const API_BASE_URL = 'http://localhost:8082/api/v1';
+        //const API_BASE_URL = 'http://13.125.187.22:8082/api/v1';
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+        // 초기화 함수
+        function init() {
+            // 이벤트 리스너 등록
+            elements.searchBtn.addEventListener('click', handleSearch);
+            elements.checkAll.addEventListener('change', handleCheckAll);
+            elements.deleteSelectedBtn.addEventListener('click', handleDeleteSelected);
+            elements.showSelectedBtn.addEventListener('click', () => handleStatusChange('active'));
+            elements.hideSelectedBtn.addEventListener('click', () => handleStatusChange('inactive'));
+            document.getElementById('pageSize').addEventListener('change', handlePageSizeChange);
+
+            // 초기 데이터 로드
+            loadResumeData();
+        }
+
+        // 필터링 옵션들에 change 이벤트 리스너 추가
+        const filterElements = [
+            'statusFilter',
+            'genderFilter',
+            'startDateFilter',
+            'endDateFilter'
+        ];
+
+        // 각 필터링 요소에 change 이벤트 리스너 추가
+        filterElements.forEach(elementId => {
+            document.getElementById(elementId).addEventListener('change', handleFilterChange);
+        });
+
+        // 필터 변경 이벤트 핸들러
+        function handleFilterChange() {
+            loadResumeData();
+        }
+
+        // API 호출 함수
+        async function fetchResumeData() {
+            showLoading();
+
+            try {
+                const params = new URLSearchParams({
+                    page: state.currentPage.toString(),
+                    size: state.pageSize.toString()
+                });
+
+                // 필터 적용
+                if (elements.statusFilter.value) params.append('state', elements.statusFilter.value);
+                if (elements.genderFilter.value) params.append('gender', elements.genderFilter.value);
+                if (elements.startDateFilter.value) params.append('startDate', elements.startDateFilter.value);
+                if (elements.endDateFilter.value) params.append('endDate', elements.endDateFilter.value);
+                if (elements.keywordFilter.value) params.append('keyword', elements.keywordFilter.value);
+
+                const url = `${API_BASE_URL}/mdms/resume-management?${params.toString()}`;
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    throw new Error(`API 응답 오류: ${response.status}`);
+                }
+
+                return await response.json();
+            } catch (error) {
+                console.error('데이터 가져오기 오류:', error);
+                alert('이력서 데이터를 불러오는 중 오류가 발생했습니다.');
+                return null;
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 이력서 데이터 로드 함수
+        async function loadResumeData() {
+            const response = await fetchResumeData();
+
+            if (response) {
+                state.resumeList = response.content;
+                state.totalPages = response.totalPages;
+                state.totalElements = response.totalElements;
+                // API에서 현재 페이지 번호(number)가 전달된다면 상태 업데이트
+                if(response.number !== undefined) {
+                    state.currentPage = response.number;
+                }
+
+                renderResumeTable();
+                renderPagination();
+                updatePaginationInfo();
+            }
+        }
+
+        // 테이블 렌더링 함수
+        function renderResumeTable() {
+            elements.resumeTableBody.innerHTML = '';
+
+            if (state.resumeList.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `
+            <td colspan="13" style="text-align: center; padding: 30px 0;">
+                검색 결과가 없습니다.
+            </td>
+        `;
+                elements.resumeTableBody.appendChild(emptyRow);
+                return;
+            }
+
+            state.resumeList.forEach((resume, index) => {
+                //const displayIndex = state.currentPage * state.pageSize + index + 1;
+                const displayIndex = state.totalElements - (state.currentPage * state.pageSize + index);
+
+                const row = document.createElement('tr');
+                row.dataset.id = resume.resumeId;
+
+                const HREF_BASE_URL = window.__CONFIG__.HREF_BASE_URL;
+                const resumeDetailUrl = `${HREF_BASE_URL}/corpmem/resumedetail/${resume.resumeId}`;
+                const resumeEditUrl = `${HREF_BASE_URL}/mypage/resume/write/${resume.resumeId}`;
+                const applicationsUrl = `Application.html?resumeId=${resume.resumeId}`;
+                const jobOffersUrl = `JobOffers.html?resumeId=${resume.resumeId}`;
+
+                row.innerHTML = `
+            <td>
+                <div class="control">
+                    <input type="checkbox" class="checked--node" data-id="${resume.resumeId}">
+                </div>
+            </td>
+            <td>${displayIndex}</td>
+            <td>${formatDate(resume.createdAt)}</td>
+            <td>
+                <div class="user__thumb">
+                    <img src="${resume.photoUrl || '/assets/images/default-profile.jpg'}" alt="프로필">
+                </div>
+            </td>
+            <td>${resume.accountId}</td>
+            <td>${resume.name}</td>
+            <td>${resume.age}</td>
+            <td>${resume.gender === 'male' ? '남' : resume.gender === 'female' ? '여' : resume.gender}</td>
+            <td>${resume.experience}</td>
+            <td>${resume.country}</td>
+            <td>
+                <a href="${resumeDetailUrl}">
+                    <p class="announcement--title">${resume.title}</p>
+                    <div class="purchase">
+                        ${resume.status === 'enable' ? '<span class="tag">노출</span>' :
+                    resume.status === 'disable' ? '<span class="tag">비노출</span>' :
+                        '<span class="tag">대기</span>'}
+                    </div>
+                </a>
+            </td>
+            <td>
+                <div class="admin--tool">
+                    <a href="${resumeEditUrl}" class="btn btn-primary">수정</a>
+                    <button type="button" class="btn btn-primary" onclick="handleDelete(${resume.resumeId})">삭제</button>
+                    <a href="${applicationsUrl}" class="btn btn-primary">지원내역</a>
+                    <a href="${jobOffersUrl}" class="btn btn-primary">포지션</a>
+                </div>
+            </td>
+        `;
+
+                elements.resumeTableBody.appendChild(row);
+            });
+
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.addEventListener('change', updateCheckAllStatus);
+            });
+        }
+
+        // 페이지네이션 렌더링 함수
+        function renderPagination() {
+            const paginationContainer = document.querySelector('.pagination');
+            paginationContainer.innerHTML = '';
+
+            const currentPage = state.currentPage;
+            const totalPages = state.totalPages;
+            const maxPageButtons = 5;
+            const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+            const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+            // 첫 페이지 버튼
+            const firstPageBtn = document.createElement('button');
+            firstPageBtn.className = 'pagination-btn';
+            firstPageBtn.textContent = '<<';
+            firstPageBtn.disabled = currentPage === 0;
+            firstPageBtn.addEventListener('click', () => goToPage(0));
+            paginationContainer.appendChild(firstPageBtn);
+
+            // 이전 페이지 버튼
+            const prevPageBtn = document.createElement('button');
+            prevPageBtn.className = 'pagination-btn';
+            prevPageBtn.textContent = '<';
+            prevPageBtn.disabled = currentPage === 0;
+            prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            paginationContainer.appendChild(prevPageBtn);
+
+            // 페이지 번호 버튼들
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn';
+                if (i === currentPage) {
+                    pageBtn.classList.add('active');
+                }
+                pageBtn.textContent = i + 1;
+                pageBtn.addEventListener('click', () => goToPage(i));
+                paginationContainer.appendChild(pageBtn);
+            }
+
+            // 다음 페이지 버튼
+            const nextPageBtn = document.createElement('button');
+            nextPageBtn.className = 'pagination-btn';
+            nextPageBtn.textContent = '>';
+            nextPageBtn.disabled = currentPage >= totalPages - 1;
+            nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            paginationContainer.appendChild(nextPageBtn);
+
+            // 마지막 페이지 버튼
+            const lastPageBtn = document.createElement('button');
+            lastPageBtn.className = 'pagination-btn';
+            lastPageBtn.textContent = '>>';
+            lastPageBtn.disabled = currentPage >= totalPages - 1;
+            lastPageBtn.addEventListener('click', () => goToPage(totalPages - 1));
+            paginationContainer.appendChild(lastPageBtn);
+        }
+
+        // 페이지네이션 정보 업데이트 함수
+        function updatePaginationInfo() {
+            const paginationInfo = document.querySelector('.pagination-info');
+            if (state.totalElements === 0) {
+                paginationInfo.textContent = '데이터가 없습니다.';
+            } else {
+                const start = state.currentPage * state.pageSize + 1;
+                const end = Math.min((state.currentPage + 1) * state.pageSize, state.totalElements);
+                paginationInfo.textContent = `전체 ${state.totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+            }
+        }
+
+        // 페이지 이동 함수
+        function goToPage(page) {
+            if (page < 0 || page >= state.totalPages) return;
+            state.currentPage = page;
+            loadResumeData();
+            window.scrollTo(0, 0);
+        }
+
+        // 페이지 사이즈 변경 핸들러
+        function handlePageSizeChange() {
+            state.pageSize = parseInt(document.getElementById('pageSize').value);
+            state.currentPage = 0;
+            loadResumeData();
+        }
+
+        // 검색 처리 함수
+        function handleSearch() {
+            state.currentPage = 0;
+            loadResumeData();
+        }
+
+        // 전체 체크박스 처리 함수
+        function handleCheckAll() {
+            const isChecked = elements.checkAll.checked;
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        }
+
+        // 체크박스 상태 업데이트 함수
+        function updateCheckAllStatus() {
+            const checkboxes = document.querySelectorAll('.checked--node');
+            const checkedCount = document.querySelectorAll('.checked--node:checked').length;
+            elements.checkAll.checked = checkboxes.length > 0 && checkedCount === checkboxes.length;
+        }
+
+        // 선택된 항목의 ID 가져오기
+        function getSelectedIds() {
+            const selectedIds = [];
+            document.querySelectorAll('.checked--node:checked').forEach(checkbox => {
+                selectedIds.push(parseInt(checkbox.dataset.id));
+            });
+            return selectedIds;
+        }
+
+        // 선택 항목 삭제 함수
+        async function handleDeleteSelected() {
+            const selectedIds = getSelectedIds();
+
+            if (selectedIds.length === 0) {
+                alert('삭제할 항목을 선택해주세요.');
+                return;
+            }
+
+            if (confirm(`선택한 ${selectedIds.length}개 항목을 삭제하시겠습니까?`)) {
+                try {
+                    showLoading();
+                    const response = await fetch(`${API_BASE_URL}/resume-management/bulk-delete`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ids: selectedIds })
+                    });
+                    if (!response.ok) {
+                        throw new Error(`API 응답 오류: ${response.status}`);
+                    }
+                    alert('선택한 항목이 삭제되었습니다.');
+                    loadResumeData();
+                } catch (error) {
+                    console.error('삭제 오류:', error);
+                    alert('삭제 처리 중 오류가 발생했습니다.');
+                } finally {
+                    hideLoading();
+                }
+            }
+        }
+
+        // 상태 변경 함수 (노출/비노출)
+        async function handleStatusChange(status) {
+            const selectedIds = getSelectedIds();
+
+            if (selectedIds.length === 0) {
+                alert('상태를 변경할 항목을 선택해주세요.');
+                return;
+            }
+
+            const statusText = status === 'active' ? '노출' : '비노출';
+
+            if (confirm(`선택한 ${selectedIds.length}개 항목을 ${statusText}로 변경하시겠습니까?`)) {
+                try {
+                    showLoading();
+                    const response = await fetch(`${API_BASE_URL}/resume-management/bulk-status`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ 
+                            ids: selectedIds,
+                            status: status
+                        })
+                    });
+                    if (!response.ok) {
+                        throw new Error(`API 응답 오류: ${response.status}`);
+                    }
+                    alert(`선택한 항목이 ${statusText} 상태로 변경되었습니다.`);
+                    loadResumeData();
+                } catch (error) {
+                    console.error('상태 변경 오류:', error);
+                    alert('상태 변경 중 오류가 발생했습니다.');
+                } finally {
+                    hideLoading();
+                }
+            }
+        }
+
+        // 단일 항목 삭제 함수
+        async function handleDelete(id) {
+            if (confirm('이 이력서를 삭제하시겠습니까?')) {
+                try {
+                    showLoading();
+                    const response = await fetch(`${API_BASE_URL}/resume-management/${id}`, {
+                        method: 'DELETE'
+                    });
+                    if (!response.ok) {
+                        throw new Error(`API 응답 오류: ${response.status}`);
+                    }
+                    alert('이력서가 삭제되었습니다.');
+                    loadResumeData();
+                } catch (error) {
+                    console.error('삭제 오류:', error);
+                    alert('삭제 처리 중 오류가 발생했습니다.');
+                } finally {
+                    hideLoading();
+                }
+            }
+        }
+
+        // 유료 옵션 처리 함수
+        function handlePaidOption(id) {
+            alert(`ID ${id}의 유료 옵션 설정 페이지로 이동합니다. (구현 예정)`);
+        }
+
+        // 수정 처리 함수
+        function handleEdit(id) {
+            alert(`ID ${id}의 이력서 수정 페이지로 이동합니다. (구현 예정)`);
+        }
+
+        // 지원 내역 처리 함수
+        function handleApplications(id) {
+            alert(`ID ${id}의 지원 내역 페이지로 이동합니다. (구현 예정)`);
+        }
+
+        // 포지션 처리 함수
+        function handlePositions(id) {
+            alert(`ID ${id}의 포지션 제안 페이지로 이동합니다. (구현 예정)`);
+        }
+
+        // 날짜 포맷팅 함수
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
+        }
+
+        // 로딩 표시 함수
+        function showLoading() {
+            elements.loadingOverlay.style.display = 'flex';
+        }
+
+        // 로딩 숨김 함수
+        function hideLoading() {
+            elements.loadingOverlay.style.display = 'none';
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+
+<!-- 모달창  -->
+<div id="addmodal" class="viewModal">	
+	<div class="modal_title">직무</div>	
+
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+		<ul class="select_nav">
+			<li>기획·전략</li>
+			<li>법무·사무·총무</li>
+			<li>회계·세무</li>
+			<li>마케팅·광고·MD</li>
+		</ul>
+		<ul class="select_box">
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">경영·비즈니스기획</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">웹기획</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">마케팅기획</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">PL·PM·PO</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">컨설턴트</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">CEO·COO·CTO</label></li>
+				</ul>
+			</li>
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">경영지원</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">사무담당자</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">총무</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">사무보조</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">법무담당자</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">비서</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">변호사</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">법무사</label></li>
+				</ul>
+			</li>
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">회계담당자</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">경리</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">세무담당자</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">재무담당자</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">감사</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">IR·공시</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">회계사</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">세무사</label></li>
+				</ul>
+			</li>
+			<li>
+				<!-- li에 링크로 처리한다 -->
+				<ul class="select_box-scroll">
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">AE(광고기획자)</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">브랜드마케터</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">퍼포먼스마케터</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">CRM마케터</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">온라인마케터</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">콘텐츠마케터</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">홍보</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">설문·리서치</label></li>
+					<li><input type="checkbox" id="agree" name="agree" value="1" class="check_box"><label for="agree" class="label">설문·리서치</label></li>
+				</ul>
+			</li>
+		</ul>
+
+		<div class="choice_container">
+			<div class="choice_box">
+				<div class="choice_flex">
+					<div class="choice_txt">법무·사무·총무</div>
+					<button type="button"><i class="fa-solid fa-xmark"><span>삭제</span></i></button>
+				</div>
+				<div class="choice_flex">
+					<div class="choice_txt">인천광역시</div>
+					<button type="button"><i class="fa-solid fa-xmark"><span>삭제</span></i></button>
+				</div>
+				<div class="choice_flex">
+					<div class="choice_txt">계약직</div>
+					<button type="button"><i class="fa-solid fa-xmark"><span>삭제</span></i></button>
+				</div>
+			</div>
+			<div class="choice_reset">
+				<button type="button" class="choice_flex">
+					<div class="choice_txt rotate">초기화</div>
+					<i class="fa-solid fa-rotate rotate"><span>삭제</span></i>
+				</button>
+			</div>
+		</div>
+
+
+		<div class="modal_sbtn">
+			<div class="btnm">
+				<button type="button" id="btn_insert" class="btns btn-submit">확인</button>
+				<a href="#close-modal" rel="modal:close"><button type="button" class="btns btn-cancel">취소</button></a>
+			</div>
+		</div>
+	</form>
+
+</div>
+<script>
+$(document).ready(function() {
+	/*
+	//등록, 수정
+	$("#btn_insert").click(function(){
+		$('#btn_insert').attr('disabled');
+
+		var formData = $("form[name=chkForm]").serialize() ;
+
+		$.ajax({
+			type : 'post',
+			url : 'chkpwd.php',
+			data : formData,
+			dataType : 'json',
+			error: function(xhr, status, error){
+				alert(error);
+			},
+			success : function(result){
+				if (result.msg == "SUCCESS"){
+					$('#btn_insert').removeAttr('disabled');
+					$('#addmodal').modal().hide();
+					$("#chk").val(result.chk);
+					$("#chkForm").attr("action","boardView.php").submit();
+				}else{
+					alert(result.msg);
+					$('#btn_insert').removeAttr('disabled');
+				}
+			}
+		});
+
+	});
+	*/
+});
+</script>

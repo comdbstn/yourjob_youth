@@ -1,0 +1,431 @@
+.mobileNewResumeDetailContainer {
+  background-color: #f2f4f7;
+}
+
+.mobileNewResumeDetailContainer .wrapper {
+  padding: 10px;
+}
+
+.mobileNewResumeDetailContainer .summarySection {
+  background-color: white;
+  border-radius: 4px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .header {
+  border-bottom: #eaeaea 1px solid;
+  font-size: 18px;
+  padding: 20px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant {
+  display: flex;
+  border-bottom: #eaeaea 1px solid;
+  padding-bottom: 20px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant .profileImg {
+  width: 65px;
+  height: 65px;
+  border: #eaeaea 1px solid;
+  border-radius: 100%;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant .profileImg img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant .texts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant .texts p:nth-child(1) {
+  font-size: 15px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant .texts p:nth-child(1) strong {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant .texts p {
+  font-size: 13px;
+  display: flex;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .applicant .texts p span {
+  width: 60px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .list {
+  margin-top: 10px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .list ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+
+.mobileNewResumeDetailContainer .summarySection .content .list ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f2f8;
+  height: 26px;
+  white-space: nowrap;
+  font-size: 13px;
+  padding: 0 8px;
+  color: #222;
+}
+
+.mobileNewResumeDetailContainer .educationSection {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.mobileNewResumeDetailContainer .educationSection .header {
+  border-bottom: #eaeaea 1px solid;
+  font-size: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mobileNewResumeDetailContainer .educationSection .header .blueLabel {
+  font-size: 12px;
+  color: #002aff;
+}
+
+.mobileNewResumeDetailContainer .educationSection .content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobileNewResumeDetailContainer .educationSection .content .row .title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mobileNewResumeDetailContainer .educationSection .content .row ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mobileNewResumeDetailContainer .educationSection .content .row ul li {
+  display: flex;
+}
+
+.mobileNewResumeDetailContainer .educationSection .content .row ul li span {
+  width: 50px;
+  color: #999;
+  font-size: 15px;
+}
+
+.mobileNewResumeDetailContainer .educationSection .content .row ul li p {
+  color: #333;
+  font-size: 14px;
+}
+
+.mobileNewResumeDetailContainer .visaSection {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.mobileNewResumeDetailContainer .visaSection .header {
+  border-bottom: #eaeaea 1px solid;
+  font-size: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mobileNewResumeDetailContainer .visaSection .header .blueLabel {
+  font-size: 12px;
+  color: #002aff;
+}
+
+.mobileNewResumeDetailContainer .visaSection .content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+
+}
+
+.mobileNewResumeDetailContainer .visaSection .content .row .title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mobileNewResumeDetailContainer .visaSection .content .row ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mobileNewResumeDetailContainer .visaSection .content .row ul li {
+  display: flex;
+}
+
+.mobileNewResumeDetailContainer .visaSection .content .row ul li span {
+  width: 50px;
+  color: #999;
+  font-size: 15px;
+}
+
+.mobileNewResumeDetailContainer .visaSection .content .row ul li p {
+  color: #333;
+  font-size: 14px;
+}
+
+.mobileNewResumeDetailContainer .languageSection {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.mobileNewResumeDetailContainer .languageSection .header {
+  border-bottom: #eaeaea 1px solid;
+  font-size: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+.mobileNewResumeDetailContainer .languageSection .header .blueLabel {
+  font-size: 12px;
+  color: #002aff;
+}
+
+.mobileNewResumeDetailContainer .languageSection .content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+
+}
+
+.mobileNewResumeDetailContainer .languageSection .content .row .title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mobileNewResumeDetailContainer .languageSection .content .row ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mobileNewResumeDetailContainer .languageSection .content .row ul li {
+  display: flex;
+}
+
+.mobileNewResumeDetailContainer .languageSection .content .row ul li span {
+  width: 70px;
+  color: #999;
+  font-size: 15px;
+}
+
+.mobileNewResumeDetailContainer .languageSection .content .row ul li p {
+  color: #333;
+  font-size: 14px;
+}
+
+.mobileNewResumeDetailContainer .careerSection {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.mobileNewResumeDetailContainer .careerSection .header {
+  border-bottom: #eaeaea 1px solid;
+  font-size: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+.mobileNewResumeDetailContainer .careerSection .header .blueLabel {
+  font-size: 12px;
+  color: #002aff;
+}
+
+.mobileNewResumeDetailContainer .careerSection .content {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+
+}
+
+.mobileNewResumeDetailContainer .careerSection .content .row .title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mobileNewResumeDetailContainer .careerSection .content .row ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mobileNewResumeDetailContainer .careerSection .content .row ul li {
+  display: flex;
+}
+
+.mobileNewResumeDetailContainer .careerSection .content .row ul li span {
+  min-width: 80px;
+  color: #999;
+  font-size: 15px;
+}
+
+.mobileNewResumeDetailContainer .careerSection .content .row ul li p {
+  color: #333;
+  font-size: 14px;
+}
+
+.mobileNewResumeDetailContainer .gridSection {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.mobileNewResumeDetailContainer .gridSection .gridRow {
+  height: 60px;
+  width: 100%;
+  border: #eaeaea 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobileNewResumeDetailContainer .gridSection .gridRow:nth-child(odd) {
+  border-top: 1px solid var(--line_col_05, #eaeaea);
+  border-right: 1px solid var(--line_col_05, #eaeaea);
+  border-bottom: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.mobileNewResumeDetailContainer .gridSection .gridRow:nth-child(even) {
+  border-top: 1px solid var(--line_col_05, #eaeaea);
+  border-bottom: 1px solid var(--line_col_05, #eaeaea);
+  border-left: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+  border-top: 1px solid var(--line_col_05, #eaeaea);
+  border-bottom: 1px solid var(--line_col_05, #eaeaea);
+  border-left: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+  color: var(--txt_col_02, #8f8f8f);
+  font-family: "Noto Sans CJK KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.mobileNewResumeDetailContainer .introduceSection {
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .header {
+  border-bottom: #eaeaea 1px solid;
+  font-size: 15px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+
+
+}
+
+.mobileNewResumeDetailContainer .introduceSection .header .blueLabel {
+  font-size: 12px;
+  color: #002aff;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content {
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+
+
+
+
+
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content .row .title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content .row ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content .row ul li {
+  display: flex;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content .row ul li span {
+  min-width: 80px;
+  color: #999;
+  font-size: 15px;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content .row ul li p {
+  color: #333;
+  font-size: 14px;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content .introduceTitle {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.mobileNewResumeDetailContainer .introduceSection .content pre {
+  font-size: 14px;
+}

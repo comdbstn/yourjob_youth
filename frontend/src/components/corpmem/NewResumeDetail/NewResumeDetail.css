@@ -1,0 +1,516 @@
+/* body.new-resume-detail {
+  background-color: #f2f4f7;
+} */
+.page-bg {
+  background-color: #f2f4f7;
+  /* 상단 네비/하단 푸터 영역을 제외하고 최소 화면 높이를 채우도록 */
+  min-height: 110vh;
+}
+
+.newResumeDetailContainer {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Noto Sans KR";
+}
+
+.newResumeDetailContainer .header h2 {
+  font-size: 30px;
+}
+
+.newResumeDetailContainer .profileSection {
+  margin-top: 10px;
+  display: flex;
+  background: white;
+  align-items: center;
+}
+
+.newResumeDetailContainer .profileSection .profileImg {
+  width: 140px;
+  height: 180px;
+  border: #eaeaea 1px solid;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newResumeDetailContainer .profileSection .profileImg img {
+  object-fit: cover;
+}
+
+.newResumeDetailContainer .profileSection .content {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  color: #888;
+}
+
+.newResumeDetailContainer .profileSection .content strong {
+  font-size: 20px;
+  color: black;
+}
+
+.newResumeDetailContainer .profileSection .content p {
+  display: flex;
+  align-items: center;
+}
+
+.newResumeDetailContainer .profileSection .content p:nth-child(1) {
+  gap: 10px;
+}
+
+.newResumeDetailContainer .profileSection .content .grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  column-gap: 80px;
+}
+
+.newResumeDetailContainer .profileSection .content .grid .gridRow {
+  display: flex;
+}
+
+.newResumeDetailContainer .profileSection .content .grid .gridRow .title {
+  width: 68px;
+}
+
+.newResumeDetailContainer .profileSection .content .grid .gridRow .desc {
+  margin-left: 20px;
+  color: black;
+}
+
+.newResumeDetailContainer .summarySection {
+  margin-top: 10px;
+  background: white;
+  padding: 25px;
+}
+
+.newResumeDetailContainer .summarySection .info {
+  border-bottom: #eaeaea 1px solid;
+  display: flex;
+  justify-content: center;
+}
+
+.newResumeDetailContainer .summarySection .info .item {
+  width: 23%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.newResumeDetailContainer .summarySection .info .item p:nth-child(1) {
+  color: #888;
+}
+
+.newResumeDetailContainer .summarySection .info .item p:nth-child(3) {
+  color: #39f;
+}
+
+.newResumeDetailContainer .summarySection .info .item p:nth-child(4) {
+  color: #39f;
+}
+
+.newResumeDetailContainer .summarySection .info .black {
+  color: black;
+}
+
+.newResumeDetailContainer .summarySection .info .divider {
+  width: 1px;
+  height: 100px;
+  border: #eaeaea 0.25px solid;
+}
+
+.newResumeDetailContainer .sectionTitle {
+  font-size: 22px;
+  margin-top: 33px;
+}
+
+.newResumeDetailContainer .educationSection {
+  border-top: black 1px solid;
+  margin-top: 13px;
+  background-color: white;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newResumeDetailContainer .educationSection .row {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 0;
+}
+
+.newResumeDetailContainer .educationSection .row .rowTitle {
+  font-size: 14px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.newResumeDetailContainer .educationSection .row .rowTitle .graduate {
+  color: #39f;
+}
+
+.newResumeDetailContainer .educationSection .row .rowDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newResumeDetailContainer .educationSection .row .rowDesc .name {
+  font-size: 14px;
+  color: #666;
+}
+
+.newResumeDetailContainer .educationSection .row .rowDesc .name strong {
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+}
+
+.newResumeDetailContainer .educationSection .row .rowDesc .descRow {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+}
+
+.newResumeDetailContainer .educationSection .row .rowDesc .descRow .title {
+  width: 68px;
+}
+
+.newResumeDetailContainer .educationSection .row .rowDesc .descRow .desc {
+  margin-left: 20px;
+}
+
+.newResumeDetailContainer .visaSection {
+  border-top: black 1px solid;
+  margin-top: 13px;
+  background-color: white;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newResumeDetailContainer .visaSection .row {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 0;
+}
+
+.newResumeDetailContainer .visaSection .row .rowTitle {
+  font-size: 14px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+}
+
+.newResumeDetailContainer .visaSection .row .rowTitle .graduate {
+  color: #39f;
+}
+
+.newResumeDetailContainer .visaSection .row .rowDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newResumeDetailContainer .visaSection .row .rowDesc .name {
+  font-size: 14px;
+  color: #666;
+
+}
+
+.newResumeDetailContainer .visaSection .row .rowDesc .name strong {
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+}
+
+.newResumeDetailContainer .visaSection .row .rowDesc .descRow {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+
+
+}
+
+.newResumeDetailContainer .visaSection .row .rowDesc .descRow .title {
+  width: 68px;
+}
+
+.newResumeDetailContainer .visaSection .row .rowDesc .descRow .desc {
+  margin-left: 20px;
+}
+
+.newResumeDetailContainer .languageSection {
+  border-top: black 1px solid;
+  margin-top: 13px;
+  background-color: white;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newResumeDetailContainer .languageSection .row {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 0;
+}
+
+.newResumeDetailContainer .languageSection .row .rowTitle {
+  font-size: 14px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+}
+
+.newResumeDetailContainer .languageSection .row .rowTitle .graduate {
+  color: #39f;
+}
+
+.newResumeDetailContainer .languageSection .row .rowDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newResumeDetailContainer .languageSection .row .rowDesc .name {
+  font-size: 14px;
+  color: #666;
+
+}
+
+.newResumeDetailContainer .languageSection .row .rowDesc .name strong {
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+}
+
+.newResumeDetailContainer .languageSection .row .rowDesc .descRow {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+
+
+}
+
+.newResumeDetailContainer .languageSection .row .rowDesc .descRow .title {
+  width: 68px;
+}
+
+.newResumeDetailContainer .languageSection .row .rowDesc .descRow .desc {
+  margin-left: 20px;
+}
+
+.newResumeDetailContainer .careerSection {
+  border-top: black 1px solid;
+  margin-top: 13px;
+  background-color: white;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newResumeDetailContainer .careerSection .row {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 0;
+}
+
+.newResumeDetailContainer .careerSection .row .rowTitle {
+  font-size: 14px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+
+}
+
+.newResumeDetailContainer .careerSection .row .rowTitle .graduate {
+  color: #39f;
+}
+
+.newResumeDetailContainer .careerSection .row .rowDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newResumeDetailContainer .careerSection .row .rowDesc .name {
+  font-size: 14px;
+  color: #666;
+}
+
+.newResumeDetailContainer .careerSection .row .rowDesc .name strong {
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+}
+
+.newResumeDetailContainer .careerSection .row .rowDesc .descRow {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+}
+
+.newResumeDetailContainer .careerSection .row .rowDesc .descRow .title {
+  width: 68px;
+}
+
+.newResumeDetailContainer .careerSection .row .rowDesc .descRow .desc {}
+
+
+.newResumeDetailContainer .experienceSection {
+  border-top: black 1px solid;
+  margin-top: 13px;
+  background-color: white;
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newResumeDetailContainer .experienceSection .row {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 0;
+}
+
+.newResumeDetailContainer .experienceSection .row .rowTitle {
+  font-size: 14px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.newResumeDetailContainer .experienceSection .row .rowTitle .graduate {
+  color: #39f;
+}
+
+.newResumeDetailContainer .experienceSection .row .rowDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.newResumeDetailContainer .experienceSection .row .rowDesc .name {
+  font-size: 14px;
+  color: #666;
+
+
+}
+
+.newResumeDetailContainer .experienceSection .row .rowDesc .name strong {
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+}
+
+
+.newResumeDetailContainer .experienceSection .row .rowDesc .descRow {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+}
+
+.newResumeDetailContainer .experienceSection .row .rowDesc .descRow .title {
+  width: 68px;
+}
+
+.newResumeDetailContainer .experienceSection .row .rowDesc .descRow .desc {
+  margin-left: 0px;
+}
+
+.newResumeDetailContainer .military {
+  display: flex;
+  width: 100%;
+  background: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.newResumeDetailContainer .military table {
+  border: none;
+  border-top: 1px solid var(--linecol05);
+  width: 100%;
+}
+
+.newResumeDetailContainer .military table tr {
+  border-bottom: 1px solid var(--linecol05);
+}
+
+.newResumeDetailContainer .military table th {
+  width: 213.33px;
+  background: var(--bgcol01);
+  border-right: 1px solid var(--linecol05);
+  padding: 17.5px 0;
+  text-align: center;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+
+.newResumeDetailContainer .military table td {
+  width: 213.33px;
+  border-right: 1px solid var(--linecol05);
+  padding: 17.5px 20px;
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+}
+
+.newResumeDetailContainer .military table td:last-child {
+  border-right: none;
+}
+
+.newResumeDetailContainer .selfIntroduceSection {
+  border-top: black 1px solid;
+  width: 100%;
+  margin-top: 20px;
+  background-color: white;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.newResumeDetailContainer .selfIntroduceSection .selfTitle {
+  font-size: 18px;
+  margin-bottom: 9px;
+  font-weight: bold;
+}
+
+.newResumeDetailContainer .selfIntroduceSection .selfDesc {
+  font-size: 14px;
+  white-space: break-spaces;
+  line-height: 1.8;
+}
+
+.newResumeDetailContainer .sign {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.newResumeDetailContainer .sign p:nth-child(1) {
+  font-size: 22px;
+  margin-bottom: 13px;
+}
+
+.newResumeDetailContainer .sign p:nth-child(2) {
+  font-size: 14px;
+  margin-bottom: 13px;
+}

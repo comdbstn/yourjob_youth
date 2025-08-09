@@ -1,0 +1,500 @@
+/* screen - crop-wrap */
+.crop-wrap {display: flex; align-items: center; width: 100%; font-style: normal; line-height: normal;}
+ 
+.flex-con {align-items: flex-start; display: flex; gap:28px; width:100%;}
+.headTitle {color: var(--txtcol05); font-size: var(--font-size-24); font-weight: 700;}
+
+.gap28{ gap:28px !important;}
+.border-none{border:none !important;}
+
+.container-row {display: flex; width: 100%;}
+.container-row h2{color: var(--txtcol05); font-size: var(--font-size-xxl);; font-weight: 700; }
+.column_center{position: relative; display:flex; flex-direction: column; align-items: center; width: 100%;}
+.column_start{position: relative; display:flex; flex-direction: column; width: 100%;}
+
+
+/* 홈 */
+	.home-flex1{display:flex; width:817px; border: 1px solid var(--linecol05); background: var(--bgcol01); border-radius: 20px; padding:20px 30px;}
+		.hcurrent .center_flex{display:flex; align-items: center; gap:28px;}
+		.hcurrent .cycle_flex{display:flex; flex-direction: column; align-items: center; justify-content: center; border-radius:50%; height:157px; width:157px; background:var(--white); border: 1px solid var(--linecol05); }
+			.hcurrent .cycle_flex h3{color: var(--primary); font-size: var(--font-size-sx); font-weight: 700; }
+			.hcurrent .cycle_flex p{color:var(--txtcol11); font-size: var(--font-size-m); font-weight: 500;}
+			.hcurrent:first-of-type::after {content: ""; position: absolute; top: 0; right: -20px; width: 1px; height: 100%; background: repeating-linear-gradient(to bottom, #D2D2D2 0%, #D2D2D2 5px, transparent 5px, transparent 10px); }
+
+
+	.home-flex2{display:flex; width:434px; border: 1px solid var(--linecol05); background: var(--bgcol01); border-radius: 20px; padding:20px 30px;}
+		.home-flex2 h2{color: var(--txtcol12); font-size: var(--font-size-xl); font-weight: 500; }
+		.home-flex2 .row {align-items: center; display: flex; gap: 15px; margin-top: 14px;}
+			.home-flex2 .row .overlap-group {align-items: flex-start; display: flex; background-color: var(--white); border: 1px solid; border-color: var(--linecol05); min-width: 180px; padding: 28px 37px;}
+			.home-flex2 .row .overlap-group .title {color: var(--primary); font-size: var(--font-size-xxxxl); font-weight: 900; letter-spacing: -0.60px; line-height: Truepx;}
+		.home-flex2 .detail {display: flex; flex-direction: column; align-items: flex-start; gap: 7px;}
+			.home-flex2 .detail .text-container {align-items: flex-start; display: flex; gap:10px; }
+			.home-flex2 .detail .text-container .title {min-width:45px; color: var(--txtcol02); font-size: var(--font-size-ls); font-weight: 500; }
+			.home-flex2 .detail .text-container .text {color: var(--txtcol05); font-size: var(--font-size-ls); font-weight: 400;}
+			.home-flex2 .hcropMod{border-radius: 10px; border: 1px solid var(--primary); background: var(--white); color: var(--primary); font-size: var(--font-size-xl); font-weight: 400; padding:8px 0; margin-top:22px}
+
+	
+	.home-flex3 {display: flex; flex-direction: column; width: 817px;}
+		.home-flex3 .header{display:flex; justify-content: space-between; align-items: center; width:100%; background-color: var(--bgcol03); padding:25px 30px; border-radius: 20px 20px 0px 0px; border: 1px solid var(--linecol05);}
+			.home-flex3 .header h2{color: var(--txtcol05); font-size: var(--font-size-xxl); font-weight: 700;}
+			.home-flex3 .header .postWrite {align-items: center; background-color: var(--primary); border-radius: 20px; display: flex; gap: 10px; justify-content: center; padding:12px 45px; position: relative; color: var(--white); font-size: var(--font-size-xl); font-weight: 500;}
+		.home-flex3 .contents {display: flex; flex-direction: column; align-items: flex-end; padding:0 30px; border-radius: 0px 0px 20px 20px; border-right: 1px solid var(--linecol05); border-bottom: 1px solid var(--linecol05); border-left: 1px solid var(--linecol05); }
+			.home-flex3 .contents li {align-items: center; display: flex; width:100%; padding:30px 0; border-bottom: 1px solid var(--linecol05); }
+			.home-flex3 .contents li:last-of-type{border-bottom:none}
+				.home-flex3 .contents li .recruit_state {align-items: center; background-color: var(--white); border: 1px solid  var(--red); border-radius: 15px; display: flex; gap: 10px; justify-content: center; padding:8px 16px; position: relative; width:85px; color: var(--red); font-size: var(--font-size-xl); font-weight: 400;}
+				.home-flex3 .contents li .subject {display:block; color: var(--txtcol04); font-size: var(--font-size-xxl); font-weight: 500; margin-left: 15px; width: 520px; overflow: hidden;}
+				.home-flex3 .contents li .text-container {align-items: flex-end; display: flex; flex-direction: column; gap: 5px; margin-left: 26px; width: 110px; font-size: var(--font-size-m); font-weight: 500; }
+					.home-flex3 .contents li .text-container p{display:block; color: var(--txtcol01);}
+					.home-flex3 .contents li .text-container span{color: var(--primary);}
+					.home-flex3 .bannerBox{border-radius: 20px; width:100%; overflow: hidden;}
+
+	.home-flex4 {display:flex; flex-direction: column; width:434px;}
+		.home-flex4 .header{display:flex; justify-content: center; align-items: center; width:100%; background-color: var(--bgcol03); padding:37px 30px; border-radius: 20px 20px 0px 0px; border: 1px solid var(--linecol05);}
+			.home-flex4 .header h2{color: var(--txtcol05); font-size: var(--font-size-xl); font-weight: 500;}
+		.home-flex4 .contents {display: flex; flex-direction: column; align-items: flex-end; padding:0 20px; border-radius: 0px 0px 20px 20px; border-right: 1px solid var(--linecol05); border-bottom: 1px solid var(--linecol05); border-left: 1px solid var(--linecol05); }
+			.home-flex4 .contents li {align-items: center; display: flex; width:100%; padding:19px 0; border-bottom: 1px solid var(--linecol05); }
+				.home-flex4 .contents li .recruit_state {align-items: center; display: flex; gap: 10px; justify-content: center; position: relative; width:59px;}
+				.home-flex4 .contents li .profile_txt { align-items: flex-start; display: flex; flex-direction: column; margin-left: 20px; width: 263px;}
+					.home-flex4 .contents li .flex-row {align-items: center; display: flex; gap: 20px; width: 100%; align-items: flex-end;}
+						.home-flex4 .contents li .flex-row p{position: relative; display:flex; font-size: var(--font-size-xl); font-weight: 700; gap:5px; align-items: flex-end;}
+						.home-flex4 .contents li .flex-row p:first-of-type::after {content: ""; position: absolute; top: 10px; right: -11px; width: 1px; height: 10px; background-color: #8F8F8F;}
+						.home-flex4 .contents li .flex-row span{color: var(--txtcol02); font-size: var(--font-size-m); font-weight: 500;}		
+						.home-flex4 .contents li .subject {display:block; color: var(--txtcol06); font-size: var(--font-size-m); font-weight: 400; overflow: hidden;}
+						.home-flex4 .propBtn{width:40px; color: var(--primary); font-size: var(--font-size-m); font-weight: 500; margin-left:20px}
+				.home-flex4 .contents .moreBtn{color: var(--txtcol06); font-size: var(--font-size-xl); font-weight: 400; width:100%; padding:15px 0;}
+
+/* 저장,취소 버튼 */
+	.btnBox{display:flex; gap: 20px;}
+	.btnBox button{align-items: center; border-radius: 20px; justify-content: center; padding: 16px 50px; position: relative; width:165px;}
+	.btnBox .form_btn {background-color: var(--primary);  color:var(--white);  }
+	.btnBox .home_btn {background-color: var(--white); border:1px solid var(--text-silver); color:var(--text-silver);}
+	.btnBox .apply_btn {background-color: var(--primary);  color:var(--white);  width:250px !important;}
+
+/* 회원정보 수정 */
+	.corpmodify{display: flex; flex-direction: column; align-items: center; gap:45px; width:1190px; margin:0 auto;}
+	.corpmodify .join_box {display: flex; align-items: flex-end; background-color: var(--bgcol01); border:1px solid var(--linecol03); border-radius:20px; flex-direction: column; padding: 50px 100px; width: 100%; }
+	.corpmodify .box_title {line-height: normal; width:100%; color: var(--txtcol05); font-size: var(--font-size-xxxl); font-style: normal; font-weight: 600; text-align: center; margin-bottom:25px;}
+	.corpmodify .input_field {align-items: center; display: flex; gap:12px; margin-top:25px; width:100%; }
+	.corpmodify .span {width:295px; line-height: normal; color: var(--txtcol06); font-size: var(--font-size-xl); font-style: normal; font-weight: 500;}
+	.corpmodify span{color: var(--red);}
+	
+	.corpmodify .formfild {align-items: flex-start; background-color: var(--white) !important; border: 1px solid var(--linecol02); border-radius:20px; display: flex; padding: 17px 15px; }
+
+	.corpmodify p {display: flex; line-height: normal; margin-top: 13px; width:76%; color: var(--txtcol01); font-size: var(--font-size-l); font-style: normal; font-weight: 400;}
+	.corpmodify p.txt{width:100%; margin-top:45px;}
+
+	.corpmodify .chk_box {align-items: flex-start; display: flex; flex-direction: column; gap:15px; width: 100%;}
+
+	.corpmodify .label{color: var(--txtcol06); font-size: var(--font-size-xl); font-style: normal; font-weight: 500; line-height: normal; }
+	.corpmodify .choice{color: var(--text-silver) !important;}
+	
+	.corpmodify .complete-container {align-items: center; display: flex; gap: 10px; margin-top: 60px; width: 100%; justify-content: center;}
+	.corpmodify .complete_title {color: #484848; font-size: var(--font-size-sxx); font-weight: 400; margin-top: 40px; line-height: normal; }
+	.corpmodify .find_complete_title {color: #484848; font-size: var(--font-size-xxxl); font-weight: 400; margin-top:40px; width:100%; text-align:center; line-height: normal; }
+
+
+/* 공고등록 */
+	.jobpost-reg{display: flex; flex-direction: column; align-items: center; width:1015px; margin:0 auto;}
+		.jobpost-reg .bring_btn {width:100%; align-items: center; background-color: var(--bgcol09); border-radius: 20px; display: flex; flex-direction: column; gap: 10px; justify-content: center; padding:13px 0; color: var(--primary); font-size: var(--font-size-l); font-weight: 500;}
+		.jobpost-reg h2{color: var(--txtcol05); font-size: var(--font-size-36); font-weight: 400; margin-top:60px; margin-bottom:35px;}
+	
+
+	.inputfield {display:flex; align-items: center; justify-content: space-between; width:100%; position: relative;}
+	.inputfield_none{display:none; width:100%}
+		/* 라디오를 체크박스처럼 커스텀 */
+		.inputfield input[type="radio"]{display: none;}
+		.inputfield input[type="radio"] + label{padding-left:28px;position: relative;}
+		.inputfield input[type="radio"] + label:before {display:flex !important; justify-content: center; content: ''; display: block; width:18px; height: 18px; border-radius: 2px;position: absolute;top: 50%;margin-top: -9px;left: 0; border:1px solid var(--linecol04); background-color: var(--white);}
+		.inputfield input[type="radio"]:checked + label:before {content: '\f00c'; font-family: 'Font Awesome 6 Free';  font-weight: 900;  background-color: var(--primary); border:1px solid var(--white); color: var(--white); line-height:18px;}
+
+		.inputfield input[type="number"]{border: 1px solid var(--linecol04); color: var(--txtcol06); font-size: var(--font-size-m); font-weight: 500; padding:19px 15px; width:80px; }
+		.inputfield input[type="number"]::placeholder {color:var(--txtcol01); font-size: var(--font-size-m); font-weight: 500}
+
+		.inputfield .label{min-width: 115px; font-weight: 700; color: var(--txtcol05); font-size: var(--font-size-xxl);}
+		.inputfield .label span{color: var(--red);}
+		.inputfield .label .slabel{display: block; color: var(--text-silver); font-size: var(--font-size-m); font-weight: 400;}
+
+		.inputfield .addlabel{color: var(--text-silver); font-size: var(--font-size-xl); font-weight: 500;}
+
+		.inputfield input[type=text] {border: 1px solid; border-color: var(--linecol04); border-radius: 20px; padding:19px 15px; color: var(--txtcol05); }
+		.inputfield input[type=text]::placeholder {color:var(--txtcol01); font-size: var(--font-size-m); font-weight: 500}
+		.inputfield .subject{padding:29px 15px !important;}
+		.inputfield textarea {border: 1px solid; border-color: var(--linecol04); border-radius: 20px; padding:19px 15px; color: var(--txtcol05); height:360px}
+
+		.inputfield .fieldBox {width:100%; display:flex; align-items: center; border: 1px solid; border-color: var(--linecol04); border-radius: 20px; padding:19px 15px; position: relative;}
+		.inputfield .fieldBox .viewItem {display: flex; align-items: center; flex-wrap: wrap; gap: 20px;}
+		.inputfield .fieldBox .viewItem .items{display: flex; align-items: center; gap: 5px; justify-content: center; color: var(--txtcol05); font-weight: 500; font-size: var(--font-size-m);}
+		.inputfield .fieldBox .viewItem .items i{color: var(--txtcol05); font-size: var(--font-size-m); cursor: pointer;}
+		.inputfield .fieldBox .viewItem .items .label{color: var(--txtcol06) !important; font-size: var(--font-size-m) !important; font-weight: 500; letter-spacing: -0.32px; font-weight: 500; min-width: 150px;}
+		.inputfield .fieldBox .viewItem .noitem{color:var(--txtcol01) !important;}
+		
+		.inputfield .fileBox {width:100%; display:flex; align-items: center; flex-direction: column; gap:10px;}
+		.inputfield .fileBox .fileItem {display: flex; align-items: center; gap: 10px; width:100%}
+		.inputfield .fileBox .fileItem .items{display: flex; align-items: center; gap: 5px; justify-content: center; color: var(--text-silver); font-weight: 500; font-size: var(--font-size-m);}
+		.inputfield .fileBox .fileItem .items:first-child{width:calc(100% - 60px); border: 1px solid; border-color: var(--linecol04); border-radius: 20px; padding:19px 15px; position: relative;}
+		.inputfield .fileBox .fileItem .items .fileicon{}
+		.inputfield .fileBox .fileOpenBtn{width:100%; padding:16px 0; border-radius: 20px; background: var(--bgcol09); color: var(--primary); font-size: var(--font-size-l); font-weight: 500;}
+		
+
+		.inputfield .recruitNum {width:100%; display:flex; align-items: center; gap: 30px; position: relative;}
+		.inputfield .recruitNum .direct {display:flex; align-items: center;}
+		.inputfield .recruitNum .direct .label{color: var(--text-silver) !important; font-size: var(--font-size-m) !important; font-weight: 500; letter-spacing: -0.32px; font-weight: 500; min-width: 90px;}
+		.inputfield .recruitNum .direct span{color: var(--text-silver); margin-left: 10px;}
+		.inputfield .recruitNum .direct:first-of-type {margin-right:60px;}
+
+		.inputfield .field_row {width:100%; display:flex; align-items: center; position: relative;}
+			.field_row .nice-select{display: flex; border-radius: 20px; border: 1px solid var(--linecol04); color: var(--text-silver) !important; font-size: var(--font-size-m); font-weight: 500; padding: 19px 15px; height: 60px; align-items: center;}
+			.field_row .nice-select .current{margin-left:0;}
+			.field_row .label{color: var(--text-silver) !important; font-size: var(--font-size-m) !important; font-weight: 500; letter-spacing: -0.32px; font-weight: 500;}
+			.field_row .SelectBox {position: relative; display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; width: 264px; height: 60px; padding: 20px 15px; border-radius: 20px; border: 1px solid var(--linecol04); background-color: var(--white); font-weight: 500; line-height: normal; }
+			.field_row .w04 {width: 155px; letter-spacing: -0.28px; }
+			.field_row .military {align-items: center; display: inline-flex; gap: 5px; position: relative;}
+			.field_row .military label {width: 120px;}
+			.field_row [class*=scheck-]>label{font-weight:500 !important;}
+			.field_row .military input[type="checkbox"]:checked + label {color:var(--primary) !important;}
+
+			.Salary input[type="checkbox"] + label:before{margin-top: -15px !important;}
+			.Salary input[type="checkbox"]:checked + label{color: var(--text-silver) !important;}
+
+
+		.inputfield .workAdd {width:100%; display:flex; align-items: center; gap: 30px; position: relative;}
+		.inputfield .workAdd .direct {display:flex; align-items: center;}
+		.inputfield .workAdd .direct .label{color: var(--text-silver) !important; font-size: var(--font-size-m) !important; font-weight: 500; letter-spacing: -0.32px; font-weight: 500; min-width: 90px;}
+		.inputfield .workAdd .direct span{color: var(--text-silver); margin-left: 10px;}
+
+		.inputfield .worktimes .nice-select .list{width: 100%; height:222px; overflow:auto;}
+		.inputfield .worktimes .nice-select .option{line-height: 37px; min-height: 37px;}
+		.inputfield .worktimes .nice-select .list::-webkit-scrollbar {width:5px; height:95px;}
+		/* 스크롤바 배경 */
+		.inputfield .worktimes .nice-select .list::-webkit-scrollbar-track {background-color:transparent;}
+		/* 스크롤바의 손잡이 (슬라이더) */
+		.inputfield .worktimes .nice-select .list::-webkit-scrollbar-thumb {background-color:var(--primary); border-radius: 10px;;}
+		/* 마우스를 올렸을 때 스크롤바의 색상 */
+		.inputfield .worktimes .nice-select .list::-webkit-scrollbar-thumb:hover {background-color: var(--primary);}
+
+		.inputfield .minus,
+		.inputfield .plusBtn{display: flex; width: 60px; height: 60px;}
+
+		.inputfield .dateBox {width:100%; display:flex; gap:10px; align-items: center; position: relative;}
+		.inputfield .dateBox i{position: absolute; left: 15px;   top: 50%; transform: translateY(-50%); cursor: pointer; color:var(--text-silver)}
+		.inputfield .dateBox input[type="text"]{padding-left:55px;}
+		
+		.inputfield .fileOpen {width: 100%; display: flex; align-items: center; justify-content: center; border: 1px solid; color:var(--text-silver); font-size:var(--font-size-m); border-color: var(--linecol04); border-radius: 20px; padding: 19px 15px; position: relative;  cursor: pointer;}
+
+
+		/* 라디오를 체크박스처럼 커스텀 */
+		.direct input[type="radio"]{display: none;}
+		.direct input[type="radio"] + label{padding-left:28px;position: relative;}
+		.direct input[type="radio"] + label:before {display:flex !important; justify-content: center; content: ''; display: block; width:18px; height: 18px; border-radius: 20px;position: absolute;top: 50%;margin-top: -9px;left: 0; border:1px solid var(--linecol04); background-color: var(--white);}
+		.direct input[type="radio"]:checked + label:before {content: '\f00c'; font-family: 'Font Awesome 6 Free';  font-weight: 900;  background-color: var(--primary); border:1px solid var(--white); color: var(--white); line-height:18px;}
+
+		.inputfield .fieldBox .viewAll{position: absolute; top:50%; transform: translateY(-50%); right:15px; color:var(--text-silver); font-size: var(--font-size-m); font-weight: 500;}
+	
+		/* 이용약관 */
+		.inputfield .termsBox{width:100%; border-radius: 20px; border: 1px solid var(--linecol05); background-color:var(--bgcol01); padding:32px 30px;}
+		.inputfield .termsBox .field_row {width: 100%; display: flex; align-items: center; position: relative;}
+		.inputfield .termsBox .field_row .label {color: var(--txtcol05) !important; font-size: var(--font-size-xl) !important; letter-spacing: -0.32px; font-weight: 500;}
+		.inputfield .termsBox .field_row .termlabel {color: var(--txtcol06) !important; font-size: var(--font-size-xl) !important; letter-spacing: -0.32px; font-weight: 500; cursor: pointer;}
+		.inputfield .termsBox .field_row .termlabel i{color: var(--txtcol06); transform: rotate(0deg);}
+		.inputfield .termsBox .field_row .termlabel i.Mui-expanded {transform: rotate(180deg);}
+		.inputfield .termsBox .field_row .termlabel span{color: var(--red) !important;}
+
+		.inputfield .termsBox .term_info{display:none; width:calc(100% - 30px); margin-left:30px; margin-bottom:13px; border-radius: 20px; border: 1px solid var(--linecol04); background-color:var(--bgcol10); padding:20px 15px;}
+		.inputfield .termsBox .term_info p{color: var(--txtcol13); font-size:var(--font-size-s); font-weight: 400;}
+		
+		/* 이전공고 불러오기 레이어 */
+		.prev_Layer{display:none; position: absolute; width:100%; top:55px; left:0; z-index:10; border-radius: 20px; border: 1px solid var(--linecol04); background: var(--white); overflow: hidden;}
+		.prev_Layer li{width:100%; color:var(--txtcol05); font-size:var(--font-size-l);  cursor: pointer; padding:8.5px 30px}
+		.prev_Layer .active{background: var(--bgcol07);}
+
+		/* 경력 레이어 */
+		.career_Layer{display:none; position: absolute; top:70px; left:96px; z-index: 10; width: calc(100% - 96px);}
+
+		/* 고용형태 레이어 */
+		.permanent_Layer,
+		.temporary_Layer,
+		.contractual_Layer{display:none; position: absolute; top:109px; z-index: 10; left:96px; width: calc(100% - 96px);}
+
+		.Layer-container{display:flex; border-radius: 20px; border: 1px solid var(--linecol05); background: var(--bgcol01); padding:10px 60px; }
+			.Layer-container .box{display:flex; align-items: center;}
+				.Layer-container .box .txt{color: var(--txtcol06); font-size: var(--font-size-m); font-weight: 500; margin-right:20px}
+				.Layer-container span{margin-left:10px;}
+			.Layer-container .nice-select{display: flex; border-radius: 20px; border: 1px solid var(--linecol04); color: var(--text-silver) !important; font-size: var(--font-size-m); font-weight: 500; padding: 19px 15px; width: 95px; height: 60px; align-items: center;}
+			.Layer-container .nice-select .current{margin-left:0;}
+
+
+	/* 모달창 */
+		.viewModal .modal_title{display:flex; align-items: center; line-height: normal; margin-bottom:20px; color:var(--txtcol05); font-size:var(--font-size-xxxl); font-weight: 700;}
+			.viewModal .select_nav {display: flex; width: 100%; background-color: var(--bgcol03); border: 1px solid var(--linecol05); } 
+			.viewModal .select_nav li { width: 25%; color: var(--txtcol05); font-size: var(--font-size-m); padding: 12px 0; border-right: 1px solid var(--linecol05); font-weight: 500; text-align:center;}
+			.viewModal .select_nav li:last-child {border-right: none;}
+
+			.viewModal .select_box {display: flex; width: 100%; border: 1px solid var(--linecol05); border-top: none;}
+			.viewModal .select_box li {width: 25%; padding:15px; border-right: 1px solid var(--linecol05);}
+			.viewModal  .select_box li:last-child{border-right:none}
+
+			/* 스크롤바의 전체 영역 */
+			.viewModal .select_box .select_box-scroll{width:100%; height: 230px; overflow: auto;}
+			.viewModal .select_box .select_box-scroll li{display: flex; align-items: center; width:100%; padding:4.5px 0px;  border:none; cursor: pointer; color:var(--txtcol02); font-size:var(--font-size-m); font-weight: 400;}
+			.viewModal .select_box .select_box-scroll .label{color: var(--txtcol06); font-size: var(--font-size-m); font-weight: 500; letter-spacing: -0.32px;}
+
+			.viewModal .select_box .select_box-scroll::-webkit-scrollbar {width: 5px; height: 95px; }
+			/* 스크롤바 배경 */
+			.viewModal .select_box .select_box-scroll::-webkit-scrollbar-track {background-color:var(--white);}
+			/* 스크롤바의 손잡이 (슬라이더) */
+			.viewModal .select_box .select_box-scroll::-webkit-scrollbar-thumb {background-color:var(--bgcol06); border-radius: 10px; width: 5px;}
+			/* 마우스를 올렸을 때 스크롤바의 색상 */
+			.viewModal .select_box .select_box-scroll::-webkit-scrollbar-thumb:hover {background-color: var(--bgcol02);	}
+
+
+			/* 선택된 값 박스*/
+			.choice_container {width: 100%; background-color: var(--white); display: flex; align-items: flex-start; justify-content: space-between; padding: 15px 0px;}
+			.choice_box{display:flex; gap:20px; flex-wrap: wrap; width:90%}
+				.choice_flex {align-items: center; display: flex; gap:10px; color:var(--primary) !important; font-size:var(--font-size-m) !important;}	
+				.choice_txt {white-space: nowrap; margin-right:4px; }
+				.rotate{color:var(--txtcol02) !important; }
+				.choice_flex span{visibility: hidden; display:none;}
+
+			.viewModal .choice_reset{display:flex; justify-content: space-between;}
+			
+			.viewModal .btnm button{display: flex; padding: 16px 67px; border-radius: 20px; justify-content: center; align-items: center;}
+			.viewModal .btnm .btn-submit {width:unset; background-color: var(--bgcol04) !important; border-color: var(--bgcol04) !important; color: var(--white);}
+			.viewModal .btnm .btn-cancel {width:unset; background-color: var(--white) !important; border-color: var(--text-silver) !important; color: var(--text-silver); }
+
+
+
+.head_txt {color: var(--txtcol05); font-size: var(--font-size-24); font-weight: 700; letter-spacing: -0.48px; margin-bottom:24px;}
+.sub_txt {color: var(--txtcol05); font-size: var(--font-size-xxxl); font-weight: 700; letter-spacing: -0.48px; padding-left:15px; margin-bottom:10px; margin-top:40px}
+
+/* 공고 지원자관리 */
+	.employ{display: flex; flex-direction: column; align-items: center; width:100%;}
+	
+	.tabBox{display:flex; justify-content: space-between; align-items: center; width:100%; padding:13px 30px; border-top: 1px solid var(--linecol05); border-bottom: 1px solid var(--linecol05); background: var(--bgcol01); }
+		.tabBox .tabMenu{display:flex; align-items: center; gap:35px;}
+			.tabBox .tabMenu a{display: block; color: var(--txtcol05); font-size: var(--font-size-xl); font-weight: 400; letter-spacing: -0.32px;}
+			.tabBox .tabMenu .active{color: var(--primary); font-weight:700}
+		.tabBox .search_box {align-items: center; background-color: var(--white); border: 1px solid; border-color: var(--linecol02); border-radius: 20px; display: flex; justify-content: space-between; padding: 10px 15px; position: relative; width: 262px;}
+			.tabBox .search_box .searchbtn {align-items: flex-start; color: var(--linecol02); display: flex; justify-content: flex-end; width: 20px; }
+
+	/* item_list */
+	.item_list{display:flex; justify-content: space-between; align-items: center; width:100%; padding:35px 0; border-bottom: 1px solid var(--linecol05);}
+		.list_info{display:flex; flex-direction: column; gap:5px;}
+			.list_info p{color: var(--text-silver); font-size: var(--font-size-m); font-weight: 400;}
+			.list_info .pcolor{color: var(--linecol06);}
+			.list_info h3{color: var(--txtcol05); font-size: var(--font-size-xxl); font-weight: 500; letter-spacing: -0.36px;}
+			.list_info ul{display:flex; gap:20px}
+			.list_info li{position: relative; color: var(--text-silver); font-size: var(--font-size-m); font-weight: 400;}
+			.list_info .line::after {content: ""; position: absolute; top: 50%; transform: translateY(-50%); right: -11px; width: 1px; height: 10px; background-color: var(--text-silver); }
+			.list_info .btnGroup{display:flex; gap:7px; margin-top:24px;}
+			.list_info .btnGroup .aBtn{display:flex; align-items: center; justify-content: center; width:95px; border-radius: 15px; border: 1px solid var(--quill-gray); background: var(--white); padding:10px; color:var(--txtcol02); font-size:var(--font-size-m); font-weight: 400;}
+		
+		.list_data{display:flex; gap:15px;}
+		.list_data .circle{display:flex; align-items: center; justify-content: center; flex-direction: column; width:123px; height:123px; gap:5px; background: var(--bgcol01); border:1px solid var(--linecol05); border-radius: 50%;}
+		.list_data .bg{background: var(--bgcol03); border:1px solid var(--linecol08);}
+		.list_data .circle h2{color: var(--primary); font-size: var(--font-size-xxxxl); font-weight: 700; letter-spacing: -0.6px;}
+		.list_data .circle p{color: var(--txtcol06); font-size: var(--font-size-ls); font-weight: 500; letter-spacing: -0.24px;}
+
+
+	 /* detail */
+		.colw1{width:105px !important;}
+		.colw2{width:40px !important;}
+		.colw3{width:52px !important;}
+		.colw4{width:160px !important;}
+
+		.jobdetail { align-items: center; background-color: var(--bgcol05); border: 1px solid; border-color: var(--linecol05); border-radius:20px; display: flex; justify-content: space-between; width: 100%; padding:35px; margin-bottom: 70px;}
+			.jobdetail .logo_area {align-items: center; justify-content: center; background-color: var(--white); border: 1px solid var(--linecol05); display: flex; width:175px; height:175px; }
+			.jobdetail .urjob {color: var(--primary); font-size: var(--font-size-xxxxl); font-weight: 900; letter-spacing: -0.03vw; line-height: normal;}
+
+			.jobdetail .detail_con {align-items: flex-start; display: flex; flex-direction: column; width: calc(100% - 210px); }	
+				.jobdetail .detail_con .stxt {width:100%; color: var(--txtcol02); font-size: var(--font-size-xxl); font-weight: 400; letter-spacing: -0.36px; line-height: normal; }
+				.jobdetail .detail_con .htxt {width:100%; color: var(--txtcol05); font-size: var(--font-size-24); font-weight: 500; letter-spacing: -0.48px; line-height: normal; margin-top: 3px;}
+
+				.jobdetail .detail_con .detail-group {align-items: flex-start; display:flex; gap:45px; margin-top:25px; width:100%}
+					.jobdetail .detail_con .detail-group .decol{display:flex; gap:8px; width:300px; flex-direction: column;}
+						.jobdetail .detail_con .detail-group .decol dl {display: flex; gap:10px; width: 100%;}
+						.jobdetail .detail_con .detail-group .decol dl dt{color: var(--txtcol02); font-size: var(--font-size-m); font-weight: 300;}
+						.jobdetail .detail_con .detail-group .decol dl dd{color: var(--txtcol05); font-size: var(--font-size-m); font-style: normal; font-weight: 400;}
+						.jobdetail .detail_con .detail-group .decol .dday {color: var(--primary); font-size: var(--font-size-xxxxl); font-weight: 500; letter-spacing: 0; line-height: normal; text-align:right;}
+
+		.detailBtn{display:flex; gap:1vw; width:100%; justify-content: center;}
+			.detailBtn button{align-items: center; background-color: var(--btncol); display: flex; justify-content: center; padding:18px 30px; border-radius: 1.04vw; font-size: var(--font-size-xl); font-style: normal; font-weight: 500;}
+			.detailBtn .h_btn{background-color: var(--btncol); color:var(--white);}
+			.detailBtn .s_btn{background-color: var(--white); color:var(--txtcol01); border:1px solid var(--txtcol01);}
+
+		.detail_content{display:flex; gap:1vw; margin:2vw 0; width:100%;}
+
+	
+	/* 지원자 관리 */
+	.jonInfo_Box{display:flex; justify-content: space-between; align-items: center; width:100%; border-radius: 20px; padding:35px; border: 1px solid var(--linecol05); background:var(--bgcol01);}
+		.infobtnGroup{ display: flex; gap: 10px;}
+		.infobtnGroup .JobView{display: flex; padding: 18px 46px; justify-content: center; align-items: center; border-radius: 20px; background: var(--primary); color: var(--white); font-size: var(--font-size-xl); font-weight: 500;}
+		.infobtnGroup .nice-select{display:flex; align-items: center; height:60px}
+		
+		/* 리스트 */
+		.list_table {}
+		.list_table .w01{width:75px !important}
+		.list_table .w02{width:130px !important}
+		.list_table .w03{width:150px !important}
+		.list_table .w04{width:160px !important}
+		.list_table .w05{width:110px !important}
+		.list_table .w06{width:270px !important}
+
+		.list_table .list_thead{display:flex; align-items: center;  width:100%; border-top: 1px solid var(--linecol04); border-bottom: 1px solid var(--linecol04); background: var(--bgcol01);}
+			.list_table  .list_thead li{padding:12px 15px; padding-right:0; color: var(--txtcol06); font-size: var(--font-size-m); font-weight: 400;}
+		.list_table .list_tbody{display:flex; align-items: center; width:100%; border-bottom: 1px solid var(--linecol05);}
+			.list_table .list_tbody li{padding:30px 15px; padding-right:0; font-weight: 400;}
+			.list_table .list_tbody .txt1{color: var(--text-silver); font-size: var(--font-size-xs); font-weight: 500;}
+			.list_table .list_tbody .txt2{color:var(--txtcol05); font-size: var(--font-size-xl); font-weight: 500; margin-bottom:8px;}
+			.list_table .list_tbody .txt3{color: var(--text-silver); font-size: var(--font-size-m); font-weight: 400;}
+			.list_table .list_tbody button{display: flex; height: 50px; padding: 18px 0px; justify-content: center; align-items: center; border-radius: 20px;  font-weight: 500; letter-spacing: -0.32px;}
+			.list_table .list_tbody .passBtn{width: 93px; background: var(--primary); color: var(--white); font-size: var(--font-size-xl);}
+			.list_table .list_tbody .presBtn{width: 123px; background: var(--primary); color: var(--white); font-size: var(--font-size-xl); }
+			.list_table .list_tbody .failBtn{width: 93px; border:1px solid var(--primary); color: var(--primary); font-size: var(--font-size-xl);}
+			.list_table .list_tbody .failviewBtn{ width: 93px; color: var(--text-silver); font-size: var(--font-size-xs);}
+
+			.list_table .list_tbody .interviewBtn{width: 93px; background: var(--primary); color: var(--white); font-size: var(--font-size-xl);}
+			.list_table .list_tbody .interviewfailBtn{width: 93px; border:1px solid var(--primary); color: var(--primary); font-size: var(--font-size-xl);}
+
+
+	/* 지원자 이력서 */
+		.Profile{display:flex; flex-direction: row; box-sizing: border-box; border-radius: 20px; width:100%; overflow: hidden; margin-bottom:25px}
+			.picture{width:165px; height:194px; display:flex; justify-content: center; align-items: center; border:1px solid var(--bgcol08); background: var(--bgcol08); border-radius: 20px 0px 0px 20px; overflow: hidden;}
+			.picture img {width:100%; height:100%; object-fit:cover;}
+
+			.user-profile{width:calc(100% - 165px); padding:25px 30px; box-sizing: border-box; border:1px solid var(--linecol04); border-left:none; border-radius: 0px 20px 20px 0px;}
+				.user-profile_row{display: flex; flex-direction: row;}
+					.user-profile_row .user-profile_name-container {display: flex; align-items: center; gap:5px; font-weight: 500; line-height: normal;}
+					.user-profile_row .user-profile_name-container .user-profile_name {color: var(--txtcol05); font-size: var(--font-size-xxxl);}
+					.user-profile_row .user-profile_name-container span{color: var(--text-silver); font-size: var(--font-size-xl);}
+					.user-profile_row .user-profile_name-container .pspan{display: flex; padding:5px 15px; border-radius: 50px; background: var(--primary); color: var(--white); font-size: var(--font-size-m); font-weight: 500; margin-left: 5px;}
+
+				.user-profile_detail-contents {margin-top: 20px; display: flex; flex-direction: column; gap: 7px; }
+				.user-profile_detail-contents .profile_detail{font-size:var(--font-size-xl); color:var(--text-silver); line-height: 26px;}
+					.user-profile_detail-contents .profile_detail .user-profile_list-container {display: grid; grid-gap: 24px; gap: 24px; grid-template-columns: 1fr 1fr;}
+					.user-profile_detail-contents .profile_detail .user-profile_list-container  dl{display:flex; flex-direction: row; margin-bottom: 0;}
+					.user-profile_detail-contents .profile_detail .user-profile_list-container  dt{flex-basis: 75px; color:var(--txtcol12); font-weight: 500;}
+					.user-profile_detail-contents .profile_detail .user-profile_list-container  dd{flex: 1 1 auto;}	
+
+		
+		/* Profile card */
+		.Profile_card{display:flex; gap:20px; }
+		.Profile_card .card{display:flex; width:25%; padding:25px; border-radius: 20px; border: 1px solid var(--linecol04);}
+		.Profile_card .card h1{color: var(--text-silver); font-size: var(--font-size-xl); font-weight: 700; margin-bottom:25px;}
+		.Profile_card .card h2{color: var(--txtcol05); font-size: var(--font-size-xl); font-weight: 700; margin-bottom:6px;}		
+		.Profile_card .card h3{color: var(--txtcol02); font-size: var(--font-size-m); font-weight: 400; }		
+			
+			.Profile_card .list{display:flex; width:100%; padding:40px 0; border-bottom:1px solid var(--linecol05);}
+			.Profile_card .list li{display:flex;}
+			.Profile_card .list li:nth-child(1){width:180px;}
+			.Profile_card .list:last-of-type{border-bottom:none}
+
+			/* 비자여부*/
+			.Profile_card .visastat{display:flex; gap:60px; margin:9px 5px;}
+			.Profile_card .visastat p{color: var(--txtcol06); font-size: var(--font-size-m); font-weight: 500; letter-spacing: -0.28px;}
+
+			/* 학력 */
+			.Profile_card .eduBox{display:flex; width:100%; margin:0 5px;}
+				.Profile_card .eduBox .years{color:var(--txtcol05); font-size: var(--font-size-m); font-weight: 500;}
+					.Profile_card .eduBox .years p{color:var(--primary); font-weight: 500; margin-top:5px;}
+				.Profile_card .eduBox .schbox {display:flex; gap:12px; flex-direction: column; width:390px;}
+					.Profile_card .eduBox .schbox .group{display:flex; gap:10px; align-items: center;}
+						.Profile_card .eduBox .schbox .group .txt01{position: relative; color:var(--txtcol05); font-size: var(--font-size-xxl); font-weight: 700;}
+						.Profile_card .eduBox .schbox .group .txt02{position: relative; color:var(--txtcol02); font-size: var(--font-size-m); font-weight: 400;}
+					.Profile_card .eduBox .schbox .group .line::after {content: ""; position: absolute; top: 50%; transform: translateY(-50%); right: -11px; width: 1px; height: 10px; background-color: var(--text-silver); }
+				.Profile_card .eduBox .gpa{color: var(--txtcol02); font-size: var(--font-size-m); font-weight: 400;}
+
+
+			/* 어학능력 */
+			.Profile_card .langBox{display:flex; width:100%; margin:0 5px;}
+				.Profile_card .langBox .language {color:var(--txtcol05); font-size: var(--font-size-xxl); font-weight: 700;}
+				.Profile_card .langBox .ability {display:flex; gap:100px; }
+					.Profile_card .langBox .ability .group{display:flex; gap:10px; align-items: center;}
+						.Profile_card .langBox .ability .group .txt01{color:var(--txtcol05); font-size: var(--font-size-m); font-weight: 700;}
+						.Profile_card .langBox .ability .group .txt02{color:var(--txtcol02); font-size: var(--font-size-m); font-weight: 400;}
+
+			/* 경력,인턴, 자격증, 수상 공통  */
+			.Profile_card .commBox{display:flex; width:100%; margin:0 5px;}
+				.Profile_card .commBox .years{color:var(--txtcol05); font-size: var(--font-size-m); font-weight: 500;}
+					.Profile_card .commBox .years p{color:var(--primary); font-weight: 500; margin-top:5px;}
+				.Profile_card .commBox .commchild {display:flex; gap:12px; flex-direction: column;}
+					.Profile_card .commBox .commchild .group{display:flex; gap:10px; align-items: center;}
+						.Profile_card .commBox .commchild .group .txt01{position: relative; color:var(--txtcol05); font-size: var(--font-size-xxl); font-weight: 700;}
+						.Profile_card .commBox .commchild .group .txt02{position: relative; color:var(--txtcol02); font-size: var(--font-size-m); font-weight: 400;}
+
+
+			/* 비자여부*/
+			.Profile_card .apoth{display:flex; gap:30px; margin:9px 5px;}
+			.Profile_card .apoth p{color: var(--txtcol02); font-size: var(--font-size-m); font-weight: 500; letter-spacing: -0.28px;}
+
+			/* 병역 */
+			.Profile_card .military{display:flex; width:100%}
+			.Profile_card .military table{border:none; border-top: 1px solid var(--linecol05); width:100%;}
+			.Profile_card .military table tr{border-bottom: 1px solid var(--linecol05);}
+			.Profile_card .military table th{width:213.33px; background: var(--bgcol01); border-right: 1px solid var(--linecol05); padding:17.5px 0; text-align:center; color: var(--txtcol05); font-size: var(--font-size-xl); font-weight: 500;}
+			.Profile_card .military table td{width:213.33px; border-right: 1px solid var(--linecol05); padding:17.5px 20px; color: var(--txtcol02); font-size: var(--font-size-m); font-weight: 400;}
+			.Profile_card .military table td:last-child {border-right: none;}
+
+
+
+
+			/* 자기소개서 */
+			.Profile_card .selfBox{display:flex; gap:15px; flex-direction: column; padding:30px 5px;}
+				.Profile_card .selfBox h2{color: var(--txtcol05); font-size: var(--font-size-xxl); font-weight: 700;}
+				.Profile_card .selfBox .selfintro{color: var(--txtcol05); font-size: var(--font-size-xl); font-weight: 400; line-height: normal;}
+			
+	/* 인재검색 */
+		.search_control{display:flex; gap:10px; margin-bottom:40px}
+			.search_control .searchbox {height: 50px; align-items: center; border: 1px solid; border-color: var(--linecol02); border-radius: 20px; display: flex; justify-content: space-between; padding: 4px 10px; position: relative; width: 290px; }
+			.search_control .searchbox input::placeholder {color: var(--text-silver); font-size: var(--font-size-m);}
+			.search_control .search_input {border: none;}		
+			.search_control .searchicon {align-items: flex-start; color: var(--linecol02); display: flex; justify-content: flex-end; width:18px;}
+			.search_control .nice-select {display: flex; height: 50px; align-items: center; width:150px;}
+				.search_control .nice-select .current {color: var(--text-silver); font-size: var(--font-size-m);}
+			.search_control .searchbtn {display: flex; color: var(--white); font-size: var(--font-size-xl); font-weight: 500; letter-spacing: -0.32px;  background-color:var(--bgcol11); border-radius: 20px; padding:13px 30px}
+		
+		/* TOP 인재 */
+		.top_talent{display:flex; gap:25px; flex-wrap: wrap;}
+			.top_talent .card{display:flex; gap:25px; flex-direction: column; border-radius: 10px; border: 1px solid var(--linecol04); padding:20px; width:calc(33.333333333% - 20px); }
+			.top_talent .talentBox {display:flex; gap:20px; align-items: center;}
+				.top_talent .talentBox .picture{display:flex; width:80px; height:80px; background-color:var(--bgcol07); border-radius: 50%;}
+				.top_talent .talentBox .info{display:flex; gap:5px; flex-direction: column;}
+					.top_talent .talentBox .info .flex-row {align-items: center; display: flex; gap: 20px; width: 100%; align-items: flex-end; }
+						.top_talent .talentBox .info .flex-row p {position: relative; display: flex; font-size: var(--font-size-xl); font-weight: 700; gap: 2px; align-items: flex-end; }
+						.top_talent .talentBox .info .flex-row p:first-of-type::after {content: ""; position: absolute; top: 10px; right: -11px; width: 1px; height: 10px; background-color: var(--text-silver); }
+						.top_talent .talentBox .info .flex-row .exper{color: var(--primary); font-size: var(--font-size-m);}
+						.top_talent .talentBox .info .flex-row .active{color: var(--linecol06);}
+						.top_talent .talentBox .info .flex-row span {color: var(--text-silver); font-size: var(--font-size-m); font-weight: 500;}
+					.top_talent .talentBox .info h2{color: var(--txtcol05); font-size: var(--font-size-l); font-weight: 700;}
+						.top_talent .talentBox .info h2 span{color:var(--text-silver); font-weight: 400;}
+					.top_talent .talentBox .info .stxt{color: var(--text-silver); font-size: var(--font-size-m); font-weight: 400;}
+			.top_talent .TagBox{display:flex; align-items: center; justify-content: space-between;}
+				.top_talent .TagBox .talentTag{display:flex; gap:10px; align-items: center;}
+				.top_talent .TagBox .talentTag p{display: flex; padding: 5px 10px; justify-content: center; align-items: center; color: var(--primary); font-size: var(--font-size-s); font-weight: 400; background-color:var(--sidecol01); border-radius: 5px;}
+				.top_talent .TagBox .Inter{color: var(--linecol02);}
+
+		/* 인재정보 */
+		.talentSort{display:flex; align-items: center; gap:10px; padding-bottom:15px; border-bottom:1px solid var(--linecol04)}
+			.talentSort .sortBtn{color:var(--txtcol14); font-size: var(--font-size-s); font-weight: 400;}
+			.talentSort .active{color: var(--primary); font-weight:700}
+		.talentList{display:block}
+			.talentList li{display:flex; align-items: center; padding:30px 0; width:100%; border-bottom:1px solid var(--linecol04)}
+				.talentList .uinfo{display:flex; width:196px; flex-direction: column;}
+					.talentList .uinfo p{display: flex; font-size: var(--font-size-xl); font-weight: 700; gap: 2px; }
+					.talentList .uinfo span {color: var(--text-silver); font-size: var(--font-size-m); font-weight: 500;}
+					.talentList .uinfo .exper{color: var(--primary); font-size: var(--font-size-xl); font-weight: 500;}
+
+				.talentList .uinfoBox{display:flex; width: calc(100% - 196px); justify-content: space-between; align-items: center;}
+					.talentList .uinfoBox .infodata{display:flex; gap:5px; flex-direction: column;}
+						.talentList .uinfoBox .infodata p {position: relative; display: flex; font-size: var(--font-size-xxl); font-weight: 700; gap: 2px; align-items: flex-end; }
+						.talentList .uinfoBox .infodata span {color: var(--text-silver); font-size: var(--font-size-l); font-weight: 400;}
+						.talentList .uinfoBox .infodata .area{display: flex; color: var(--text-silver); font-size: var(--font-size-l); font-weight: 400; align-items: center; gap:2px;}
+						.talentList .uinfoBox .infodata .TagBox{display:flex; align-items: center; justify-content: space-between;}
+							.talentList .uinfoBox .infodata .TagBox .talentTag{display:flex; gap:10px; align-items: center; margin-top:10px;}
+							.talentList .uinfoBox .infodata .TagBox .talentTag p{display: flex; padding: 5px 10px; justify-content: center; align-items: center; color: var(--primary); font-size: var(--font-size-s); font-weight: 400; background-color:var(--sidecol01); border-radius: 5px;}
+							.talentList .uinfoBox .infodata .TagBox .Inter{color: var(--linecol02);}
+
+					.talentList .uinfoBox .uinfobtnBox{display:flex; gap:20px; flex-direction: column;}
+					.talentList .uinfoBox .uinfobtnBox button{display: flex; justify-content: center; align-items: center; border-radius: 20px; padding: 12px 0px; width: 150px; font-size: var(--font-size-xl); font-weight: 500;}
+					.talentList .uinfoBox .uinfobtnBox .save{color: var(--primary); border: 1px solid var(--primary);}
+					.talentList .uinfoBox .uinfobtnBox .proposal{color: var(--white); background: var(--primary);}
+

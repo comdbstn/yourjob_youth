@@ -1,0 +1,84 @@
+.jobPostSearchPopup_container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.jobPostSearchPopup_container .header {
+  height: 60px;
+  background-color: #fbfbfb;
+  border-bottom: #eaeaea 1px solid;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+.jobPostSearchPopup_container .selectSection {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.jobPostSearchPopup_container .selectSection .left {
+  width: 25%;
+  height: 100%;
+  background-color: #edf6fd;
+}
+.jobPostSearchPopup_container .selectSection .left ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.jobPostSearchPopup_container .selectSection .left ul li {
+  height: 30px;
+  padding: 15px;
+  font-weight: 500;
+}
+.jobPostSearchPopup_container .selectSection .left ul .selected {
+  color: #2f80dc;
+  font-weight: 700;
+}
+.jobPostSearchPopup_container .selectSection .right {
+  width: 75%;
+}
+.jobPostSearchPopup_container .selectSection .right ul li {
+  height: 40px;
+  padding: 15px;
+  font-weight: 500;
+  color: #8f8f8f;
+}
+.jobPostSearchPopup_container .ml-auto {
+  margin-left: auto;
+}
+.jobPostSearchPopup_container .bottomSection {
+  width: 100%;
+  height: 180px;
+  border-top: #eaeaea 1px solid;
+  padding: 25px 20px;
+}
+.jobPostSearchPopup_container .bottomSection .list {
+  display: flex;
+  gap: 20px;
+}
+.jobPostSearchPopup_container .bottomSection .list button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #2f80dc;
+}
+.jobPostSearchPopup_container .bottomSection .btns {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+.jobPostSearchPopup_container .bottomSection .btns .grayBtn {
+  border: #a8a8a8 1px solid;
+  background-color: white;
+  color: #a8a8a8;
+}

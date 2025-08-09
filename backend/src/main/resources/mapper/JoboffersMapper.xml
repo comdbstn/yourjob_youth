@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.JoboffersMapper">
+    <select id="selectJobofferProposalList" parameterType="map" resultType="map">
+        select
+        a.joboffer_id as id,
+        a.employer_id as employerId,
+        a.job_seeker_id as jobSeekerId,
+        a.position as position,
+        a.message as message,
+        a.manager as manager,
+        a.status as status,
+        a.created_at as createdAt,
+        a.updated_at as updatedAt,
+        b.company_name AS companyName,
+        c.app_end_tm AS appEndTm
+        from job_offers a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        LEFT JOIN job_postings c
+        ON a.job_id = c.job_id
+        where 1 = 1
+        <if test='keyword != null and keyword != ""'>
+            and (POSITION like CONCAT('%',#{keyword},'%') OR MESSAGE like CONCAT('%',#{keyword},'%'))
+        </if>
+        AND job_seeker_id = #{jobSeekerId}
+        order by a.created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+    <select id="selectJobofferProposalCnt" parameterType="map" resultType="int">
+        select
+        count(*)
+        from job_offers
+        where 1 = 1
+        <if test='keyword != null and keyword != ""'>
+            and POSITION like CONCAT('%',#{keyword},'%')
+        </if>
+        AND job_seeker_id = #{jobSeekerId}
+    </select>
+    <select id="selectJobofferProposalInfo" parameterType="map" resultType="map">
+        select
+        a.joboffer_id as id,
+        a.employer_id as employerId,
+        a.job_seeker_id as jobSeekerId,
+        a.message as message,
+        a.position as position,
+        a.positionInfo as positionInfo,
+        a.status as status,
+        a.manager as manager,
+        a.created_at as createdAt,
+        a.updated_at as updatedAt,
+        b.company_name AS companyName,
+        c.app_end_tm AS appEndTm
+        from job_offers a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        LEFT JOIN job_postings c
+        ON a.job_id = c.job_id
+        where 1 = 1
+        AND joboffer_id = #{proposalId}
+    </select>
+    <select id="selectJobofferProposalInfoByResumeId" parameterType="map" resultType="map">
+        select
+        a.joboffer_id as id,
+        a.employer_id as employerId,
+        a.job_seeker_id as jobSeekerId,
+        a.message as message,
+        a.position as position,
+        a.positionInfo as positionInfo,
+        a.status as status,
+        a.manager as manager,
+        a.created_at as createdAt,
+        a.updated_at as updatedAt
+        from job_offers a
+        where 1 = 1
+        AND employer_id = #{employer_id}
+        and resume_id = #{resume_id}
+    </select>
+    <select id="selectJoboffersList" parameterType="map" resultType="com.yourjob.backend.entity.JobOffer">
+        select
+        joboffer_id as id,
+        employer_id as employerId,
+        job_seeker_id as jobSeekerId,
+        resume_id as resumeId,
+        position as position,
+        message as message,
+        manager as manager,
+        status as status,
+        created_at as createdAt,
+        updated_at as updatedAt
+        from job_offers
+        where 1 = 1
+        <if test="employerId != null">
+            AND employer_id = #{employerId}
+        </if>
+        <if test="jobSeekerId != null">
+            AND job_seeker_id = #{jobSeekerId}
+        </if>
+        <if test='status != null and status != ""'>
+            AND status = #{status}
+        </if>
+        order by created_at desc
+        <if test='offSetNumb != null and size != null'>
+            limit #{offSetNumb}, #{size}
+        </if>
+    </select>
+    <select id="selectJoboffersInfo" parameterType="int" resultType="com.yourjob.backend.entity.JobOffer">
+        select
+        joboffer_id as id,
+        job_id as jobPostId,
+        employer_id as employerId,
+        job_seeker_id as jobSeekerId,
+        position as position,
+        positionInfo as positionInfo,
+        message as message,
+        status as status,
+        manager as manager,
+        created_at as createdAt,
+        updated_at as updatedAt
+        from job_offers
+        where 1 = 1
+        <if test="id != null">
+            AND joboffer_id = #{id}
+        </if>
+    </select>
+    <select id="selectJobofferDone" parameterType="com.yourjob.backend.entity.JobOffer" resultType="java.util.HashMap">
+        SELECT *
+        FROM job_offers
+        WHERE employer_id = #{employerId}
+          AND job_seeker_id = #{jobSeekerId}
+          AND job_id = #{jobPostId}
+        LIMIT 1
+    </select>
+    <insert id="insertJoboffer" parameterType="com.yourjob.backend.entity.JobOffer" useGeneratedKeys="true" keyProperty="id">
+        insert into job_offers
+        (job_id,
+        employer_id,
+        job_seeker_id,
+        resume_id,
+        message,
+        position,
+        positionInfo,
+        status,
+        manager)
+        VALUES (
+        #{jobPostId},
+        #{employerId},
+        #{jobSeekerId},
+        <if test="resumeId != null">#{resumeId}</if><if test="resumeId == null">NULL</if>,
+        #{message},
+        #{position},
+        #{positionInfo},
+        #{status},
+        #{manager})
+    </insert>
+    <update id="updateJoboffer" parameterType="com.yourjob.backend.entity.JobOfferUpdate">
+        update job_offers set
+        employer_id = #{employerId},
+        job_seeker_id = #{jobSeekerId},
+        position = #{position},
+        message = #{message},
+        status = #{status},
+        updated_at = NOW()
+        where joboffer_id = #{id}
+    </update>
+    <delete id="deleteJoboffer" parameterType="int">
+        delete from job_offers where joboffer_id = #{id}
+    </delete>
+    <update id="updateJobofferStatus" parameterType="map">
+        update job_offers set
+        status = #{status},
+        reject_reason = #{rejectReason},
+        updated_at = NOW()
+        where joboffer_id = #{jobofferId}
+    </update>
+    <update id="updateJobofferInterviewStatus" parameterType="map">
+        update job_offers set
+        interview_status = #{status},
+        updated_at = NOW()
+        where joboffer_id = #{jobofferId}
+    </update>
+</mapper>

@@ -1,0 +1,86 @@
+.jobTypeDataModalContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .headers {
+    font-size: 18px;
+    font-weight: 500;
+    border-bottom: #eaeaea 1px solid;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 30px 0;
+  }
+  .body {
+    display: flex;
+    width: 100%;
+    border: #eaeaea 1px solid;
+    height: 500px;
+    .depthLayout {
+      display: flex;
+      flex-direction: column;
+      border: #eaeaea 1px solid;
+      .depthHeader {
+        height: 38px;
+        flex-shrink: 0;
+        border-bottom: #eaeaea 1px solid;
+        background: #f9fbfc;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 20px;
+        overflow-y: scroll;
+        gap: 15px;
+        li {
+          font-size: 14px;
+          font-weight: 500;
+          padding: 10px;
+        }
+        .selected {
+          background-color: #2e7fdb;
+          color: white;
+          border-radius: 8px;
+        }
+      }
+    }
+    .depth1 {
+      flex: 1;
+    }
+    .depth2 {
+      flex: 1;
+    }
+    .depth3 {
+      flex: 1;
+    }
+  }
+  .selectedItems {
+    display: flex;
+    gap: 10px;
+  }
+  .footerBar {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: end;
+    .addBtn {
+      width: 150px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background-color: 2e7fdb;
+      border-radius: 15px;
+      background-color: #2e7fdb;
+    }
+  }
+}

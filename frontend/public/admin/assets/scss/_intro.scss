@@ -1,0 +1,31 @@
+.intro {
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+}
+
+.login-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .title {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .control {
+        +.control {
+            margin-top: .4rem;
+        }
+    }
+}
+
+.password--find {
+    margin-top: 1rem;
+    text-align: right;
+}

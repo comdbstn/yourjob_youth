@@ -1,0 +1,62 @@
+{
+  "name": "유어잡 URJOB｜해외대 인재 채용 플랫폼",
+  "short_name": "URJOB",
+  "description": "유학생 맞춤 국내·해외법인 취업정보 제공",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/img/app-icons/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/app-icons/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/app-icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/app-icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/app-icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "job",
+    "job-search",
+    "job-offer",
+    "job-application",
+    "job-interview",
+    "recruitment"
+  ],
+  "screenshots": [
+    {
+      "src": "/img/og-image.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/img/banner03.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ]
+}

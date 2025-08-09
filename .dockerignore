@@ -1,0 +1,13 @@
+# .dockerignore
+# Node, React 관련
+node_modules
+dist
+build
+
+# Git, IDE, OS 임시 파일
+.git
+*.lock
+.vscode
+.idea
+*.sock
+*.log

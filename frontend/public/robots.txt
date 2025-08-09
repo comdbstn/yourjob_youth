@@ -1,0 +1,33 @@
+User-agent: *
+Allow: /
+Allow: /api/v1/seo/
+
+# Sitemap
+Sitemap: https://www.urjob.kr/sitemap.xml
+
+# Disallow admin pages
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /m/admin/
+
+# Disallow private pages
+Disallow: /mypage/
+Disallow: /m/mypage/
+Disallow: /corpmem/
+Disallow: /m/corpmem/
+
+# Disallow API endpoints
+Disallow: /api/
+Disallow: /oauth2/
+
+# Disallow temporary files
+Disallow: /temp/
+Disallow: /uploads/
+
+# Allow important pages
+Allow: /jobs/
+Allow: /community/
+Allow: /accept/
+Allow: /member/
+Allow: /terms
+Allow: /privacy-policy

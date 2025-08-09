@@ -1,0 +1,728 @@
+.mobileWriteRecruit_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+.mobileWriteRecruit_Container .openPopupBtn {
+  font-size: 14px;
+  text-wrap-mode: nowrap;
+  color: #a8a8a8;
+}
+
+.mobileWriteRecruit_Container .items {
+  display: flex;
+  /* align-items: baseline; */
+  gap: 5px;
+  word-break: keep-all;
+  /* line-height: 1; */
+  color: #333;
+}
+
+.mobileWriteRecruit_Container .items i {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.mobileWriteRecruit_Container .items.noitem {
+  color: #A8A8A8;
+}
+
+.mobileWriteRecruit_Container .loadBtn {
+  display: flex;
+  width: 100%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: var(--bg_col_04, #eaeff3);
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.3px;
+}
+
+.mobileWriteRecruit_Container .inputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  gap: 25px;
+}
+
+.mobileWriteRecruit_Container .inputSection h4 {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -1px;
+  color: #333;
+}
+
+.mobileWriteRecruit_Container .inputSection .inputRow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobileWriteRecruit_Container .inputSection .inputRow h5 {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 0 10px;
+}
+
+.mobileWriteRecruit_Container .inputSection .inputRow h5 strong {
+  color: var(--red02, #ff6a6a);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.mobileWriteRecruit_Container .inputSection .inputRow .checkBoxSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* 한 행에 3개의 열 */
+  gap: 10px;
+  /* 열과 행 사이 간격 */
+  width: 100%;
+  min-width: 340px;
+  height: 80px;
+  border-radius: 15px;
+}
+
+/* .mobileWriteRecruit_Container .inputSection h4 {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.48px;
+  margin: 10px 0;
+} */
+
+.mobileWriteRecruit_Container .CheckLabel {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-right: auto;
+  padding: 0 10px;
+  margin-bottom: 15px;
+}
+
+.mobileWriteRecruit_Container .CheckLabel strong {
+  color: var(--red02, #ff6a6a);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.mobileWriteRecruit_Container .checkBoxRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-right: 40px;
+}
+
+.mobileWriteRecruit_Container .checkBoxRow>p {
+  white-space: nowrap;
+}
+
+.mobileWriteRecruit_Container .checkSection {
+  display: flex;
+  gap: 20px 0;
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  flex-wrap: wrap;
+}
+
+.mobileWriteRecruit_Container .checkSection.type2 {
+  gap: 25px 0;
+  flex-wrap: wrap;
+}
+
+/* .mobileWriteRecruit_Container .checkSection {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+} */
+
+.mobileWriteRecruit_Container .peopleAmountSection {
+  display: flex;
+  flex-direction: column;
+  padding: 0 0;
+}
+
+.mobileWriteRecruit_Container .peopleAmountSection .checkBoxRow {
+  margin-right: 0;
+}
+
+.mobileWriteRecruit_Container .peopleAmountSection .input_num {
+  width: 100%;
+  text-align: center;
+}
+
+/* .mobileWriteRecruit_Container .peopleAmountSection .CheckLabel {
+  margin-bottom: 0;
+} */
+
+.mobileWriteRecruit_Container .peopleAmountSection .row {
+  display: flex;
+  gap: 20px;
+}
+
+.mobileWriteRecruit_Container .sectionTitle {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.48px;
+  word-break: keep-all;
+  text-align: center;
+}
+
+.mobileWriteRecruit_Container .rowTitle {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 0 10px;
+}
+
+.mobileWriteRecruit_Container .rowTitle strong {
+  color: var(--red02, #ff6a6a);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.mobileWriteRecruit_Container .educationSection {
+  /* padding: 20px 0; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileWriteRecruit_Container .educationSection .rowTitle {
+  margin-bottom: 15px;
+}
+
+.mobileWriteRecruit_Container .educationSection .input_default {
+  width: 50%;
+}
+
+.mobileWriteRecruit_Container .educationSection .checkBox {
+  display: flex;
+  align-items: center;
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  gap: 8px;
+}
+
+.mobileWriteRecruit_Container .selectListSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 20px;
+  width: 100%;
+  gap: 10px;
+}
+
+.mobileWriteRecruit_Container .selectListSection button {
+  text-wrap-mode: nowrap;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid var(--primary, #2f80dc);
+  background: #fff;
+  width: 100%;
+  height: 60px;
+  padding: 20px;
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileWriteRecruit_Container .inputColumnRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: 100%;
+  /* padding: 20px; */
+}
+
+.mobileWriteRecruit_Container .inputColumnRow .input_default {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mobileWriteRecruit_Container .inputColumnRow .input_default p {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileWriteRecruit_Container .sectionTitle2 {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 0 10px;
+  margin-bottom: 15px;
+}
+
+.mobileWriteRecruit_Container .sectionTitle2 strong {
+  color: var(--red02, #ff6a6a);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.mobileWriteRecruit_Container .conditionSection {
+  /* padding: 20px 0; */
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileWriteRecruit_Container .conditionSection .sectionTitle2 {
+  margin-bottom: 15px;
+}
+
+.mobileWriteRecruit_Container .conditionSection .input_default {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileWriteRecruit_Container .conditionSection .flexGap10 {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  align-items: flex-start;
+}
+
+.mobileWriteRecruit_Container .addressSection {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+  /* padding: 20px 0; */
+  /* margin-top: 10px; */
+}
+
+/* .mobileWriteRecruit_Container .addressSection .item .sectionTitle2 {
+  margin-bottom: 15px;
+} */
+
+.mobileWriteRecruit_Container .addressSection .item .detail_check {
+  margin-top: 15px;
+}
+
+.mobileWriteRecruit_Container .addressSection .selects {
+  display: flex;
+  /* width: 250px; */
+  justify-content: space-between;
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  text-wrap-mode: nowrap;
+  padding: 0 10px;
+  gap: 35px;
+  justify-content: flex-start;
+  margin-bottom: 17px;
+}
+
+.mobileWriteRecruit_Container .addressSection .input_default button {
+  color: var(--txt_col_01, #a8a8a8);
+  text-align: right;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  margin-left: auto;
+  text-wrap-mode: nowrap;
+}
+
+.mobileWriteRecruit_Container .addressSection .flexGap10 {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileWriteRecruit_Container .addressSection .at {
+  margin: 0 5px;
+}
+
+.mobileWriteRecruit_Container .addressSection .time-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobileWriteRecruit_Container .addressSection .time-wrap>.flexGap10 {
+  flex: 1;
+}
+
+.mobileWriteRecruit_Container .addressSection .time-wrap .input_default {
+  padding: 20px 6px
+}
+
+.mobileWriteRecruit_Container .PeriodSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* padding: 20px; */
+  /* gap: 15px; */
+}
+
+.mobileWriteRecruit_Container .PeriodSection .flexGap10 {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileWriteRecruit_Container .PeriodSection .input_default {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileWriteRecruit_Container .howToSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* padding: 20px 0; */
+}
+
+.mobileWriteRecruit_Container .howToSection .selects {
+  display: flex;
+  /* grid-template-columns: repeat(3, 1fr); */
+  gap: 25px 35px;
+  color: var(--txt_col_04, #535353);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  flex-wrap: wrap;
+}
+
+.mobileWriteRecruit_Container .howToSection .selects p {
+  white-space: nowrap;
+}
+
+.mobileWriteRecruit_Container .howToSection .inputLabel {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.mobileWriteRecruit_Container .howToSection .input_default {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileWriteRecruit_Container .infoValiSection {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* padding: 20px 0; */
+  /* gap: 10px; */
+}
+
+.mobileWriteRecruit_Container .infoValiSection .flexGap10 {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  width: 100%;
+}
+
+.mobileWriteRecruit_Container .infoValiSection .flexGap10 .input_default {
+  display: flex;
+  flex: 1;
+  width: 20%;
+}
+
+.mobileWriteRecruit_Container .infoValiSection .input_default button {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  margin-left: auto;
+}
+
+.mobileWriteRecruit_Container .termsSection {
+  width: calc(100% + 40px);
+
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line_col_04, #dfdfdf);
+  border-bottom: 1px solid var(--line_col_04, #dfdfdf);
+  background: var(--bg_gr_03, #fbfbfb);
+  padding: 35px 20px;
+}
+
+.mobileWriteRecruit_Container .termsSection .title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: #333;
+  margin-bottom: 17px;
+}
+
+.mobileWriteRecruit_Container .termsSection .title span {
+  color: #a8a8a8
+}
+
+.mobileWriteRecruit_Container .termsSection .termsList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileWriteRecruit_Container .termsSection input[type="checkbox"]+label:before {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+}
+
+
+.mobileWriteRecruit_Container .termsSection input[type="checkbox"]:checked+label:before {
+  font-size: 13px;
+}
+
+.mobileWriteRecruit_Container .termsSection .termlabel {
+  font-size: 16px;
+  color: #535353;
+  font-weight: 500;
+}
+
+.mobileWriteRecruit_Container .termsSection .termlabel .essential {
+  color: #a8a8a8;
+}
+
+.mobileWriteRecruit_Container .termsSection .term_info {
+  display: block;
+  font-size: 14px;
+  color: #555;
+  padding-left: 28px;
+  font-weight: 400;
+  line-height: 1.3;
+  /* padding: 15px; */
+  margin-bottom: 20px;
+}
+
+.mobileWriteRecruit_Container .whiteBtn {
+  display: flex;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  justify-content: center;
+  align-items: center;
+  color: var(--txt_col_01, #a8a8a8);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.mobileWriteRecruit_Container .prioritySection .gridSection {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.mobileWriteRecruit_Container .prioritySection .gridSection .gridRow {
+  cursor: pointer;
+  height: 60px;
+  width: 100%;
+  border: #cbcbcb 1px solid;
+  border-radius: 15px;
+  padding: 0 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #a8a8a8;
+}
+
+.mobileWriteRecruit_Container .prioritySection .gridSection selected {
+  color: #2f80dc;
+  border: 1px solid #2f80dc;
+}
+
+.mobileWriteRecruit_Container .prioritySection .gridSection selected svg path {
+  fill: #2f80dc !important;
+}
+
+/* prioritySection 안의 gridRow.selected */
+.mobileWriteRecruit_Container .prioritySection .gridSection .gridRow.selected {
+  color: #2f80dc;
+  border: 1px solid #2f80dc;
+}
+
+/* 선택된 gridRow의 svg path 색 변경 */
+.mobileWriteRecruit_Container .prioritySection .gridSection .gridRow.selected svg path {
+  fill: #2f80dc !important;
+}
+
+.mobileWriteRecruit_Container .item {
+  width: 100%;
+}
+
+.mobileWriteRecruit_Container .item .CheckLabel {
+  width: 100%;
+}
+
+.mobileWriteRecruit_Container .item .career_Layer.type2 {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.mobileWriteRecruit_Container .item .Layer-container {
+  display: flex;
+  border-radius: 20px;
+  border: 1px solid var(--linecol05);
+  background: #fbfbfb;
+  padding: 20px;
+  font-size: 14px;
+  gap: 20px;
+  color: #535353;
+  font-weight: 500;
+
+}
+
+.mobileWriteRecruit_Container .Layer-container span,
+.mobileWriteRecruit_Container .Layer-container label {
+  white-space: nowrap;
+}
+
+.mobileWriteRecruit_Container .Layer-container .box .txt {
+  white-space: nowrap;
+  margin-right: 6px
+}
+
+.mobileWriteRecruit_Container .Layer-container .box .personal_year {
+  border: 1px solid #cbcbcb;
+  border-radius: 5px;
+}
+
+.mobileWriteRecruit_Container .contents-wrap {
+  width: 100%;
+}
+
+.mobileWriteRecruit_Container .contents-wrap .flexwrap {
+  gap: 35px;
+  display: flex;
+}
+
+.mobileWriteRecruit_Container .btn-foot {
+  width: 100%;
+}
+
+.mobileWriteRecruit_Container .btn-foot button {
+  flex: 1;
+  padding: 0;
+  height: 53px;
+}

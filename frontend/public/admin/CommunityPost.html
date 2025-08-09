@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 페이지네이션 스타일 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .page-size-selector {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .page-size-selector label {
+            margin-right: 5px;
+        }
+        .page-size-selector select {
+            padding: 2px 5px;
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <!-- lnb -->
+        <aside class="lnb">
+                
+            <!-- 로고 -->
+            <div class="lnb__logo">
+                <a href="/" class="lnb__logo--link">
+                    <img src="assets/images/logo.png">
+                </a>
+            </div>
+            <!-- //로고 -->
+
+            <!-- 메뉴1 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Jobs.html" class="btn">채용정보</a>
+                </li>
+                <li>
+                    <a href="Resumes.html" class="btn">이력서정보</a>
+                </li>
+                <li>
+                    <a href="Application.html" class="btn">입사지원</a>
+                </li>
+                <li>
+                    <a href="JobOffers.html" class="btn">포지션제안</a>
+                </li>
+                <li>
+                    <a href="CompanyProfile.html" class="btn">기업정보</a>
+                </li>
+                <li>
+                    <a href="./CommunityPost.html" class="btn isActive">커뮤니티</a>
+                </li>
+                <li>
+                    <a href="Payments.html" class="btn">결제관리</a>
+                </li>
+                <li>
+                    <a href="Products.html" class="btn">상품관리</a>
+                </li>
+                <li>
+                    <a href="Banner.html" class="btn">배너관리</a>
+                </li>
+                <li>
+                    <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+                </li>
+                <li>
+                    <a href="DataManagement.html" class="btn">데이터관리</a>
+                </li>
+            </ul>
+            <!-- //메뉴1 -->
+
+            <!-- 메뉴2 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Statistics.html" class="btn">통계</a>
+                </li>
+                <li>
+                    <a href="UserManagement.html" class="btn">회원관리</a>
+                </li>
+                <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+                <li>
+                    <a href="Settings.html" class="btn">환경설정</a>
+                </li>
+            </ul>
+            <!-- //메뉴2 -->
+        </aside>
+        <!-- //lnb -->
+
+        <!-- contents -->
+        <div class="contents">
+            
+            <!-- 상단 네비 영역 -->
+            <div class="navigation">
+                <div class="container">
+                    <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+                </div>
+            </div>
+            <!-- //상단 네비 영역 -->
+
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+                <div class="container">
+                    <h2 class="title--h2">커뮤니티</h2>
+                </div>
+            </div>
+            <!-- //페이지 타이틀 -->
+
+            <!-- 컨텐츠 영역 -->
+            <div class="content">
+                <div class="container">
+
+                    <article class="article-area">
+
+                        <!-- 상단 버튼 영역 -->
+                        <div class="btn-area--top">
+                            <button type="button" class="btn btn-danger btn-small" id="btnBulkDelete">삭제</button>
+                            <button type="button" class="btn btn-success btn-small" id="btnBulkShow">노출</button>
+                            <button type="button" class="btn btn-warning btn-small" id="btnBulkHide">비노출</button>
+                        </div>
+                        <!-- //상단 버튼 영역 -->
+
+                        <!-- 상단 검색 영역 -->
+                        <div class="search-area">
+                            <div class="search--select select-box">
+                                <div class="control">
+                                    <select class="select" id="categoryId">
+                                        <option value="">게시판</option>
+                                        <option value="1">미국</option>
+                                        <option value="2">유럽</option>
+                                        <option value="3">아시아</option>
+                                        <option value="4">오세아니아</option>
+                                        <option value="0">대기업 인사담당자 Q&A</option>
+                                    </select>
+                                </div>
+
+                                <div class="control">
+                                    <select class="select" id="status">
+                                        <option value="">상태</option>
+                                        <option value="ACTIVE">노출</option>
+                                        <option value="INACTIVE">비노출</option>
+                                        <option value="PENDING">대기</option>
+                                    </select>
+                                </div>
+
+                                <div class="select--date">
+                                    <div class="control">
+                                        <input type="date" id="startDate" class="select">
+                                    </div>
+                                    <div class="control">
+                                        <input type="date" id="endDate" class="select">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="search--text">
+                                <div class="control">
+                                    <input type="text" id="keyword" placeholder="검색어를 입력하세요">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="btnSearch">검색</button>
+                            </div>
+                        </div>
+                        <!-- //상단 검색 영역 -->
+
+                        <!-- 테이블 -->
+                        <section class="table-area">
+                            <div class="table-header">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <colgroup>
+                                        <col width="44px"/> <!-- 체크 -->
+                                        <col width="70px"/> <!-- 번호 -->
+                                        <col width="140px"/> <!-- 등록일시 -->
+                                        <col width="100px"/> <!-- 조회수 -->
+                                        <col width="80px"/> <!-- 상태 -->
+                                        <col width="200px"/> <!-- 게시판 -->
+                                        <col width="200px"/> <!-- 작성자 -->
+                                        <col width="*"/> <!-- 제목 -->
+                                        <col width="240px"/> <!-- 관리자툴 -->
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="control">
+                                                <input id="selectAll" type="checkbox" class="checked--all">
+                                            </div>
+                                        </th>
+                                        <th>번호</th>
+                                        <th>등록일시</th>
+                                        <th>조회수</th>
+                                        <th>상태</th>
+                                        <th>게시판</th>
+                                        <th>작성자</th>
+                                        <th>제목</th>
+                                        <th>관리자툴</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="table-content">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <colgroup>
+                                        <col width="44px"/> <!-- 체크 -->
+                                        <col width="70px"/> <!-- 번호 -->
+                                        <col width="140px"/> <!-- 등록일시 -->
+                                        <col width="100px"/> <!-- 조회수 -->
+                                        <col width="80px"/> <!-- 상태 -->
+                                        <col width="200px"/> <!-- 게시판 -->
+                                        <col width="200px"/> <!-- 작성자 -->
+                                        <col width="*"/> <!-- 제목 -->
+                                        <col width="240px"/> <!-- 관리자툴 -->
+                                    </colgroup>
+                                    <tbody id="postTableBody">
+                                        <!-- 데이터가 여기에 동적으로 로드됩니다 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <!-- //테이블 -->
+
+                        <!-- 페이지네이션 영역 -->
+                        <div class="page-size-selector">
+                            <select id="pageSize">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="pagination">
+                            <!-- 페이지 버튼이 여기에 동적으로 로드됩니다 -->
+                        </div>
+                        <div class="pagination-info">
+                            <!-- 페이지 정보가 여기에 표시됩니다 -->
+                        </div>
+                        <!-- //페이지네이션 영역 -->
+                    </article>
+                </div>
+            </div>
+            <!-- //컨텐츠 영역 -->
+        </div>
+        <!-- //contents -->
+    </main>
+    <script src="./env-config.js"></script>
+    <script>
+        //const API_BASE_URL = 'http://localhost:8082/api/v1';
+        //const API_BASE_URL = 'http://13.125.187.22:8082/api/v1';
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 상태 변수
+            let selectedIds = [];
+            let postItems = [];
+            let currentPage = 0;
+            let pageSize = 10;
+            let totalPages = 0;
+            let totalElements = 0;
+    
+            // 초기 로드
+            loadPostItems();
+    
+            // 이벤트 리스너 등록
+            document.getElementById('btnSearch').addEventListener('click', handleSearch);
+            document.getElementById('selectAll').addEventListener('change', handleSelectAllClick);
+            document.getElementById('btnBulkDelete').addEventListener('click', handleBulkDelete);
+            document.getElementById('btnBulkShow').addEventListener('click', () => handleBulkStatusChange('ACTIVE'));
+            document.getElementById('btnBulkHide').addEventListener('click', () => handleBulkStatusChange('INACTIVE'));
+            document.getElementById('btnLogout').addEventListener('click', handleLogout);
+            document.getElementById('pageSize').addEventListener('change', handlePageSizeChange);
+            document.getElementById('keyword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            })
+
+            // 필터링 옵션들에 change 이벤트 리스너 추가
+            const filterElements = [
+                'categoryId',
+                'status',
+                'startDate',
+                'endDate'
+            ];
+
+            // 각 필터링 요소에 change 이벤트 리스너 추가
+            filterElements.forEach(elementId => {
+                document.getElementById(elementId).addEventListener('change', handleFilterChange);
+            });
+
+            // 필터 변경 이벤트 핸들러
+            function handleFilterChange() {
+                // 필터 값이 변경될 때마다 첫 페이지로 이동
+                currentPage = 0;
+                // 변경된 필터로 데이터 로드
+                loadPostItems();
+            }
+    
+            // 데이터 로드 함수
+            function loadPostItems() {
+                const categoryId = document.getElementById('categoryId').value;
+                const status = document.getElementById('status').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                const keyword = document.getElementById('keyword').value;
+    
+                // API 호출 URL 구성
+                let url = `${API_BASE_URL}/mdms/community-management?page=${currentPage}&size=${pageSize}`;
+                if (categoryId) url += `&categoryId=${categoryId}`;
+                if (status) url += `&status=${status}`;
+                if (startDate) url += `&startDate=${startDate}`;
+                if (endDate) url += `&endDate=${endDate}`;
+                if (keyword) url += `&keyword=${keyword}`;
+    
+                // API 호출
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('네트워크 응답이 정상이 아닙니다');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 데이터 처리
+                        postItems = data.content;
+                        totalPages = data.totalPages;
+                        totalElements = data.totalElements;
+                        currentPage = data.number;
+                        
+                        renderTable();
+                        renderPagination();
+                        updatePaginationInfo();
+                    })
+                    .catch(error => {
+                        console.error('데이터 로드 실패:', error);
+                        alert('데이터를 불러오는 중 오류가 발생했습니다.');
+                    });
+            }
+    
+            // 테이블 렌더링 함수
+            function renderTable() {
+                const tableBody = document.getElementById('postTableBody');
+                tableBody.innerHTML = '';
+
+                if (postItems.length === 0) {
+                    const emptyRow = document.createElement('tr');
+                    emptyRow.innerHTML = `
+            <td colspan="9" style="text-align: center; padding: 20px 0;">
+                데이터가 없습니다.
+            </td>
+        `;
+                    tableBody.appendChild(emptyRow);
+                    return;
+                }
+
+                postItems.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    //const displayIndex = currentPage * pageSize + index + 1; // 페이지별 순서 계산
+                    const displayIndex = totalElements - (currentPage * pageSize + index);
+
+                    // 날짜 포매팅
+                    const createdDate = new Date(item.createdAt);
+                    const formattedDate = `${createdDate.getFullYear()}-${String(createdDate.getMonth() + 1).padStart(2, '0')}-${String(createdDate.getDate()).padStart(2, '0')} ${String(createdDate.getHours()).padStart(2, '0')}:${String(createdDate.getMinutes()).padStart(2, '0')}`;
+
+                    // 조회수 포매팅
+                    const formattedViews = new Intl.NumberFormat('ko-KR').format(item.views);
+
+                    const HREF_BASE_URL = window.__CONFIG__.HREF_BASE_URL;
+                    const postDetailUrl = `${HREF_BASE_URL}/community/bbsview/${item.postId}`;
+
+                    // 상태 표시 변환
+                    function getStatusLabel(status) {
+                        const statusMap = {
+                            'ACTIVE': '노출',
+                            'INACTIVE': '비노출',
+                            'PENDING': '대기'
+                        };
+                        return statusMap[status] || status;
+                    }
+
+                    row.innerHTML = `
+            <td>
+                <div class="control">
+                    <input type="checkbox" class="checked--node" data-id="${item.postId}" ${selectedIds.includes(item.postId) ? 'checked' : ''}>
+                </div>
+            </td>
+            <td>${displayIndex}</td>
+            <td>${formattedDate}</td>
+            <td>${formattedViews}</td>
+            <td>${getStatusLabel(item.status)}</td>
+            <td>${item.categoryName || '-'}</td>
+            <td>${item.writer || '-'}</td>
+            <td>
+                <a href="${postDetailUrl}">
+                    ${item.title || '-'}
+                </a>
+            </td>
+            <td>
+                <div class="admin--tool">
+                    <button type="button" class="btn btn-primary btn-hide" data-id="${item.postId}">비노출</button>
+                    <button type="button" class="btn btn-success btn-show" data-id="${item.postId}">노출</button>
+                    <button type="button" class="btn btn-warning btn-edit" data-id="${item.postId}" data-category="${item.categoryId}">수정</button>
+                    <button type="button" class="btn btn-danger btn-delete" data-id="${item.postId}">삭제</button>
+                </div>
+            </td>
+        `;
+                    tableBody.appendChild(row);
+                });
+                document.querySelectorAll('.checked--node').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        handleCheckboxClick(id);
+                    });
+                });
+
+                // 버튼 이벤트 리스너 추가
+                document.querySelectorAll('.btn-show').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        handleStatusChange(id, 'ACTIVE');
+                    });
+                });
+
+                document.querySelectorAll('.btn-hide').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        handleStatusChange(id, 'INACTIVE');
+                    });
+                });
+
+                document.querySelectorAll('.btn-edit').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        const categoryId = parseInt(this.getAttribute('data-category'));
+                        handleEdit(id, categoryId);
+                    });
+                });
+
+                document.querySelectorAll('.btn-delete').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        handleDelete(id);
+                    });
+                });
+            }
+            
+            // 페이지네이션 렌더링 함수
+            function renderPagination() {
+                const paginationContainer = document.querySelector('.pagination');
+                paginationContainer.innerHTML = '';
+                
+                // 첫 페이지 버튼
+                const firstPageBtn = document.createElement('button');
+                firstPageBtn.className = 'pagination-btn';
+                firstPageBtn.textContent = '<<';
+                firstPageBtn.disabled = currentPage === 0;
+                firstPageBtn.addEventListener('click', () => goToPage(0));
+                paginationContainer.appendChild(firstPageBtn);
+                
+                // 이전 페이지 버튼
+                const prevPageBtn = document.createElement('button');
+                prevPageBtn.className = 'pagination-btn';
+                prevPageBtn.textContent = '<';
+                prevPageBtn.disabled = currentPage === 0;
+                prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1));
+                paginationContainer.appendChild(prevPageBtn);
+                
+                // 페이지 번호 버튼들
+                const maxPageButtons = 5; // 표시할 페이지 버튼 최대 개수
+                const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+                const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+                
+                for (let i = startPage; i <= endPage; i++) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = 'pagination-btn';
+                    if (i === currentPage) {
+                        pageBtn.classList.add('active');
+                    }
+                    pageBtn.textContent = i + 1;
+                    pageBtn.addEventListener('click', () => goToPage(i));
+                    paginationContainer.appendChild(pageBtn);
+                }
+                
+                // 다음 페이지 버튼
+                const nextPageBtn = document.createElement('button');
+                nextPageBtn.className = 'pagination-btn';
+                nextPageBtn.textContent = '>';
+                nextPageBtn.disabled = currentPage >= totalPages - 1;
+                nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1));
+                paginationContainer.appendChild(nextPageBtn);
+                
+                // 마지막 페이지 버튼
+                const lastPageBtn = document.createElement('button');
+                lastPageBtn.className = 'pagination-btn';
+                lastPageBtn.textContent = '>>';
+                lastPageBtn.disabled = currentPage >= totalPages - 1;
+                lastPageBtn.addEventListener('click', () => goToPage(totalPages - 1));
+                paginationContainer.appendChild(lastPageBtn);
+            }
+    
+            // 페이지네이션 정보 업데이트
+            function updatePaginationInfo() {
+                const paginationInfo = document.querySelector('.pagination-info');
+                if (totalElements === 0) {
+                    paginationInfo.textContent = '';
+                } else {
+                    const start = currentPage * pageSize + 1;
+                    const end = Math.min((currentPage + 1) * pageSize, totalElements);
+                    paginationInfo.textContent = `전체 ${totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+                }
+            }
+            
+            // 페이지 이동 함수
+            function goToPage(page) {
+                if (page < 0 || page >= totalPages) return;
+                
+                currentPage = page;
+                loadPostItems();
+                window.scrollTo(0, 0); // 페이지 상단으로 스크롤
+            }
+            
+            // 페이지 사이즈 변경 핸들러
+            function handlePageSizeChange() {
+                pageSize = parseInt(document.getElementById('pageSize').value);
+                currentPage = 0; // 페이지 사이즈가 변경되면 첫 페이지로 이동
+                loadPostItems();
+            }
+    
+            // 검색 이벤트 핸들러
+            function handleSearch() {
+                currentPage = 0; // 검색 시 첫 페이지로 이동
+                loadPostItems();
+            }
+    
+            // 전체 선택 이벤트 핸들러
+            function handleSelectAllClick(event) {
+                const isChecked = event.target.checked;
+                
+                if (isChecked) {
+                    selectedIds = postItems.map(item => item.postId);
+                } else {
+                    selectedIds = [];
+                }
+                
+                document.querySelectorAll('.checked--node').forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+            }
+    
+            // 개별 체크박스 이벤트 핸들러
+            function handleCheckboxClick(id) {
+                const index = selectedIds.indexOf(id);
+                
+                if (index === -1) {
+                    selectedIds.push(id);
+                } else {
+                    selectedIds.splice(index, 1);
+                }
+                
+                // 전체 선택 체크박스 상태 업데이트
+                document.getElementById('selectAll').checked = 
+                    postItems.length > 0 && selectedIds.length === postItems.length;
+            }
+            
+            // 게시글 상태 변경 이벤트 핸들러
+            function handleStatusChange(id, status) {
+                const actionText = status === 'ACTIVE' ? '노출' : '비노출';
+                
+                if (confirm(`이 게시글을 ${actionText}하시겠습니까?`)) {
+                    // API 호출
+                    fetch(`${API_BASE_URL}/mdms/community-management/${id}/status?status=${status}`, {
+                        method: 'PUT'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            loadPostItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('상태 변경 실패:', error);
+                        alert('상태 변경 중 오류가 발생했습니다.');
+                    });
+                }
+            }
+            
+            // 게시글 수정 이벤트 핸들러
+            function handleEdit(id, categoryId) {
+                let categoryName;
+
+                console.log(categoryId)
+
+                switch (categoryId) {
+                    case 0:
+                        window.location.href = `${HREF_BASE_URL}/community/mentowrite/${id}?category=all`;
+                        return;
+                    case 1:
+                        categoryName = "america";
+                        break;
+                    case 2:
+                        categoryName = "europe";
+                        break;
+                    case 3:
+                        categoryName = "asia";
+                        break;
+                    case 4:
+                        categoryName = "oceania";
+                        break;
+                    default:
+                        categoryName = "other";
+                        break;
+                }
+
+                window.location.href = `/community/bbswrite/${id}?category=${categoryName}`;
+            }
+            
+            // 게시글 삭제 이벤트 핸들러
+            function handleDelete(id) {
+                if (confirm('이 게시글을 삭제하시겠습니까?')) {
+                    // API 호출
+                    fetch(`${API_BASE_URL}/mdms/community-management/${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            // 삭제 후 선택된 아이템에서도 제거
+                            const index = selectedIds.indexOf(id);
+                            if (index !== -1) {
+                                selectedIds.splice(index, 1);
+                            }
+                            loadPostItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('삭제 실패:', error);
+                        alert('삭제 중 오류가 발생했습니다.');
+                    });
+                }
+            }
+            
+            // 일괄 삭제 이벤트 핸들러
+            function handleBulkDelete() {
+                if (selectedIds.length === 0) {
+                    alert('삭제할 게시글을 선택해주세요.');
+                    return;
+                }
+                
+                if (confirm(`선택한 ${selectedIds.length}개의 게시글을 삭제하시겠습니까?`)) {
+                    // API 호출
+                    fetch(`${API_BASE_URL}/mdms/community-management/bulk-delete`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(selectedIds)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            selectedIds = [];
+                            loadPostItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('일괄 삭제 실패:', error);
+                        alert('삭제 중 오류가 발생했습니다.');
+                    });
+                }
+            }
+            
+            // 일괄 상태 변경 이벤트 핸들러
+            function handleBulkStatusChange(status) {
+                if (selectedIds.length === 0) {
+                    alert('상태를 변경할 게시글을 선택해주세요.');
+                    return;
+                }
+    
+                const actionText = status === 'ACTIVE' ? '노출' : '비노출';
+                
+                if (confirm(`선택한 ${selectedIds.length}개의 게시글을 ${actionText}로 변경하시겠습니까?`)) {
+                    // API 호출
+                    fetch(`${API_BASE_URL}/mdms/community-management/bulk-status?status=${status}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(selectedIds)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            loadPostItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('일괄 상태 변경 실패:', error);
+                        alert('상태 변경 중 오류가 발생했습니다.');
+                    });
+                }
+            }
+
+
+            
+            // 로그아웃 이벤트 핸들러
+            function handleLogout() {
+                if (confirm('로그아웃 하시겠습니까?')) {
+                    // 세션 스토리지 및 로컬 스토리지 클리어
+                    sessionStorage.clear();
+                    localStorage.removeItem('token');
+
+                    // 로그인 페이지로 리다이렉트
+                    window.location.href = '/admin/login.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

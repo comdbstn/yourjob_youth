@@ -1,0 +1,33 @@
+$icon-dimensions: 15px !default;
+$icon-dimensions-small: 10px !default;
+$icon-dimensions-medium: 20px !default;
+$icon-dimensions-large: 30px !default;
+
+[class^='icon-'] {
+	display: inline-block;
+}
+.icon {
+	display: flex;
+	align-items: center;
+	align-content: stretch;
+	justify-content: center;
+	flex-direction: column;
+	// height: $icon-dimensions;
+	// width: $icon-dimensions;
+
+	// Sizes
+	&.is-small {
+		height: $icon-dimensions-small;
+		width: $icon-dimensions-small;
+	}
+
+	&.is-medium {
+		height: $icon-dimensions-medium;
+		width: $icon-dimensions-medium;
+	}
+
+	&.is-large {
+		height: $icon-dimensions-large;
+		width: $icon-dimensions-large;
+	}
+}

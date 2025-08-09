@@ -1,0 +1,116 @@
+.find_idpwd_mem_container {
+  height: 100vh;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.find_idpwd {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.find_idpwd .title {
+  position: relative;
+  display: block;
+  justify-items: center;
+}
+
+.find_idpwd .title img {
+  position: absolute;
+  top: -110px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.find_idpwd .flex-row {
+  display: flex;
+  gap: 40px;
+}
+
+.find_idpwd .flex-col {
+  flex: 1;
+  padding: 20px;
+}
+
+.find_idpwd .line {
+  border-right: 1px dashed #e0e0e0;
+}
+
+.find_idpwd .find_title {
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.find_idpwd .find_subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.find_idpwd .input_field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.find_idpwd .input_field .label {
+  padding-left: 10px;
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  color: var(--txtcol05);
+}
+
+.find_idpwd .input_field .input {
+  background-color: var(--white);
+  border: 1px solid var(--linecol02);
+  border-radius: 20px;
+  width: 100%;
+  padding: 19px 15px;
+}
+
+.find_idpwd .span {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.find_idpwd .find_btn {
+  width: 100%;
+  padding: 17px;
+  background: #2F80DC;
+  color: white;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.find_idpwd .find_btn:hover {
+  background-color: #0056b3;
+}
+
+.find_idpwd .item-justify-center {
+  text-align: center;
+}
+
+.find_idpwd .items-start {
+  align-items: flex-start;
+}
+
+.find_idpwd .items-direction {
+  flex-direction: column;
+}
+
+.find_idpwd .fmt01 {
+  margin-bottom: 20px;
+} 

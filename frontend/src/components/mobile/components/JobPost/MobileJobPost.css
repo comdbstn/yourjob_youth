@@ -1,0 +1,280 @@
+.mobile_jobPostContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.mobile_jobPostContainer .selectedOptions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #2f80dc;
+  margin-top: 10px;
+}
+
+.mobile_jobPostContainer .topBtns {
+  width: 100%;
+  /* height: 50px; */
+  border-bottom: #eaeaea 1px solid;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.mobile_jobPostContainer .topBtns button {
+  width: auto;
+  border-bottom: transparent 3px solid;
+  font-size: 18px;
+  font-weight: 500;
+  /* height: 46px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 10px 22px;
+  color: #8f8f8f;
+}
+
+.mobile_jobPostContainer .topBtns button span {
+  display: block;
+}
+
+.mobile_jobPostContainer .topBtns .selected {
+  color: #2f80dc;
+  border-bottom: #2f80dc 3px solid;
+  font-weight: 700;
+}
+
+.mobile_jobPostContainer .vipSection {
+  padding: 0 20px;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.m_sub_title {
+  font-size: 20px;
+  font-weight: 700;
+  padding: 15px 0;
+}
+
+.m_sub_title.bottom_line {
+  border-bottom: 1px solid #d2d2d2;
+}
+
+.mobile_jobPostContainer .vipSection ul {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-auto-flow: column;
+  gap: 10px;
+  /* margin-top: 5px; */
+  overflow-x: scroll;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.mobile_jobPostContainer .vipSection li {
+  border: #b8b8b8 1px solid;
+  width: 300px;
+  /* height: 195px; */
+  border-radius: 10px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  padding: 20px;
+  /* justify-content: space-between; */
+}
+
+.mobile_jobPostContainer .vipSection li .thumb {
+  width: 110px;
+  height: 44px;
+  margin-bottom: 10px;
+}
+
+.mobile_jobPostContainer .vipSection li img {
+  width: auto;
+  height: 100%;
+}
+
+.mobile_jobPostContainer .vipSection li .middle {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.mobile_jobPostContainer .vipSection li .middle p:nth-child(1) {
+  color: #8f8f8f;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+  height: 21px;
+}
+
+.mobile_jobPostContainer .vipSection li .middle p:nth-child(2) {
+  color: #333333;
+  font-size: 18px;
+  white-space: normal;
+  /* 줄바꿈 허용 */
+  word-wrap: break-word;
+  /* 긴 단어도 줄바꿈 */
+  overflow-wrap: break-word;
+  /* 추가적인 줄바꿈 보장 */
+  height: 51px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  word-break: keep-all;
+}
+
+.mobile_jobPostContainer .vipSection li .bottomP {
+  font-size: 14px;
+  color: #a8a8a8;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.mobile_jobPostContainer .vipSection li .bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #a8a8a8;
+  gap: 50px;
+  align-items: center;
+}
+
+.mobile_jobPostContainer .vipSection .h157 {
+  height: 157px;
+}
+
+.mobile_jobPostContainer .infoSection {
+  display: flex;
+  flex-direction: column;
+  /* gap: 20px; */
+  width: 100%;
+  padding: 0 20px;
+}
+
+.mobile_jobPostContainer .infoSection li {
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0 20px;
+  border-bottom: #eaeaea 1px solid;
+  gap: 5px;
+
+  line-height: 1.5;
+}
+
+.mobile_jobPostContainer .infoSection li .companyName {
+  color: #2f80dc;
+  font-size: 14px;
+}
+
+.mobile_jobPostContainer .infoSection li .titleName {
+  font-size: 16px;
+  color: #333333;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobile_jobPostContainer .infoSection li .infoText {
+  color: #8f8f8f;
+  font-size: 14px;
+}
+
+.mobile_jobPostContainer .infoSection li .btns {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px;
+  margin-top: 5px;
+}
+
+.mobile_jobPostContainer .infoSection li .buttonStyle {
+  height: 50px;
+  width: 100%;
+  border: #cbcbcb 1px solid;
+  border-radius: 15px;
+  color: #a8a8a8;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobile_jobPostContainer .infoSection li .date {
+  height: 30px;
+  display: flex;
+  align-items: start;
+  color: #8f8f8f;
+  width: 100%;
+}
+
+.mobile_jobPostContainer .infoSection li .middle {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile_jobPostContainer .infoSection li .middle p:nth-child(1) {
+  font-size: 14px;
+  color: #2f80dc;
+  font-weight: 700;
+}
+
+.mobile_jobPostContainer .infoSection li .middle p:nth-child(2) {
+  font-size: 16px;
+  color: #333333;
+}
+
+.mobile_jobPostContainer .infoSection li .middle p:nth-child(3) {
+  font-size: 14px;
+  color: #8f8f8f;
+}
+
+.mobile_jobPostContainer .infoSection li .middle p:nth-child(4) {
+  font-size: 14px;
+  color: #8f8f8f;
+}
+
+.mobile_jobPostContainer .applyBtns {
+  width: 100%;
+  height: 50px;
+  border: #d2d2d2 1px solid;
+  border-radius: 15px;
+  background-color: white;
+  color: #8f8f8f;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+
+.mobile_jobPostContainer .homeBtn {
+  width: 100%;
+  height: 50px;
+  border: #d2d2d2 1px solid;
+  border-radius: 15px;
+  background-color: #545454;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+
+.mobile_jobPostContainer .secondBtns {
+  justify-content: center;
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  height: auto;
+}
+
+.mobile_jobPostContainer .secondBtns button {
+  color: #8f8f8f;
+  font-weight: 500;
+  height: 43px;
+  width: auto;
+  padding: 0 5px;
+  font-size: 16px;
+}

@@ -1,0 +1,10 @@
+
+google:
+  client:
+    id: "${GOOGLE_CLIENT_ID:your-default-google-client-id}"
+    secret: "${GOOGLE_CLIENT_SECRET:your-default-google-client-secret}"
+  redirect:
+    uri: "${GOOGLE_REDIRECT_URI:http://${BACKEND_API_HOST}:8081/api/v1/auth/callback}"
+
+backend:
+  url: "${BACKEND_API_HOST}"

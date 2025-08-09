@@ -1,0 +1,47 @@
+.talent-scrap-modal-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.talent-scrap-modal-container .scrap-modal-title {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -2%;
+  color: #333;
+  margin-bottom: 35px;
+  line-height: 150%;
+}
+.talent-scrap-modal-container .button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.talent-scrap-modal-container .confirm-btn,
+.talent-scrap-modal-container .cancel-btn {
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  width: 150px;
+  height: 50px;
+}
+
+.talent-scrap-modal-container .confirm-btn {
+  background-color: #3182f6;
+  color: white;
+}
+
+.talent-scrap-modal-container .cancel-btn {
+  background-color: #f2f4f7;
+  color: #333;
+}
+
+.talent-scrap-modal-container .confirm-btn:hover {
+  background-color: #1b64da;
+}
+
+.talent-scrap-modal-container .cancel-btn:hover {
+  background-color: #e5e8ed;
+}

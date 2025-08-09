@@ -1,0 +1,215 @@
+.jobrank-modal-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.jobrank-modal-container .modal_title {
+  display: flex;
+  align-items: center;
+  line-height: normal;
+  margin-bottom: 20px;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxxl);
+  font-weight: 700;
+}
+
+.jobrank-modal-container .select_nav {
+  display: flex;
+  width: 100%;
+  background-color: var(--bgcol03, #F9FBFC);
+  border: 1px solid var(--linecol05, #EAEAEA);
+}
+
+.jobrank-modal-container .select_nav li {
+  width: 25%;
+  color: var(--txtcol05, #333333);
+  font-size: var(--font-size-m, 14px);
+  padding: 12px 0;
+  border-right: 1px solid var(--linecol05, #EAEAEA);
+  font-weight: 500;
+  text-align: center;
+}
+
+.jobrank-modal-container .select_nav li.half {
+  width: 50%;
+}
+
+.jobrank-modal-container .select_nav li:last-child {
+  border-right: none;
+}
+
+.jobrank-modal-container .select_box {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--linecol05, #EAEAEA);
+  border-top: none;
+}
+
+.jobrank-modal-container .select_box li {
+  width: 25%;
+  padding: 15px;
+  border-right: 1px solid var(--linecol05, #EAEAEA);
+}
+
+.jobrank-modal-container .select_box li.half {
+  width: 50%;
+}
+
+.jobrank-modal-container .select_box li:last-child {
+  border-right: none;
+}
+
+/* 스크롤바의 전체 영역 */
+.jobrank-modal-container .select_box .select_box-scroll {
+  width: 100%;
+  height: 230px;
+  overflow: auto;
+  background-color: #FFFFFF; /* 배경색을 흰색으로 설정 */
+}
+
+.jobrank-modal-container .select_box .select_box-scroll.h-unset {
+  height: auto;
+}
+
+.jobrank-modal-container .select_box .select_box-scroll.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.jobrank-modal-container .select_box .select_box-scroll.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.jobrank-modal-container .select_box .select_box-scroll li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4.5px 0px;
+  border: none;
+  cursor: pointer;
+  color: var(--txtcol02, #8F8F8F);
+  font-size: var(--font-size-m, 14px);
+  font-weight: 400;
+  background-color: #FFFFFF; /* 각 항목의 배경색도 흰색으로 설정 */
+}
+
+.jobrank-modal-container .select_box .select_box-scroll li.half {
+  width: 50%;
+}
+
+.jobrank-modal-container .select_box .select_box-scroll .label {
+  color: var(--txtcol06, #484848);
+  font-size: var(--font-size-m, 14px);
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.jobrank-modal-container .select_box .select_box-scroll .label.letter-spac1 {
+  letter-spacing: -0.1px;
+}
+
+.jobrank-modal-container .select_box .select_box-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 95px;
+}
+
+/* 스크롤바 배경 */
+.jobrank-modal-container .select_box .select_box-scroll::-webkit-scrollbar-track {
+  background-color: var(--white, #FFFFFF);
+}
+
+/* 스크롤바의 손잡이 (슬라이더) */
+.jobrank-modal-container .select_box .select_box-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--bgcol06, #D9D9D9);
+  border-radius: 10px;
+  width: 5px;
+}
+
+/* 마우스를 올렸을 때 스크롤바의 색상 */
+.jobrank-modal-container .select_box .select_box-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgcol02, #CCCCCC);
+}
+
+/* 선택된 값 박스 */
+.jobrank-modal-container .choice_container {
+  width: 100%;
+  background-color: var(--white, #FFFFFF);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 15px 0px;
+}
+
+.jobrank-modal-container .choice_box {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 90%;
+}
+
+.jobrank-modal-container .choice_flex {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  color: var(--primary, #2F80DC) !important;
+  font-size: var(--font-size-m, 14px) !important;
+}
+
+.jobrank-modal-container .choice_txt {
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+.jobrank-modal-container .rotate {
+  color: var(--txtcol02, #8F8F8F) !important;
+}
+
+.jobrank-modal-container .choice_flex span {
+  visibility: hidden;
+  display: none;
+}
+
+.jobrank-modal-container .choice_reset {
+  display: flex;
+  justify-content: space-between;
+}
+
+.jobrank-modal-container .modal_sbtn {
+  margin-top: 20px;
+}
+
+.jobrank-modal-container .btnm {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.jobrank-modal-container .btnm button {
+  display: flex;
+  padding: 16px 67px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.jobrank-modal-container .btnm .btn-submit {
+  width: unset;
+  background-color: var(--bgcol04, #2F80DC) !important;
+  border-color: var(--bgcol04, #2F80DC) !important;
+  color: var(--white, #FFFFFF);
+}
+
+.jobrank-modal-container .btnm .btn-cancel {
+  width: unset;
+  background-color: var(--white, #FFFFFF) !important;
+  border: 1px solid var(--text-silver, #8F8F8F) !important;
+  color: var(--text-silver, #8F8F8F);
+}
+
+/* 체크박스 스타일 */
+.jobrank-modal-container .select_box-scroll input[type="checkbox"] {
+  margin-right: 8px;
+} 

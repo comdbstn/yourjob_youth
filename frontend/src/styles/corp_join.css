@@ -1,0 +1,41 @@
+/* screen - corpu95join */
+.corp_join {align-items: center; background-color: var(--white); display: flex; flex-direction: column; padding: 50px 0; width: 1024px; margin:0 auto; }
+
+.corp_join .title {color: var(--primary); font-size: var(--font-size-xxxxl); font-weight: 900; letter-spacing: -0.5px; line-height: normal; width:100%; }
+
+.corp_join .join_box {display: flex; align-items: flex-end; background-color: var(--bgcol01); border:1px solid var(--linecol03); border-radius:20px; flex-direction: column; margin-top: 45px; padding: 50px 100px; width: 100%; }
+
+.corp_join .box_title {line-height: normal; width:100%; color: var(--txtcol05); font-size: var(--font-size-xxxl); font-style: normal; font-weight: 600; text-align: center; margin-bottom:25px;}
+
+.corp_join .input_field {align-items: center; display: flex; gap:12px; margin-top:25px; width:100%; }
+
+
+.corp_join .span {width:295px; line-height: normal; color: var(--txtcol06); font-size: var(--font-size-xl); font-style: normal; font-weight: 500;}
+.corp_join span{color: var(--red);}
+.corp_join .formfild {align-items: flex-start; background-color: var(--white) !important; border: 1px solid var(--linecol02); border-radius:20px; display: flex; padding: 17px 15px; }
+
+
+.corp_join p {display: flex; line-height: normal; margin-top: 13px; width:72%; color: var(--txtcol01); font-size: var(--font-size-l); font-style: normal; font-weight: 400;}
+.corp_join p.txt{width:100%; margin-top:45px;}
+
+.corp_join .chk_box {align-items: flex-start; display: flex; flex-direction: column; gap:15px; width: 100%;}
+
+.corp_join .label{color: var(--txtcol06); font-size: var(--font-size-xl); font-style: normal; font-weight: 500; line-height: normal; }
+.corp_join .choice{color: var(--text-silver) !important;}
+
+.corp_join .form_btn {align-items: center; background-color: var(--primary); border-radius: 15px; justify-content: center; padding: 18px 30px; position: relative; color:var(--white); width:132px; }
+.corp_join .home_btn {align-items: center; background-color: var(--bgcol02); border-radius: 15px; justify-content: center; padding: 18px 30px; position: relative; color:var(--white); width:132px;}
+
+
+.corp_join .afree_chk {
+	align-self: flex-end;
+	margin-right: 0.36vw;
+	min-width: 47.81vw;
+	display: flex;
+	height: 1.2vw;
+	margin-top: 0.78vw;
+}
+
+.corp_join .complete-container {align-items: center; display: flex; gap: 10px; margin-top: 60px; width: 100%; justify-content: center;}
+.corp_join .complete_title {color: #484848; font-size: var(--font-size-sxx); font-weight: 400; margin-top: 40px; line-height: normal; }
+.corp_join .find_complete_title {color: #484848; font-size: var(--font-size-xxxl); font-weight: 400; margin-top:40px; width:100%; text-align:center; line-height: normal; }

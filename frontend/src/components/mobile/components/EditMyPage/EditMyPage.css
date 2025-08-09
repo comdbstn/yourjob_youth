@@ -1,0 +1,102 @@
+.mobileEditMyPageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.mobileEditMyPageContainer h2 {
+  margin: 35px 0;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.mobileEditMyPageContainer .contentSection {
+  padding: 20px;
+  width: 100%;
+}
+
+.mobileEditMyPageContainer section .content {
+  border-radius: 20px;
+  border: #eaeaea 1px solid;
+  padding: 35px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileEditMyPageContainer section .content h3 {
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: #eaeaea 1px solid;
+  padding: 15px 0;
+}
+
+.mobileEditMyPageContainer section .content .rows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 44px;
+  gap: 15px;
+}
+
+.mobileEditMyPageContainer section .content .rows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 44px;
+  gap: 15px;
+}
+
+.mobileEditMyPageContainer section .content .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mobileEditMyPageContainer section .content h4 {
+  min-width: 64px;
+  color: #8f8f8f;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.mobileEditMyPageContainer .visaGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* 2열 */
+  gap: 10px;
+  /* 요소 사이 간격 */
+}
+
+.mobileEditMyPageContainer .chkInput {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mobileEditMyPageContainer .chkInput label {
+  text-wrap-mode: nowrap;
+  font-size: 12px;
+}
+
+.mobileEditMyPageContainer .checks {
+  /* width: 100%; */
+  /* overflow-y: scroll; */
+  /* min-height: 130px; */
+}
+
+.mobileEditMyPageContainer .checks .checkContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  row-gap: 20px;
+  /* 행 사이 간격 추가 */
+  padding-top: 10px;
+  min-height: 200px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  grid-column-gap: 27px;
+  grid-row-gap: 25px;
+}

@@ -1,0 +1,115 @@
+# Alerting rules for YourJob Platform
+groups:
+  - name: platform_alerts
+    rules:
+      # High error rate
+      - alert: HighErrorRate
+        expr: (rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m])) * 100 > 5
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value }}% for {{ $labels.job }}"
+
+      # High response time
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High response time detected"
+          description: "95th percentile response time is {{ $value }}s for {{ $labels.job }}"
+
+      # Service down
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Service is down"
+          description: "{{ $labels.job }} has been down for more than 1 minute"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (jvm_memory_used_bytes / jvm_memory_max_bytes) * 100 > 85
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value }}% for {{ $labels.job }}"
+
+      # High CPU usage
+      - alert: HighCpuUsage
+        expr: process_cpu_usage > 0.8
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value }} for {{ $labels.job }}"
+
+      # Database connection issues
+      - alert: DatabaseConnectionPool
+        expr: hikaricp_connections_active / hikaricp_connections_max > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database connection pool usage high"
+          description: "Connection pool usage is {{ $value }} for {{ $labels.job }}"
+
+      # Too many failed login attempts
+      - alert: HighFailedLogins
+        expr: increase(failed_login_attempts_total[5m]) > 50
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High number of failed login attempts"
+          description: "{{ $value }} failed login attempts in the last 5 minutes"
+
+      # Low disk space
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100 < 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space usage is above 90% on {{ $labels.instance }}"
+
+  - name: business_alerts
+    rules:
+      # Low job application rate
+      - alert: LowJobApplications
+        expr: increase(job_applications_total[1h]) < 5
+        for: 2h
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low job application rate"
+          description: "Only {{ $value }} applications in the last hour"
+
+      # High payment failure rate
+      - alert: HighPaymentFailures
+        expr: (increase(payment_failures_total[1h]) / increase(payment_attempts_total[1h])) * 100 > 10
+        for: 30m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High payment failure rate"
+          description: "Payment failure rate is {{ $value }}% in the last hour"
+
+      # Crawler system issues
+      - alert: CrawlerJobFailures
+        expr: increase(crawler_failed_jobs_total[1h]) > 10
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High crawler job failures"
+          description: "{{ $value }} crawler jobs failed in the last hour"

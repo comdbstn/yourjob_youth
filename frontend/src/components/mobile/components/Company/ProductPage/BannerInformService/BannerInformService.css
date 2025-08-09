@@ -1,0 +1,103 @@
+.BannerInformService_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .circleDiv {
+    display: flex;
+    width: 41px;
+    height: 41px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: var(--primary, #2f80dc);
+    color: #fff;
+    font-family: "Noto Sans KR";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.28px;
+  }
+}
+.BannerInformService_container .sectionHeader {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: start;
+  width: 100%;
+  padding-left: 20px;
+}
+.BannerInformService_container .infoSection {
+  width: calc(100% - 40px);
+  padding: 30px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .columnDiv {
+    display: flex;
+    flex-direction: column;
+  }
+  .blueLabel {
+    color: var(--primary, #2f80dc);
+    font-family: "Noto Sans KR";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  .grayLabel {
+    color: var(--txt_col_02, #8f8f8f);
+    font-family: "Noto Sans KR";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+}
+.BannerInformService_container .tableSection {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  flex-direction: column;
+  .tableRow {
+    display: flex;
+    width: 100%;
+  }
+  .tableCol {
+    display: flex;
+    align-items: center;
+    height: 44px;
+    width: 100%;
+    justify-content: center;
+    color: var(--txt_col_03, #777);
+    font-family: "Noto Sans KR";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.24px;
+    border-bottom: 1px solid var(--line_col_05, #eaeaea);
+    background: #fff;
+  }
+  .tbHeader {
+    border-top: 1px solid var(--line_col_03, #d2d2d2);
+    border-bottom: 1px solid var(--line_col_03, #d2d2d2);
+    background: var(--bg_gr_04, #efefef);
+    color: var(--txt_col_03, #777);
+    font-family: "Noto Sans KR";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.28px;
+  }
+}

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+	
+    <link rel="stylesheet" type="text/css" href="/css/corpmypage.css" />
+	<link rel="stylesheet" type="text/css" href="/css/jquery.modal.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/nice-select.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.nice-select.js"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<header>
+		<nav>
+			<div class="nav-container">
+				<div class="container  flex-row items-center">
+					<div class="logo">
+						<a href="/" class="title"><img src="/img/logo.png"></a>
+						<div class="logo_txt">유학생 채용 플랫폼</div>
+					</div>
+					<div class="top_search">
+						<div class="search_box"><input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="유학생 채용정보를 검색해 보세요."></div>
+						<div class="top_search_btn"><img class="union" src="/img/union.svg" alt="Union" /></div>
+					</div>
+				</div>
+			</div>
+			<div class="menu-container">
+				<div class="container flex-row items-center item_between">
+					<ul class="menunavi">
+						<li><a href="/corpmem/mypage.html" class="notosanscjkkr-bold-mine-shaft-18px">홈</a></li>
+						<li><a href="/corpmem/jobpost.html" class="notosanscjkkr-bold-mine-shaft-18px">공고등록</a></li>
+						<li><a href="/corpmem/applicant.html" class="notosanscjkkr-bold-mine-shaft-18px">공고·지원자관리</a></li>
+						<li><a href="/corpmem/search.html" class="notosanscjkkr-bold-mine-shaft-18px">인재검색</a></li>
+						<li><a href="/corpmem/position_human.html" class="notosanscjkkr-bold-mine-shaft-18px active">인재관리</a></li>
+					</ul>
+					<ul class="userNav">
+						<!-- 로그인후 노출 -->
+						<li><a href="/corpmem/product_mypage.html" class="text-12">유료 이용내역</a></li>
+						<li><a href="/corpmem/mypage.html" class="text-12"><i class="fa-regular fa-user"></i></a></li>
+						<li><a href="#" class="logOut">로그아웃</a></li>
+						<!-- 로그인후 노출 end -->
+
+						<!-- 로그인전 노출
+						<li><a href="/member/join.html" class="text-12">회원가입</a></li>
+						로그인전 노출 end -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- header end -->
+
+    <div class="container-center-horizontal">
+        <div class="crop-wrap screen">
+
+
+			<!-- container -->
+			<div class="container">
+				
+				<div class="talent-tab mb50">
+					<a href="position_human.html" class="tab_btn active">포지션 제안 인재</a>
+					<a href="scrap_human.html" class="tab_btn">스크랩 인재</a>
+					<a href="latest_human.html" class="tab_btn">최근 본 인재</a>
+				</div>
+				
+				<!-- 타이틀 -->
+				<div class="head_txt">포지션 제안 인재</div>
+				<!-- 타이틀 end-->
+
+				<!-- tabBox -->
+				<div class="tabBox mb30">
+					<div class="tabMenu">
+						<a href="" class="active">전체 50</a>
+						<a href="">수락 1</a>
+						<a href="">거절 2</a>
+						<a href="">미응답 2</a>
+					</div>
+
+					<div class="search_box">
+						<input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="이름, 학교, 재직회사">
+						<button type="button" class="searchbtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</div>
+				</div>
+				<!-- tabBox end -->
+
+				<div class="list_table">
+					<ul class="list_thead">
+						<li class="w07 text-center"><input type="checkbox" id="chk-all" name="chk-all" ><label for="chk-all"></label></li>
+						<li class="w02">이름/나이</li>
+						<li class="w03">경력</li>
+						<li class="w03">최종학력</li>
+						<li class="w04">담당자/제안일</li>
+						<li class="w08"></li>
+						<li class="w04 text-center">제안답변상태</li>
+						<li class="w04 text-center">발표</li>
+					</ul>
+
+					<!-- loop-->
+					<ul class="list_tbody">
+						<li class="w07 text-center"><input type="checkbox" id="chk" name="chk[]" ><label for=""></label></li>
+						<li class="w02">
+							<p class="txt2">홍길동</p>
+							<p class="txt3">남, 24세</p>
+						</li>
+						<li class="w03">
+							<p class="txt2">2년 8개월</p>
+							<p class="txt3">(주)삼원프리테크</p>
+						</li>
+						<li class="w03">
+							<p class="txt2">대학4년</p>
+							<p class="txt3">서울대학교</p>
+						</li>
+						<li class="w04">
+							<p class="txt2">김남길</p>
+							<p class="txt3">24.10.10</p>
+						</li>
+						<li class="w08 text-center">
+							<div class="infobtnGroup item-justify-center">
+								<button type="button" class="resuBtn">이력서 보기</button>
+							</div>
+						</li>
+						<li class="w04 text-center"><p class="txt3">수락</p></li>
+						<li class="w04 text-center flex-row item-justify-center">
+							<select name="Interview_div">
+								<option value="">면접 대기</option>
+								<option value="">면접 제안</option>
+								<option value="">면접 진행중</option>
+								<option value="">면접 완료</option>
+								<option value="">면접 거절</option>
+							</select>
+						</li>
+					</ul>
+
+					<ul class="list_tbody">
+						<li class="w07 text-center"><input type="checkbox" id="chk" name="chk[]" ><label for=""></label></li>
+						<li class="w02">
+							<p class="txt2">홍길동</p>
+							<p class="txt3">남, 24세</p>
+						</li>
+						<li class="w03">
+							<p class="txt2">2년 8개월</p>
+							<p class="txt3">(주)삼원프리테크</p>
+						</li>
+						<li class="w03">
+							<p class="txt2">대학4년</p>
+							<p class="txt3">서울대학교</p>
+						</li>
+						<li class="w04">
+							<p class="txt2">김남길</p>
+							<p class="txt3">24.10.10</p>
+						</li>
+						<li class="w08 text-center">
+							<div class="infobtnGroup item-justify-center">
+								<button type="button" class="resuBtn">이력서 보기</button>
+							</div>
+						</li>
+						<li class="w04 text-center"><p class="txt3">수락</p></li>
+						<li class="w04 text-center flex-row item-justify-center">
+							<select name="Interview_div">
+								<option value="">면접 대기</option>
+								<option value="">면접 제안</option>
+								<option value="">면접 진행중</option>
+								<option value="">면접 완료</option>
+								<option value="">면접 거절</option>
+							</select>
+						</li>
+					</ul>
+					<!-- loop end -->
+				</div>
+
+				<div class="listBtn-Box">
+					<button type="button" class="delBtn">삭제</button>
+				</div>
+
+
+				<!-- page -->
+				<div class="page_num">
+					<a href="#"><i class="fa-solid fa-angle-left"></i></a>
+					<a href="#" class="active">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+					<a href="#"><i class="fa-solid fa-angle-right"></i></a>
+				</div>
+				<!-- page end -->
+
+			</div>
+			<!-- container end-->
+
+        </div>
+    </div>
+
+
+	<!-- footer -->
+	<footer>
+		<div class="footer_wrap">
+			<div class="footer_link">
+				<ul>
+					<li>이용약관</li>
+					<li>개인정보처리방침</li>
+				</ul>
+			</div>
+	
+			<div class="footer_con">
+				<div class="container">
+
+					<div class="footer_box">
+						<div class="footer_info">
+							<ul>
+								<li>고객센터 : 0000-0000</li>
+								<li>FAX : 00-0000-0000</li>
+								<li>E-mail : abcd@gmail.com</li>
+							</ul>
+							<ul>
+								<li>서울시 서초구 서초대로 301</li>
+								<li>대표 : 홍길동</li>
+								<li>사업자등록번호 : 000-00-00000</li>
+							</ul>
+							<ul>
+								<li>Copyright ©아이비리거. All rights reserved.</li>
+							</ul>
+						</div>
+						<div class="urjob"><img src="/img/f_logo.png"></div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer end -->
+
+<script src="/js/jquery.modal.js"></script>
+<script src="/js/modal.js"></script>
+<script>
+$(document).ready(function () {
+	$('select').niceSelect();
+
+	/* 스크랩 모달창열기 */
+	$('.top_talent').on("click", "#Bookmark", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'talentscrap_modal.html',
+			largeModal: "small-modal", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/* 후보자 저장 모달창열기 */
+	$('.uinfobtnBox').on("click", ".save", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'talentscrap_modal.html',
+			largeModal: "small-modal", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/* 포지션 제안하기 모달창열기 */
+	$('.uinfobtnBox').on("click", ".proposal", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'position_modal.html',
+			largeModal: "large-min", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/* 이력서 보기 이동 */	
+	$('.list_table').on("click", ".resuBtn", function () {
+		event.preventDefault();
+		this.blur();
+		window.location.href="resume_detail.html";
+	});
+
+	/* 선택삭제 모달창열기 */
+	$('.listBtn-Box').on("click", ".delBtn", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'dataDel_modal.html',
+			largeModal: "small-modal", 
+			close: function(result) {
+			}
+		});
+	});
+
+
+});
+</script>
+</body>
+</html>

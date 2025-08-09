@@ -1,0 +1,1648 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제관리 상세</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 로딩 인디케이터 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 상품명 드롭다운 스타일 */
+        .product-dropdown {
+            position: absolute;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-control {
+            position: relative;
+        }
+
+        .product-item {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .banner-container {
+            width: 300px;      /* 예: 300px 너비 */
+            height: 150px;     /* 예: 150px 높이 */
+            border: 1px solid #ddd; /* 테두리 선택사항 */
+        }
+
+        /* 내부에 img 태그가 직접 들어있다면 비율 유지하며 축소 */
+        .banner-container img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 삭제된 공고 알림 스타일 */
+        .deleted-notice {
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn isActive">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">결제관리 상세</h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+
+                <article class="article-area nosearch-area">
+
+                    <ul class="list option">
+                        <li class="items">
+                            <span class="title">결제요청일시</span>
+                            <span class="text" id="requestDate"></span>
+                        </li>
+                        <li class="items">
+                            <span class="title">결제완료일시</span>
+                            <span class="text" id="completionDate"></span>
+                        </li>
+                        <li class="items">
+                            <span class="title" >아이디</span>
+                            <span class="text" id="accountId"></span>
+                        </li>
+                        <li class="items">
+                            <span class="title">사용자구분</span>
+                            <div class="form-radio">
+                                <div class="control">
+                                    <input type="radio" name="userStatus" value="active" id="userStatusActive">
+                                    <span class="text">사용중</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="userStatus" value="inactive" id="userStatusInactive">
+                                    <span class="text">사용중지</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items" id="exposureTypeContainer">
+                            <span class="title">노출구분</span>
+                            <div class="form-radio">
+                                <div class="control">
+                                    <input type="radio" name="exposureType" value="period" id="exposurePeriod">
+                                    <span class="text">기간별</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="exposureType" value="click" id="exposureClick">
+                                    <span class="text">건별</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">상품명</span>
+                            <div class="control product-control">
+                                <input type="text" id="productName" readonly>
+                                <input type="hidden" id="selectedProductId">
+                                <input type="hidden" id="selectedProductType">
+                                <input type="hidden" id="selectedProductDuration">
+                                <div id="productDropdown" class="product-dropdown hidden">
+                                    <div id="searchContainer" style="padding: 8px; border-bottom: 1px solid #ccc;">
+                                        <input type="text" id="productSearchInput" placeholder="상품명 검색..." style="width: 100%;">
+                                    </div>
+                                    <div id="productsList"></div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">공고/이력서</span>
+                            <span class="text" id="jobPostingName"></span>
+                        </li>
+                        <li class="items">
+                            <span class="title">기간/클릭</span>
+                            <span class="text" id="periodClick"></span>
+                        </li>
+                        <li class="items">
+                            <span class="title">결제방법</span>
+                            <span class="text" id="paymentMethod"></span>
+                        </li>
+                        <li class="items">
+                            <span class="title">입금상태</span>
+                            <div class="form-radio">
+                                <div class="control">
+                                    <input type="radio" name="depositStatus" value="pending" id="depositPending">
+                                    <span class="text">입금대기</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="depositStatus" value="paid" id="depositPaid">
+                                    <span class="text">입금확인</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="depositStatus" value="cancelled" id="depositCancelled">
+                                    <span class="text">취소됨</span>
+                                </div>
+                                <div class="control">
+                                    <input type="radio" name="depositStatus" value="refunded" id="depositRefunded">
+                                    <span class="text">환불됨</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">연락처</span>
+                            <span class="text" id="phoneNumber"></span>
+                        </li>
+                    </ul>
+                    <div id="bannerPreviewContainer" class="banner-container" style="margin:20px 0; border:1px solid #ddd;">
+                        <h4>배너 이미지</h4>
+                        <img id="bannerExampleImg" src="" alt="배너 예시" style="max-width:100%; cursor:pointer;"/>
+                        <div style="margin-top:20px;">
+                            <input type="text" id="bannerExampleUrl" readonly style="width:100%;"/>
+                        </div>
+                    </div>
+
+                    <div class="btn-area">
+                        <button type="button" class="btn btn-success" id="saveBtn">저장</button>
+                        <a href="Payments.html" class="btn btn-primary">목록으로</a>
+                    </div>
+
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+    </div>
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+</main>
+
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // API 기본 URL
+        const API_BASE_URL = window.__CONFIG__ ? window.__CONFIG__.API_BASE_URL : 'http://localhost:8082/api/v1';
+
+        // DOM 요소들
+        const elements = {
+            requestDate: document.getElementById('requestDate'),
+            completionDate: document.getElementById('completionDate'),
+            accountId: document.getElementById('accountId'),
+            userStatusActive: document.getElementById('userStatusActive'),
+            userStatusInactive: document.getElementById('userStatusInactive'),
+            productName: document.getElementById('productName'),
+            selectedProductId: document.getElementById('selectedProductId'),
+            selectedProductType: document.getElementById('selectedProductType'),
+            selectedProductDuration: document.getElementById('selectedProductDuration'),
+            productDropdown: document.getElementById('productDropdown'),
+            productsList: document.getElementById('productsList'),
+            productSearchInput: document.getElementById('productSearchInput'),
+            exposureTypeContainer: document.getElementById('exposureTypeContainer'),
+            jobPostingName: document.getElementById('jobPostingName'),
+            exposurePeriod: document.getElementById('exposurePeriod'),
+            exposureClick: document.getElementById('exposureClick'),
+            periodClick: document.getElementById('periodClick'),
+            paymentMethod: document.getElementById('paymentMethod'),
+            depositPending: document.getElementById('depositPending'),
+            depositPaid: document.getElementById('depositPaid'),
+            depositCancelled: document.getElementById('depositCancelled'),
+            depositRefunded: document.getElementById('depositRefunded'),
+            phoneNumber: document.getElementById('phoneNumber'),
+            saveBtn: document.getElementById('saveBtn'),
+            loadingOverlay: document.getElementById('loadingOverlay')
+        };
+
+        // URL에서 결제 ID 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentId = urlParams.get('id');
+
+        // 페이지 모드 설정 (등록 또는 수정)
+        const isCreateMode = !paymentId;
+
+        // 결제 상세 페이지 타이틀 변경
+        if (isCreateMode) {
+            document.querySelector('.title--h2').textContent = '결제관리 등록';
+        }
+
+        // 상품 목록 데이터
+        let allProducts = [];
+
+        // 공고/이력서 목록 데이터
+        let allJobPostings = [];
+
+        // 삭제된 공고 플래그
+        let isJobPostingDeleted = false;
+
+        // 로딩 인디케이터 표시/숨김 함수
+        function showLoading() {
+            elements.loadingOverlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            elements.loadingOverlay.style.display = 'none';
+        }
+
+        // 날짜 포맷 함수
+        function formatDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
+        }
+
+        // 결제 방법 텍스트 변환 함수
+        function getPaymentMethodText(method) {
+            const methodMap = {
+                'card': '카드결제',
+                'bank': '무통장입금',
+                'phone': '휴대폰결제'
+            };
+            return methodMap[method] || method || '-';
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        // 상품 목록 불러오기
+        async function loadProducts() {
+            showLoading();
+
+            try {
+                // 5초 타임아웃 설정
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                const response = await fetch(`${API_BASE_URL}/products?status=active&type=company&page=0&size=9999999`, {
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                const data = await response.json();
+                allProducts = data.content || [];
+
+                return allProducts;
+            } catch (error) {
+                console.error('상품 목록 로드 중 오류:', error);
+                // alert 제거
+                return [];
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 노출구분에 따른 상품 필터링
+        function filterProductsByExposureType(exposureType) {
+
+            return allProducts.filter(product =>
+                product.explosureType === (exposureType === 'period' ? '기간별' : '건별')
+            );
+        }
+
+        // 노출구분 변경 이벤트 핸들러
+        function handleExposureTypeChange() {
+            // 선택된 상품 초기화
+            elements.productName.value = '';
+            elements.selectedProductId.value = '';
+            elements.selectedProductType.value = '';
+            elements.selectedProductDuration.value = '';
+
+            // 노출구분에 따라 입력 필드 토글
+            toggleExposureInputs();
+        }
+
+        // 노출구분 라디오 버튼에 이벤트 리스너 추가
+        elements.exposurePeriod.addEventListener('change', handleExposureTypeChange);
+        elements.exposureClick.addEventListener('change', handleExposureTypeChange);
+
+        // 공고 목록 불러오기
+        async function loadJobPostings(searchQuery = '') {
+            showLoading();
+
+            try {
+                // 5초 타임아웃 설정
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                const response = await fetch(`${API_BASE_URL}/jobs?page=1&size=20&searchType=title&query=${encodeURIComponent(searchQuery)}`, {
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                const data = await response.json();
+                // API 응답 형식 변경: jobId를 id로 매핑
+                allJobPostings = (data.content || []).map(job => ({
+                    id: job.jobId || job.id,
+                    title: job.title,
+                    employerId: job.employerId
+                }));
+
+                return allJobPostings;
+            } catch (error) {
+                console.error('공고 목록 로드 중 오류:', error);
+                // alert 제거 - 에러 시에도 빈 배열 반환
+                return [];
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 개별 공고 조회
+        async function getJobById(jobId) {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                const response = await fetch(`${API_BASE_URL}/jobs/${jobId}`, {
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    return null;
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('개별 공고 조회 중 오류:', error);
+                return null;
+            }
+        }
+        async function getUserByJobPostingId(jobPostingId) {
+            try {
+                // 공고에서 employerId 가져오기
+                const jobPosting = allJobPostings.find(job => job.id == jobPostingId);
+
+                if (!jobPosting || !jobPosting.employerId) {
+                    return null;
+                }
+
+                // 해당 employerId로 사용자 정보 조회
+                const response = await fetch(`${API_BASE_URL}/mdms/user-management/${jobPosting.employerId}`);
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                const userData = await response.json();
+                return userData;
+            } catch (error) {
+                console.error('사용자 정보 로드 중 오류:', error);
+                return null;
+            }
+        }
+
+        // 상품 목록 표시
+        function displayProducts(products) {
+            elements.productsList.innerHTML = '';
+
+            if (products.length === 0) {
+                elements.productsList.innerHTML = '<div class="product-item" style="text-align: center;">일치하는 상품이 없습니다</div>';
+                return;
+            }
+
+            products.forEach(product => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-item';
+                productItem.textContent = product.name;
+
+                productItem.addEventListener('click', () => {
+                    elements.productName.value = product.name;
+                    elements.selectedProductId.value = product.id;
+
+                    // 노출 구분 설정 (API에서 받은 explosureType 사용)
+                    const isPeriod = product.explosureType === '기간별';
+
+                    if (isPeriod) {
+                        elements.exposurePeriod.checked = true;
+                        elements.selectedProductType.value = 'period';
+                    } else {
+                        elements.exposureClick.checked = true;
+                        elements.selectedProductType.value = 'click';
+                    }
+
+                    // 포지션 제안 상품 여부 확인
+                    const isPositionOffer = product.productType === 'position_offer';
+
+                    // 포지션 제안 상품인 경우 공고/ID 필드 숨기기
+                    const jobPostingElement = getJobPostingElement();
+                    if (jobPostingElement) {
+                        if (isPositionOffer) {
+                            jobPostingElement.style.display = 'none';
+                        } else {
+                            jobPostingElement.style.display = '';
+                        }
+                    }
+
+                    // 상품 기간 저장 (기간별인 경우)
+                    if (isPeriod) {
+                        elements.selectedProductDuration.value = product.periodDays || 30;
+                    } else {
+                        elements.selectedProductDuration.value = '';
+                    }
+
+                    // 등록 모드인 경우, 노출 타입에 따른 필드 설정
+                    if (isCreateMode) {
+                        if (!isPeriod) {
+                            // 건별 상품은 기본 클릭 수 설정
+                            const maxExposureCountInput = document.getElementById('maxExposureCountInput');
+                            if (maxExposureCountInput) {
+                                maxExposureCountInput.value = product.exposureCount || 100;
+                            }
+                        } else {
+                            // 기간별 상품은 오늘부터 상품 기간만큼 설정
+                            const startDateInput = document.getElementById('startDateInput');
+                            const endDateInput = document.getElementById('endDateInput');
+
+                            if (startDateInput && endDateInput) {
+                                const today = new Date();
+                                const endDate = new Date(today);
+                                const duration = product.periodDays || 30;
+                                endDate.setDate(today.getDate() + duration);
+
+                                startDateInput.value = today.toISOString().split('T')[0];
+                                endDateInput.value = endDate.toISOString().split('T')[0];
+                            }
+                        }
+                    }
+
+                    toggleExposureInputs();
+                    elements.productDropdown.classList.add('hidden');
+                });
+
+                elements.productsList.appendChild(productItem);
+            });
+        }
+
+        // 공고 목록 표시
+        function displayJobPostings(jobPostings, dropdownElement) {
+            dropdownElement.innerHTML = '';
+
+            if (jobPostings.length === 0) {
+                dropdownElement.innerHTML = '<div class="product-item" style="text-align: center;">일치하는 공고가 없습니다</div>';
+                return;
+            }
+
+            jobPostings.forEach(job => {
+                const jobItem = document.createElement('div');
+                jobItem.className = 'product-item';
+                jobItem.textContent = job.title || '제목 없음';
+
+                jobItem.addEventListener('click', async () => {
+                    // 삭제된 공고 플래그 초기화
+                    isJobPostingDeleted = false;
+
+                    // 삭제된 공고 알림 제거
+                    const deletedNotice = document.querySelector('.deleted-notice');
+                    if (deletedNotice) {
+                        deletedNotice.remove();
+                    }
+
+                    // 공고 선택시 정보 설정
+                    const jobPostingNameInput = document.getElementById('jobPostingNameInput');
+                    const jobPostingIdInput = document.getElementById('jobPostingIdInput');
+
+                    if (jobPostingNameInput && jobPostingIdInput) {
+                        jobPostingNameInput.value = job.title;
+                        jobPostingIdInput.value = job.id;
+
+                        // 공고로부터 사용자 정보 가져오기
+                        const user = await getUserByJobPostingId(job.id);
+                        if (user && user.accountId) {
+                            // 아이디 필드 업데이트
+                            const accountIdInput = document.getElementById('accountIdInput');
+                            if (accountIdInput) {
+                                accountIdInput.value = user.id;
+                                accountIdInput.textContent = user.accountId;
+                            } else {
+                                elements.accountId.value = user.id;
+                                elements.accountId.textContent = user.accountId;
+                            }
+                        }
+                    } else {
+                        elements.jobPostingName.textContent = job.title;
+
+                        // 수정 모드에서도 공고 선택시 사용자 정보 업데이트
+                        const user = await getUserByJobPostingId(job.id);
+                        if (user && user.accountId) {
+                            const accountIdInput = document.getElementById('accountIdInput');
+                            if (accountIdInput) {
+                                accountIdInput.value = user.id;
+                                accountIdInput.textContent = user.accountId;
+                            } else {
+                                elements.accountId.value = user.id;
+                                elements.accountId.textContent = user.accountId;
+                            }
+                        }
+                    }
+
+                    // 드롭다운 닫기
+                    dropdownElement.classList.add('hidden');
+                });
+
+                dropdownElement.appendChild(jobItem);
+            });
+        }
+
+        // 상품 검색 기능
+        function filterProducts(searchTerm) {
+            // 현재 선택된 노출구분
+            const exposureType = elements.exposurePeriod.checked ? 'period' : 'click';
+
+            // 먼저 노출구분으로 필터링
+            let filtered = filterProductsByExposureType(exposureType);
+
+            // 검색어가 있으면 추가 필터링
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                filtered = filtered.filter(product =>
+                    product.name && product.name.toLowerCase().includes(term)
+                );
+            }
+
+            return filtered;
+        }
+
+        // 공고 검색 기능
+        function filterJobPostings(searchTerm) {
+            if (!searchTerm) {
+                return allJobPostings;
+            }
+
+            const term = searchTerm.toLowerCase();
+            return allJobPostings.filter(job =>
+                job.title && job.title.toLowerCase().includes(term)
+            );
+        }
+
+        // 상품명 선택 기능 통합 (클릭 시 드롭다운)
+        elements.productName.addEventListener('click', async function(e) {
+            e.stopPropagation(); // 이벤트 버블링 방지
+
+            if (elements.productDropdown.classList.contains('hidden')) {
+                // 드롭다운이 닫혀 있으면 열기
+                if (allProducts.length === 0) {
+                    await loadProducts();
+                }
+
+                // 현재 선택된 노출구분
+                const exposureType = elements.exposurePeriod.checked ? 'period' : 'click';
+
+                // 노출구분에 따라 상품 필터링
+                const filteredProducts = filterProductsByExposureType(exposureType);
+
+                displayProducts(filteredProducts);
+                elements.productDropdown.classList.remove('hidden');
+            } else {
+                // 드롭다운이 열려 있으면 닫기
+                elements.productDropdown.classList.add('hidden');
+            }
+        });
+
+        // 검색 입력 이벤트
+        elements.productSearchInput.addEventListener('input', function() {
+            const searchTerm = this.value;
+            const filteredProducts = filterProducts(searchTerm);
+            displayProducts(filteredProducts);
+        });
+
+        // 드롭다운 외부 클릭 시 닫기
+        document.addEventListener('click', function(e) {
+            // 상품 드롭다운 닫기
+            if (!elements.productDropdown.contains(e.target) && e.target !== elements.productName) {
+                elements.productDropdown.classList.add('hidden');
+            }
+
+            // 공고 드롭다운 닫기
+            const jobPostingDropdown = document.getElementById('jobPostingDropdown');
+            const jobPostingNameInput = document.getElementById('jobPostingNameInput');
+
+            if (jobPostingDropdown && !jobPostingDropdown.contains(e.target) &&
+                (e.target !== jobPostingNameInput && e.target !== elements.jobPostingName)) {
+                jobPostingDropdown.classList.add('hidden');
+            }
+        });
+
+        function getJobPostingElement() {
+            const jobPostingName = document.getElementById('jobPostingName');
+            const jobPostingNameInput = document.getElementById('jobPostingNameInput');
+
+            if (jobPostingName) {
+                return jobPostingName.closest('.items');
+            } else if (jobPostingNameInput) {
+                return jobPostingNameInput.closest('.items');
+            }
+
+            return null;
+        }
+
+        // 노출 구분에 따라 기간/클릭 입력 필드 전환
+        function toggleExposureInputs() {
+            // 기간/클릭 입력 필드 전환 (기존 코드 유지)
+            if (!isCreateMode) {
+                // 수정 모드에서도 포지션 제안 상품 확인 로직 추가
+                const productName = elements.productName.value;
+                const isPositionOffer = productName && productName.includes('포지션 제안');
+
+                // 공고/ID 필드 숨기기 또는 표시하기
+                const jobPostingElement = getJobPostingElement();
+                if (jobPostingElement) {
+                    jobPostingElement.style.display = isPositionOffer ? 'none' : '';
+                }
+
+                return;
+            }
+
+            // 등록 모드에서 기간/클릭 전환 (기존 코드)
+            const periodInputs = document.getElementById('periodInputs');
+            const clickInputs = document.getElementById('clickInputs');
+
+            if (elements.exposurePeriod.checked) {
+                periodInputs.style.display = 'block';
+                clickInputs.style.display = 'none';
+            } else {
+                periodInputs.style.display = 'none';
+                clickInputs.style.display = 'block';
+            }
+
+            // 등록 모드에서도 포지션 제안 상품 확인
+            const productName = elements.productName.value;
+            const isPositionOffer = productName && productName.includes('포지션 제안');
+
+            // 공고/ID 필드 숨기기 또는 표시하기
+            const jobPostingElement = getJobPostingElement();
+            if (jobPostingElement) {
+                jobPostingElement.style.display = isPositionOffer ? 'none' : '';
+            }
+        }
+
+        // 신규 등록을 위한 폼 필드 추가
+        function addCreateFormFields() {
+            // 1. 아이디 필드 (기존 텍스트 -> 입력 필드로 변경)
+            const accountIdContainer = elements.accountId.parentElement;
+            const accountIdTitle = accountIdContainer.querySelector('.title');
+            accountIdContainer.innerHTML = `
+        <span class="title">${accountIdTitle.textContent}</span>
+        <div class="control">
+            <input type="text" id="accountIdInput" class="text" read>
+        </div>
+        `;
+
+            // 2. 공고/이력서 (기존 텍스트 -> 입력 필드로 변경)
+            const jobPostingContainer = elements.jobPostingName.parentElement;
+            const jobPostingTitle = jobPostingContainer.querySelector('.title');
+            jobPostingContainer.innerHTML = `
+        <span class="title">${jobPostingTitle.textContent}</span>
+        <div class="product-control" style="display: flex; flex-direction: column;">
+            <div class="control">
+                <input type="text" id="jobPostingNameInput" placeholder="공고명" readonly>
+                <div id="jobPostingDropdown" class="product-dropdown hidden">
+                    <div id="jobSearchContainer" style="padding: 8px; border-bottom: 1px solid #ccc;">
+                        <input type="text" id="jobSearchInput" placeholder="공고명 검색..." style="width: 100%;">
+                    </div>
+                    <div id="jobPostingsList"></div>
+                </div>
+            </div>
+            <div class="control" style="margin-top: 5px;">
+                <input type="number" id="jobPostingIdInput" placeholder="공고 ID" readonly>
+            </div>
+        </div>
+        `;
+
+            // 3. 기간/클릭 (기존 텍스트 -> 입력 필드로 변경)
+            const periodClickContainer = elements.periodClick.parentElement;
+            const periodClickTitle = periodClickContainer.querySelector('.title');
+
+            // 원래 텍스트 요소 저장
+            const originalTextElement = elements.periodClick;
+
+            // 대체 요소 (입력 필드들) 생성
+            const periodInputs = document.createElement('div');
+            periodInputs.id = 'periodInputs';
+            periodInputs.innerHTML = `
+        <div class="control" style="margin-bottom: 5px;">
+            <input type="date" id="startDateInput">
+        </div>
+        <div class="control">
+            <input type="date" id="endDateInput">
+        </div>
+        `;
+
+            const clickInputs = document.createElement('div');
+            clickInputs.id = 'clickInputs';
+            clickInputs.style.display = 'none';
+            clickInputs.innerHTML = `
+        <div class="control">
+            <input type="number" id="maxExposureCountInput" placeholder="최대 노출 횟수">
+        </div>
+        `;
+
+            // 텍스트 요소 뒤에 입력 필드 삽입
+            originalTextElement.insertAdjacentElement('afterend', periodInputs);
+            periodInputs.insertAdjacentElement('afterend', clickInputs);
+
+            // 기존 텍스트 요소 숨기기
+            originalTextElement.style.display = 'none';
+
+            // 4. 결제방법 (기존 텍스트 -> 라디오 버튼으로 변경)
+            const paymentMethodContainer = elements.paymentMethod.parentElement;
+            const paymentMethodTitle = paymentMethodContainer.querySelector('.title');
+
+            // 원래 텍스트 요소 저장
+            const originalMethodElement = elements.paymentMethod;
+
+            // 대체 요소 (라디오 버튼들) 생성
+            const methodInputs = document.createElement('div');
+            methodInputs.className = 'form-radio';
+            methodInputs.innerHTML = `
+        <div class="control">
+            <input type="radio" name="paymentMethodRadio" value="bank" id="methodBank" checked>
+            <span class="text">무통장입금</span>
+        </div>
+        <div class="control">
+            <input type="radio" name="paymentMethodRadio" value="card" id="methodCard">
+            <span class="text">카드결제</span>
+        </div>
+        <div class="control">
+            <input type="radio" name="paymentMethodRadio" value="phone" id="methodPhone">
+            <span class="text">휴대폰결제</span>
+        </div>
+        `;
+
+            // 텍스트 요소 뒤에 라디오 버튼 삽입
+            originalMethodElement.insertAdjacentElement('afterend', methodInputs);
+
+            // 기존 텍스트 요소 숨기기
+            originalMethodElement.style.display = 'none';
+
+            // 5. 연락처 (기존 텍스트 -> 입력 필드로 변경)
+            const phoneNumberContainer = elements.phoneNumber.parentElement;
+            const phoneNumberTitle = phoneNumberContainer.querySelector('.title');
+
+            // 원래 텍스트 요소 저장
+            const originalPhoneElement = elements.phoneNumber;
+
+            // 대체 요소 (입력 필드) 생성
+            const phoneInput = document.createElement('div');
+            phoneInput.className = 'control';
+            phoneInput.innerHTML = `
+        <input type="text" id="phoneNumberInput">
+        `;
+
+            // 텍스트 요소 뒤에 입력 필드 삽입
+            originalPhoneElement.insertAdjacentElement('afterend', phoneInput);
+
+            // 기존 텍스트 요소 숨기기
+            originalPhoneElement.style.display = 'none';
+
+            // 6. 결제금액 (새 항목 추가)
+            const amountItem = document.createElement('li');
+            amountItem.className = 'items';
+            amountItem.innerHTML = `
+        <span class="title">결제금액</span>
+        <div class="control">
+            <input type="number" id="amountInput">
+        </div>
+        `;
+
+            // 연락처 항목 뒤에 결제금액 항목 추가
+            const list = document.querySelector('.list.option');
+            list.appendChild(amountItem);
+
+            // 공고 검색 기능 설정
+            const jobPostingNameInput = document.getElementById('jobPostingNameInput');
+            const jobPostingDropdown = document.getElementById('jobPostingDropdown');
+            const jobSearchInput = document.getElementById('jobSearchInput');
+            const jobPostingsList = document.getElementById('jobPostingsList');
+
+            jobPostingNameInput.addEventListener('click', async function(e) {
+                e.stopPropagation();
+
+                if (jobPostingDropdown.classList.contains('hidden')) {
+                    if (allJobPostings.length === 0) {
+                        await loadJobPostings();
+                    }
+
+                    displayJobPostings(allJobPostings, jobPostingsList);
+                    jobPostingDropdown.classList.remove('hidden');
+                } else {
+                    jobPostingDropdown.classList.add('hidden');
+                }
+            });
+
+            // 공고 검색 이벤트
+            if (jobSearchInput) {
+                let searchTimeout;
+                jobSearchInput.addEventListener('input', async function() {
+                    const searchTerm = this.value.trim();
+
+                    // 이전 타임아웃 취소
+                    if (searchTimeout) {
+                        clearTimeout(searchTimeout);
+                    }
+
+                    // 디바운싱: 입력 후 300ms 대기
+                    searchTimeout = setTimeout(async () => {
+                        if (searchTerm) {
+                            // 검색어가 있으면 서버에서 검색
+                            await loadJobPostings(searchTerm);
+                            displayJobPostings(allJobPostings, jobPostingsList);
+                        } else {
+                            // 검색어가 없으면 전체 목록 로드
+                            await loadJobPostings();
+                            displayJobPostings(allJobPostings, jobPostingsList);
+                        }
+                    }, 300);
+                });
+            }
+
+            // 초기 상태 설정 (기간별 선택)
+            elements.exposurePeriod.checked = true;
+            toggleExposureInputs();
+        }
+
+        // 수정 모드 필드 수정 가능하게 변경
+        function updateEditModeFields(payment) {
+            // 노출구분은 항상 비활성화 (상품에 따라 고정)
+
+            // 1. 공고/이력서 수정 가능하게 변경
+            const jobPostingContainer = elements.jobPostingName.parentElement;
+            const jobPostingTitle = jobPostingContainer.querySelector('.title');
+            const currentJobPostingName = isJobPostingDeleted ? '삭제된 공고입니다' : elements.jobPostingName.textContent;
+
+            // 삭제된 공고 처리
+            let jobPostingHtml = `
+        <span class="title">${jobPostingTitle.textContent}</span>
+        <div class="product-control">
+            <input type="text" id="jobPostingNameInput" value="${currentJobPostingName}" readonly>
+            <div id="jobPostingDropdown" class="product-dropdown hidden">
+                <div id="jobSearchContainer" style="padding: 8px; border-bottom: 1px solid #ccc;">
+                    <input type="text" id="jobSearchInput" placeholder="공고명 검색..." style="width: 100%;">
+                </div>
+                <div id="jobPostingsList"></div>
+            </div>
+    `;
+
+            // 삭제된 공고인 경우 알림 추가
+            if (isJobPostingDeleted) {
+                jobPostingHtml += `
+            <div class="deleted-notice">* 삭제된 공고입니다. 다른 공고를 선택해주세요.</div>
+        `;
+            }
+
+            jobPostingHtml += `</div>`;
+
+            jobPostingContainer.innerHTML = jobPostingHtml;
+
+            const jpContainer = document.querySelector('#jobPostingNameInput').parentElement;
+            const existingIdInput = jpContainer.querySelector('#jobPostingIdInput');
+            if (!existingIdInput) {
+                const idControl = document.createElement('div');
+                idControl.className = 'control';
+                idControl.innerHTML = `<input type="text" id="jobPostingIdInput" value="${payment.jobPostingsId || ''}" readonly>`;
+                jpContainer.appendChild(idControl);
+            }
+
+            // 2. 기간/클릭 수정 가능하게 변경
+            const periodClickContainer = elements.periodClick.parentElement;
+            const periodClickTitle = periodClickContainer.querySelector('.title');
+            const currentPeriodClick = elements.periodClick.textContent;
+
+            // 현재 값이 기간인지 클릭수인지 확인
+            const isPeriod = elements.exposurePeriod.checked;
+
+            // 원래 텍스트 요소 저장
+            const originalTextElement = elements.periodClick;
+
+            // 기존 내용 분석하여 초기값 설정
+            let startDate = '';
+            let endDate = '';
+            let maxExposureCount = 100;
+            let currentExposureCount = 0;
+
+            if (isPeriod && currentPeriodClick.includes('~')) {
+                const dates = currentPeriodClick.split('~').map(d => d.trim());
+                startDate = dates[0];
+                endDate = dates[1];
+            } else if (!isPeriod && currentPeriodClick.includes('/')) {
+                const counts = currentPeriodClick.match(/(\d+)\/(\d+)/);
+                if (counts && counts.length >= 3) {
+                    currentExposureCount = counts[1];
+                    maxExposureCount = counts[2];
+                }
+            }
+
+            // 대체 요소 생성
+            if (isPeriod) {
+                const periodInputs = document.createElement('div');
+                periodInputs.id = 'periodInputs';
+                periodInputs.innerHTML = `
+            <div class="control" style="margin-bottom: 5px;">
+                <input type="date" id="startDateInput" value="${startDate}">
+            </div>
+            <div class="control">
+                <input type="date" id="endDateInput" value="${endDate}">
+            </div>
+            `;
+
+                // 텍스트 요소 뒤에 입력 필드 삽입
+                originalTextElement.insertAdjacentElement('afterend', periodInputs);
+
+                // 기존 텍스트 요소 숨기기
+                originalTextElement.style.display = 'none';
+            } else {
+                const clickInputs = document.createElement('div');
+                clickInputs.id = 'clickInputs';
+                clickInputs.innerHTML = `
+            <div class="control">
+                <input type="number" id="maxExposureCountInput" placeholder="최대 노출 횟수" value="${maxExposureCount}">
+            </div>
+            <div class="control" style="margin-top: 5px;">
+                <span>현재 노출 횟수: ${currentExposureCount}</span>
+                <input type="hidden" id="currentExposureCount" value="${currentExposureCount}">
+            </div>
+            `;
+
+                // 텍스트 요소 뒤에 입력 필드 삽입
+                originalTextElement.insertAdjacentElement('afterend', clickInputs);
+
+                // 기존 텍스트 요소 숨기기
+                originalTextElement.style.display = 'none';
+            }
+
+            // 3. 결제방법 수정 가능하게 변경
+            const paymentMethodContainer = elements.paymentMethod.parentElement;
+            const paymentMethodTitle = paymentMethodContainer.querySelector('.title');
+            const currentPaymentMethod = elements.paymentMethod.textContent;
+
+            // 원래 텍스트 요소 저장
+            const originalMethodElement = elements.paymentMethod;
+
+            // 현재 결제 방법 확인
+            const isBank = currentPaymentMethod.includes('무통장');
+            const isCard = currentPaymentMethod.includes('카드');
+            const isPhone = currentPaymentMethod.includes('휴대폰');
+
+            // 대체 요소 (라디오 버튼들) 생성
+            const methodInputs = document.createElement('div');
+            methodInputs.className = 'form-radio';
+            methodInputs.innerHTML = `
+        <div class="control">
+            <input type="radio" name="paymentMethodRadio" value="bank" id="methodBank" ${isBank ? 'checked' : ''}>
+            <span class="text">무통장입금</span>
+        </div>
+        <div class="control">
+            <input type="radio" name="paymentMethodRadio" value="card" id="methodCard" ${isCard ? 'checked' : ''}>
+            <span class="text">카드결제</span>
+        </div>
+        <div class="control">
+            <input type="radio" name="paymentMethodRadio" value="phone" id="methodPhone" ${isPhone ? 'checked' : ''}>
+            <span class="text">휴대폰결제</span>
+        </div>
+        `;
+
+            // 텍스트 요소 뒤에 라디오 버튼 삽입
+            originalMethodElement.insertAdjacentElement('afterend', methodInputs);
+
+            // 기존 텍스트 요소 숨기기
+            originalMethodElement.style.display = 'none';
+
+            // 4. 연락처 수정 가능하게 변경
+            const phoneNumberContainer = elements.phoneNumber.parentElement;
+            const phoneNumberTitle = phoneNumberContainer.querySelector('.title');
+            const currentPhoneNumber = elements.phoneNumber.textContent;
+
+            // 원래 텍스트 요소 저장
+            const originalPhoneElement = elements.phoneNumber;
+
+            // 대체 요소 (입력 필드) 생성
+            const phoneInput = document.createElement('div');
+            phoneInput.className = 'control';
+            phoneInput.innerHTML = `
+        <input type="text" id="phoneNumberInput" value="${currentPhoneNumber}">
+        `;
+
+            // 텍스트 요소 뒤에 입력 필드 삽입
+            originalPhoneElement.insertAdjacentElement('afterend', phoneInput);
+
+            // 기존 텍스트 요소 숨기기
+            originalPhoneElement.style.display = 'none';
+
+            const list = document.querySelector('.list.option');
+            // 이미 추가된 적이 없으면
+            if (!document.getElementById('amountInput')) {
+                const amountItem = document.createElement('li');
+                amountItem.className = 'items';
+                amountItem.innerHTML = `
+            <span class="title">결제금액</span>
+            <div class="control">
+                <input type="number" id="amountInput" value="${payment.amount}">
+            </div>`;
+                // 연락처(li) 뒤에 삽입하려면 insertBefore 를 쓰셔도 좋습니다.
+                list.appendChild(amountItem);
+            }
+
+            // 공고 검색 기능 설정
+            const jobPostingNameInput = document.getElementById('jobPostingNameInput');
+            const jobPostingDropdown = document.getElementById('jobPostingDropdown');
+            const jobSearchInput = document.getElementById('jobSearchInput');
+            const jobPostingsList = document.getElementById('jobPostingsList');
+
+            jobPostingNameInput.addEventListener('click', async function(e) {
+                e.stopPropagation();
+
+                if (jobPostingDropdown.classList.contains('hidden')) {
+                    if (allJobPostings.length === 0) {
+                        await loadJobPostings();
+                    }
+
+                    displayJobPostings(allJobPostings, jobPostingsList);
+                    jobPostingDropdown.classList.remove('hidden');
+                } else {
+                    jobPostingDropdown.classList.add('hidden');
+                }
+            });
+
+            // 공고 검색 이벤트
+            if (jobSearchInput) {
+                let searchTimeout;
+                jobSearchInput.addEventListener('input', async function() {
+                    const searchTerm = this.value.trim();
+
+                    // 이전 타임아웃 취소
+                    if (searchTimeout) {
+                        clearTimeout(searchTimeout);
+                    }
+
+                    // 디바운싱: 입력 후 300ms 대기
+                    searchTimeout = setTimeout(async () => {
+                        if (searchTerm) {
+                            // 검색어가 있으면 서버에서 검색
+                            await loadJobPostings(searchTerm);
+                            displayJobPostings(allJobPostings, jobPostingsList);
+                        } else {
+                            // 검색어가 없으면 전체 목록 로드
+                            await loadJobPostings();
+                            displayJobPostings(allJobPostings, jobPostingsList);
+                        }
+                    }, 300);
+                });
+            }
+        }
+
+        // 결제 정보 로드
+        async function loadPaymentDetail() {
+            if (isCreateMode) {
+                // 등록 모드인 경우 추가 입력 필드 생성
+                addCreateFormFields();
+
+                // 기본값 설정
+                elements.requestDate.textContent = formatDate(new Date());
+                elements.completionDate.textContent = '-';
+                elements.userStatusActive.checked = true;
+                elements.depositPending.checked = true;
+
+                // 공고 목록 미리 로드
+                await loadJobPostings();
+
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/payment/${paymentId}`);
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                const payment = await response.json();
+
+                // 결제 정보 표시
+                elements.requestDate.textContent = formatDate(payment.createdAt) || '-';
+                elements.completionDate.textContent = formatDate(payment.updatedAt) || '-';
+                elements.accountId.textContent = payment.accountId || '-';
+
+                // 사용자 상태 설정
+                if (payment.status === 'inactive' || payment.status === 'cancelled' || payment.status === 'refunded') {
+                    elements.userStatusInactive.checked = true;
+                } else {
+                    elements.userStatusActive.checked = true;
+                }
+
+                elements.productName.value = payment.productName || '';
+                elements.selectedProductId.value = payment.productId || '';
+
+                // 공고 정보 확인
+                if (payment.jobPostingsId) {
+                    // 개별 공고 조회로 삭제 여부 확인
+                    const jobDetail = await getJobById(payment.jobPostingsId);
+
+                    if (!jobDetail) {
+                        // 공고가 삭제된 경우
+                        isJobPostingDeleted = true;
+                        elements.jobPostingName.textContent = '삭제된 공고입니다';
+                        alert('공고가 삭제된 결제 건입니다.');
+                    } else {
+                        // 공고가 존재하는 경우 제목 업데이트
+                        elements.jobPostingName.textContent = jobDetail.title || payment.jobPostingsName || '-';
+                    }
+
+                    // 공고 목록은 나중에 로드
+                    await loadJobPostings();
+                } else {
+                    elements.jobPostingName.textContent = payment.jobPostingsName || '-';
+                    await loadJobPostings();
+                }
+
+                // 노출 구분 설정 - maxExposureCount가 0보다 크면 건별, 아니면 기간별
+                if (payment.maxExposureCount > 0) {
+                    elements.exposureClick.checked = true;
+                    elements.selectedProductType.value = 'click';
+                    elements.periodClick.textContent = `클릭수: ${payment.exposureCount}/${payment.maxExposureCount}`;
+                } else {
+                    elements.exposurePeriod.checked = true;
+                    elements.selectedProductType.value = 'period';
+                    elements.periodClick.textContent = `${payment.startDate} ~ ${payment.endDate}`;
+                }
+
+                elements.paymentMethod.textContent = getPaymentMethodText(payment.paymentMethod);
+
+                // 입금 상태 설정
+                if (payment.status === 'paid') {
+                    elements.depositPaid.checked = true;
+                } else if (payment.status === 'cancelled') {
+                    elements.depositCancelled.checked = true;
+                } else if (payment.status === 'refunded') {
+                    elements.depositRefunded.checked = true;
+                } else {
+                    elements.depositPending.checked = true;
+                }
+
+                elements.phoneNumber.textContent = payment.phoneNumber || '-';
+
+                // 수정 모드 필드 업데이트
+                updateEditModeFields(payment);
+
+                // ——— 배너 상품일 경우만 preview 보여주기 ———
+                if (!isCreateMode && payment.bannerImageUrl) {
+                    const container    = document.getElementById('bannerPreviewContainer');
+                    const imgEl        = document.getElementById('bannerExampleImg');
+                    const urlInput     = document.getElementById('bannerExampleUrl');
+
+                    container.classList.remove('hidden');
+                    imgEl.src    = payment.bannerImageUrl;
+                    urlInput.value = payment.bannerImageUrl;
+
+                    imgEl.addEventListener('click', async () => {
+                        try {
+                            const res  = await fetch(payment.bannerImageUrl);
+                            const blob = await res.blob();
+                            const downloadUrl = URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href        = downloadUrl;
+                            // 파일명은 URL 마지막 부분을 사용
+                            a.download    = payment.bannerImageUrl.split('/').pop();
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            URL.revokeObjectURL(downloadUrl);
+                        } catch (e) {
+                            console.error('배너 다운로드 실패:', e);
+                            alert('이미지 다운로드에 실패했습니다.');
+                        }
+                    });
+                }
+
+            } catch (error) {
+                console.error('데이터 로드 중 오류:', error);
+                // alert 제거 - 에러가 발생해도 계속 진행
+            } finally {
+                toggleExposureInputs();
+                hideLoading();
+            }
+        }
+
+        // 결제 정보 저장 (수정 모드)
+        async function updatePaymentDetail() {
+            showLoading();
+
+            try {
+                // 1) 상태 계산
+                let status;
+                if (elements.depositPaid.checked) {
+                    status = 'paid';
+                } else if (elements.depositCancelled.checked) {
+                    status = 'cancelled';
+                } else if (elements.depositRefunded.checked) {
+                    status = 'refunded';
+                } else {
+                    status = 'pending';
+                }
+
+                // 2) 결제 수단 계산
+                let paymentMethod;
+                const methodBank = document.getElementById('methodBank');
+                const methodCard = document.getElementById('methodCard');
+                const methodPhone = document.getElementById('methodPhone');
+                if (methodBank.checked)      paymentMethod = 'bank';
+                else if (methodCard.checked) paymentMethod = 'card';
+                else if (methodPhone.checked)paymentMethod = 'phone';
+
+                // 3) 연락처
+                const phoneNumberInput = document.getElementById('phoneNumberInput');
+                const phoneNumber = phoneNumberInput
+                    ? phoneNumberInput.value.trim()
+                    : elements.phoneNumber.textContent.trim();
+
+                // 4) 사용자 ID (accountId)
+                const accountIdInput = document.getElementById('accountIdInput');
+                const userId = accountIdInput
+                    ? accountIdInput.value.trim()
+                    : elements.accountId.textContent.trim();
+
+                // 5) 상품 정보
+                const productName = elements.productName.value.trim();
+                const productId   = parseInt(elements.selectedProductId.value, 10);
+
+                // 6) 공고 정보
+                const jobPostingNameInput = document.getElementById('jobPostingNameInput');
+                const jobPostingsName = jobPostingNameInput
+                    ? jobPostingNameInput.value.trim()
+                    : elements.jobPostingName.textContent.trim();
+                const jobPostingsIdInput = document.getElementById('jobPostingIdInput');
+                const jobPostingsId = jobPostingsIdInput
+                    ? parseInt(jobPostingsIdInput.value, 10)
+                    : null;
+
+                // 7) 금액
+                const amountInput = document.getElementById('amountInput');
+                const amount = amountInput
+                    ? parseInt(amountInput.value.trim(), 10)
+                    : null;
+
+                // 8) 기간/클릭 기반 노출 설정
+                const isPeriod = elements.exposurePeriod.checked;
+                let startDate, endDate, maxExposureCount, exposureCount;
+                if (isPeriod) {
+                    const sd = document.getElementById('startDateInput');
+                    const ed = document.getElementById('endDateInput');
+                    startDate = sd.value;
+                    endDate   = ed.value;
+                    maxExposureCount = 0;
+                    exposureCount    = 0;
+                } else {
+                    const mx = document.getElementById('maxExposureCountInput');
+                    const cur = document.getElementById('currentExposureCount');
+                    const today = new Date();
+                    const tenYearsLater = new Date(today);
+                    tenYearsLater.setMonth(today.getMonth() + 120);
+
+                    startDate = today.toISOString().split('T')[0];
+                    endDate   = tenYearsLater.toISOString().split('T')[0];
+
+                    tenYearsLater.setFullYear(tenYearsLater.getFullYear() + 10);
+                    endDate = tenYearsLater.toISOString().split('T')[0];
+                    maxExposureCount = parseInt(mx.value, 10);
+                    exposureCount    = cur ? parseInt(cur.value, 10) : 0;
+                }
+
+                // 9) 요청 페이로드 조립
+                const updateData = {
+                    // 필수: 백엔드가 @RequestBody 로 받는 PaymentRequest 필드 전체를 넣습니다
+                    paymentId: paymentId,
+                    userId:         userId,
+                    productId:      productId,
+                    productName:    productName,
+                    jobPostingsName: jobPostingsName,
+                    jobPostingsId:  jobPostingsId,
+                    startDate:      startDate,
+                    endDate:        endDate,
+                    amount:         amount,
+                    paymentMethod:  paymentMethod,
+                    status:         status,
+                    phoneNumber:    phoneNumber,
+                    maxExposureCount: maxExposureCount,
+                    exposureCount:    exposureCount
+                };
+
+                // 10) PUT 호출 — URL 에는 ID 를 빼고, body 에만 담아서 보냅니다
+                const response = await fetch(`${API_BASE_URL}/admin/payment`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                alert('결제 정보가 업데이트되었습니다.');
+                // 업데이트 후 목록으로 돌아가기
+                window.location.href = 'Payments.html';
+
+            } catch (error) {
+                console.error('저장 중 오류:', error);
+                alert('결제 정보 저장 중 오류가 발생했습니다: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 결제 정보 저장 (등록 모드)
+        async function createPaymentDetail() {
+            // 필수 입력 값 확인
+            const accountId = document.getElementById('accountIdInput').value.trim();
+            const productName = elements.productName.value.trim();
+            const productId = elements.selectedProductId.value;
+            const jobPostingName = document.getElementById('jobPostingNameInput').value.trim();
+            const jobPostingId = document.getElementById('jobPostingIdInput').value.trim();
+            const amount = document.getElementById('amountInput').value.trim();
+            const phoneNumber = document.getElementById('phoneNumberInput').value.trim();
+
+            // 필수 입력 확인
+            if (!accountId) {
+                alert('사용자 아이디를 입력해주세요.');
+                return;
+            }
+
+            if (!productName || !productId) {
+                alert('상품을 선택해주세요.');
+                return;
+            }
+
+            if (!amount) {
+                alert('결제금액을 입력해주세요.');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                // 상태 정보 설정
+                let status;
+                if (elements.depositPaid.checked) {
+                    status = 'paid';
+                } else if (elements.depositCancelled.checked) {
+                    status = 'cancelled';
+                } else if (elements.depositRefunded.checked) {
+                    status = 'refunded';
+                } else {
+                    status = 'pending';
+                }
+
+                // 결제 데이터 구성
+                const paymentData = {
+                    userId: accountId,
+                    productId: parseInt(productId),
+                    productName: productName,
+                    jobPostingsName: jobPostingName,
+                    jobPostingsId: jobPostingId ? parseInt(jobPostingId) : null,
+                    amount: parseInt(amount),
+                    paymentMethod: document.getElementById('methodBank').checked ? 'bank' :
+                        document.getElementById('methodCard').checked ? 'card' : 'phone',
+                    status: status,
+                    phoneNumber: phoneNumber,
+                    productType: elements.selectedProductType.value
+                };
+
+                // 상품 유형에 따라 기간 또는 클릭 횟수 설정
+                const productType = elements.selectedProductType.value;
+
+                if (productType === 'period' || elements.exposurePeriod.checked) {
+                    const startDate = document.getElementById('startDateInput').value;
+                    const endDate = document.getElementById('endDateInput').value;
+
+                    if (!startDate || !endDate) {
+                        alert('시작일과 종료일을 모두 입력해주세요.');
+                        hideLoading();
+                        return;
+                    }
+
+                    paymentData.startDate = startDate;
+                    paymentData.endDate = endDate;
+                    paymentData.maxExposureCount = 0;
+                    paymentData.exposureCount = 0;
+                } else {
+                    const maxExposureCount = document.getElementById('maxExposureCountInput').value;
+
+                    if (!maxExposureCount) {
+                        alert('최대 노출 횟수를 입력해주세요.');
+                        hideLoading();
+                        return;
+                    }
+
+                    const today = new Date();
+                    const tenYearsLater = new Date(today);
+                    tenYearsLater.setMonth(today.getMonth() + 120);
+
+                    paymentData.startDate = today.toISOString().split('T')[0];
+                    paymentData.endDate = tenYearsLater.toISOString().split('T')[0];
+                    paymentData.maxExposureCount = parseInt(maxExposureCount);
+                    paymentData.exposureCount = 0;
+                }
+
+                // 결제 ID 생성 (예: PAY-날짜-일련번호)
+                const dateStr = new Date().toISOString().split('T')[0].replace(/-/g, '');
+                const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+                paymentData.paymentId = `PAY-${dateStr}-${randomNum}`;
+
+                // API 호출
+                const response = await fetch(`${API_BASE_URL}/payment`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                alert('결제 정보가 등록되었습니다.');
+                window.location.href = 'Payments.html';
+
+            } catch (error) {
+                console.error('등록 중 오류:', error);
+                alert('결제 정보 등록 중 오류가 발생했습니다: ' + error.message);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 저장 버튼 이벤트 핸들러
+        function handleSave() {
+            if (isCreateMode) {
+                createPaymentDetail();
+            } else {
+                updatePaymentDetail();
+            }
+        }
+
+        // 저장 버튼 이벤트 리스너
+        elements.saveBtn.addEventListener('click', handleSave);
+
+        // 초기 데이터 로드
+        loadPaymentDetail();
+
+        // 기존 테이블에서 상품 정보 로드
+        loadProducts();
+    });
+</script>
+</body>
+</html>

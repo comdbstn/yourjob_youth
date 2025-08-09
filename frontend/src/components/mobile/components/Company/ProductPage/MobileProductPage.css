@@ -1,0 +1,200 @@
+.MobileProductPage_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MobileProductPage_container .sectionHeader {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  margin-left: 20px;
+  margin-right: auto;
+}
+
+.MobileProductPage_container .tableSection {
+  display: flex;
+  width: 100%;
+  padding: 15px 20px 20px;
+  flex-direction: column;
+}
+
+.MobileProductPage_container .tableSection .tableRow {
+  display: flex;
+  width: 100%;
+}
+
+.MobileProductPage_container .tableSection .tableCol {
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+  width: 100%;
+  justify-content: center;
+  color: var(--txt_col_03, #777);
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  border-bottom: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+  padding: 8px 15px;
+  word-break: keep-all;
+}
+
+.MobileProductPage_container .tableSection .tbHeader {
+  border-top: 1px solid var(--line_col_03, #d2d2d2);
+  border-bottom: 1px solid var(--line_col_03, #d2d2d2);
+  background: var(--bg_gr_04, #efefef);
+  color: var(--txt_col_03, #777);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  min-height: 44px;
+}
+
+.MobileProductPage_container .flexGap10 {
+  align-items: center;
+
+  justify-content: center;
+}
+
+.MobileProductPage_container .linkBtn {
+  height: 50px;
+  width: 100%;
+  border-radius: 20px;
+  background: #edf6fd;
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.MobileProductPage_container .linkBtn img {
+  width: 20px;
+  height: 20px;
+  flex-wrap: nowrap;
+}
+
+.MobileProductPage_container .linkBtn img:nth-child(2) {
+  width: 10px;
+  height: 10px;
+  flex-wrap: nowrap;
+}
+
+.MobileProductPage_container .listSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.MobileProductPage_container .listSection ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-top: #eaeaea 1px solid;
+}
+
+.MobileProductPage_container .listSection ul li {
+  padding: 20px 0;
+  border-bottom: #eaeaea 1px solid;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  line-height: 1.5;
+}
+
+.MobileProductPage_container .listSection ul li .procLabel {
+  border-radius: 15px;
+  border: 1px solid var(--primary, #2f80dc);
+  background: #fff;
+  height: 28px;
+  width: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  margin-bottom: 5px;
+}
+
+.MobileProductPage_container .listSection ul li .dateLabel {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  margin-bottom: 10px;
+}
+
+.MobileProductPage_container .listSection ul li .dateLabel .bar {
+  display: inline-block;
+  width: 1px;
+  height: 10px;
+  margin: 0 10px;
+  background-color: #8f8f8f;
+}
+
+.MobileProductPage_container .listSection ul li .flexJb p:nth-child(1) {
+  color: var(--txt_col_04, #535353);
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+
+.MobileProductPage_container .listSection ul li .flexJb strong {
+  color: var(--primary, #2f80dc);
+  text-align: right;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.4px;
+}
+
+.MobileProductPage_container .listSection .price {
+  align-items: center;
+}
+
+.MobileProductPage_container .paging {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 168.072px;
+  height: 57px;
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+}

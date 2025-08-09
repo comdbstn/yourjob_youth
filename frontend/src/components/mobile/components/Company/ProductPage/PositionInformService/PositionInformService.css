@@ -1,0 +1,192 @@
+.PositionInformService_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.PositionInformService_container .sectionHeader {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: start;
+  width: 100%;
+  padding-left: 20px;
+  margin-top: 50px;
+}
+
+.PositionInformService_container .desc {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  /* 19.2px */
+  letter-spacing: -0.24px;
+  padding: 0 20px;
+}
+
+.PositionInformService_container .infoSection {
+  width: calc(100% - 40px);
+  padding: 25px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+}
+
+.PositionInformService_container .infoSection h4 {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.PositionInformService_container .infoSection .rightArrow {
+  margin-bottom: 160px;
+  width: 16px;
+}
+
+
+.PositionInformService_container .infoSection .column {
+  display: flex;
+  flex-direction: column;
+  width: 106px;
+  justify-content: start;
+  gap: 15px;
+}
+
+.PositionInformService_container .infoSection .column .circle {
+  width: 100px;
+  height: 100px;
+  background-color: white;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: #dfdfdf 1px solid;
+}
+
+.PositionInformService_container .infoSection .column .blueLabel {
+  color: var(--primary, #2f80dc);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  word-break: keep-all;
+}
+
+.PositionInformService_container .infoSection .column .grayLabel {
+  color: var(--txt_col_01, #a8a8a8);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  word-break: keep-all;
+}
+
+.PositionInformService_container .tableSection {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  flex-direction: column;
+}
+
+.PositionInformService_container .tableSection .tableRow {
+  display: flex;
+  width: 100%;
+}
+
+
+.PositionInformService_container .tableSection .tableCol {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  justify-content: center;
+  color: var(--txt_col_03, #777);
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  border-bottom: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+}
+
+.PositionInformService_container .tableSection .tbHeader {
+  border-top: 1px solid var(--line_col_03, #d2d2d2);
+  border-bottom: 1px solid var(--line_col_03, #d2d2d2);
+  background: var(--bg_gr_04, #efefef);
+  color: var(--txt_col_03, #777);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.PositionInformService_container .tableSection .tableRow .tableCol {
+  height: 44px;
+}
+
+.PositionInformService_container .selectSection {
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.PositionInformService_container .selectSection .input_default {
+  background-color: white;
+}
+
+.PositionInformService_container .selectSection h4 {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.4px;
+}
+
+.PositionInformService_container .selectSection .grayButton {
+  display: flex;
+  /* width: 35%; */
+  height: 60px;
+
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 20px;
+  background: var(--btn_col, #545454);
+  color: #fff;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}

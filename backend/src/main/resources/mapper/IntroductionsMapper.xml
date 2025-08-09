@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.IntroductionsMapper">
+    <select id="selectIntroductionList" parameterType="map" resultType="map">
+        SELECT
+        b.selfintro_id, b.resume_id, b.content, b.title
+        FROM applications a INNER JOIN resume_selfintroductions b
+        ON a.resume_id = b.resume_id
+        WHERE a.status = 'pass' limit 10
+    </select>
+    <insert id="insertPost" parameterType="com.yourjob.backend.entity.IntroductionCreate" useGeneratedKeys="true" keyProperty="id">
+        insert into introductions
+        (jobSeeker_id,
+        title,
+        content)
+        VALUES (
+        #{jobSeekerId},
+        #{title},
+        #{content})
+    </insert>
+    <update id="updateIntroduction" parameterType="com.yourjob.backend.entity.IntroductionCreate">
+        update introductions set
+        jobSeeker_id = #{jobSeekerId},
+        title = #{title},
+        content = #{content}
+        updated_at = NOW()
+        where introduction_id = #{id}
+    </update>
+    <delete id="deleteIntroduction" parameterType="int">
+        delete from introductions where introduction_id = #{id}
+    </delete>
+    <select id="selectIntroductionDetail" parameterType="int" resultType="com.yourjob.backend.entity.Introduction">
+        select
+        introduction_id as id,
+        jobseeker_id as jobSeekerId,
+        title as title,
+        content as content,
+        created_at as createdAt,
+        updated_at as updatedAt
+        from introductions where introduction_id = #{id}
+    </select>
+</mapper>

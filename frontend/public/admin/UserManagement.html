@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .page-size-selector {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .page-size-selector label {
+            margin-right: 5px;
+        }
+        .page-size-selector select {
+            padding: 2px 5px;
+        }
+        .status-active {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .status-inactive {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        .status-banned {
+            color: #6c757d;
+            font-weight: bold;
+            text-decoration: line-through;
+        }
+        .clickable-id {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .clickable-id:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <aside class="lnb">
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="./UserManagement.html" class="btn isActive">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="contents">
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">회원관리</h2>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <article class="article-area">
+                    <div class="btn-area--top">
+                        <button type="button" class="btn btn-danger btn-small" id="btnBulkBan">차단</button>
+                        <button type="button" class="btn btn-primary btn-small" id="btnBulkUnban">차단해제</button>
+                        <button type="button" class="btn btn-danger btn-small" id="btnBulkDelete">삭제</button>
+                    </div>
+
+                    <div class="search-area">
+                        <div class="search--select select-box">
+                            <div class="control">
+                                <select class="select" id="userType">
+                                    <option value="">회원유형</option>
+                                    <option value="JOB_SEEKER">구직자</option>
+                                    <option value="COMPANY">기업회원</option>
+                                    <option value="COMPANY_EXCEL">기업회원(엑셀)</option>
+                                    <option value="ADMIN">관리자</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <select class="select" id="banStatus">
+                                    <option value="">차단 상태</option>
+                                    <option value="true">차단</option>
+                                    <option value="false">차단안함</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="search--text">
+                            <div class="control">
+                                <input type="text" id="keyword" placeholder="이름, 아이디, 이메일로 검색">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="btnSearch">검색</button>
+                        </div>
+                    </div>
+
+                    <section class="table-area">
+                        <div class="table-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <colgroup>
+                                    <col width="44px"/>
+                                    <col width="70px"/>
+                                    <col width="150px"/>
+                                    <col width="100px"/>
+                                    <col width="100px"/>
+                                    <col width="150px"/>
+                                    <col width="120px"/>
+                                    <col width="150px"/>
+                                    <col width="*"/>
+                                    <col width="240px"/>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="control">
+                                            <input id="selectAll" type="checkbox" class="checked--all">
+                                        </div>
+                                    </th>
+                                    <th>번호</th>
+                                    <th>등록일시</th>
+                                    <th>회원유형</th>
+                                    <th>상태</th>
+                                    <th>아이디</th>
+                                    <th>이름</th>
+                                    <th>휴대전화</th>
+                                    <th>이메일</th>
+                                    <th>관리자툴</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="table-content">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <colgroup>
+                                    <col width="44px"/>
+                                    <col width="70px"/>
+                                    <col width="150px"/>
+                                    <col width="100px"/>
+                                    <col width="100px"/>
+                                    <col width="150px"/>
+                                    <col width="120px"/>
+                                    <col width="150px"/>
+                                    <col width="*"/>
+                                    <col width="240px"/>
+                                </colgroup>
+                                <tbody id="userTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <div class="page-size-selector">
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="pagination">
+                    </div>
+                    <div class="pagination-info">
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let selectedIds = [];
+        let userItems = [];
+        let currentPage = 0;
+        let pageSize = 10;
+        let totalPages = 0;
+        let totalElements = 0;
+
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+        loadUserItems();
+
+        document.getElementById('btnSearch').addEventListener('click', handleSearch);
+        document.getElementById('selectAll').addEventListener('change', handleSelectAllClick);
+        document.getElementById('btnBulkBan').addEventListener('click', () => handleBulkBanChange(true));
+        document.getElementById('btnBulkUnban').addEventListener('click', () => handleBulkBanChange(false));
+        document.getElementById('btnBulkDelete').addEventListener('click', handleBulkDelete);
+        document.getElementById('pageSize').addEventListener('change', handlePageSizeChange);
+        document.getElementById('keyword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        const filterElements = [
+            'userType',
+            'banStatus'
+        ];
+
+        filterElements.forEach(elementId => {
+            document.getElementById(elementId).addEventListener('change', handleFilterChange);
+        });
+
+        function handleFilterChange() {
+            currentPage = 0;
+            loadUserItems();
+        }
+
+        function loadUserItems() {
+            const userType = document.getElementById('userType').value;
+            const banStatus = document.getElementById('banStatus').value;
+            const keyword = document.getElementById('keyword').value;
+
+            let url = `${API_BASE_URL}/mdms/user-management?page=${currentPage}&size=${pageSize}`;
+            if (userType) url += `&userType=${userType}`;
+            if (banStatus) url += `&isBanned=${banStatus}`;
+            if (keyword) url += `&keyword=${keyword}`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('네트워크 응답이 정상이 아닙니다');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    userItems = data.content;
+                    totalPages = data.totalPages;
+                    totalElements = data.totalElements;
+                    currentPage = data.number;
+
+                    renderTable();
+                    renderPagination();
+                    updatePaginationInfo();
+                })
+                .catch(error => {
+                    console.error('데이터 로드 실패:', error);
+                    alert('데이터를 불러오는 중 오류가 발생했습니다.');
+                });
+        }
+
+        function renderTable() {
+            const tableBody = document.getElementById('userTableBody');
+            tableBody.innerHTML = '';
+
+            if (userItems.length === 0) {
+                const emptyRow = document.createElement('tr');
+                emptyRow.innerHTML = `
+                <td colspan="10" style="text-align: center; padding: 20px 0;">
+                    데이터가 없습니다.
+                </td>
+            `;
+                tableBody.appendChild(emptyRow);
+                return;
+            }
+
+            userItems.forEach((item, index) => {
+                const row = document.createElement('tr');
+                const displayIndex = totalElements - (currentPage * pageSize + index);
+
+                function getUserTypeLabel(userType) {
+                    const typeMap = {
+                        'JOB_SEEKER': '구직자',
+                        'EMPLOYER': '기업회원',
+                        'COMPANY': '기업회원',
+                        'COMPANY_EXCEL': '기업회원(엑셀)',
+                        'ADMIN': '관리자'
+                    };
+                    return typeMap[userType.toUpperCase()] || userType;
+                }
+
+                function getStatusLabel(isActive, isBanned) {
+                    return isBanned ?
+                        '<span class="status-banned">차단됨</span>' :
+                        '<span class="status-active">활성화</span>';
+                }
+
+                row.innerHTML = `
+                <td>
+                    <div class="control">
+                        <input type="checkbox" class="checked--node" data-id="${item.id}" ${selectedIds.includes(item.id) ? 'checked' : ''}>
+                    </div>
+                </td>
+                <td>${displayIndex}</td>
+                <td>${item.createdAt || '-'}</td>
+                <td>${getUserTypeLabel(item.userType)}</td>
+                <td>${getStatusLabel(item.isActive, item.isBanned)}</td>
+                <td><span class="clickable-id" data-id="${item.id}">${item.accountId || '-'}</span></td>
+                <td>${item.name || '-'}</td>
+                <td>${item.phone || '-'}</td>
+                <td>${item.email || '-'}</td>
+                <td>
+                    <div class="admin--tool">
+                        <button type="button" class="btn btn-success btn-small btn-edit" data-id="${item.id}">수정</button>
+                        <button type="button" class="btn btn-danger btn-small btn-ban" data-id="${item.id}">차단</button>
+                        <button type="button" class="btn btn-primary btn-small btn-unban" data-id="${item.id}">차단해제</button>
+                        <button type="button" class="btn btn-danger btn-small btn-delete" data-id="${item.id}">삭제</button>
+                    </div>
+                </td>
+            `;
+                tableBody.appendChild(row);
+            });
+
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    handleCheckboxClick(id);
+                });
+            });
+
+            document.querySelectorAll('.clickable-id').forEach(element => {
+                element.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    window.location.href = `UserManagementDetail.html?id=${id}`;
+                });
+            });
+
+            document.querySelectorAll('.btn-edit').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    window.location.href = `UserManagementDetail.html?id=${id}`;
+                });
+            });
+
+            document.querySelectorAll('.btn-ban').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    handleBanChange(id, true);
+                });
+            });
+
+            document.querySelectorAll('.btn-unban').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    handleBanChange(id, false);
+                });
+            });
+
+            document.querySelectorAll('.btn-delete').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    handleDelete(id);
+                });
+            });
+        }
+
+        function renderPagination() {
+            const paginationContainer = document.querySelector('.pagination');
+            paginationContainer.innerHTML = '';
+
+            const firstPageBtn = document.createElement('button');
+            firstPageBtn.className = 'pagination-btn';
+            firstPageBtn.textContent = '<<';
+            firstPageBtn.disabled = currentPage === 0;
+            firstPageBtn.addEventListener('click', () => goToPage(0));
+            paginationContainer.appendChild(firstPageBtn);
+
+            const prevPageBtn = document.createElement('button');
+            prevPageBtn.className = 'pagination-btn';
+            prevPageBtn.textContent = '<';
+            prevPageBtn.disabled = currentPage === 0;
+            prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            paginationContainer.appendChild(prevPageBtn);
+
+            const maxPageButtons = 5;
+            const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+            const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn';
+                if (i === currentPage) {
+                    pageBtn.classList.add('active');
+                }
+                pageBtn.textContent = i + 1;
+                pageBtn.addEventListener('click', () => goToPage(i));
+                paginationContainer.appendChild(pageBtn);
+            }
+
+            const nextPageBtn = document.createElement('button');
+            nextPageBtn.className = 'pagination-btn';
+            nextPageBtn.textContent = '>';
+            nextPageBtn.disabled = currentPage >= totalPages - 1;
+            nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            paginationContainer.appendChild(nextPageBtn);
+
+            const lastPageBtn = document.createElement('button');
+            lastPageBtn.className = 'pagination-btn';
+            lastPageBtn.textContent = '>>';
+            lastPageBtn.disabled = currentPage >= totalPages - 1;
+            lastPageBtn.addEventListener('click', () => goToPage(totalPages - 1));
+            paginationContainer.appendChild(lastPageBtn);
+        }
+
+        function updatePaginationInfo() {
+            const paginationInfo = document.querySelector('.pagination-info');
+            if (totalElements === 0) {
+                paginationInfo.textContent = '';
+            } else {
+                const start = currentPage * pageSize + 1;
+                const end = Math.min((currentPage + 1) * pageSize, totalElements);
+                paginationInfo.textContent = `전체 ${totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+            }
+        }
+
+        function goToPage(page) {
+            if (page < 0 || page >= totalPages) return;
+
+            currentPage = page;
+            loadUserItems();
+            window.scrollTo(0, 0);
+        }
+
+        function handlePageSizeChange() {
+            pageSize = parseInt(document.getElementById('pageSize').value);
+            currentPage = 0;
+            loadUserItems();
+        }
+
+        function handleSearch() {
+            currentPage = 0;
+            loadUserItems();
+        }
+
+        function handleSelectAllClick(event) {
+            const isChecked = event.target.checked;
+
+            if (isChecked) {
+                selectedIds = userItems.map(item => item.id);
+            } else {
+                selectedIds = [];
+            }
+
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        }
+
+        function handleCheckboxClick(id) {
+            const index = selectedIds.indexOf(id);
+
+            if (index === -1) {
+                selectedIds.push(id);
+            } else {
+                selectedIds.splice(index, 1);
+            }
+
+            document.getElementById('selectAll').checked =
+                userItems.length > 0 && selectedIds.length === userItems.length;
+        }
+
+        function handleBanChange(id, isBanned) {
+            const actionText = isBanned ? '차단' : '차단 해제';
+
+            if (confirm(`이 사용자를 ${actionText}하시겠습니까?`)) {
+                console.log(`${actionText} 요청: 사용자 ID ${id}, isBanned=${isBanned}`);
+
+                fetch(`${API_BASE_URL}/mdms/user-management/${id}/ban?isBanned=${isBanned}`, {
+                    method: 'PUT'
+                })
+                    .then(response => {
+                        console.log('응답 상태:', response.status);
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('응답 데이터:', data);
+                        alert(data.message);
+                        if (data.success) {
+                            loadUserItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error(`사용자 ${actionText} 실패:`, error);
+                        alert(`사용자 ${actionText} 중 오류가 발생했습니다.`);
+                    });
+            }
+        }
+
+        function handleDelete(id) {
+            if (confirm('이 사용자를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.')) {
+                fetch(`${API_BASE_URL}/mdms/user-management/${id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            loadUserItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('사용자 삭제 실패:', error);
+                        alert('사용자 삭제 중 오류가 발생했습니다.');
+                    });
+            }
+        }
+
+        function handleBulkBanChange(isBanned) {
+            if (selectedIds.length === 0) {
+                alert('상태를 변경할 사용자를 선택해주세요.');
+                return;
+            }
+
+            const actionText = isBanned ? '차단' : '차단 해제';
+            console.log(`일괄 ${actionText} 요청: 선택된 사용자 ID`, selectedIds);
+
+            if (confirm(`선택한 ${selectedIds.length}명의 사용자를 ${actionText}하시겠습니까?`)) {
+                fetch(`${API_BASE_URL}/mdms/user-management/bulk-ban?isBanned=${isBanned}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(selectedIds)
+                })
+                    .then(response => {
+                        console.log('일괄 처리 응답 상태:', response.status);
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('일괄 처리 응답 데이터:', data);
+                        alert(data.message);
+                        loadUserItems();
+                    })
+                    .catch(error => {
+                        console.error(`일괄 ${actionText} 실패:`, error);
+                        alert(`사용자 ${actionText} 중 오류가 발생했습니다.`);
+                    });
+            }
+        }
+
+        function handleBulkDelete() {
+            if (selectedIds.length === 0) {
+                alert('삭제할 사용자를 선택해주세요.');
+                return;
+            }
+
+            if (confirm(`선택한 ${selectedIds.length}명의 사용자를 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.`)) {
+                fetch(`${API_BASE_URL}/mdms/user-management/bulk-delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(selectedIds)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        loadUserItems();
+                    })
+                    .catch(error => {
+                        console.error('일괄 삭제 실패:', error);
+                        alert('사용자 삭제 중 오류가 발생했습니다.');
+                    });
+            }
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+                window.location.href = '/admin/login.html';
+            }
+        });
+    });
+</script>
+</body>
+</html>

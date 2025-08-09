@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>합격자소서 관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        .pagination-area {
+            margin-top: 20px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            border-radius: 5px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-body {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .modal-footer {
+            text-align: right;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .row-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #pageSize {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <aside class="lnb">
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn isActive">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="contents">
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">합격자소서 관리</h2>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <article class="article-area">
+                    <div class="btn-area--top">
+                        <button type="button" class="btn btn-danger btn-small" id="deleteSelectedBtn">삭제</button>
+                        <button type="button" class="btn btn-success btn-small" id="addResumeBtn">등록</button>
+                    </div>
+
+                    <div class="search-area">
+                        <div class="search--select select-box">
+                            <div class="control">
+                                <select class="select" id="countryFilter">
+                                    <option value="">국가 전체</option>
+                                    <option value="대한민국">대한민국</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <select class="select" id="fieldFilter">
+                                    <option value="">직무 전체</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="search--text">
+                            <div class="control">
+                                <input type="text" id="keywordFilter" placeholder="기업명 또는 제목을 입력하세요">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="searchBtn">검색</button>
+                        </div>
+                    </div>
+
+                    <section class="table-area">
+                        <div class="table-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 등록일 -->
+                                    <col width="150px"/> <!-- 기업명 -->
+                                    <col width="120px"/> <!-- 직무분야 -->
+                                    <col width="*"/> <!-- 제목 -->
+                                    <col width="100px"/> <!-- 국가 -->
+                                    <col width="100px"/> <!-- 조회수 -->
+                                    <col width="180px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="control">
+                                            <input id="selectAllCheckbox" type="checkbox" class="checked--all">
+                                        </div>
+                                    </th>
+                                    <th>번호</th>
+                                    <th>등록일시</th>
+                                    <th>기업명</th>
+                                    <th>직무분야</th>
+                                    <th>제목</th>
+                                    <th>국가</th>
+                                    <th>조회수</th>
+                                    <th>관리자툴</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="table-content">
+                            <table cellpadding="0" cellspacing="0" border="0" id="resumesTable">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 등록일 -->
+                                    <col width="150px"/> <!-- 기업명 -->
+                                    <col width="120px"/> <!-- 직무분야 -->
+                                    <col width="*"/> <!-- 제목 -->
+                                    <col width="100px"/> <!-- 국가 -->
+                                    <col width="100px"/> <!-- 조회수 -->
+                                    <col width="180px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <tbody id="resumesTableBody">
+                                <!-- 데이터가 JavaScript로 채워집니다 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <div class="row-selector">
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="pagination-area">
+                        <div class="pagination" id="pagination">
+                            <!-- 페이지네이션이 JavaScript로 채워집니다 -->
+                        </div>
+                        <div class="pagination-info" id="paginationInfo">
+                            <!-- 페이지 정보가 JavaScript로 채워집니다 -->
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>확인</h2>
+                <span class="close" id="closeConfirmModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmYesBtn">예</button>
+                <button type="button" class="btn btn-secondary" id="confirmNoBtn">아니오</button>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // API 기본 URL
+        const API_BASE_URL = window.__CONFIG__ ? window.__CONFIG__.API_BASE_URL : 'http://localhost:8082/api/v1';
+
+        // 현재 페이지 정보
+        const state = {
+            currentPage: 1,
+            pageSize: 10,
+            totalPages: 1,
+            totalElements: 0,
+            filters: {
+                country: '',
+                field: '',
+                keyword: ''
+            }
+        };
+
+        // DOM 요소들
+        const elements = {
+            resumesTableBody: document.getElementById('resumesTableBody'),
+            pagination: document.getElementById('pagination'),
+            paginationInfo: document.getElementById('paginationInfo'),
+            searchBtn: document.getElementById('searchBtn'),
+            deleteSelectedBtn: document.getElementById('deleteSelectedBtn'),
+            addResumeBtn: document.getElementById('addResumeBtn'),
+            selectAllCheckbox: document.getElementById('selectAllCheckbox'),
+            pageSize: document.getElementById('pageSize'),
+            loadingOverlay: document.getElementById('loadingOverlay'),
+
+            // 필터 요소들
+            countryFilter: document.getElementById('countryFilter'),
+            fieldFilter: document.getElementById('fieldFilter'),
+            keywordFilter: document.getElementById('keywordFilter'),
+
+            // 확인 모달
+            confirmModal: document.getElementById('confirmModal'),
+            closeConfirmModal: document.getElementById('closeConfirmModal'),
+            confirmYesBtn: document.getElementById('confirmYesBtn'),
+            confirmNoBtn: document.getElementById('confirmNoBtn'),
+            confirmMessage: document.getElementById('confirmMessage')
+        };
+
+        // 초기화 - 이벤트 리스너 및 초기 데이터 로드
+        function init() {
+            // 검색 이벤트 리스너
+            elements.searchBtn.addEventListener('click', handleSearch);
+
+            // 전체 선택 체크박스 이벤트 리스너
+            elements.selectAllCheckbox.addEventListener('change', handleSelectAll);
+
+            // 선택 삭제 버튼 이벤트 리스너
+            elements.deleteSelectedBtn.addEventListener('click', confirmBulkDelete);
+
+            // 합격자소서 추가 버튼 이벤트 리스너
+            elements.addResumeBtn.addEventListener('click', function() {
+                location.href = 'SuccessfulResumeDetail.html';
+            });
+
+            // 페이지 크기 변경 이벤트 리스너
+            elements.pageSize.addEventListener('change', handlePageSizeChange);
+
+            // 필터 변경 이벤트 리스너 추가
+            elements.countryFilter.addEventListener('change', handleFilterChange);
+            elements.fieldFilter.addEventListener('change', handleFilterChange);
+
+            // 확인 모달 관련 이벤트 리스너
+            elements.closeConfirmModal.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmNoBtn.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmYesBtn.addEventListener('click', handleConfirmYes);
+
+            // 로그아웃 버튼 이벤트 리스너
+            document.getElementById('btnLogout').addEventListener('click', handleLogout);
+
+            // 국가 필터 로드
+            loadCountryFilter();
+
+            // 직무분야 필터 로드
+            loadJobCategoryFilter();
+
+            // 초기 데이터 로드
+            loadResumes();
+        }
+
+        // 국가 필터 로드
+        async function loadCountryFilter() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/corpmem/jobpost-data/level1-codes?dataType=00000013&size=999999`);
+                if (!response.ok) throw new Error('국가 데이터 로드 실패');
+
+                const data = await response.json();
+
+                // 해외 국가 옵션 추가
+                if (data.levelCodes && data.levelCodes.length > 0) {
+                    data.levelCodes.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.levelValue;
+                        option.textContent = country.levelValue;
+                        elements.countryFilter.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('국가 필터 로드 실패:', error);
+            }
+        }
+
+        // 직무분야 필터 로드
+        async function loadJobCategoryFilter() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/corpmem/jobpost-data/level1-codes?dataType=00000009&size=999999`);
+                if (!response.ok) throw new Error('직무분야 데이터 로드 실패');
+
+                const data = await response.json();
+
+                // 기존 옵션 제거 (첫 번째 기본 옵션은 유지)
+                const defaultOption = elements.fieldFilter.options[0];
+                elements.fieldFilter.innerHTML = '';
+                elements.fieldFilter.appendChild(defaultOption);
+
+                // 직무분야 옵션 추가
+                if (data.levelCodes && data.levelCodes.length > 0) {
+                    data.levelCodes.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.levelValue;
+                        option.textContent = category.levelValue;
+                        elements.fieldFilter.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('직무분야 필터 로드 실패:', error);
+            }
+        }
+
+        // 로그아웃 처리
+        function handleLogout() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+                window.location.href = '/admin/login.html';
+            }
+        }
+
+        // 필터 변경 이벤트 핸들러
+        function handleFilterChange() {
+            // 필터 값 업데이트
+            state.filters.country = elements.countryFilter.value;
+            state.filters.field = elements.fieldFilter.value;
+
+            // 첫 페이지로 이동
+            state.currentPage = 1;
+            // 변경된 필터로 데이터 로드
+            loadResumes();
+        }
+
+        // 로딩 표시/숨김 함수
+        function showLoading() {
+            elements.loadingOverlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            elements.loadingOverlay.style.display = 'none';
+        }
+
+        // 모달 표시/숨김 함수
+        function showModal(modal) {
+            modal.style.display = 'block';
+        }
+
+        function hideModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        // 합격자소서 목록 로드
+        async function loadResumes(retryCount = 0) {
+            showLoading();
+            try {
+                // API 페이지 인덱스는 1부터 시작
+                const apiPageIndex = Math.max(1, state.currentPage);
+
+                const q = new URLSearchParams({
+                    page: apiPageIndex,
+                    size: state.pageSize,
+                    ...(state.filters.country && { country: state.filters.country }),
+                    ...(state.filters.field && { field: state.filters.field })
+                });
+                if (state.filters.keyword) q.append('query', state.filters.keyword);
+
+                const res = await fetch(`${API_BASE_URL}/successful-resumes?${q}`);
+                if (!res.ok) throw new Error(`HTTP 오류: ${res.status}`);
+
+                const data = await res.json();
+
+                // API 응답 구조에 맞게 데이터 추출
+                state.totalElements = data.data.totalElements;
+                state.totalPages = data.data.totalPages;
+                // API 응답의 페이지 번호가 0부터 시작할 경우를 대비하여 적절히 조정
+                state.currentPage = apiPageIndex - 1;
+
+                // 현재 페이지가 총 페이지 수보다 크면 마지막 페이지로 이동
+                if (state.currentPage > 0 && state.totalPages > 0 && state.currentPage >= state.totalPages) {
+                    state.currentPage = Math.max(0, state.totalPages - 1);
+                    return loadResumes(); // 페이지 번호 조정 후 다시 호출
+                }
+
+                renderResumesTable(data.data.content);
+                renderPagination();
+                updatePaginationInfo();
+            } catch(e) {
+                console.error('목록 로드 실패:', e);
+
+                // 최대 5번까지 재시도 (0,1,2,3,4 -> 총 6번)
+                if (retryCount < 5) {
+                    console.log(`${retryCount + 1}번째 재시도 중...`);
+                    // 재시도 간격을 점진적으로 늘림 (500ms, 1000ms, 1500ms, ...)
+                    const retryDelay = 500 * (retryCount + 1);
+                    await new Promise(resolve => setTimeout(resolve, retryDelay));
+                    return loadResumes(retryCount + 1);
+                }
+
+                // 최대 재시도 횟수를 초과하면 오류 메시지 표시
+                alert('합격자소서 목록을 불러오는데 실패했습니다. 페이지를 새로고침해주세요.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 테이블 렌더링
+        function renderResumesTable(resumes) {
+            elements.resumesTableBody.innerHTML = '';
+
+            if (resumes.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="9" style="text-align: center; padding: 20px;">데이터가 없습니다.</td>`;
+                elements.resumesTableBody.appendChild(row);
+                return;
+            }
+
+            resumes.forEach((resume, index) => {
+                const displayIndex = state.totalElements - (state.currentPage * state.pageSize + index);
+
+                // schoolRegion 값을 국가로 표시
+                let regionDisplay = resume.schoolRegion || '대한민국';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+            <td>
+                <div class="control">
+                    <input type="checkbox" class="checked--node" data-id="${resume.resumeId}">
+                </div>
+            </td>
+            <td>${displayIndex}</td>
+            <td>${formatDate(resume.createdAt) || '-'}</td>
+            <td>${resume.jobPost.company.companyName || '-'}</td>
+            <td>${resume.jobPost.jobCategory || '-'}</td>
+            <td>${resume.title || '-'}</td>
+            <td>${regionDisplay}</td>
+            <td>${resume.viewCount || 0}</td>
+            <td>
+                <div class="admin--tool">
+                    <button type="button" class="btn btn-warning edit-btn" data-id="${resume.resumeId}">수정</button>
+                    <button type="button" class="btn btn-danger delete-btn" data-id="${resume.resumeId}">삭제</button>
+                </div>
+            </td>
+        `;
+
+                elements.resumesTableBody.appendChild(row);
+            });
+
+            // 체크박스 이벤트 리스너 등록
+            document.querySelectorAll('.checked--node').forEach(cb => {
+                cb.addEventListener('change', updateSelectAllStatus);
+            });
+
+            // 수정 버튼 이벤트 리스너
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const resumeId = this.getAttribute('data-id');
+                    location.href = `SuccessfulResumeDetail.html?id=${resumeId}`;
+                });
+            });
+
+            // 삭제 버튼 이벤트 리스너
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const resumeId = this.getAttribute('data-id');
+                    confirmDelete(resumeId);
+                });
+            });
+        }
+
+        // 날짜 포맷 함수
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
+        }
+
+        // 페이지네이션 렌더링
+        function renderPagination() {
+            elements.pagination.innerHTML = '';
+
+            const currentPage = parseInt(state.currentPage);
+            const totalPages = parseInt(state.totalPages);
+
+            if (totalPages <= 1) return;
+
+            // 페이지 버튼 수 설정
+            const maxPageButtons = 5;
+            const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+            const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+            // 첫 페이지 버튼
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = '<<';
+            firstBtn.disabled = currentPage === 1;
+            firstBtn.addEventListener('click', () => goToPage(0));
+            elements.pagination.appendChild(firstBtn);
+
+            // 이전 페이지 버튼
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.textContent = '<';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            elements.pagination.appendChild(prevBtn);
+
+            // 페이지 번호 버튼들
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn';
+                if (i === currentPage) pageBtn.classList.add('active');
+                pageBtn.textContent = i + 1;
+                pageBtn.addEventListener('click', () => goToPage(i));
+                elements.pagination.appendChild(pageBtn);
+            }
+
+            // 다음 페이지 버튼
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.textContent = '>';
+            nextBtn.disabled = currentPage >= totalPages - 1;
+            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            elements.pagination.appendChild(nextBtn);
+
+            // 마지막 페이지 버튼
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = '>>';
+            lastBtn.disabled = currentPage >= totalPages - 1;
+            lastBtn.addEventListener('click', () => goToPage(totalPages - 1));
+            elements.pagination.appendChild(lastBtn);
+        }
+
+        // 페이지네이션 정보 업데이트
+        function updatePaginationInfo() {
+            const info = elements.paginationInfo;
+
+            if (state.totalElements === 0) {
+                info.textContent = '데이터가 없습니다.';
+            } else {
+                const start = state.currentPage * state.pageSize + 1;
+                const end = Math.min((state.currentPage + 1) * state.pageSize, state.totalElements);
+                info.textContent = `전체 ${state.totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+            }
+        }
+
+        // 페이지 이동 함수
+        function goToPage(page) {
+            if (page < 1 || page >= state.totalPages) return;
+            state.currentPage = page;
+            loadResumes();
+            window.scrollTo(0, 0);
+        }
+
+        // 검색 처리 함수
+        function handleSearch() {
+            // 필터 값 업데이트
+            state.filters.country = elements.countryFilter.value;
+            state.filters.field = elements.fieldFilter.value;
+            state.filters.keyword = elements.keywordFilter.value;
+
+            // 첫 페이지로 이동하고 데이터 다시 로드
+            state.currentPage = 1;
+            loadResumes();
+        }
+
+        // 페이지 크기 변경 핸들러
+        function handlePageSizeChange() {
+            state.pageSize = parseInt(elements.pageSize.value);
+            state.currentPage = 1;
+            loadResumes();
+        }
+
+        // 전체 선택 체크박스 처리
+        function handleSelectAll(e) {
+            const isChecked = e.target.checked;
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        }
+
+        // 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+        function updateSelectAllStatus() {
+            const checkboxes = document.querySelectorAll('.checked--node');
+            const checkedCount = document.querySelectorAll('.checked--node:checked').length;
+            elements.selectAllCheckbox.checked = checkboxes.length > 0 && checkedCount === checkboxes.length;
+        }
+
+        // 선택된 아이디들 반환 함수
+        function getSelectedResumeIds() {
+            const ids = [];
+            document.querySelectorAll('.checked--node:checked').forEach(checkbox => {
+                ids.push(parseInt(checkbox.getAttribute('data-id')));
+            });
+            return ids;
+        }
+
+        // 삭제 확인 모달 열기
+        function confirmDelete(resumeId) {
+            elements.confirmMessage.textContent = `정말 이 합격자소서를 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'delete');
+            elements.confirmYesBtn.setAttribute('data-id', resumeId);
+            showModal(elements.confirmModal);
+        }
+
+        // 일괄 삭제 확인 모달 열기
+        function confirmBulkDelete() {
+            const selectedIds = getSelectedResumeIds();
+            if (selectedIds.length === 0) {
+                alert('삭제할 항목을 선택해주세요.');
+                return;
+            }
+
+            elements.confirmMessage.textContent = `선택한 ${selectedIds.length}개의 항목을 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'bulkDelete');
+            showModal(elements.confirmModal);
+        }
+
+        // 확인 모달 확인 버튼 처리
+        function handleConfirmYes() {
+            const action = elements.confirmYesBtn.getAttribute('data-action');
+
+            if (action === 'delete') {
+                const resumeId = elements.confirmYesBtn.getAttribute('data-id');
+                deleteResume(resumeId);
+            } else if (action === 'bulkDelete') {
+                bulkDeleteResumes();
+            }
+
+            hideModal(elements.confirmModal);
+        }
+
+        // 합격자소서 삭제 처리
+        async function deleteResume(resumeId) {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/successful-resumes/${resumeId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || '삭제 실패');
+                }
+
+                alert('합격자소서가 삭제되었습니다.');
+
+                // 삭제 후 짧은 지연시간 추가 (백엔드 서버가 데이터를 업데이트할 시간을 주기 위해)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // 목록 새로고침 (재시도 횟수를 0으로 초기화)
+                loadResumes(0);
+            } catch (error) {
+                console.error('삭제 중 오류:', error);
+                alert('삭제 중 오류가 발생했습니다: ' + error.message);
+                hideLoading();
+            }
+        }
+
+        // 일괄 삭제 처리
+        async function bulkDeleteResumes() {
+            const selectedIds = getSelectedResumeIds();
+            if (selectedIds.length === 0) {
+                alert('삭제할 항목을 선택해주세요.');
+                return;
+            }
+
+            showLoading();
+            try {
+                // 벌크 삭제 API 호출
+                const response = await fetch(`${API_BASE_URL}/successful-resumes/bulk-delete`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ resumeIds: selectedIds })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || '일괄 삭제 실패');
+                }
+
+                const data = await response.json();
+                alert(data.message || `${selectedIds.length}개의 합격자소서가 삭제되었습니다.`);
+
+                // 전체 선택 체크박스 해제
+                elements.selectAllCheckbox.checked = false;
+
+                // 삭제 후 짧은 지연시간 추가 (백엔드 서버가 데이터를 업데이트할 시간을 주기 위해)
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // 목록 새로고침 (재시도 횟수를 0으로 초기화)
+                loadResumes(0);
+            } catch (error) {
+                console.error('일괄 삭제 중 오류:', error);
+                alert('일괄 삭제 중 오류가 발생했습니다: ' + error.message);
+                hideLoading();
+            }
+        }
+
+        // 전역 함수로 노출
+        window.confirmDelete = confirmDelete;
+
+        // 초기화 실행
+        init();
+    });
+</script>
+</body>
+</html>

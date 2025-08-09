@@ -1,0 +1,311 @@
+$tabs-border-bottom-color: $border !default;
+$tabs-border-bottom-style: solid !default;
+$tabs-border-bottom-width: 1px !default;
+$tabs-link-color: #777 !default;
+$tabs-link-hover-border-bottom-color: $text-strong !default;
+$tabs-link-hover-color: $text-strong !default;
+$tabs-link-active-border-bottom-color: $link !default;
+$tabs-link-active-color: #333 !default;
+$tabs-link-padding: 0.5em 1em !default;
+
+$tabs-boxed-link-radius: $radius !default;
+$tabs-boxed-link-hover-background-color: $background !default;
+$tabs-boxed-link-hover-border-bottom-color: $border !default;
+
+$tabs-boxed-link-active-background-color: $scheme-main !default;
+$tabs-boxed-link-active-border-color: #333 !default;
+$tabs-boxed-link-active-border-bottom-color: transparent !default;
+
+$tabs-toggle-link-border-color: $border !default;
+$tabs-toggle-link-border-style: solid !default;
+$tabs-toggle-link-border-width: 1px !default;
+$tabs-toggle-link-hover-background-color: #fff !default;
+$tabs-toggle-link-hover-border-color: $border-hover !default;
+$tabs-toggle-link-radius: $radius !default;
+$tabs-toggle-link-active-background-color: #fff !default;
+$tabs-toggle-link-active-border-color: #333 !default;
+$tabs-toggle-link-active-color: #333 !default;
+
+.tabs {
+	@extend %block;
+
+	@include overflow-touch;
+
+	@extend %unselectable;
+
+	display: flex;
+	margin-bottom: 2rem !important;
+	overflow: hidden;
+	overflow-x: auto;
+	align-items: stretch;
+	font-size: $size-normal;
+	justify-content: space-between;
+	white-space: nowrap;
+
+	a,
+	.tab {
+		width: 100%;
+		line-height: 1.2;
+		align-items: center;
+		border-bottom-color: $tabs-border-bottom-color;
+		border-bottom-style: $tabs-border-bottom-style;
+		border-bottom-width: $tabs-border-bottom-width;
+		color: $tabs-link-color;
+		display: flex;
+		justify-content: center;
+		margin-bottom: -#{$tabs-border-bottom-width};
+		padding: $tabs-link-padding;
+		vertical-align: top;
+
+		&:hover {
+			border-bottom-color: $tabs-link-hover-border-bottom-color;
+			color: $tabs-link-hover-color;
+		}
+	}
+
+	li {
+		display: block;
+		flex-grow: 1;
+		flex-shrink: 0;
+
+		&.is-active {
+
+			a,
+			.tab {
+				border-bottom-color: $tabs-link-active-border-bottom-color;
+				color: $tabs-link-active-color;
+			}
+		}
+	}
+
+	ul {
+		align-items: center;
+		border-bottom-color: $tabs-border-bottom-color;
+		border-bottom-style: $tabs-border-bottom-style;
+		border-bottom-width: $tabs-border-bottom-width;
+		display: flex;
+		flex-grow: 1;
+		flex-shrink: 0;
+		justify-content: flex-start;
+
+		&.is-left {
+			padding-right: 0.75em;
+		}
+
+		&.is-center {
+			flex: none;
+			justify-content: center;
+			padding-left: 0.75em;
+			padding-right: 0.75em;
+		}
+
+		&.is-right {
+			justify-content: flex-end;
+			padding-left: 0.75em;
+		}
+	}
+
+	.icon {
+		&:first-child {
+			margin-right: 0.5em;
+		}
+
+		&:last-child {
+			margin-left: 0.5em;
+		}
+	}
+
+	// Alignment
+	&.is-centered {
+		ul {
+			justify-content: center;
+		}
+	}
+
+	&.is-right {
+		ul {
+			justify-content: flex-end;
+		}
+	}
+
+	// Styles
+	&.tabs-2d {
+
+
+		a,
+		.tab {
+
+			position: relative;
+			height: 4rem;
+			border: 1px solid #ccc;
+			border-bottom: 1px solid #333;
+			border-radius: $tabs-boxed-link-radius $tabs-boxed-link-radius 0 0;
+			font-size: $size-5;
+
+			&:hover {
+				// background-color: $tabs-boxed-link-hover-background-color;
+				// border-bottom-color: $tabs-boxed-link-hover-border-bottom-color;
+			}
+		}
+
+		li {
+			&+li {
+				margin-left: -1px;
+			}
+
+			&.is-active {
+
+				a,
+				.tab {
+					z-index: 1;
+					background-color: $tabs-boxed-link-active-background-color;
+					border-color: $tabs-boxed-link-active-border-color;
+					border-bottom-color: $tabs-boxed-link-active-border-bottom-color !important;
+					font-weight: 600;
+				}
+			}
+		}
+	}
+
+	&.is-fullwidth {
+		li {
+			flex-grow: 1;
+			flex-shrink: 0;
+			// border-right: 1px solid transparent;
+		}
+
+		.tab {
+			width: 100%;
+			line-height: 1.2;
+		}
+	}
+
+	&.tabs-1d {
+		width: 100%;
+
+		a,
+		.tab {
+			position: relative;
+			height: 5rem;
+			margin-bottom: 0;
+			border-color: $tabs-toggle-link-border-color;
+			border-style: $tabs-toggle-link-border-style;
+			border-width: $tabs-toggle-link-border-width;
+			color: #777;
+			//font-size: $size-medium;
+			z-index: 0;
+			//font-weight: 600;
+			font-size: $size-5;
+			text-align: center;
+
+			&:hover {
+				background-color: $tabs-toggle-link-hover-background-color;
+				border-color: $tabs-toggle-link-hover-border-color;
+				z-index: 1;
+			}
+		}
+
+		li {
+			&+li {
+				// margin-left: -#{$tabs-toggle-link-border-width};
+				margin-left: -1px;
+			}
+
+			&:first-child a,
+			&:first-child .tab {
+				border-radius: $tabs-toggle-link-radius 0 0 $tabs-toggle-link-radius;
+			}
+
+			&:last-child a,
+			&:last-child .tab {
+				border-radius: 0 $tabs-toggle-link-radius $tabs-toggle-link-radius 0;
+				-webkit-border-radius: 0 $tabs-toggle-link-radius $tabs-toggle-link-radius 0;
+				-moz-border-radius: 0 $tabs-toggle-link-radius $tabs-toggle-link-radius 0;
+				-ms-border-radius: 0 $tabs-toggle-link-radius $tabs-toggle-link-radius 0;
+				-o-border-radius: 0 $tabs-toggle-link-radius $tabs-toggle-link-radius 0;
+			}
+
+			&.is-active {
+
+				a,
+				.tab {
+					background-color: $tabs-toggle-link-active-background-color;
+					border-color: $tabs-toggle-link-active-border-color;
+					color: $tabs-toggle-link-active-color;
+					font-weight: 600;
+					z-index: 1;
+				}
+			}
+		}
+
+		ul {
+			border-bottom: none;
+		}
+
+		&.is-toggle-rounded {
+			li {
+
+				&:first-child a,
+				&:first-child .tab {
+					border-bottom-left-radius: $radius-rounded;
+					border-top-left-radius: $radius-rounded;
+					padding-left: 1.25em;
+				}
+
+				&:last-child a,
+				&:last-child .tab {
+					border-bottom-right-radius: $radius-rounded;
+					border-top-right-radius: $radius-rounded;
+					padding-right: 1.25em;
+				}
+			}
+		}
+	}
+
+	// Sizes
+	&.is-small {
+		font-size: $size-small;
+	}
+
+	&.is-medium {
+		font-size: $size-medium;
+	}
+
+	&.is-large {
+		font-size: $size-large;
+	}
+}
+
+// lv 프로젝트 추가
+.tabs .tab {
+	cursor: pointer;
+	border: initial;
+	background-color: initial;
+	font-size: initial;
+}
+
+.tabpanel {
+	outline: none;
+
+	&[aria-hidden='true'],
+	&[hidden] {
+		display: none;
+	}
+
+	&[aria-hidden='false'] {
+		display: block;
+	}
+}
+
+.showpanel {
+	outline: none;
+
+	&[aria-hidden='true'],
+	&[hidden] {
+		display: none;
+	}
+
+	&[aria-hidden='false'] {
+		display: block;
+	}
+}

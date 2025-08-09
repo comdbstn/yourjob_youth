@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.TalentMapper">
+    <select id="selectTalentSearchList" parameterType="map" resultType="map">
+        SELECT
+        a.*,
+        u3.companyName,
+        u3.jobTitle,
+        u3.position,
+        u4.certificationName,
+        u5.schoolName,
+        u5.lastSchool,
+        u5.department,
+        u5.gpa,
+        GROUP_CONCAT(DISTINCT u5.region SEPARATOR ',') AS edu_region,
+        (SELECT COUNT(*) FROM corps_scrap b WHERE a.resume_id = b.resume_id AND b.user_id = #{userId}) AS scrapcnt
+        FROM
+        resumes AS a
+        LEFT JOIN resume_activities AS u1 ON a.resume_id = u1.resume_id
+        LEFT JOIN resume_awards AS u2 ON a.resume_id = u2.resume_id
+        LEFT JOIN resume_careers AS u3 ON a.resume_id = u3.resume_id
+        LEFT JOIN resume_certifications AS u4 ON a.resume_id = u4.resume_id
+        LEFT JOIN resume_educations AS u5 ON a.resume_id = u5.resume_id
+        LEFT JOIN resume_employmentprf AS u6 ON a.resume_id = u6.resume_id
+        LEFT JOIN resume_languages AS u7 ON a.resume_id = u7.resume_id
+        LEFT JOIN resume_selfintroductions AS u8 ON a.resume_id = u8.resume_id
+        WHERE 1 = 1
+        <if test='resume_id != null'>
+            and a.resume_id = #{resume_id}
+        </if>
+        <if test='keyword != null and keyword != ""'>
+            <choose>
+                <when test='srchType == "school"'>
+                    and (u5.department like CONCAT('%',#{keyword},'%') or u5.schoolName like CONCAT('%',#{keyword},'%'))
+                </when>
+                <when test='srchType == "companyName"'>
+                    and u3.companyName like CONCAT('%',#{keyword},'%')
+                </when>
+                <otherwise>
+                    <!-- 통합 검색: title, name, department, companyName 전체에서 검색 -->
+                    and (
+                    a.title like CONCAT('%',#{keyword},'%')
+                    or a.name like CONCAT('%',#{keyword},'%')
+                    or u5.department like CONCAT('%',#{keyword},'%')
+                    or u3.companyName like CONCAT('%',#{keyword},'%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+        <if test='srchGender != null and srchGender != ""'>
+            and a.gender = #{srchGender}
+        </if>
+        <if test='srchCareer != null and srchCareer != ""'>
+            <if test='srchCareer == "신입"'>
+                and a.careerType = 'JUNIOR'
+            </if>
+            <if test='srchCareer == "경력"'>
+                and a.careerType = 'SENIOR'
+            </if>
+        </if>
+        <if test='srchStatus != null and srchStatus != ""'>
+            <if test='srchStatus == "재직중"'>
+                and exists (
+                select 1 from resume_careers rc
+                where a.resume_id = rc.resume_id
+                and rc.isCurrent = 1
+                )
+            </if>
+            <if test='srchStatus == "구직중"'>
+                and not exists (
+                select 1 from resume_careers rc
+                where a.resume_id = rc.resume_id
+                and rc.isCurrent = 1
+                )
+            </if>
+        </if>
+        GROUP BY a.resume_id
+        <if test='workplaceList != null and workplaceList.size() > 0'>
+            HAVING (
+            <foreach collection="workplaceList" item="workplace" separator=" or ">
+                GROUP_CONCAT(DISTINCT u5.region SEPARATOR ',') like CONCAT('%',#{workplace},'%')
+            </foreach>
+            )
+        </if>
+        <if test='srchSrtType != null and srchSrtType != ""'>
+            ORDER BY a.updated_at DESC
+        </if>
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectTalentSearchListForRecommendation" parameterType="map" resultType="map">
+        SELECT
+        a.*,
+        u3.companyName,
+        u3.jobTitle,
+        u3.position,
+        u4.certificationName,
+        u5.schoolName,
+        u5.lastSchool,
+        u5.department,
+        u5.gpa,
+        GROUP_CONCAT(DISTINCT u5.region SEPARATOR ',') AS edu_region,
+        (SELECT COUNT(*) FROM corps_scrap b WHERE a.resume_id = b.resume_id AND b.user_id = #{userId}) AS scrapcnt
+        FROM
+        resumes AS a LEFT JOIN resume_careers AS u3
+        ON a.resume_id = u3.resume_id
+        LEFT JOIN resume_certifications AS u4
+        ON a.resume_id = u4.resume_id
+        LEFT JOIN resume_educations AS u5
+        ON a.resume_id = u5.resume_id
+        WHERE 1 = 1
+        <if test='resume_id != null'>
+            and a.resume_id = #{resume_id}
+        </if>
+        <if test='keyword != null and keyword != ""'>
+            <choose>
+                <when test='srchType == "school"'>
+                    and (u5.department like CONCAT('%',#{keyword},'%') or u5.schoolName like CONCAT('%',#{keyword},'%'))
+                </when>
+                <when test='srchType == "companyName"'>
+                    and u3.companyName like CONCAT('%',#{keyword},'%')
+                </when>
+                <otherwise>
+                    <!-- 통합 검색: title, name, department, companyName 전체에서 검색 -->
+                    and (
+                    a.title like CONCAT('%',#{keyword},'%')
+                    or a.name like CONCAT('%',#{keyword},'%')
+                    or (u5.department like CONCAT('%',#{keyword},'%') or u5.schoolName like CONCAT('%',#{keyword},'%'))
+                    or u3.companyName like CONCAT('%',#{keyword},'%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+        <if test='srchGender != null and srchGender != ""'>
+            and a.gender = #{srchGender}
+        </if>
+        <if test='srchCareer != null and srchCareer != ""'>
+            <if test='srchCareer == "신입"'>
+                and a.careerType = 'JUNIOR'
+            </if>
+            <if test='srchCareer == "경력"'>
+                and a.careerType = 'SENIOR'
+            </if>
+        </if>
+        <if test='srchStatus != null and srchStatus != ""'>
+            <if test='srchStatus == "재직중"'>
+                and exists (
+                select 1 from resume_careers rc
+                where a.resume_id = rc.resume_id
+                and rc.isCurrent = 1
+                )
+            </if>
+            <if test='srchStatus == "구직중"'>
+                and not exists (
+                select 1 from resume_careers rc
+                where a.resume_id = rc.resume_id
+                and rc.isCurrent = 1
+                )
+            </if>
+        </if>
+        GROUP BY a.resume_id
+        <if test='workplaceList != null and workplaceList.size() > 0'>
+            HAVING (
+            <foreach collection="workplaceList" item="workplace" separator=" or ">
+                GROUP_CONCAT(DISTINCT u5.region SEPARATOR ',') like CONCAT('%',#{workplace},'%')
+            </foreach>
+            )
+        </if>
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectTalentSearchListCnt" parameterType="map" resultType="int">
+        select
+        count(*) as cnt
+        from
+        (SELECT
+        a.resume_id
+        FROM
+        resumes AS a
+        LEFT JOIN resume_activities AS u1 ON a.resume_id = u1.resume_id
+        LEFT JOIN resume_awards AS u2 ON a.resume_id = u2.resume_id
+        LEFT JOIN resume_careers AS u3 ON a.resume_id = u3.resume_id
+        LEFT JOIN resume_certifications AS u4 ON a.resume_id = u4.resume_id
+        LEFT JOIN resume_educations AS u5 ON a.resume_id = u5.resume_id
+        LEFT JOIN resume_employmentprf AS u6 ON a.resume_id = u6.resume_id
+        LEFT JOIN resume_languages AS u7 ON a.resume_id = u7.resume_id
+        LEFT JOIN resume_selfintroductions AS u8 ON a.resume_id = u8.resume_id
+        WHERE 1 = 1
+        <if test='resume_id != null'>
+            and a.resume_id = #{resume_id}
+        </if>
+        <if test='keyword != null and keyword != ""'>
+            <choose>
+                <when test='srchType == "school"'>
+                    and (u5.department like CONCAT('%',#{keyword},'%') or u5.schoolName like CONCAT('%',#{keyword},'%'))
+                </when>
+                <when test='srchType == "companyName"'>
+                    and u3.companyName like CONCAT('%',#{keyword},'%')
+                </when>
+                <otherwise>
+                    <!-- 통합 검색: title, name, department, companyName 전체에서 검색 -->
+                    and (
+                    a.title like CONCAT('%',#{keyword},'%')
+                    or a.name like CONCAT('%',#{keyword},'%')
+                    or (u5.department like CONCAT('%',#{keyword},'%') or u5.schoolName like CONCAT('%',#{keyword},'%'))
+                    or u3.companyName like CONCAT('%',#{keyword},'%')
+                    )
+                </otherwise>
+            </choose>
+        </if>
+        <if test='srchGender != null and srchGender != ""'>
+            and a.gender = #{srchGender}
+        </if>
+        <if test='srchCareer != null and srchCareer != ""'>
+            <if test='srchCareer == "신입"'>
+                and a.careerType = 'JUNIOR'
+            </if>
+            <if test='srchCareer == "경력"'>
+                and a.careerType = 'SENIOR'
+            </if>
+        </if>
+        <if test='srchStatus != null and srchStatus != ""'>
+            <if test='srchStatus == "재직중"'>
+                and exists (
+                select 1 from resume_careers rc
+                where a.resume_id = rc.resume_id
+                and rc.isCurrent = 1
+                )
+            </if>
+            <if test='srchStatus == "구직중"'>
+                and not exists (
+                select 1 from resume_careers rc
+                where a.resume_id = rc.resume_id
+                and rc.isCurrent = 1
+                )
+            </if>
+        </if>
+        <if test='srchWorkPlace != null and srchWorkPlace != ""'>
+            and u5.region like CONCAT('%',#{srchWorkPlace},'%')
+        </if>
+        GROUP BY a.resume_id) as b
+    </select>
+
+    <!-- 나머지 쿼리들은 기존과 동일 -->
+    <select id="selectResumeCareers" parameterType="int" resultType="map">
+        SELECT
+            *
+        FROM
+            resume_careers
+        WHERE
+            resume_id = #{resumeId}
+    </select>
+
+    <select id="selectResumeAwards" parameterType="int" resultType="map">
+        SELECT
+            *
+        FROM
+            resume_awards
+        WHERE
+            resume_id = #{resumeId}
+    </select>
+
+    <select id="selectResumeActivities" parameterType="int" resultType="map">
+        SELECT
+            *
+        FROM
+            resume_activities
+        WHERE
+            resume_id = #{resumeId}
+    </select>
+
+    <select id="selectTalentSearchListByParams" parameterType="map" resultType="map">
+        SELECT ss.* FROM (
+        SELECT
+        a.resume_id,
+        a.job_seeker_id,
+        a.name,
+        a.gender,
+        u5.schoolName,
+        u5.department,
+        u5.gpa,
+        u5.lastSchool,
+        u3.companyName,
+        a.created_at,
+        j.status,
+        j.interview_status,
+        j.joboffer_id,
+        GROUP_CONCAT(DISTINCT u5.region SEPARATOR ',') AS edu_region
+        FROM
+        resumes AS a LEFT JOIN resume_activities AS u1
+        ON a.resume_id = u1.resume_id
+        LEFT JOIN resume_awards AS u2
+        ON a.resume_id = u2.resume_id
+        LEFT JOIN resume_careers AS u3
+        ON a.resume_id = u3.resume_id
+        LEFT JOIN resume_certifications AS u4
+        ON a.resume_id = u4.resume_id
+        LEFT JOIN resume_educations AS u5
+        ON a.resume_id = u5.resume_id
+        LEFT JOIN resume_employmentprf AS u6
+        ON a.resume_id = u6.resume_id
+        LEFT JOIN resume_languages AS u7
+        ON a.resume_id = u7.resume_id
+        LEFT JOIN resume_selfintroductions AS u8
+        ON a.resume_id = u8.resume_id
+        LEFT JOIN job_offers AS j
+        ON a.resume_id = j.resume_id
+        WHERE 1 = 1
+        <if test='employerId != null'>
+            and j.employer_id = #{employerId}
+        </if>
+        <if test='resume_id != null'>
+            and a.resume_id = #{resume_id}
+        </if>
+        <if test='resume_id_arr != null'>
+            and a.resume_id in
+            <foreach collection="resume_id_arr" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test='jobseekerid_arr != null'>
+            and a.job_seeker_id in
+            <foreach collection="jobseekerid_arr" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY a.resume_id) as ss
+    </select>
+
+    <select id="selectScrapListByEmp" parameterType="map" resultType="map">
+        select
+        corps.corps_scrap_id,
+        corps.user_id,
+        corps.resume_id,
+        corps.job_seeker_id,
+        re.name,
+        re.gender,
+        re.isPublic,
+        edu.schoolName,
+        edu.lastSchool,
+        edu.department,
+        edu.gpa,
+        edu.totalCredits,
+        car.companyName,
+        car.jobTitle,
+        car.position,
+        car.startDate AS car_start,
+        car.endDate AS car_end,
+        cert.certificationName,
+        GROUP_CONCAT(DISTINCT edu.region SEPARATOR ',') AS edu_region
+        from corps_scrap AS corps
+        LEFT JOIN resumes AS re
+        ON corps.resume_id = re.resume_id
+        LEFT JOIN resume_educations AS edu
+        on corps.resume_id = edu.resume_id
+        LEFT JOIN resume_careers AS car
+        ON corps.resume_id = car.resume_id
+        LEFT JOIN resume_certifications AS cert
+        ON corps.resume_id = cert.resume_id
+        WHERE 1 = 1
+        <if test='keyword != null and keyword != ""'>
+            and (
+                re.title like CONCAT('%',#{keyword},'%')
+                or re.name like CONCAT('%',#{keyword},'%')
+                or edu.schoolName like CONCAT('%',#{keyword},'%')
+                or edu.lastSchool like CONCAT('%',#{keyword},'%')
+                or car.companyName like CONCAT('%',#{keyword},'%')
+            )
+        </if>
+        AND user_id = #{employerId}
+        GROUP BY corps_scrap_id
+        ORDER BY corps.created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectScrapListByEmpCnt" parameterType="map" resultType="int">
+        select
+            count(*)
+        from corps_scrap AS corps
+        LEFT JOIN resumes AS re
+        ON corps.resume_id = re.resume_id
+        LEFT JOIN resume_educations AS edu
+        on corps.resume_id = edu.resume_id
+        LEFT JOIN resume_careers AS car
+        ON corps.resume_id = car.resume_id
+        LEFT JOIN resume_certifications AS cert
+        ON corps.resume_id = cert.resume_id
+        WHERE 1 = 1
+            <if test='keyword != null and keyword != ""'>
+                and (
+                re.title like CONCAT('%',#{keyword},'%')
+                or re.name like CONCAT('%',#{keyword},'%')
+                or edu.schoolName like CONCAT('%',#{keyword},'%')
+                or edu.lastSchool like CONCAT('%',#{keyword},'%')
+                or car.companyName like CONCAT('%',#{keyword},'%')
+                )
+            </if>
+          AND user_id = #{employerId}
+    </select>
+
+    <select id="selectJobOfferListByEmp" parameterType="map" resultType="map">
+        select
+        ofs.joboffer_id,
+        ofs.employer_id,
+        ofs.resume_id,
+        ofs.job_seeker_id,
+        ofs.created_at,
+        ofs.status,
+        ofs.interview_status,
+        re.name,
+        re.gender,
+        edu.schoolName,
+        edu.lastSchool,
+        edu.department,
+        edu.gpa,
+        car.companyName,
+        car.jobTitle,
+        car.position,
+        car.startDate AS car_start,
+        car.endDate AS car_end,
+        cert.certificationName,
+        GROUP_CONCAT(DISTINCT edu.region SEPARATOR ',') AS edu_region
+        FROM job_offers AS ofs
+        LEFT JOIN resumes AS re
+        ON ofs.resume_id = re.resume_id
+        LEFT JOIN resume_educations AS edu
+        on ofs.resume_id = edu.resume_id
+        LEFT JOIN resume_careers AS car
+        ON ofs.resume_id = car.resume_id
+        LEFT JOIN resume_certifications AS cert
+        ON ofs.resume_id = cert.resume_id
+        WHERE 1 = 1
+        <if test='keyword != null and keyword != ""'>
+            and (
+                re.title like CONCAT('%',#{keyword},'%')
+                or re.name like CONCAT('%',#{keyword},'%')
+                or edu.schoolName like CONCAT('%',#{keyword},'%')
+                or edu.lastSchool like CONCAT('%',#{keyword},'%')
+                or car.companyName like CONCAT('%',#{keyword},'%')
+            )
+        </if>
+        <if test='status != null and status != ""'>
+            AND ofs.status = #{status}
+        </if>
+        AND employer_id = #{employerId}
+        GROUP BY joboffer_id
+        ORDER BY ofs.created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectRecentViewListByEmp" parameterType="map" resultType="map">
+        WITH ranked AS (
+        SELECT
+            ofs.corps_view_id,
+            ofs.user_id,
+            ofs.resume_id,
+            re.job_seeker_id AS jobSeekerId,
+            (SELECT COUNT(*) FROM corps_scrap b WHERE re.resume_id = b.resume_id AND b.user_id = #{userId}) AS scrapcnt,
+            ofs.created_at,
+            re.name,
+            re.gender,
+            edu.schoolName,
+            edu.lastSchool,
+            edu.department,
+            edu.gpa,
+            car.companyName,
+            car.jobTitle,
+            car.position,
+            car.startDate AS car_start,
+            car.endDate AS car_end,
+            cert.certificationName,
+            ROW_NUMBER() OVER (PARTITION BY re.job_seeker_id ORDER BY ofs.created_at DESC) AS rn
+        FROM corps_view ofs
+            LEFT JOIN resumes re ON ofs.resume_id = re.resume_id
+            LEFT JOIN resume_educations edu ON ofs.resume_id = edu.resume_id
+            LEFT JOIN resume_careers car ON ofs.resume_id = car.resume_id
+            LEFT JOIN resume_certifications cert ON ofs.resume_id = cert.resume_id
+        WHERE ofs.user_id = #{userId}
+        )
+
+        SELECT *
+        FROM ranked
+        WHERE rn = 1
+        ORDER BY corps_view_id desc
+        LIMIT #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectRecentViewListByEmpCnt" parameterType="map" resultType="int">
+        SELECT COUNT(DISTINCT re.job_seeker_id) AS totalCount
+            FROM corps_view ofs
+            LEFT JOIN resumes re ON ofs.resume_id = re.resume_id
+                WHERE ofs.user_id = #{userId}
+    </select>
+
+    <select id="selectTalentSearchListByParamsCnt" parameterType="map" resultType="int">
+        SELECT count(*) as cnt FROM (
+        SELECT
+        a.resume_id, a.job_seeker_id, a.name, a.gender, u5.schoolName, u5.lastSchool, u3.companyName, a.created_at
+        FROM
+        resumes AS a LEFT JOIN resume_activities AS u1
+        ON a.resume_id = u1.resume_id
+        LEFT JOIN resume_awards AS u2
+        ON a.resume_id = u2.resume_id
+        LEFT JOIN resume_careers AS u3
+        ON a.resume_id = u3.resume_id
+        LEFT JOIN resume_certifications AS u4
+        ON a.resume_id = u4.resume_id
+        LEFT JOIN resume_educations AS u5
+        ON a.resume_id = u5.resume_id
+        LEFT JOIN resume_employmentprf AS u6
+        ON a.resume_id = u6.resume_id
+        LEFT JOIN resume_languages AS u7
+        ON a.resume_id = u7.resume_id
+        LEFT JOIN resume_selfintroductions AS u8
+        ON a.resume_id = u8.resume_id
+        LEFT JOIN job_offers AS j
+        ON a.resume_id = j.resume_id
+        WHERE 1 = 1
+        <if test='employerId != null'>
+            and j.employer_id = #{employerId}
+        </if>
+        <if test='resume_id != null'>
+            and a.resume_id = #{resume_id}
+        </if>
+        <if test='resume_id_arr != null'>
+            and a.resume_id in
+            <foreach collection="resume_id_arr" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test='jobseekerid_arr != null'>
+            and a.job_seeker_id in
+            <foreach collection="jobseekerid_arr" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        GROUP BY a.resume_id) as ss
+    </select>
+
+    <select id="selectTalentList" resultType="com.yourjob.backend.entity.TalentPoolResponse">
+        select
+            talentPoolId as talentPoolId,
+            employerId as employerId,
+            jobSeekerId as jobSeekerId,
+            note as note,
+            created_at as createdAt,
+            updated_at as updatedAt
+        from talent_pool where employerId = #{employerId}
+    </select>
+
+    <insert id="insertTalent" parameterType="com.yourjob.backend.entity.TalentPoolRequest" useGeneratedKeys="true" keyProperty="talentPoolId">
+        insert into talent_pool
+        (talentPoolId,
+         employerId,
+         jobSeekerId,
+         note)
+        VALUES (
+                   #{talentPoolId},
+                   #{employerId},
+                   #{jobSeekerId},
+                   #{note})
+    </insert>
+
+    <insert id="insertTalentScrap" parameterType="map" useGeneratedKeys="true" keyProperty="talentPoolId">
+        insert into corps_scrap
+        (user_id,
+         resume_id,
+         job_seeker_id)
+        VALUES (
+                   #{user_id},
+                   #{resume_id},
+                   #{job_seeker_id})
+    </insert>
+
+    <select id="getTalentScrap" parameterType="map" resultType="map">
+        select
+        *
+        from corps_scrap
+        WHERE 1 = 1
+        <if test='user_id != null'>
+            and user_id = #{user_id}
+        </if>
+        <if test='resume_id != null'>
+            and resume_id = #{resume_id}
+        </if>
+    </select>
+
+    <select id="getTalentInfo" parameterType="com.yourjob.backend.entity.TalentPoolRequest" resultType="com.yourjob.backend.entity.TalentPoolResponse">
+        select
+            talentPoolId as talentPoolId,
+            employerId as employerId,
+            jobSeekerId as jobSeekerId,
+            note as note,
+            created_at as createdAt,
+            updated_at as updatedAt
+        from talent_pool
+        where talentPoolId = #{talentPoolId}
+          and employerId = #{employerId}
+    </select>
+
+    <update id="updateTalent" parameterType="com.yourjob.backend.entity.TalentPoolRequest">
+        update talent_pool set
+                               jobSeekerId = #{jobSeekerId},
+                               note = #{note}
+        where talentPoolId = #{talentPoolId}
+          and employerId = #{employerId}
+    </update>
+
+    <delete id="deleteTalent" parameterType="com.yourjob.backend.entity.TalentPoolRequest">
+        delete from talent_pool
+        where talentPoolId = #{talentPoolId}
+          and employerId = #{employerId}
+    </delete>
+
+    <delete id="deleteTalentScrap" parameterType="map">
+        delete from corps_scrap
+        WHERE 1 = 1
+        <if test='user_id != null'>
+            and user_id = #{user_id}
+        </if>
+        <if test='resume_id != null'>
+            and resume_id = #{resume_id}
+        </if>
+    </delete>
+
+    <delete id="deleteCorpScrap" parameterType="int">
+        delete from corps_scrap
+        where corps_scrap_id = #{corpScrapId}
+    </delete>
+</mapper>

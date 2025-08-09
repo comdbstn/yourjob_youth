@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+	
+    <link rel="stylesheet" type="text/css" href="/css/corpmypage.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+	<script src="/js/jquery.min.js"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<header>
+		<nav>
+			<div class="nav-container">
+				<div class="container  flex-row items-center">
+					<div class="logo">
+						<a href="/" class="title"><img src="/img/logo.png"></a>
+						<div class="logo_txt">유학생 채용 플랫폼</div>
+					</div>
+					<div class="top_search">
+						<div class="search_box"><input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="유학생 채용정보를 검색해 보세요."></div>
+						<div class="top_search_btn"><img class="union" src="/img/union.svg" alt="Union" /></div>
+					</div>
+				</div>
+			</div>
+			<div class="menu-container">
+				<div class="container flex-row items-center item_between">
+					<ul class="menunavi">
+						<li><a href="/corpmem/mypage.html" class="notosanscjkkr-bold-mine-shaft-18px active">홈</a></li>
+						<li><a href="/corpmem/jobpost.html" class="notosanscjkkr-bold-mine-shaft-18px">공고등록</a></li>
+						<li><a href="/corpmem/applicant.html" class="notosanscjkkr-bold-mine-shaft-18px">공고·지원자관리</a></li>
+						<li><a href="/corpmem/search.html" class="notosanscjkkr-bold-mine-shaft-18px">인재검색</a></li>
+						<li><a href="/corpmem/position_human.html" class="notosanscjkkr-bold-mine-shaft-18px">인재관리</a></li>
+					</ul>
+					<ul class="userNav">
+						<!-- 로그인후 노출 -->
+						<li><a href="/corpmem/product_mypage.html" class="text-12">유료 이용내역</a></li>
+						<li><a href="/corpmem/mypage.html" class="text-12"><i class="fa-regular fa-user"></i></a></li>
+						<li><a href="#" class="logOut">로그아웃</a></li>
+						<!-- 로그인후 노출 end -->
+
+						<!-- 로그인전 노출
+						<li><a href="/member/join.html" class="text-12">회원가입</a></li>
+						로그인전 노출 end -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- header end -->
+
+    <div class="container-center-horizontal">
+        <div class="crop-wrap screen">
+
+
+			<!-- container -->
+			<div class="container">				
+				
+				<!-- container-row -->
+				<div class="container-row gap28 mb28">
+					<!-- home-flex1-->
+					<div class="home-flex1">
+						<div class="column_center col2 hcurrent">
+							<h2 class="mb24">일반 채용 현황</h2>
+							<div class="center_flex">
+								<a href="applicant.html">
+									<div class="cycle_flex">
+										<h3>10</h3>
+										<p>진행 중 공고</p>
+									</div>
+								</a>
+								<a href="volunter_list.html">
+									<div class="cycle_flex">
+										<h3>2</h3>
+										<p>미열람 이력서</p>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="column_center col2 hcurrent">
+							<h2 class="mb24">인재 관리 현황</h2>
+							<div class="center_flex">
+								<a href="position_human.html">
+									<div class="cycle_flex">
+										<h3>5</h3>
+										<p>포지션 제안</p>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- home-flex1 end -->
+
+					<!-- home-flex2 -->
+					<div class="home-flex2">
+						<div class="column_start">
+							<h2>(주)유어잡</h2>
+							<div class="row">
+								<div class="overlap-group">
+									<h1 class="title">URJOB</h1>
+								</div>
+								<div class="detail">
+									<div class="text-container">
+										<div class="title">사원수</div>
+										<div class="text">100명</div>
+									</div>
+									<div class="text-container">
+										<div class="title">자본금</div>
+										<div class="text">288억</div>
+									</div>
+									<div class="text-container">
+										<div class="title">매출액</div>
+										<div class="text">5000억</div>
+									</div>
+									<div class="text-container">
+										<div class="title">당기순익</div>
+										<div class="text">500억</div>
+									</div>
+								</div>
+							</div>
+
+							<button type="button" class="hcropMod">기업정보 수정</button>
+						</div>
+					</div>
+					<!-- home-flex2 end -->
+				</div>
+				<!-- container-row end -->
+
+				<!-- container-row -->
+				<div class="container-row gap28">
+					<!-- home-flex3 -->
+					<div class="home-flex3">
+						<div class="header">
+							<h2>일반 공고 이용내역</h2>
+							<button type="button" class="postWrite">공고등록</button>
+						</div>
+						<ul class="contents mb28">
+							<li>
+								<a href="volunter_list.html">
+									<div class="recruit_state">진행중</div>
+									<div class="subject"><div class="ellipsis">[(주)유어잡]문구, 캐릭터 디자인 정규직 채용(경력&신입)</div></div>
+									<div class="text-container">
+										<p>지원자 <span>2</span>명</p>
+										<p>미열람 이력서 <span>1</span>건</p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="volunter_list.html">
+									<div class="recruit_state">진행중</div>
+									<div class="subject"><div class="ellipsis">[(주)유어잡]문구, 캐릭터 디자인 정규직 채용(경력&신입)</div></div>
+									<div class="text-container">
+										<p>지원자 <span>2</span>명</p>
+										<p>미열람 이력서 <span>1</span>건</p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="volunter_list.html">
+									<div class="recruit_state">진행중</div>
+									<div class="subject"><div class="ellipsis">[(주)유어잡]문구, 캐릭터 디자인 정규직 채용(경력&신입)</div></div>
+									<div class="text-container">
+										<p>지원자 <span>2</span>명</p>
+										<p>미열람 이력서 <span>1</span>건</p>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a href="volunter_list.html">
+									<div class="recruit_state">진행중</div>
+									<div class="subject"><div class="ellipsis">[(주)유어잡]문구, 캐릭터 디자인 정규직 채용(경력&신입)</div></div>
+									<div class="text-container">
+										<p>지원자 <span>2</span>명</p>
+										<p>미열람 이력서 <span>1</span>건</p>
+									</div>
+								</a>
+							</li>
+						</ul>
+
+						<div class="home-flex3 bannerBox"><a href="product_inform.html"><img src="/img/con_banner.jpg"></a></div>
+					</div>
+					<!-- home-flex3 end -->
+
+					<!-- home-flex4 -->
+					<div class="home-flex4">
+						<div class="header">
+							<h2>인재들에게 포지션 제안을 해보세요!</h2>
+						</div>
+						<ul class="contents">
+							<li>
+								<div class="recruit_state">
+									<svg xmlns="http://www.w3.org/2000/svg" width="59" height="59" viewBox="0 0 59 59" fill="none">
+									<circle cx="29.5" cy="29.5" r="29.5" fill="#E2EAF3"/>
+									<path d="M29.2079 29.1619C32.014 29.1619 34.2889 26.8871 34.2889 24.081C34.2889 21.2748 32.014 19 29.2079 19C26.4018 19 24.127 21.2748 24.127 24.081C24.127 26.8871 26.4018 29.1619 29.2079 29.1619Z" fill="white"/>
+									<path d="M29.2077 29.9438C24.6781 29.9438 21 33.5304 21 37.9472V38.7774C21 39.508 21.613 40.1058 22.3623 40.1058H36.0531C36.8024 40.1058 37.4154 39.508 37.4154 38.7774V37.9472C37.4154 33.5304 33.7372 29.9438 29.2077 29.9438Z" fill="white"/>
+									</svg>
+								</div>
+								<div class="profile_txt">
+									<div class="flex-row">
+										<p>홍길동<span>(만 30세)</span></p>
+										<p><span>경력 2년 8개월</span></p>
+									</div>
+									<div class="subject"><div class="ellipsis">서울대학교 전자공학과(4년)졸업, 사범을 모집합니다</div></div>
+									<div class="subject">CJ제일제당 대리</div>
+								</div>
+								<button type="button" class="propBtn">제안 <i class="fa-solid fa-angle-right"></i></button>
+							</li>
+							<li>
+								<div class="recruit_state">
+									<svg xmlns="http://www.w3.org/2000/svg" width="59" height="59" viewBox="0 0 59 59" fill="none">
+									<circle cx="29.5" cy="29.5" r="29.5" fill="#E2EAF3"/>
+									<path d="M29.2079 29.1619C32.014 29.1619 34.2889 26.8871 34.2889 24.081C34.2889 21.2748 32.014 19 29.2079 19C26.4018 19 24.127 21.2748 24.127 24.081C24.127 26.8871 26.4018 29.1619 29.2079 29.1619Z" fill="white"/>
+									<path d="M29.2077 29.9438C24.6781 29.9438 21 33.5304 21 37.9472V38.7774C21 39.508 21.613 40.1058 22.3623 40.1058H36.0531C36.8024 40.1058 37.4154 39.508 37.4154 38.7774V37.9472C37.4154 33.5304 33.7372 29.9438 29.2077 29.9438Z" fill="white"/>
+									</svg>
+								</div>
+								<div class="profile_txt">
+									<div class="flex-row">
+										<p>홍길동<span>(만 30세)</span></p>
+										<p><span>경력 2년 8개월</span></p>
+									</div>
+									<div class="subject"><div class="ellipsis">서울대학교 전자공학과(4년)졸업, 사범을 모집합니다</div></div>
+									<div class="subject">CJ제일제당 대리</div>
+								</div>
+								<button type="button" class="propBtn">제안 <i class="fa-solid fa-angle-right"></i></button>
+							</li>
+							<li>
+								<div class="recruit_state">
+									<svg xmlns="http://www.w3.org/2000/svg" width="59" height="59" viewBox="0 0 59 59" fill="none">
+									<circle cx="29.5" cy="29.5" r="29.5" fill="#E2EAF3"/>
+									<path d="M29.2079 29.1619C32.014 29.1619 34.2889 26.8871 34.2889 24.081C34.2889 21.2748 32.014 19 29.2079 19C26.4018 19 24.127 21.2748 24.127 24.081C24.127 26.8871 26.4018 29.1619 29.2079 29.1619Z" fill="white"/>
+									<path d="M29.2077 29.9438C24.6781 29.9438 21 33.5304 21 37.9472V38.7774C21 39.508 21.613 40.1058 22.3623 40.1058H36.0531C36.8024 40.1058 37.4154 39.508 37.4154 38.7774V37.9472C37.4154 33.5304 33.7372 29.9438 29.2077 29.9438Z" fill="white"/>
+									</svg>
+								</div>
+								<div class="profile_txt">
+									<div class="flex-row">
+										<p>홍길동<span>(만 30세)</span></p>
+										<p><span>경력 2년 8개월</span></p>
+									</div>
+									<div class="subject"><div class="ellipsis">서울대학교 전자공학과(4년)졸업, 사범을 모집합니다</div></div>
+									<div class="subject">CJ제일제당 대리</div>
+								</div>
+								<button type="button" class="propBtn">제안 <i class="fa-solid fa-angle-right"></i></button>
+							</li>
+							<li>
+								<div class="recruit_state">
+									<svg xmlns="http://www.w3.org/2000/svg" width="59" height="59" viewBox="0 0 59 59" fill="none">
+									<circle cx="29.5" cy="29.5" r="29.5" fill="#E2EAF3"/>
+									<path d="M29.2079 29.1619C32.014 29.1619 34.2889 26.8871 34.2889 24.081C34.2889 21.2748 32.014 19 29.2079 19C26.4018 19 24.127 21.2748 24.127 24.081C24.127 26.8871 26.4018 29.1619 29.2079 29.1619Z" fill="white"/>
+									<path d="M29.2077 29.9438C24.6781 29.9438 21 33.5304 21 37.9472V38.7774C21 39.508 21.613 40.1058 22.3623 40.1058H36.0531C36.8024 40.1058 37.4154 39.508 37.4154 38.7774V37.9472C37.4154 33.5304 33.7372 29.9438 29.2077 29.9438Z" fill="white"/>
+									</svg>
+								</div>
+								<div class="profile_txt">
+									<div class="flex-row">
+										<p>홍길동<span>(만 30세)</span></p>
+										<p><span>경력 2년 8개월</span></p>
+									</div>
+									<div class="subject"><div class="ellipsis">서울대학교 전자공학과(4년)졸업, 사범을 모집합니다</div></div>
+									<div class="subject">CJ제일제당 대리</div>
+								</div>
+								<button type="button" class="propBtn">제안 <i class="fa-solid fa-angle-right"></i></button>
+							</li>
+							<li>
+								<div class="recruit_state">
+									<svg xmlns="http://www.w3.org/2000/svg" width="59" height="59" viewBox="0 0 59 59" fill="none">
+									<circle cx="29.5" cy="29.5" r="29.5" fill="#E2EAF3"/>
+									<path d="M29.2079 29.1619C32.014 29.1619 34.2889 26.8871 34.2889 24.081C34.2889 21.2748 32.014 19 29.2079 19C26.4018 19 24.127 21.2748 24.127 24.081C24.127 26.8871 26.4018 29.1619 29.2079 29.1619Z" fill="white"/>
+									<path d="M29.2077 29.9438C24.6781 29.9438 21 33.5304 21 37.9472V38.7774C21 39.508 21.613 40.1058 22.3623 40.1058H36.0531C36.8024 40.1058 37.4154 39.508 37.4154 38.7774V37.9472C37.4154 33.5304 33.7372 29.9438 29.2077 29.9438Z" fill="white"/>
+									</svg>
+								</div>
+								<div class="profile_txt">
+									<div class="flex-row">
+										<p>홍길동<span>(만 30세)</span></p>
+										<p><span>경력 2년 8개월</span></p>
+									</div>
+									<div class="subject"><div class="ellipsis">서울대학교 전자공학과(4년)졸업, 사범을 모집합니다</div></div>
+									<div class="subject">CJ제일제당 대리</div>
+								</div>
+								<button type="button" class="propBtn">제안 <i class="fa-solid fa-angle-right"></i></button>
+							</li>
+
+							<button type="button" class="moreBtn">더보기 +</button>
+						</ul>						
+					</div>
+					<!-- home-flex4 end -->
+				</div>
+				<!-- container-row end -->
+
+			</div>
+			<!-- container end-->
+
+        </div>
+    </div>
+
+
+	<!-- footer -->
+	<footer>
+		<div class="footer_wrap">
+			<div class="footer_link">
+				<ul>
+					<li>이용약관</li>
+					<li>개인정보처리방침</li>
+				</ul>
+			</div>
+	
+			<div class="footer_con">
+				<div class="container">
+
+					<div class="footer_box">
+						<div class="footer_info">
+							<ul>
+								<li>고객센터 : 0000-0000</li>
+								<li>FAX : 00-0000-0000</li>
+								<li>E-mail : abcd@gmail.com</li>
+							</ul>
+							<ul>
+								<li>서울시 서초구 서초대로 301</li>
+								<li>대표 : 홍길동</li>
+								<li>사업자등록번호 : 000-00-00000</li>
+							</ul>
+							<ul>
+								<li>Copyright ©아이비리거. All rights reserved.</li>
+							</ul>
+						</div>
+						<div class="urjob"><img src="/img/f_logo.png"></div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer end -->
+
+<script>
+	$(document).ready(function() {
+
+		/* 기업정보수정 클릭이벤트 */
+		$(".hcropMod").on('click',function() {
+			window.location.href="corpmodify.html";
+		});
+
+		/* 더보기 클릭이벤트 */
+		$(".moreBtn").on('click',function() {
+			window.location.href="search.html";
+		});
+		
+		/* 공고등록 클릭이벤트 */
+		$(".postWrite").on('click',function() {
+			window.location.href="jobpost.html";
+		});
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST:db}:${DB_PORT:3306}/${DB_NAME:yourjobdb}
+    username: ${DB_USER:yourjob}
+    password: ${DB_PASSWORD:yourjob_pass}

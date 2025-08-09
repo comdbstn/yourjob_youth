@@ -1,0 +1,10 @@
+.bbsSearch.bbsSearch_area .searchbtn {
+  align-items: flex-start;
+  color: var(--linecol02);
+  display: flex
+;
+  justify-content: flex-end;
+  min-width: 1.25vw;
+  padding: 0.1vw 0.07vw;
+  background-color: transparent;
+}

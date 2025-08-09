@@ -1,0 +1,354 @@
+.WriteResume_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  gap: 0;
+}
+
+.WriteResume_container .row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.WriteResume_container .addBtn {
+  height: 60px;
+  width: 100%;
+  border-radius: 15px;
+  background: var(--bg_col_04, #eaeff3);
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.WriteResume_container .addBtn.nobg {
+  background-color: #fff;
+  border: 1px solid #cbcbcb;
+  color: #a8a8a8;
+}
+
+.WriteResume_container textarea {
+  height: 150px;
+}
+
+.WriteResume_container .textFieldSection {
+  width: 100%;
+  height: 190px;
+  padding: 19px 15px;
+  border-radius: 15px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+}
+
+.WriteResume_container .addFile {
+  width: 100%;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  border-radius: 15px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.WriteResume_container h3 {
+  font-weight: 700;
+  font-size: 30px;
+  color: #333333;
+  margin: 35px 0;
+}
+
+.WriteResume_container h4 {
+  font-weight: 700;
+  font-size: 20px;
+  color: #333333;
+}
+
+.WriteResume_container .uploadPictureDiv {
+  width: 232px;
+  height: 250px;
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.WriteResume_container .uploadPictureDiv button {
+  background-color: #777777;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  height: 30px;
+}
+
+.WriteResume_container .nameDesc {
+  display: flex;
+  gap: 4px;
+  color: #a8a8a8;
+  margin: 16px 0 25px;
+  align-items: center;
+}
+
+.WriteResume_container .nameDesc strong {
+  font-size: 20px;
+  color: black;
+}
+
+.WriteResume_container .inputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  padding: 60px 20px 0;
+  /* margin: 20px; */
+  /* border-bottom: #eaeaea 1px solid; */
+  /* margin-bottom: 20px; */
+  /* padding-bottom: 20px; */
+}
+
+.WriteResume_container .inputSection::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #eaeaea;
+  margin-top: 60px;
+}
+
+.WriteResume_container .inputSection .trash img {
+  width: 20px;
+  height: 20px;
+}
+
+.WriteResume_container .inputSection h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.WriteResume_container .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.WriteResume_container .w-50 {
+  width: 49%;
+}
+
+.WriteResume_container .w-30 {
+  width: 32%;
+}
+
+.WriteResume_container .inputRow {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.WriteResume_container .inputRow div {
+  /* width: 100%; */
+}
+
+.WriteResume_container .inputs .blueBtn {
+  background-color: #eaeff3;
+  color: #2f80dc;
+}
+
+.WriteResume_container .langSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  /* margin-top: 20px; */
+}
+
+.WriteResume_container .careerSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  /* margin-top: 20px; */
+}
+
+.WriteResume_container .internSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  /* margin-top: 20px; */
+}
+
+.WriteResume_container .licenseSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  /* margin-top: 20px; */
+}
+
+.WriteResume_container .prioritySection {
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
+  width: 100%;
+  /* margin-top: 20px; */
+}
+
+.WriteResume_container .prioritySection .gridSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.WriteResume_container .prioritySection .gridSection .gridRow {
+  height: 60px;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: var(--bg_gr_03, #fbfbfb);
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  padding: 20px;
+  gap: 5px;
+}
+
+.WriteResume_container .prioritySection .gridSection .selected {
+  height: 60px;
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid var(--primary, #2f80dc);
+  background: var(--bg_gr_03, #fbfbfb);
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  padding: 20px;
+  gap: 5px;
+}
+
+.WriteResume_container .prioritySection .term {
+  color: var(--txt_col_04, #535353);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.WriteResume_container .prioritySection .term strong {
+  color: var(--txt_col_04, #f00);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.WriteResume_container .prioritySection .termsView {
+  width: 100%;
+  height: 145px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: var(--bg_gr_03, #fbfbfb);
+  color: var(--txt_col_02, #8f8f8f);
+  font-family: "Noto Sans CJK KR";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+  /* 20.8px */
+  padding: 20px;
+}
+
+.WriteResume_container .selfPostSection {
+  height: 195px;
+  width: 100%;
+  padding: 20px 15px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.WriteResume_container .selfPostSection .headers {
+  width: 100%;
+  height: 50px;
+  border-bottom: #cbcbcb 1px solid;
+  margin-bottom: 20px;
+}
+
+.WriteResume_container .priority {
+  display: flex;
+  gap: 10px;
+}
+
+.WriteResume_container .priority .column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.WriteResume_container .priorityInput {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.WriteResume_container .row .addBtnBox {
+  display: flex;
+  gap: 10px;
+  button {
+    height: 44px;
+    border: #a8a8a8 1px solid;
+    border-radius: 15px;
+  }
+}

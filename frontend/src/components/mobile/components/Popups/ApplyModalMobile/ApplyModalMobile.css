@@ -1,0 +1,116 @@
+.apply-modal-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: scroll;
+}
+
+.apply-modal-container .section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  padding: 20px 22px;
+  border-radius: 20px;
+  border: 1px solid #eaeaea;
+  background-color: #f9fbfc;
+}
+
+.apply-modal-container .section-title {
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
+  letter-spacing: -2%;
+  margin-bottom: 15px;
+}
+
+.apply-modal-container .company-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8f8f8f;
+  margin-bottom: 5px;
+}
+
+.apply-modal-container .input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.apply-modal-container .input {
+  height: 50px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.apply-modal-container .terms {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.apply-modal-container .footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.apply-modal-container .button {
+  width: 150px;
+  height: 50px;
+  padding: 10px 0;
+  background-color: #2f80dc;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.apply-modal-container .button-disabled {
+  background-color: #d0d0d0;
+  cursor: not-allowed;
+}
+
+.apply-modal-container .add-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8f8f8f;
+  margin-bottom: 5px;
+}
+
+.apply-modal-container .add-item-btn {
+  color: #2f80dc;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.apply-modal-container .complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  gap: 15px;
+}
+
+.apply-modal-container .complete-message {
+  font-size: 16px;
+}
+
+.apply-modal-container .confirm-button {
+  padding: 8px 25px;
+  background-color: #2f80dc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+}

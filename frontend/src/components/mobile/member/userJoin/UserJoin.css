@@ -1,0 +1,76 @@
+.UserJoin-container {
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+}
+
+.UserJoin-container section {
+  border-top: 1px #dfdfdf solid;
+  border-bottom: 1px #dfdfdf solid;
+  background-color: #fbfbfb;
+  padding: 40px 20px;
+}
+
+.UserJoin-container section h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.UserJoin-container section h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.UserJoin-container section h3 strong {
+  color: #ff0000;
+}
+
+.UserJoin-container .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.UserJoin-container .inputs .input_default {
+  background-color: #ffffff;
+}
+
+.UserJoin-container .inputs .input_default select,
+.UserJoin-container .inputs .input_default .date {
+  width: 100%;
+}
+
+.UserJoin-container .inputs .inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: start;
+}
+
+.UserJoin-container .chk_box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  max-width: 100%;
+}
+
+.UserJoin-container .chk_box .flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.UserJoin-container .blueLabel {
+  font-size: small;
+  color: blue;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.UserJoin-container .visa-checkbox-group {
+  display: flex;
+  gap: 10px;
+}

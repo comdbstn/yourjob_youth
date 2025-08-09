@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 드롭다운 스타일 */
+        .level-dropdown {
+            position: absolute;
+            max-height: 300px;
+            overflow-y: auto;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .level-control {
+            width: 330px;
+            position: relative;
+        }
+
+        /* 드롭다운 헤더 스타일 (X 버튼 포함) */
+        .level-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .level-dropdown-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+        }
+
+        .level-dropdown-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .level-dropdown-close:hover {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        .level-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .level-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .level-item:last-child {
+            border-bottom: none;
+        }
+
+        .level-item-value {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .level-item-code {
+            color: #666;
+            font-size: 0.9em;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .btn-very-small {
+            padding: 2px 6px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+
+        .delete-level {
+            opacity: 0.7;
+        }
+
+        .delete-level:hover {
+            opacity: 1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .new-item-input {
+            display: flex;
+            gap: 10px;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .btn-small {
+            padding: 4px 8px;
+            font-size: 0.85em;
+        }
+
+        .input-with-button {
+            display: flex;
+            gap: 5px;
+        }
+
+        .selected-value {
+            background-color: #f8f9fa;
+        }
+
+        .loading {
+            padding: 8px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn isActive">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">데이터관리</h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+
+                <article class="article-area nosearch-area">
+
+                    <ul class="list option">
+                        <li class="items">
+                            <span class="title">데이터종류</span>
+                            <div class="select-box">
+                                <div class="control">
+                                    <select class="select" id="formDataType">
+                                        <option value="">선택해주세요</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">분류코드</span>
+                            <div class="control">
+                                <input type="text" id="formId" readonly>
+                                <small class="text-muted">데이터 종류 선택 시 자동 생성됩니다</small>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">1차</span>
+                            <div class="control level-control">
+                                <div class="input-with-button">
+                                    <input type="text" id="formLevel1" placeholder="1차 분류 선택" readonly>
+                                    <input type="hidden" id="formLevel1Code">
+                                    <button type="button" id="btnLevel1" class="btn btn-primary btn-small" disabled>선택</button>
+                                </div>
+                                <div id="level1Dropdown" class="level-dropdown hidden">
+                                    <div class="level-dropdown-header">
+                                        <span class="level-dropdown-title">1차 분류 선택</span>
+                                        <button type="button" class="level-dropdown-close" data-level="level1">&times;</button>
+                                    </div>
+                                    <div class="new-item-input">
+                                        <input type="text" id="newLevel1Input" placeholder="새 1차 분류명 입력">
+                                        <button type="button" id="btnAddLevel1" class="btn btn-success btn-small">추가</button>
+                                    </div>
+                                    <div id="level1List" class="loading">데이터 종류를 먼저 선택하세요</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">2차</span>
+                            <div class="control level-control">
+                                <div class="input-with-button">
+                                    <input type="text" id="formLevel2" placeholder="2차 분류 선택" readonly>
+                                    <input type="hidden" id="formLevel2Code">
+                                    <button type="button" id="btnLevel2" class="btn btn-primary btn-small" disabled>선택</button>
+                                </div>
+                                <div id="level2Dropdown" class="level-dropdown hidden">
+                                    <div class="level-dropdown-header">
+                                        <span class="level-dropdown-title">2차 분류 선택</span>
+                                        <button type="button" class="level-dropdown-close" data-level="level2">&times;</button>
+                                    </div>
+                                    <div class="new-item-input">
+                                        <input type="text" id="newLevel2Input" placeholder="새 2차 분류명 입력">
+                                        <button type="button" id="btnAddLevel2" class="btn btn-success btn-small">추가</button>
+                                    </div>
+                                    <div id="level2List" class="loading">1차 분류를 먼저 선택하세요</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">3차</span>
+                            <div class="control level-control">
+                                <div class="input-with-button">
+                                    <input type="text" id="formLevel3" placeholder="3차 분류 선택" readonly>
+                                    <input type="hidden" id="formLevel3Code">
+                                    <button type="button" id="btnLevel3" class="btn btn-primary btn-small" disabled>선택</button>
+                                </div>
+                                <div id="level3Dropdown" class="level-dropdown hidden">
+                                    <div class="level-dropdown-header">
+                                        <span class="level-dropdown-title">3차 분류 선택</span>
+                                        <button type="button" class="level-dropdown-close" data-level="level3">&times;</button>
+                                    </div>
+                                    <div class="new-item-input">
+                                        <input type="text" id="newLevel3Input" placeholder="새 3차 분류명 입력">
+                                        <button type="button" id="btnAddLevel3" class="btn btn-success btn-small">추가</button>
+                                    </div>
+                                    <div id="level3List" class="loading">2차 분류를 먼저 선택하세요</div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="btn-area">
+                        <button type="button" class="btn btn-success" id="btnSave">저장</button>
+                        <a href="DataManagement.html" class="btn btn-primary" id="btnList">목록으로</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+</main>
+
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // API BASE URL
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+        // URL에서 파라미터 추출
+        const urlParams = new URLSearchParams(window.location.search);
+        const operationDataId = urlParams.get('id');
+
+        // 상태 변수
+        let dataTypes = [];
+        let selectedDataType = null;
+        let isEditMode = !!operationDataId;
+
+        // DOM 요소
+        const elements = {
+            formId: document.getElementById('formId'),
+            formDataType: document.getElementById('formDataType'),
+            formLevel1: document.getElementById('formLevel1'),
+            formLevel1Code: document.getElementById('formLevel1Code'),
+            formLevel2: document.getElementById('formLevel2'),
+            formLevel2Code: document.getElementById('formLevel2Code'),
+            formLevel3: document.getElementById('formLevel3'),
+            formLevel3Code: document.getElementById('formLevel3Code'),
+            btnLevel1: document.getElementById('btnLevel1'),
+            btnLevel2: document.getElementById('btnLevel2'),
+            btnLevel3: document.getElementById('btnLevel3'),
+            level1Dropdown: document.getElementById('level1Dropdown'),
+            level2Dropdown: document.getElementById('level2Dropdown'),
+            level3Dropdown: document.getElementById('level3Dropdown'),
+            level1List: document.getElementById('level1List'),
+            level2List: document.getElementById('level2List'),
+            level3List: document.getElementById('level3List'),
+            newLevel1Input: document.getElementById('newLevel1Input'),
+            newLevel2Input: document.getElementById('newLevel2Input'),
+            newLevel3Input: document.getElementById('newLevel3Input'),
+            btnAddLevel1: document.getElementById('btnAddLevel1'),
+            btnAddLevel2: document.getElementById('btnAddLevel2'),
+            btnAddLevel3: document.getElementById('btnAddLevel3'),
+            btnSave: document.getElementById('btnSave'),
+            btnLogout: document.getElementById('btnLogout')
+        };
+
+        // 초기화
+        init();
+
+        async function init() {
+            await loadDataTypes();
+
+            if (isEditMode) {
+                elements.formId.readOnly = true;
+                await loadExistingData();
+            } else {
+                elements.formId.readOnly = true; // 항상 읽기 전용
+            }
+
+            setupEventListeners();
+        }
+
+        // 데이터 타입 로드
+        async function loadDataTypes() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data-type`);
+                if (!response.ok) throw new Error('데이터 타입 로드 실패');
+
+                dataTypes = await response.json();
+                populateDataTypeSelect();
+            } catch (error) {
+                console.error('데이터 타입 로드 실패:', error);
+                alert('데이터 타입을 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 데이터 타입 셀렉트 박스 채우기
+        function populateDataTypeSelect() {
+            elements.formDataType.innerHTML = '<option value="">선택해주세요</option>';
+
+            dataTypes.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type.code;
+                option.textContent = type.name;
+                option.dataset.code = type.code;
+                elements.formDataType.appendChild(option);
+            });
+        }
+
+        // 다음 ID 생성 (새 데이터용)
+        async function generateNextId(dataType) {
+            if (!dataType) return;
+
+            try {
+                // 해당 데이터 타입의 마지막 operation_data_id 조회
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data/next-id?dataType=${encodeURIComponent(dataType)}`);
+
+                if (response.ok) {
+                    const data = await response.json();
+                    elements.formId.value = data.nextId;
+                } else {
+                    // API가 없는 경우 임시로 기본값 설정
+                    console.warn('다음 ID API가 없습니다. 임시 ID를 생성합니다.');
+                    const randomNum = Math.floor(Math.random() * 1000000).toString().padStart(7, '0');
+                    elements.formId.value = randomNum;
+                }
+            } catch (error) {
+                console.error('다음 ID 조회 실패:', error);
+                // 에러 시 임시 ID 생성
+                const randomNum = Math.floor(Math.random() * 1000000).toString().padStart(7, '0');
+                elements.formId.value = randomNum;
+            }
+        }
+
+        // 기존 데이터 로드
+        async function loadExistingData() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data/${operationDataId}`);
+                if (!response.ok) throw new Error('데이터 로드 실패');
+
+                const data = await response.json();
+
+                // 폼에 데이터 채우기
+                elements.formId.value = data.operationDataId;
+                elements.formDataType.value = data.dataType;
+
+                // 데이터 타입 변경 이벤트 트리거
+                await handleDataTypeChange();
+
+                // 레벨 데이터 로드 (코드와 값이 이미 포함됨)
+                if (data.level1Code) {
+                    elements.formLevel1.value = data.level1;
+                    elements.formLevel1Code.value = data.level1Code;
+                    await handleLevel1Change();
+                }
+
+                if (data.level2Code) {
+                    elements.formLevel2.value = data.level2;
+                    elements.formLevel2Code.value = data.level2Code;
+                    await handleLevel2Change();
+                }
+
+                if (data.level3Code) {
+                    elements.formLevel3.value = data.level3;
+                    elements.formLevel3Code.value = data.level3Code;
+                }
+            } catch (error) {
+                console.error('데이터 로드 실패:', error);
+                alert('데이터를 불러오는 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 이벤트 리스너 설정
+        function setupEventListeners() {
+            // 데이터 타입 변경
+            elements.formDataType.addEventListener('change', handleDataTypeChange);
+
+            // 레벨 버튼 클릭
+            elements.btnLevel1.addEventListener('click', () => toggleLevelDropdown('level1'));
+            elements.btnLevel2.addEventListener('click', () => toggleLevelDropdown('level2'));
+            elements.btnLevel3.addEventListener('click', () => toggleLevelDropdown('level3'));
+
+            // 드롭다운 X 버튼 클릭
+            document.querySelectorAll('.level-dropdown-close').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const level = btn.getAttribute('data-level');
+                    closeLevelDropdown(level);
+                });
+            });
+
+            // 새 레벨 추가 버튼
+            elements.btnAddLevel1.addEventListener('click', () => addNewLevel('level1'));
+            elements.btnAddLevel2.addEventListener('click', () => addNewLevel('level2'));
+            elements.btnAddLevel3.addEventListener('click', () => addNewLevel('level3'));
+
+            // 저장 버튼
+            elements.btnSave.addEventListener('click', handleSave);
+
+            // 로그아웃 버튼
+            elements.btnLogout.addEventListener('click', handleLogout);
+
+            // 드롭다운 외부 클릭 시 닫기
+            document.addEventListener('click', handleDocumentClick);
+        }
+
+        // 문서 클릭 핸들러 (드롭다운 외부 클릭 시 닫기)
+        function handleDocumentClick(event) {
+            // 클릭된 요소가 드롭다운 내부인지 확인
+            const isClickInsideDropdown = event.target.closest('.level-dropdown');
+            const isClickOnButton = event.target.closest('#btnLevel1, #btnLevel2, #btnLevel3');
+
+            // 드롭다운 외부이면서 버튼이 아닌 경우 모든 드롭다운 닫기
+            if (!isClickInsideDropdown && !isClickOnButton) {
+                closeAllDropdowns();
+            }
+        }
+
+        // 데이터 타입 변경 핸들러
+        async function handleDataTypeChange() {
+            const selectedOption = elements.formDataType.options[elements.formDataType.selectedIndex];
+            if (!selectedOption.value) return;
+
+            selectedDataType = {
+                code: selectedOption.value,
+                name: selectedOption.textContent
+            };
+
+            // 새 등록인 경우 자동으로 다음 ID 생성
+            if (!isEditMode) {
+                await generateNextId(selectedDataType.code);
+            }
+
+            // 레벨 입력 초기화
+            resetLevelInputs();
+
+            // 1차 옵션 로드 및 버튼 활성화
+            await loadLevel1Options();
+            elements.btnLevel1.disabled = false;
+
+            // 2차, 3차 버튼 비활성화
+            elements.btnLevel2.disabled = true;
+            elements.btnLevel3.disabled = true;
+        }
+
+        // 레벨 입력 초기화
+        function resetLevelInputs() {
+            elements.formLevel1.value = '';
+            elements.formLevel1Code.value = '';
+            elements.formLevel2.value = '';
+            elements.formLevel2Code.value = '';
+            elements.formLevel3.value = '';
+            elements.formLevel3Code.value = '';
+
+            // 드롭다운 닫기
+            closeAllDropdowns();
+        }
+
+        // 모든 드롭다운 닫기
+        function closeAllDropdowns() {
+            elements.level1Dropdown.classList.add('hidden');
+            elements.level2Dropdown.classList.add('hidden');
+            elements.level3Dropdown.classList.add('hidden');
+        }
+
+        // 특정 드롭다운 닫기
+        function closeLevelDropdown(level) {
+            elements[`${level}Dropdown`].classList.add('hidden');
+        }
+
+        // 드롭다운 토글 (개선된 버전)
+        function toggleLevelDropdown(level) {
+            const dropdown = elements[`${level}Dropdown`];
+            const isCurrentlyVisible = !dropdown.classList.contains('hidden');
+
+            // 먼저 모든 드롭다운 닫기
+            closeAllDropdowns();
+
+            // 현재 드롭다운이 닫혀있었다면 열기
+            if (!isCurrentlyVisible) {
+                dropdown.classList.remove('hidden');
+            }
+        }
+
+        // Level1 옵션 로드
+        async function loadLevel1Options() {
+            if (!selectedDataType) return;
+
+            try {
+                elements.level1List.innerHTML = '<div class="loading">로딩 중...</div>';
+
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data/level1-codes?dataType=${encodeURIComponent(selectedDataType.code)}`);
+                if (!response.ok) throw new Error('Level1 데이터 로드 실패');
+
+                const data = await response.json();
+                renderLevelOptions('level1', data.levelCodes);
+            } catch (error) {
+                console.error('Level1 데이터 로드 실패:', error);
+                elements.level1List.innerHTML = '<div class="loading">데이터 로드 실패</div>';
+            }
+        }
+
+        // Level2 옵션 로드
+        async function loadLevel2Options() {
+            if (!selectedDataType || !elements.formLevel1Code.value) return;
+
+            try {
+                elements.level2List.innerHTML = '<div class="loading">로딩 중...</div>';
+
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data/level2-codes/${encodeURIComponent(selectedDataType.code)}/${encodeURIComponent(elements.formLevel1Code.value)}`);
+                if (!response.ok) throw new Error('Level2 데이터 로드 실패');
+
+                const data = await response.json();
+                renderLevelOptions('level2', data.levelCodes);
+            } catch (error) {
+                console.error('Level2 데이터 로드 실패:', error);
+                elements.level2List.innerHTML = '<div class="loading">데이터 로드 실패</div>';
+            }
+        }
+
+        // Level3 옵션 로드
+        async function loadLevel3Options() {
+            if (!selectedDataType || !elements.formLevel2Code.value) return;
+
+            try {
+                elements.level3List.innerHTML = '<div class="loading">로딩 중...</div>';
+
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data/level3-codes/${encodeURIComponent(selectedDataType.code)}/${encodeURIComponent(elements.formLevel2Code.value)}`);
+                if (!response.ok) throw new Error('Level3 데이터 로드 실패');
+
+                const data = await response.json();
+                renderLevelOptions('level3', data.levelCodes);
+            } catch (error) {
+                console.error('Level3 데이터 로드 실패:', error);
+                elements.level3List.innerHTML = '<div class="loading">데이터 로드 실패</div>';
+            }
+        }
+
+        // 레벨 옵션 렌더링
+        function renderLevelOptions(level, options) {
+            const listElement = elements[`${level}List`];
+            listElement.innerHTML = '';
+
+            if (!options || options.length === 0) {
+                listElement.innerHTML = '<div class="loading">데이터가 없습니다</div>';
+                return;
+            }
+
+            options.forEach(option => {
+                const item = document.createElement('div');
+                item.className = 'level-item';
+                item.innerHTML = `
+                    <span class="level-item-value">${option.levelValue}</span>
+                    <span class="level-item-code">(${option.code})</span>
+                    <button type="button" class="btn btn-danger btn-very-small delete-level" data-code="${option.code}" data-level="${level}">삭제</button>
+                `;
+
+                // 클릭 이벤트를 선택 영역과 삭제 버튼에 따로 설정
+                const clickableArea = item.querySelector('.level-item-value, .level-item-code');
+                if (clickableArea) {
+                    clickableArea.addEventListener('click', () => selectLevelOption(level, option));
+                }
+
+                // 삭제 버튼 이벤트
+                const deleteBtn = item.querySelector('.delete-level');
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // 상위 클릭 이벤트 방지
+                        deleteLevelCode(option.code, option.levelValue, level);
+                    });
+                }
+
+                listElement.appendChild(item);
+            });
+        }
+
+        // 레벨 옵션 선택
+        async function selectLevelOption(level, option) {
+            const valueField = elements[`form${level.charAt(0).toUpperCase() + level.slice(1)}`];
+            const codeField = elements[`form${level.charAt(0).toUpperCase() + level.slice(1)}Code`];
+
+            valueField.value = option.levelValue;
+            codeField.value = option.code;
+
+            // 선택 후 처리
+            if (level === 'level1') {
+                await handleLevel1Change();
+            } else if (level === 'level2') {
+                await handleLevel2Change();
+            }
+
+            // 드롭다운 닫기
+            closeLevelDropdown(level);
+        }
+
+        // Level1 변경 핸들러
+        async function handleLevel1Change() {
+            // Level2, Level3 초기화
+            elements.formLevel2.value = '';
+            elements.formLevel2Code.value = '';
+            elements.formLevel3.value = '';
+            elements.formLevel3Code.value = '';
+
+            // Level2 버튼 활성화, Level3 버튼 비활성화
+            elements.btnLevel2.disabled = false;
+            elements.btnLevel3.disabled = true;
+
+            // Level2 옵션 로드
+            await loadLevel2Options();
+        }
+
+        // Level2 변경 핸들러
+        async function handleLevel2Change() {
+            // Level3 초기화
+            elements.formLevel3.value = '';
+            elements.formLevel3Code.value = '';
+
+            // Level3 버튼 활성화
+            elements.btnLevel3.disabled = false;
+
+            // Level3 옵션 로드
+            await loadLevel3Options();
+        }
+
+        // 새 레벨 추가
+        async function addNewLevel(level) {
+            const inputElement = elements[`new${level.charAt(0).toUpperCase() + level.slice(1)}Input`];
+            const value = inputElement.value.trim();
+
+            if (!value) {
+                alert('레벨명을 입력해주세요.');
+                return;
+            }
+
+            // 레벨 타입 결정
+            let levelType;
+            let parentCode = null;
+
+            switch (level) {
+                case 'level1':
+                    levelType = 'level1';
+                    break;
+                case 'level2':
+                    levelType = 'level2';
+                    parentCode = elements.formLevel1Code.value;
+                    if (!parentCode) {
+                        alert('1차 분류를 먼저 선택해주세요.');
+                        return;
+                    }
+                    break;
+                case 'level3':
+                    levelType = 'level3';
+                    parentCode = elements.formLevel2Code.value;
+                    if (!parentCode) {
+                        alert('2차 분류를 먼저 선택해주세요.');
+                        return;
+                    }
+                    break;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data/level-code`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dataType: selectedDataType.code,
+                        levelType: levelType,
+                        levelValue: value,
+                        parentCode: parentCode
+                    })
+                });
+
+                if (!response.ok) throw new Error('레벨 추가 실패');
+
+                const newLevelCode = await response.json();
+
+                // 입력 필드 초기화
+                inputElement.value = '';
+
+                // 선택된 레벨 값 설정
+                const valueField = elements[`form${level.charAt(0).toUpperCase() + level.slice(1)}`];
+                const codeField = elements[`form${level.charAt(0).toUpperCase() + level.slice(1)}Code`];
+
+                valueField.value = newLevelCode.levelValue;
+                codeField.value = newLevelCode.code;
+
+                // 해당 레벨 옵션 다시 로드
+                switch (level) {
+                    case 'level1':
+                        await loadLevel1Options();
+                        await handleLevel1Change();
+                        break;
+                    case 'level2':
+                        await loadLevel2Options();
+                        await handleLevel2Change();
+                        break;
+                    case 'level3':
+                        await loadLevel3Options();
+                        break;
+                }
+
+                // 드롭다운 닫기
+                closeLevelDropdown(level);
+
+                alert('새 분류가 추가되었습니다.');
+            } catch (error) {
+                console.error('레벨 추가 실패:', error);
+                alert('분류 추가 중 오류가 발생했습니다.');
+            }
+        }
+
+        // 분류코드 삭제
+        async function deleteLevelCode(code, levelValue, level) {
+            if (!confirm(`'${levelValue}'을(를) 삭제하시겠습니까?\n이 분류를 참조하는 모든 데이터가 영향을 받을 수 있습니다.`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/mdms/operation-data/level-code/${encodeURIComponent(code)}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || '삭제 실패');
+                }
+
+                alert('분류가 삭제되었습니다.');
+
+                // 현재 선택된 분류가 삭제된 경우 초기화
+                switch (level) {
+                    case 'level1':
+                        if (elements.formLevel1Code.value === code) {
+                            elements.formLevel1.value = '';
+                            elements.formLevel1Code.value = '';
+                            elements.formLevel2.value = '';
+                            elements.formLevel2Code.value = '';
+                            elements.formLevel3.value = '';
+                            elements.formLevel3Code.value = '';
+                            elements.btnLevel2.disabled = true;
+                            elements.btnLevel3.disabled = true;
+                        }
+                        await loadLevel1Options();
+                        break;
+                    case 'level2':
+                        if (elements.formLevel2Code.value === code) {
+                            elements.formLevel2.value = '';
+                            elements.formLevel2Code.value = '';
+                            elements.formLevel3.value = '';
+                            elements.formLevel3Code.value = '';
+                            elements.btnLevel3.disabled = true;
+                        }
+                        await loadLevel2Options();
+                        break;
+                    case 'level3':
+                        if (elements.formLevel3Code.value === code) {
+                            elements.formLevel3.value = '';
+                            elements.formLevel3Code.value = '';
+                        }
+                        await loadLevel3Options();
+                        break;
+                }
+            } catch (error) {
+                console.error('분류 삭제 실패:', error);
+                alert('분류 삭제 중 오류가 발생했습니다: ' + error.message);
+            }
+        }
+
+        // 저장 핸들러
+        async function handleSave() {
+            // 필수 필드 검증
+            if (!elements.formId.value.trim()) {
+                alert('분류코드를 입력해주세요.');
+                return;
+            }
+
+            if (!selectedDataType) {
+                alert('데이터 종류를 선택해주세요.');
+                return;
+            }
+
+            // 요청 데이터 구성
+            const requestData = {
+                operationDataId: elements.formId.value.trim(),
+                dataType: selectedDataType.code,
+                level1: elements.formLevel1Code.value || null,
+                level2: elements.formLevel2Code.value || null,
+                level3: elements.formLevel3Code.value || null
+            };
+
+            try {
+                let method, url;
+
+                if (isEditMode) {
+                    method = 'PUT';
+                    url = `${API_BASE_URL}/mdms/operation-data`;
+                } else {
+                    method = 'POST';
+                    url = `${API_BASE_URL}/mdms/operation-data`;
+                }
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || '저장 실패');
+                }
+
+                alert(isEditMode ? '수정되었습니다.' : '등록되었습니다.');
+                window.location.href = 'DataManagement.html';
+            } catch (error) {
+                console.error('저장 실패:', error);
+                alert('저장 중 오류가 발생했습니다: ' + error.message);
+            }
+        }
+
+        // 로그아웃 핸들러
+        function handleLogout() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+                window.location.href = '/admin/login.html';
+            }
+        }
+    });
+</script>
+</body>
+</html>

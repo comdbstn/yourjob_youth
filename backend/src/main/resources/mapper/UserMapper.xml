@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yourjob.backend.mapper.UserMapper">
+
+  <resultMap id="UserResultMap" type="com.yourjob.backend.entity.User">
+    <id property="id" column="user_id"/>
+    <result property="userType" column="user_type"/>
+    <result property="email" column="email"/>
+    <result property="password" column="password_hash"/>
+    <result property="name" column="name"/>
+    <result property="phone" column="phone"/>
+    <result property="oauthProvider" column="oauth_provider"/>
+    <result property="oauthProviderId" column="oauth_provider_id"/>
+    <result property="isActive" column="is_active"/>
+    <result property="isBanned" column="is_banned"/>
+    <result property="createdAt" column="created_at"/>
+    <result property="updatedAt" column="updated_at"/>
+  </resultMap>
+
+  <select id="selectUserById" parameterType="int" resultMap="UserResultMap">
+    SELECT user_id, user_type, email, password_hash, name, phone, oauth_provider, oauth_provider_id, is_active, is_banned, created_at, updated_at, profile_image
+    FROM users
+    WHERE user_id = #{id}
+  </select>
+
+  <insert id="insertUser" parameterType="com.yourjob.backend.entity.User" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO users
+      (user_type, email, password_hash, name, phone, oauth_provider, oauth_provider_id, is_active, is_banned, created_at, updated_at, profile_image)
+    VALUES
+      (#{userType}, #{email}, #{password}, #{name}, #{phone}, #{oauthProvider}, #{oauthProviderId}, #{isActive}, #{isBanned}, #{createdAt}, #{updatedAt}, #{profileImage})
+  </insert>
+
+  <update id="updateUser" parameterType="com.yourjob.backend.entity.User">
+    UPDATE users
+    SET
+      user_type = #{userType},
+      email = #{email},
+      password_hash = #{password},
+      name = #{name},
+      phone = #{phone},
+      oauth_provider = #{oauthProvider},
+      oauth_provider_id = #{oauthProviderId},
+      is_active = #{isActive},
+      is_banned = #{isBanned},
+      created_at = #{createdAt},
+      updated_at = #{updatedAt},
+      profile_image = #{profileImage}
+    WHERE user_id = #{id}
+  </update>
+
+  <delete id="deleteUser" parameterType="int">
+    DELETE FROM users
+    WHERE user_id = #{id}
+  </delete>
+
+</mapper>

@@ -1,0 +1,56 @@
+.mobileResume-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mobileResume-container h2 {
+  margin: 35px 0;
+  font-size: 30px;
+  font-weight: 700;
+}
+.mobileResume-container ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+}
+.mobileResume-container ul li {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fbfbfb;
+  border-radius: 15px;
+  border: 1px #dfdfdf solid;
+  gap: 30px;
+}
+.mobileResume-container ul li .date {
+  height: 30px;
+  display: flex;
+  align-items: start;
+  color: #8f8f8f;
+  width: 100%;
+  border-bottom: #eaeaea 1px solid;
+}
+.mobileResume-container ul li .btns {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+.mobileResume-container ul li .btns button {
+  width: 100%;
+  background-color: white;
+  height: 50px;
+  border: #a8a8a8 1px solid;
+  border-radius: 15px;
+  color: #a8a8a8;
+}
+.mobileResume-container ul li .btns button:nth-child(2) {
+  color: red;
+  border: red 1px solid;
+}
+.mobileResume-container ul li .btns button.active {
+  border-color: var(--primary);
+  color: var(--primary);
+}

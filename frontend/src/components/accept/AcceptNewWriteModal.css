@@ -1,0 +1,64 @@
+.accept-new-write-modal {
+  padding: 20px;
+  text-align: center;
+}
+
+.accept-new-write-modal p {
+  margin-bottom: 20px;
+  line-height: 1.5;
+  color: #333;
+  font-size: 16px;
+}
+
+.accept-new-write-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.accept-new-write-modal-buttons button {
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent !important;
+  padding: .375rem .75rem;
+  border-radius: 20px;
+  font-size: var(--font-size-xl);
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.accept-new-write-modal-buttons .cancel-button {
+  display: flex;
+  width: 150px;
+  height: 50px;
+  padding: 18px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background-color: var(--white) !important;
+  border-color: var(--text-silver) !important;
+  color: var(--text-silver);
+}
+
+.accept-new-write-modal-buttons .confirm-button {
+  display: flex;
+  width: 150px;
+  height: 50px;
+  padding: 18px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background-color: var(--bgcol04) !important;
+  border-color: var(--bgcol04) !important;
+  color: var(--white);
+} 

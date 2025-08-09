@@ -1,0 +1,56 @@
+<!-- 모달창  -->
+<div id="addmodal">	
+	<div class="modal_title"><h2>합격안내</h2></div>	
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+		<div class="modal_form">
+			<div class="inputfield mb20">
+				<label class="label" for="">발표제목</label>
+				<input type="text" class="form-control" id="position" name="position" placeholder="발표 제목을 입력해 주세요.">
+			</div>
+			<div class="inputfield item_start mb20">
+				<label class="label" for="">발표내용</label>
+				<textarea id="txtContent" name="txtContent" class="form-control" placeholder="발표 내용을 입력해 주세요."></textarea>
+			</div>
+		</div>
+		<div class="modal_sbtn mb50">
+			<div class="btnm">
+				<button type="button" id="deadline_ok" class="btns deadlineBtn">합격발표</button>
+				<a href="#close-modal" rel="modal:close"><button type="button" class="btns closeBtn">취소</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+$(document).ready(function() {
+	/*
+	//등록, 수정
+	$("#btn_insert").click(function(){
+		$('#btn_insert').attr('disabled');
+
+		var formData = $("form[name=chkForm]").serialize() ;
+
+		$.ajax({
+			type : 'post',
+			url : 'chkpwd.php',
+			data : formData,
+			dataType : 'json',
+			error: function(xhr, status, error){
+				alert(error);
+			},
+			success : function(result){
+				if (result.msg == "SUCCESS"){
+					$('#btn_insert').removeAttr('disabled');
+					$('#addmodal').modal().hide();
+					$("#chk").val(result.chk);
+					$("#chkForm").attr("action","boardView.php").submit();
+				}else{
+					alert(result.msg);
+					$('#btn_insert').removeAttr('disabled');
+				}
+			}
+		});
+
+	});
+	*/
+});
+</script>

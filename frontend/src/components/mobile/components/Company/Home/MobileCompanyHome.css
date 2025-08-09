@@ -1,0 +1,456 @@
+.mobileCompanyHome_Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileCompanyHome_Container .ProfileSection {
+  width: calc(100% - 40px);
+
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  /* gap: 17px; */
+}
+
+.mobileCompanyHome_Container .ContentSection {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 22px;
+}
+
+.mobileCompanyHome_Container .corpName {
+  color: var(--txt_col_03, #777);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 17px;
+}
+
+.mobileCompanyHome_Container .corpImg {
+  width: 180px;
+  height: 100px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mobileCompanyHome_Container .corpImg img {
+  width: 100%;
+  height: 100%;
+}
+
+.mobileCompanyHome_Container .rows {
+  display: flex;
+  flex-direction: column;
+  text-wrap: nowrap;
+  gap: 0 10px;
+}
+
+.mobileCompanyHome_Container .rows .row {
+  display: flex;
+}
+
+.mobileCompanyHome_Container .rows .row p:nth-child(1) {
+  width: 50px;
+  color: var(--txt_col_02, #8f8f8f);
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 200%;
+  /* 24px */
+}
+
+.mobileCompanyHome_Container .rows .row p:nth-child(2) {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 200%;
+  /* 24px */
+}
+
+.mobileCompanyHome_Container .editBtn {
+  display: flex;
+  /* max-width: 350px; */
+  padding: 9px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid var(--primary, #2f80dc);
+  background: #fff;
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.mobileCompanyHome_Container .ProfileSection2 {
+  width: calc(100% - 40px);
+
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+  padding: 30px 20px;
+  display: flex;
+}
+
+.mobileCompanyHome_Container .ProfileSection2 h4 {
+  font-size: 18px;
+  color: #333;
+  font-weight: 700;
+  margin-bottom: 7px;
+}
+
+.mobileCompanyHome_Container .ProfileSection2 .sections {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  width: 50%;
+}
+
+.mobileCompanyHome_Container .ProfileSection2 .sections:nth-child(1) {
+  border-right: #dfdfdf 1px dashed;
+}
+
+.mobileCompanyHome_Container .ProfileSection2 .sections .circleDiv {
+  width: 120px;
+  height: 120px;
+  background-color: white;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid #eaeaea;
+}
+
+.mobileCompanyHome_Container
+  .ProfileSection2
+  .sections
+  .circleDiv
+  p:nth-child(1) {
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.72px;
+}
+
+.mobileCompanyHome_Container
+  .ProfileSection2
+  .sections
+  .circleDiv
+  p:nth-child(2) {
+  color: #585858;
+  font-family: "Noto Sans KR";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.26px;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 {
+  width: calc(100% - 40px);
+
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 .headers {
+  border-radius: 20px 20px 0px 0px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_col_03, #f9fbfc);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 82px;
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 .bodys {
+  /* height: 486px; */
+  display: flex;
+  padding: 0 20px;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 .bodys ul {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 .bodys ul li {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: #eaeaea 1px solid;
+  gap: 7px;
+  padding: 20px 0;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 .bodys ul li .topRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.mobileCompanyHome_Container
+  .ProfileSection3
+  .bodys
+  ul
+  li
+  .topRow
+  .processingLabel {
+  display: flex;
+  width: 58px;
+  height: 28px;
+
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid var(--red02, #ff6a6a);
+  background: #fff;
+  color: var(--red02, #ff6a6a);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 .bodys ul li .topRow .countLabel {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileCompanyHome_Container
+  .ProfileSection3
+  .bodys
+  ul
+  li
+  .topRow
+  .countLabel
+  strong {
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileCompanyHome_Container
+  .ProfileSection3
+  .bodys
+  ul
+  li
+  .topRow
+  .countLabel
+  .bar {
+  width: 1px;
+  height: 10px;
+  background: #8f8f8f;
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.mobileCompanyHome_Container .ProfileSection3 .desc {
+  color: var(--txt_col_04, #535353);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  white-space: nowrap;
+  /* 줄 바꿈 금지 */
+  overflow: hidden;
+  /* 넘친 텍스트 숨기기 */
+  text-overflow: ellipsis;
+  /* 넘치는 부분 ... 처리 */
+}
+
+.mobileCompanyHome_Container .proposalProduct {
+  width: calc(100% - 40px);
+  height: 119px;
+  border-radius: 20px;
+  background: linear-gradient(91deg, #e7f2ff -1.2%, #8abbf3 96.71%);
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  padding: 28px 20px;
+}
+
+.mobileCompanyHome_Container .proposalProduct .desc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobileCompanyHome_Container .proposalProduct .desc p:nth-child(1) {
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans CJK KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.mobileCompanyHome_Container .proposalProduct .desc p:nth-child(2) {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans CJK KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 {
+  width: calc(100% - 40px);
+
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .headers {
+  border-radius: 20px 20px 0px 0px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_col_03, #f9fbfc);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 82px;
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.36px;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys {
+  /* height: 486px; */
+  display: flex;
+  padding: 0 20px;
+  /* padding-bottom: 20px; */
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: #eaeaea 1px solid;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul li .rightDiv p {
+  color: var(--txt_col_01, #a8a8a8);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  margin-bottom: 4px;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul li .rightDiv p strong {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul li .rightDiv p .bar {
+  width: 1px;
+  display: inline-block;
+  height: 10px;
+  background: #8f8f8f;
+  margin: 0 6px;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul li .rightDiv .desc {
+  color: var(--txt_col_04, #535353);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul li .rightBtn {
+  color: var(--primary, #2f80dc);
+  text-align: right;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 5px;
+}
+
+.mobileCompanyHome_Container .ProfileSection4 .bodys ul li .rightBtn img {
+  width: 7px;
+}

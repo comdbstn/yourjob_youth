@@ -1,0 +1,109 @@
+.JobRankPopUp_container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.JobRankPopUp_container .header {
+  height: 60px;
+  background-color: #fbfbfb;
+  border-bottom: #eaeaea 1px solid;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+.JobRankPopUp_container .selectSection {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.JobRankPopUp_container .selectSection .left {
+  width: 25%;
+  height: 100%;
+  background-color: #edf6fd;
+}
+.JobRankPopUp_container .selectSection .left ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.JobRankPopUp_container .selectSection .left ul li {
+  height: 30px;
+  padding: 15px;
+  font-weight: 500;
+}
+.JobRankPopUp_container .selectSection .left ul .selected {
+  color: #2f80dc;
+  font-weight: 700;
+}
+.JobRankPopUp_container .selectSection .right {
+  width: 75%;
+  overflow-y: scroll;
+  padding-bottom: 250px;
+}
+.JobRankPopUp_container .selectSection .right ul li {
+  height: 40px;
+  padding: 15px;
+  font-weight: 500;
+  color: #8f8f8f;
+}
+.JobRankPopUp_container .ml-auto {
+  margin-left: auto;
+}
+.JobRankPopUp_container .bottomSection {
+  width: 100%;
+  min-height: 180px;
+  border-top: #eaeaea 1px solid;
+  background: white;
+  padding: 25px 20px;
+}
+.JobRankPopUp_container .bottomSection .list {
+  display: flex;
+  gap: 20px;
+  overflow-y: scroll;
+  flex-wrap: wrap;
+}
+.JobRankPopUp_container .bottomSection .list button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #2f80dc;
+  flex-wrap: nowrap;
+  text-wrap: nowrap;
+}
+.JobRankPopUp_container .bottomSection .btns {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+.JobRankPopUp_container .bottomSection .btns .grayBtn {
+  border: #a8a8a8 1px solid;
+  background-color: white;
+  color: #a8a8a8;
+}
+.JobRankPopUp_container {
+  display: flex;
+  flex-direction: column;
+  /* 기존 height:100% 은 유지 */
+}
+
+.JobRankPopUp_container .selectSection {
+  /* 전체 높이에서 header(60px) + bottomSection(180px)를 제외한 나머지를 flex로 채우고 */
+  flex: 1;
+  display: flex;
+  overflow: hidden; /* 자식에서 스크롤을 담당 */
+}
+
+.JobRankPopUp_container .selectSection .right {
+  flex: 1; /* 좌측 25% 빼고 남은 영역 꽉 채움 */
+  overflow-y: auto; /* 콘텐츠가 길어지면 스크롤 */
+  -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+}

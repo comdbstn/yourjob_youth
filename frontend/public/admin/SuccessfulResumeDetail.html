@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>합격자소서 관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .main {
+            display: flex;
+            width: 100%;
+        }
+
+        .lnb {
+            width: auto;
+            min-width: 220px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: #f8f9fa;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .contents {
+            flex: 1;
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+        }
+
+        .content {
+            padding-bottom: 100px;
+        }
+
+        .container {
+            padding: 20px 30px;
+            width: auto;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title-area {
+            border-bottom: 1px solid #eee;
+        }
+
+        .title--h2 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* 리스트 스타일 개선 */
+        .list.option {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .list.option .items {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .list.option .items .title {
+            width: 180px;
+            font-weight: 600;
+            padding-top: 10px;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .list.option .items .control {
+            flex: 1;
+        }
+
+        /* 폼 요소 스타일 개선 */
+        .form-control, .text, .select, textarea, input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus, .text:focus, .select:focus, textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* 질문 컨테이너 스타일 개선 */
+        .question-container {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e6e6e6;
+            border-radius: 8px;
+            position: relative;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: box-shadow 0.3s;
+        }
+
+        .question-container:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question-index {
+            font-weight: bold;
+            font-size: 16px;
+            color: #4CAF50;
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 12px;
+            background-color: white;
+            color: #555;
+        }
+
+        /* 버튼 스타일 개선 */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            font-size: 14px;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+        }
+
+        .btn-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #45a049;
+        }
+
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .add-question-btn {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .add-question-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-question-btn {
+            background: none;
+            border: none;
+            color: #f44336;
+            cursor: pointer;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+
+        .delete-question-btn:hover {
+            color: #d32f2f;
+        }
+
+        .btn-area {
+            margin-top: 40px;
+            padding: 20px 0;
+            background-color: #fff;
+            position: relative;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* 활동 경험 세로 배치 */
+        .activity-item {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .activity-item label {
+            display: inline-block;
+            width: 120px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4CAF50;
+            color: #333;
+        }
+
+        /* 반응형 스타일 */
+        @media (max-width: 768px) {
+            .list.option .items {
+                flex-direction: column;
+            }
+
+            .list.option .items .title {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .btn-area {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <aside class="lnb">
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn isActive">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+    </aside>
+    <div class="contents">
+
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2" id="pageTitle">합격자소서 등록</h2>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <div class="nosearch-area">
+                    <ul class="list option">
+                        <li class="items">
+                            <span class="title">회사 로고</span>
+                            <div class="control">
+                                <div class="form__input--file_wrap">
+                                    <input class="form__input--file" id="logoUpload" type="file" accept="image/*">
+                                    <span class="form__span--file">선택된 파일이 없습니다.</span>
+                                    <label class="form__label--file" for="logoUpload">파일선택</label>
+                                </div>
+                                <div class="logo-preview" style="margin-top: 10px; max-width: 200px; max-height: 100px; overflow: hidden;">
+                                    <img id="logo-preview-image" src="" style="max-width: 100%; display: none;">
+                                </div>
+                                <input type="hidden" id="companyLogoUrl" value="">
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">기업명</span>
+                            <div class="control">
+                                <input type="text" id="companyName" class="text" placeholder="기업명을 입력하세요" value="">
+                                <input type="hidden" id="companyId" value="0">
+                                <input type="hidden" id="jobPostId" value="0">
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">직무분야</span>
+                            <div class="control">
+                                <select id="jobCategory" class="select" required>
+                                    <option value="">직무분야 선택</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">제목</span>
+                            <div class="control">
+                                <input type="text" id="resumeTitle" class="text" placeholder="합격자소서 제목을 입력하세요" value="">
+                            </div>
+                        </li>
+                    </ul>
+
+                    <h3 class="section-title">학교 정보</h3>
+                    <ul class="list option">
+                        <li class="items">
+                            <span class="title">지역</span>
+                            <div class="control">
+                                <select id="schoolRegion" class="select">
+                                    <option value="">지역 선택</option>
+                                    <option value="대한민국">대한민국</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">학교유형</span>
+                            <div class="control">
+                                <select id="schoolType" class="select">
+                                    <option value="">학교유형 선택</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">전공</span>
+                            <div class="control">
+                                <input type="text" id="major" class="text" placeholder="전공을 입력하세요">
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">학점</span>
+                            <div class="control" style="display: flex; gap: 15px;">
+                                <div style="flex: 1;">
+                                    <input type="text" id="gpa" class="text" placeholder="취득 학점">
+                                </div>
+                                <div style="flex: 1;">
+                                    <input type="text" id="gpaScale" class="text" placeholder="만점 학점">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <h3 class="section-title">활동 및 경험</h3>
+                    <ul class="list option">
+                        <li class="items">
+                            <span class="title">수상 (횟수)</span>
+                            <div class="control">
+                                <input type="number" id="awardsCount" class="text" placeholder="수상 경력 횟수" min="0" value="0">
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">동아리 (횟수)</span>
+                            <div class="control">
+                                <input type="number" id="clubActivitiesCount" class="text" placeholder="동아리 활동 횟수" min="0" value="0">
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">인턴십 (횟수)</span>
+                            <div class="control">
+                                <input type="number" id="internshipCount" class="text" placeholder="인턴십 경험 횟수" min="0" value="0">
+                            </div>
+                        </li>
+                        <li class="items">
+                            <span class="title">자격증 (횟수)</span>
+                            <div class="control">
+                                <input type="number" id="certificationCount" class="text" placeholder="취득 자격증 개수" min="0" value="0">
+                            </div>
+                        </li>
+                    </ul>
+
+                    <h3 class="section-title">자기소개서 항목</h3>
+                    <div id="questionAnswerContainer">
+                        <!-- 질문/답변 항목은 JavaScript로 동적으로 추가됩니다 -->
+                    </div>
+
+                    <button type="button" id="addQuestionBtn" class="add-question-btn">
+                        <i class="fas fa-plus"></i> 자기소개서 항목 추가
+                    </button>
+
+                    <div class="btn-area">
+                        <button type="button" class="btn btn-success" id="saveBtn">
+                            <i class="fas fa-save"></i> 저장하기
+                        </button>
+                        <a href="SuccessfulResumes.html" class="btn btn-primary">
+                            <i class="fas fa-list"></i> 목록으로
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+</main>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // API 기본 URL 설정
+        const BASE = window.__CONFIG__?.API_BASE_URL || 'http://localhost:8082/api/v1';
+        const API = `${BASE}/successful-resumes`;
+        const COMPANIES_API = `${BASE}/successful-resumes/companies`;
+        const JOB_POSTS_API = `${BASE}/successful-resumes/job-posts`;
+
+        // URL 파라미터에서 id 추출
+        const params = new URLSearchParams(location.search);
+        const resumeId = params.get('id');
+        const isEdit = Boolean(resumeId); // id가 있으면 수정모드, 없으면 등록모드
+
+        // 화면 타이틀 설정
+        const pageTitle = document.getElementById('pageTitle');
+        pageTitle.textContent = isEdit ? '합격자소서 수정' : '합격자소서 등록';
+
+        // 폼 요소 참조
+        const elements = {
+            companyName: document.getElementById('companyName'),
+            companyId: document.getElementById('companyId'),
+            jobCategory: document.getElementById('jobCategory'),
+            jobPostId: document.getElementById('jobPostId'),
+            resumeTitle: document.getElementById('resumeTitle'),
+            schoolRegion: document.getElementById('schoolRegion'),
+            schoolType: document.getElementById('schoolType'),
+            major: document.getElementById('major'),
+            gpa: document.getElementById('gpa'),
+            gpaScale: document.getElementById('gpaScale'),
+            awardsCount: document.getElementById('awardsCount'),
+            clubActivitiesCount: document.getElementById('clubActivitiesCount'),
+            internshipCount: document.getElementById('internshipCount'),
+            certificationCount: document.getElementById('certificationCount'),
+            questionAnswerContainer: document.getElementById('questionAnswerContainer'),
+            addQuestionBtn: document.getElementById('addQuestionBtn'),
+            saveBtn: document.getElementById('saveBtn'),
+            loadingOverlay: document.getElementById('loadingOverlay')
+        };
+
+        // 질문/답변 항목을 저장할 배열
+        let questions = [];
+        let questionCounter = 0;
+
+        // 초기화 함수
+        function init() {
+            // 버튼 이벤트 리스너
+            elements.addQuestionBtn.addEventListener('click', () => {
+                addQuestionItem();    // 인자를 아예 전달하지 않고 호출
+            });
+            elements.saveBtn.addEventListener('click', saveResume);
+
+            setupLogoUpload();
+
+            // 국가 선택 옵션 로드
+            loadCountryOptions();
+
+            // 직무분야와 학력 구분 데이터 로드
+            loadJobCategories();
+            loadSchoolTypes();
+
+            // 초기 질문 항목 추가
+            if (!isEdit) {
+                addQuestionItem('', '', null, true); // 마지막 매개변수로 true를 전달하여, 처음 스크롤 방지
+            } else {
+                // 수정모드면 데이터 로드
+                loadResumeData();
+            }
+        }
+
+        // 국가 선택 옵션 로드
+        async function loadCountryOptions() {
+            try {
+                const response = await fetch(`${BASE}/corpmem/jobpost-data/level1-codes?dataType=00000013&size=999999`);
+                if (!response.ok) throw new Error('Failed to fetch country options');
+
+                const data = await response.json();
+
+                // 해외 국가 옵션 추가
+                if (data.levelCodes && data.levelCodes.length > 0) {
+                    data.levelCodes.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.levelValue;
+                        option.textContent = country.levelValue;
+                        elements.schoolRegion.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('국가 옵션 로드 실패:', error);
+            }
+        }
+
+        function setupLogoUpload() {
+            const logoUpload = document.getElementById('logoUpload');
+            const logoPreviewImage = document.getElementById('logo-preview-image');
+            const logoSpan = document.querySelector('.form__span--file');
+
+            if (logoUpload) {
+                logoUpload.addEventListener('change', async (event) => {
+                    const file = event.target.files[0];
+                    if (!file) return;
+
+                    // 파일명 표시
+                    logoSpan.textContent = file.name;
+
+                    // 파일 미리보기
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        logoPreviewImage.src = e.target.result;
+                        logoPreviewImage.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+
+                    // 파일 업로드 처리
+                    try {
+                        showLoading();
+
+                        // FormData 생성
+                        const formData = new FormData();
+                        formData.append('file', file);
+
+                        // 에디터 이미지 업로드 API를 활용
+                        const response = await fetch(`${BASE}/editor/upload/image`, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        const data = await response.json();
+
+                        // 업로드된 이미지 URL을 직접 미리보기 이미지의 src에 설정
+                        if (data.url) {
+                            logoPreviewImage.src = data.url;
+                            logoPreviewImage.style.display = 'block';
+
+                            // 여기에 companyLogoUrl 필드에 값을 설정
+                            document.getElementById('companyLogoUrl').value = data.url;
+                            console.log('로고 업로드 성공:', data.url);
+                        }
+
+                    } catch (error) {
+                        console.error('로고 업로드 실패:', error);
+                        alert('로고 업로드에 실패했습니다.');
+                    } finally {
+                        hideLoading();
+                    }
+                });
+            }
+        }
+
+        // 직무분야 데이터 로드 및 적용
+        async function loadJobCategories() {
+            try {
+                const response = await fetch(`${BASE}/corpmem/jobpost-data/level1-codes?dataType=00000009&size=999999`);
+                if (!response.ok) throw new Error('Failed to fetch job categories');
+
+                const data = await response.json();
+                const jobCategories = data.levelCodes || [];
+
+                // 기존 옵션 제거 (첫 번째 기본 옵션은 유지)
+                const jobCategorySelect = elements.jobCategory;
+                const defaultOption = jobCategorySelect.options[0];
+                jobCategorySelect.innerHTML = '';
+                jobCategorySelect.appendChild(defaultOption);
+
+                // 새 직무 옵션 추가
+                jobCategories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.levelValue;
+                    option.textContent = category.levelValue;
+                    jobCategorySelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('직무분야 데이터 로드 실패:', error);
+            }
+        }
+
+        // 학력 구분 데이터 로드 및 적용
+        async function loadSchoolTypes() {
+            try {
+                const response = await fetch(`${BASE}/corpmem/jobpost-data/level1-codes?dataType=00000008&size=999999`);
+                if (!response.ok) throw new Error('Failed to fetch school types');
+
+                const data = await response.json();
+                const schoolTypes = data.levelCodes || [];
+
+                // 기존 옵션 제거 (첫 번째 기본 옵션은 유지)
+                const schoolTypeSelect = elements.schoolType;
+                const defaultOption = schoolTypeSelect.options[0];
+                schoolTypeSelect.innerHTML = '';
+                schoolTypeSelect.appendChild(defaultOption);
+
+                // 새 학력 구분 옵션 추가
+                schoolTypes.forEach(type => {
+                    const option = document.createElement('option');
+                    option.value = type.levelValue;
+                    option.textContent = type.levelValue;
+                    schoolTypeSelect.appendChild(option);
+                });
+            } catch (error) {
+                console.error('학력 구분 데이터 로드 실패:', error);
+            }
+        }
+
+        // 로딩 표시/숨김 함수
+        function showLoading() {
+            elements.loadingOverlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            elements.loadingOverlay.style.display = 'none';
+        }
+
+        // 질문/답변 항목 추가 함수
+        function addQuestionItem(questionText = '', answerText = '', questionIdx = null, preventScroll = false) {
+            const newQuestionIdx = questionIdx ?? ++questionCounter;
+
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-container';
+            questionDiv.id = `question-${newQuestionIdx}`;
+
+            questionDiv.innerHTML = `
+        <div class="question-header">
+            <div class="question-index">질문 ${newQuestionIdx}</div>
+            <div class="question-actions">
+                <button type="button" class="delete-question-btn" onclick="removeQuestionItem(${newQuestionIdx})">
+                    <i class="fa fa-times"></i> 삭제
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="question-text-${newQuestionIdx}">질문</label>
+            <textarea id="question-text-${newQuestionIdx}" class="form-control"
+                style="width: 100%; height: 80px; margin-bottom: 10px; padding: 8px; box-sizing: border-box;"
+                placeholder="질문을 입력해주세요">${questionText}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="answer-text-${newQuestionIdx}">답변</label>
+            <textarea id="answer-text-${newQuestionIdx}" class="form-control"
+                style="width: 100%; height: 150px; padding: 8px; box-sizing: border-box;"
+                placeholder="답변을 입력해주세요">${answerText}</textarea>
+        </div>
+    `;
+
+            elements.questionAnswerContainer.appendChild(questionDiv);
+
+            // 질문 배열에 추가
+            questions.push({
+                questionIdx: newQuestionIdx,
+                questionText: questionText,
+                answerText: answerText
+            });
+
+            // 항목 추가 후 자연스러운 스크롤 처리 - preventScroll이 true면 스크롤 방지
+            if (!preventScroll) {
+                setTimeout(() => {
+                    // 추가된 항목이 보이도록 스크롤
+                    questionDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 50);
+            }
+        }
+
+        // 질문/답변 항목 삭제 함수
+        window.removeQuestionItem = function(idx) {
+            const questionDiv = document.getElementById(`question-${idx}`);
+            if (questionDiv) {
+                questionDiv.remove();
+
+                // 질문 배열에서 삭제
+                questions = questions.filter(q => q.questionIdx !== idx);
+
+                // 버튼 영역으로 스크롤 조정
+                setTimeout(() => {
+                    document.querySelector('.btn-area').scrollIntoView({ behavior: 'smooth', block: 'end' });
+                }, 50);
+            }
+        };
+
+        // 질문/답변 항목 업데이트 함수
+        function updateQuestionsFromDOM() {
+            questions = [];
+
+            // DOM에서 모든 질문 컨테이너를 찾아서 데이터 추출
+            const questionContainers = document.querySelectorAll('.question-container');
+            questionContainers.forEach(container => {
+                const idx = parseInt(container.id.split('-')[1]);
+                const questionText = document.getElementById(`question-text-${idx}`).value.trim();
+                const answerText = document.getElementById(`answer-text-${idx}`).value.trim();
+
+                questions.push({
+                    questionIdx: idx,
+                    questionText: questionText,
+                    answerText: answerText
+                });
+            });
+        }
+
+        // 데이터 검증 함수
+        function validateFormData() {
+            // 필수 입력값 검증
+            if (!elements.companyName.value.trim()) {
+                alert('기업명을 입력해주세요.');
+                elements.companyName.focus();
+                return false;
+            }
+
+            if (!elements.jobCategory.value) {
+                alert('직무분야를 선택해주세요.');
+                elements.jobCategory.focus();
+                return false;
+            }
+
+            if (!elements.resumeTitle.value.trim()) {
+                alert('합격자소서 제목을 입력해주세요.');
+                elements.resumeTitle.focus();
+                return false;
+            }
+
+            // 질문/답변 검증
+            updateQuestionsFromDOM();
+            if (questions.length === 0) {
+                alert('최소 하나의 질문/답변 항목이 필요합니다.');
+                return false;
+            }
+
+            for (const q of questions) {
+                if (!q.questionText) {
+                    alert('모든 질문을 입력해주세요.');
+                    document.getElementById(`question-text-${q.questionIdx}`).focus();
+                    return false;
+                }
+                if (!q.answerText) {
+                    alert('모든 답변을 입력해주세요.');
+                    document.getElementById(`answer-text-${q.questionIdx}`).focus();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // 기존 데이터 로드 (수정모드일 때)
+        async function loadResumeData() {
+            if (!isEdit) return;
+
+            showLoading();
+            try {
+                const response = await fetch(`${API}/${resumeId}`);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                const data = await response.json();
+                console.log("서버 응답 데이터:", data); // 디버깅용
+
+                // API 응답 데이터 구조에 맞게 매핑
+                const resumeDetail = data.data;
+
+                // 기업 및 공고 정보 설정 - 직접 resume 객체에서 접근
+                elements.companyName.value = resumeDetail.resume.companyName || '';
+
+                // 로고 URL이 있으면 미리보기 설정
+                if (resumeDetail.resume.corpLogoUrl) {
+                    const logoPreviewImage = document.getElementById('logo-preview-image');
+                    logoPreviewImage.src = resumeDetail.resume.corpLogoUrl;
+                    logoPreviewImage.style.display = 'block';
+                    document.querySelector('.form__span--file').textContent = '로고 이미지가 있습니다';
+                    document.getElementById('companyLogoUrl').value = resumeDetail.resume.corpLogoUrl;
+                }
+
+                // 직무 카테고리 직접 접근 (jobPost 객체 없이)
+                elements.jobCategory.value = resumeDetail.resume.jobCategory || '';
+
+                // 제목
+                elements.resumeTitle.value = resumeDetail.resume.title || '';
+
+                // 학력 정보 설정 - 직접 resume 객체에서 접근
+                elements.schoolRegion.value = resumeDetail.resume.schoolRegion || '';
+                elements.schoolType.value = resumeDetail.resume.schoolType || '';
+                elements.major.value = resumeDetail.resume.major || '';
+                elements.gpa.value = resumeDetail.resume.gpa || '';
+                elements.gpaScale.value = resumeDetail.resume.gpaScale || '';
+
+                // 활동 정보 설정
+                elements.awardsCount.value = resumeDetail.resume.awardsCount || 0;
+                elements.clubActivitiesCount.value = resumeDetail.resume.clubActivitiesCount || 0;
+                elements.internshipCount.value = resumeDetail.resume.internshipCount || 0;
+                elements.certificationCount.value = resumeDetail.resume.certificationCount || 0;
+
+                // 질문/답변 항목 설정
+                elements.questionAnswerContainer.innerHTML = ''; // 기존 항목 초기화
+                questions = []; // 질문 배열 초기화
+                questionCounter = 0; // 카운터 초기화
+
+                // 답변 데이터가 있으면 추가
+                if (resumeDetail.answers && resumeDetail.answers.length > 0) {
+                    resumeDetail.answers.forEach((answer, index) => {
+                        const idx = answer.questionIdx || index + 1;
+                        questionCounter = Math.max(questionCounter, idx);
+                        // preventScroll을 true로 설정하여 자동 스크롤 방지
+                        addQuestionItem(
+                            answer.questionText || '',
+                            answer.answerText || '',
+                            idx,
+                            true // 스크롤 방지 매개변수 추가
+                        );
+                    });
+                } else {
+                    // 답변 데이터가 없으면 기본 항목 추가 (스크롤 방지)
+                    addQuestionItem('', '', null, true);
+                }
+
+                // 데이터 로드 후 페이지 상단으로 스크롤
+                window.scrollTo(0, 0);
+
+            } catch (error) {
+                console.error('합격자소서 데이터 로드 실패:', error);
+                alert('합격자소서 정보를 불러오는데 실패했습니다.');
+
+                // 기본 항목 추가 (처음 스크롤 방지)
+                addQuestionItem('', '', null, true);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 합격자소서 저장 (등록/수정)
+        async function saveResume() {
+            // 폼 데이터 검증
+            if (!validateFormData()) return;
+
+            let companyLogoUrl = document.getElementById('companyLogoUrl').value;
+            const logoPreviewImage = document.getElementById('logo-preview-image');
+
+            if (logoPreviewImage && logoPreviewImage.style.display !== 'none' && logoPreviewImage.src) {
+                companyLogoUrl = logoPreviewImage.src;
+            }
+
+            // 올인원 방식으로 등록
+            const data = {
+                // 회사 정보
+                companyName: elements.companyName.value.trim(),
+                countryType: null,
+                corpLogoUrl: companyLogoUrl,  // corpLogoUrl 필드명 사용
+
+                // 공고 정보
+                jobCategory: elements.jobCategory.value,
+                jobTitle: elements.resumeTitle.value.trim(), // 공고명 대신 제목 사용
+
+                // 자소서 정보
+                resumeTitle: elements.resumeTitle.value.trim(),
+                userId: 40, // 시스템 관리자 아이디 (기본값)
+                schoolRegion: elements.schoolRegion.value,
+                schoolType: elements.schoolType.value,
+                major: elements.major.value.trim(),
+                gpa: elements.gpa.value.trim(),
+                gpaScale: elements.gpaScale.value.trim(),
+                awardsCount: parseInt(elements.awardsCount.value) || 0,
+                clubActivitiesCount: parseInt(elements.clubActivitiesCount.value) || 0,
+                internshipCount: parseInt(elements.internshipCount.value) || 0,
+                certificationCount: parseInt(elements.certificationCount.value) || 0,
+
+                // 자소서 질문 및 답변
+                answers: questions.map(q => ({
+                    questionText: q.questionText,
+                    answerText: q.answerText,
+                    questionIdx: q.questionIdx
+                }))
+            };
+
+            showLoading();
+            try {
+                const url = isEdit ? `${API}/${resumeId}` : `${BASE}/bulk-import/all-in-one`;
+                const method = isEdit ? 'PUT' : 'POST';
+
+                console.log("요청 데이터:", data); // 디버깅용
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || '서버 오류가 발생했습니다.');
+                }
+
+                alert(isEdit ? '합격자소서가 성공적으로 수정되었습니다.' : '합격자소서가 성공적으로 등록되었습니다.');
+
+                // 목록 페이지로 이동
+                window.location.href = 'SuccessfulResumes.html';
+            } catch (error) {
+                console.error('합격자소서 저장 실패:', error);
+                alert(`합격자소서 저장에 실패했습니다: ${error.message}`);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 초기화 실행
+        init();
+    });
+</script>
+</body>
+</html>

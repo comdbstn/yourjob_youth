@@ -1,0 +1,52 @@
+.lnb {
+    overflow: hidden;
+    width: 24rem;
+    border-right: 1px solid #ddd;
+    position: fixed;
+    height: 100vh;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    &__logo {
+
+
+        &--link {
+            display: block;
+            padding: 1rem;
+            text-align: center;
+
+            img {
+                width: 11rem;
+            }
+        }
+    }
+
+    &--menu {
+        margin-top: 2rem;
+
+        +.lnb--menu {
+            margin-top: 3rem;
+        }
+
+        >li {
+            margin-top: .2rem;
+        }
+    }
+
+    .btn {
+        display: block;
+        text-align: left;
+
+
+        &:hover {
+            background-color: #2f80dc;
+            color: #fff;
+        }
+
+        &.isActive {
+            background-color: #1c4c82;
+            color: #fff;
+        }
+
+    }
+}

@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.JobsMapper">
+    <select id="selectJobList" parameterType="map" resultType="com.yourjob.backend.entity.JobResponse">
+        select
+        a.job_id as id,
+        a.job_id as jobId,
+        a.employer_id as employerId,
+        b.account_id as userId,
+        a.app_mthds_hmpg as url,
+        a.title as title,
+        a.position_str as position,
+        a.wrkcndtn_lct_addr as location,
+        a.wrkcndtn_lct_addr as address,
+        a.app_strt_tm as startDate,
+        a.app_end_tm as endDate,
+        a.created_at as registeredDate,
+        a.deadline as deadline,
+        a.wrkcndtn_lct_typ as locationType,
+        a.wrkcndtn_lct_rgn_str as region,
+        a.emp_types_str as jobType,
+        a.status as status,
+        b.company_name AS companyName,
+        b.corpthmb_imgidx AS corpthmbImgidx,
+        b.corp_logo_url As logo_url
+        from job_postings a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        WHERE 1=1
+        <if test="location != null and location != '' and location != 'all'">
+            AND a.wrkcndtn_lct_typ = #{location}
+        </if>
+        <if test="query != null and query != ''">
+            AND (a.title LIKE CONCAT('%', #{query}, '%')
+            OR a.emp_types_str LIKE CONCAT('%', #{query}, '%')
+            OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%', #{query}, '%')
+            OR a.wrkcndtn_lct_addr LIKE CONCAT('%', #{query}, '%'))
+        </if>
+        order BY a.created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectJobSrchList" parameterType="map" resultType="com.yourjob.backend.entity.JobResponse">
+        select
+        a.job_id as id,
+        a.job_id as jobId,
+        (SELECT COUNT(*) FROM job_scrap sc WHERE a.job_id = sc.job_id) as scrapes,
+        a.views AS views,
+        a.employer_id as employerId,
+        b.account_id as userId,
+        a.app_mthds as appMthds,
+        a.app_mthds_hmpg as url,
+        a.title as title,
+        a.position_str as position,
+        a.wrkcndtn_lct_addr as location,
+        a.wrkcndtn_lct_addr as address,
+        a.app_strt_tm as startDate,
+        a.app_end_tm as endDate,
+        a.created_at as registeredDate,
+        a.deadline as deadline,
+        a.wrkcndtn_lct_typ as locationType,
+        a.wrkcndtn_lct_rgn_str as region,
+        a.emp_types_str as jobType,
+        a.wrkcndtn_slr_typ as wrkcndtnSlrTyp,
+        a.wrkcndtn_slr_min as wrkcndtnSlrMin,
+        a.wrkcndtn_slr_max as wrkcndtnSlrMax,
+        a.status as status,
+        b.company_name AS companyName,
+        b.corpthmb_imgidx AS corpthmbImgidx,
+        b.corp_logo_url As logo_url
+        from job_postings a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        WHERE 1=1
+        <if test='op_jobType_arr != null and op_jobType_arr.size() > 0'>
+            and (
+            <foreach collection="op_jobType_arr" item="item" index="index" separator=" OR ">
+                (COALESCE(a.job_type, a.job_type_str) = #{item}
+                OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT(#{item}, ',%')
+                OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%,', #{item}, ',%')
+                OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%,', #{item}))
+            </foreach>
+            )
+        </if>
+        <if test='op_location_arr != null and op_location_arr.size() > 0'>
+            and (
+            <foreach collection="op_location_arr" item="item" index="index" separator=" OR ">
+                (a.wrkcndtn_lct_rgn_str = #{item}
+                OR a.wrkcndtn_lct_rgn_str LIKE CONCAT(#{item}, ',%')
+                OR a.wrkcndtn_lct_rgn_str LIKE CONCAT('%,', #{item}, ',%')
+                OR a.wrkcndtn_lct_rgn_str LIKE CONCAT('%,', #{item}))
+            </foreach>
+            )
+        </if>
+        <if test='op_type_arr != null and op_type_arr.size() > 0'>
+            and (
+            <foreach collection="op_type_arr" item="item" index="index" separator=" OR ">
+                (a.emp_types_str = #{item}
+                OR a.emp_types_str LIKE CONCAT(#{item}, ',%')
+                OR a.emp_types_str LIKE CONCAT('%,', #{item}, ',%')
+                OR a.emp_types_str LIKE CONCAT('%,', #{item}))
+            </foreach>
+            )
+        </if>
+        <!-- 기업형태 검색 필터링: users 테이블의 corp_type과 operation_data_id 비교 -->
+        <if test='op_company_arr != null and op_company_arr.size() > 0'>
+            and b.corp_type IN
+            <foreach collection="op_company_arr" item="companyId" open="(" close=")" separator=",">
+                #{companyId}
+            </foreach>
+        </if>
+        <if test='location != null and location != "" and location != "all"'>
+            AND a.wrkcndtn_lct_typ = #{location}
+        </if>
+        <if test="query != null and query != ''">
+            AND (a.title LIKE CONCAT('%', #{query}, '%')
+            OR a.emp_types_str LIKE CONCAT('%', #{query}, '%')
+            OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%', #{query}, '%')
+            OR a.wrkcndtn_lct_addr LIKE CONCAT('%', #{query}, '%'))
+        </if>
+        order BY a.created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectJobSrchListCount" parameterType="map" resultType="int">
+        select
+        count(*)
+        from job_postings a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        WHERE 1=1
+        <if test='op_jobType_arr != null and op_jobType_arr.size() > 0'>
+            and (
+            <foreach collection="op_jobType_arr" item="item" index="index" separator=" OR ">
+                (COALESCE(a.job_type, a.job_type_str) = #{item}
+                OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT(#{item}, ',%')
+                OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%,', #{item}, ',%')
+                OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%,', #{item}))
+            </foreach>
+            )
+        </if>
+        <if test='op_location_arr != null and op_location_arr.size() > 0'>
+            and (
+            <foreach collection="op_location_arr" item="item" index="index" separator=" OR ">
+                (a.wrkcndtn_lct_rgn_str = #{item}
+                OR a.wrkcndtn_lct_rgn_str LIKE CONCAT(#{item}, ',%')
+                OR a.wrkcndtn_lct_rgn_str LIKE CONCAT('%,', #{item}, ',%')
+                OR a.wrkcndtn_lct_rgn_str LIKE CONCAT('%,', #{item}))
+            </foreach>
+            )
+        </if>
+        <if test='op_type_arr != null and op_type_arr.size() > 0'>
+            and (
+            <foreach collection="op_type_arr" item="item" index="index" separator=" OR ">
+                (a.emp_types_str = #{item}
+                OR a.emp_types_str LIKE CONCAT(#{item}, ',%')
+                OR a.emp_types_str LIKE CONCAT('%,', #{item}, ',%')
+                OR a.emp_types_str LIKE CONCAT('%,', #{item}))
+            </foreach>
+            )
+        </if>
+        <!-- 기업형태 검색 필터링: COUNT 쿼리에도 동일한 조건 적용 -->
+        <if test='op_company_arr != null and op_company_arr.size() > 0'>
+            and b.corp_type IN
+            <foreach collection="op_company_arr" item="companyId" open="(" close=")" separator=",">
+                #{companyId}
+            </foreach>
+        </if>
+        <if test='location != null and location != "" and location != "all"'>
+            AND a.wrkcndtn_lct_typ = #{location}
+        </if>
+        <if test="query != null and query != ''">
+            AND (a.title LIKE CONCAT('%', #{query}, '%')
+            OR a.emp_types_str LIKE CONCAT('%', #{query}, '%')
+            OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%', #{query}, '%')
+            OR a.wrkcndtn_lct_addr LIKE CONCAT('%', #{query}, '%'))
+        </if>
+    </select>
+
+    <select id="selectJobListCount" parameterType="map" resultType="int">
+        select
+        count(*)
+        from job_postings a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        WHERE 1=1
+        <if test="query != null and query != ''">
+            AND (a.title LIKE CONCAT('%', #{query}, '%')
+            OR a.emp_types_str LIKE CONCAT('%', #{query}, '%')
+            OR COALESCE(a.job_type, a.job_type_str) LIKE CONCAT('%', #{query}, '%')
+            OR a.wrkcndtn_lct_addr LIKE CONCAT('%', #{query}, '%'))
+        </if>
+        order BY a.created_at desc
+    </select>
+
+    <select id="selectJobListCorp" parameterType="map" resultType="com.yourjob.backend.entity.JobResponse">
+        select
+        a.job_id as id,
+        a.job_id as jobId,
+        (SELECT COUNT(*) FROM applications WHERE job_id = a.job_id) AS appTotalCnt,
+        (SELECT COUNT(*) FROM applications WHERE job_id = a.job_id AND STATUS = 'UNREAD') AS appUnreadCnt,
+        (SELECT COUNT(*) FROM applications WHERE job_id = a.job_id AND STATUS = 'PENDING') AS appPendingCnt,
+        (SELECT COUNT(*) FROM applications WHERE job_id = a.job_id AND STATUS = 'PASSED') AS appPassedCnt,
+        (SELECT COUNT(*) FROM applications WHERE job_id = a.job_id AND STATUS = 'FAILED') AS appFailedCnt,
+        (SELECT COUNT(*) FROM applications WHERE job_id = a.job_id AND STATUS = 'FINAL') AS appFinalCnt,
+        a.employer_id as employerId,
+        a.title as title,
+        a.status as status,
+        a.position_str as position,
+        a.app_strt_tm as startDate,
+        a.app_end_tm as endDate,
+        a.created_at as registeredDate,
+        a.deadline as deadline,
+        b.company_name AS companyName,
+        b.corpthmb_imgidx AS corpthmbImgidx
+        from job_postings a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        WHERE 1 = 1
+        <if test='query != null and query != ""'>
+            and a.title like CONCAT('%',#{query},'%')
+        </if>
+        <if test='status != null and status == "ONGOING"'>
+            and STATUS = '채용중' and app_strt_tm <![CDATA[<]]> NOW() AND app_end_tm <![CDATA[>]]> NOW()
+        </if>
+        <if test='status != null and status == "ENDED"'>
+            and STATUS = '채용중' and app_end_tm <![CDATA[<]]> NOW()
+        </if>
+        <if test='status != null and status == "CLOSED"'>
+            and STATUS = 'close'
+        </if>
+        <if test='employerId != null and employerId != ""'>
+            and a.employer_id = #{employerId}
+        </if>
+        order BY a.created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+
+    <select id="selectJobListCorpCnt" parameterType="map" resultType="int">
+        select
+        count(*)
+        from job_postings a LEFT JOIN users b
+        ON a.employer_id = b.user_id
+        WHERE 1 = 1
+        <if test='query != null and query != ""'>
+            and a.title like CONCAT('%',#{query},'%')
+        </if>
+        <if test='status != null and status == "ONGOING"'>
+            and STATUS = '채용중' and app_strt_tm <![CDATA[<]]> NOW() AND app_end_tm <![CDATA[>]]> NOW()
+        </if>
+        <if test='status != null and status == "ENDED"'>
+            and STATUS = '채용중' and app_end_tm <![CDATA[<]]> NOW()
+        </if>
+        <if test='status != null and status == "CLOSED"'>
+            and STATUS = 'close'
+        </if>
+        <if test='employerId != null and employerId != ""'>
+            and a.employer_id = #{employerId}
+        </if>
+        order BY a.created_at desc
+    </select>
+
+    <select id="selectJobCnt" parameterType="map" resultType="int">
+        select count(*) as cnt
+        from job_postings
+        WHERE 1 = 1
+        <if test='query != null and query != ""'>
+            and title like CONCAT('%',#{query},'%')
+        </if>
+        <if test='status != null and status == "ONGOING"'>
+            and STATUS = '채용중' and app_strt_tm <![CDATA[<]]> NOW() AND app_end_tm <![CDATA[>]]> NOW()
+        </if>
+        <if test='status != null and status == "ENDED"'>
+            and STATUS = '채용중' and app_end_tm <![CDATA[<]]> NOW()
+        </if>
+        <if test='status != null and status == "CLOSED"'>
+            and STATUS = 'close'
+        </if>
+    </select>
+
+    <select id="selectJobStatusCnt" parameterType="map" resultType="map">
+        SELECT
+            job_id,
+            employer_id,
+            title,
+            app_strt_tm,
+            app_end_tm,
+            STATUS,
+            (SELECT count(*) FROM job_postings WHERE employer_id = #{userId}) AS cnt,
+            (SELECT COUNT(*) FROM job_postings
+             WHERE employer_id = #{userId}
+               AND STATUS = '채용중'
+               AND app_strt_tm <![CDATA[<]]> NOW()
+               AND app_end_tm <![CDATA[>]]> NOW()) AS ongoingcnt,
+            (SELECT COUNT(*) FROM job_postings
+             WHERE employer_id = #{userId}
+               AND STATUS = '채용중'
+               AND app_end_tm <![CDATA[<]]> NOW()) AS endedcnt,
+            (SELECT COUNT(*) FROM job_postings
+             WHERE employer_id = #{userId}
+               AND STATUS = 'close') AS closedcnt
+        FROM job_postings
+        WHERE employer_id = #{userId}
+    </select>
+
+    <insert id="insertJob" parameterType="com.yourjob.backend.entity.JobRequest" useGeneratedKeys="true" keyProperty="jobid">
+        insert into job_postings
+        (employer_id,
+         title,
+         content,
+         description,
+         requirements,
+         location,
+         country_code,
+         job_type,
+         salary)
+        VALUES (
+                   #{employerid},
+                   #{title},
+                   #{content},
+                   #{description},
+                   #{requirements},
+                   #{location},
+                   #{countryCode},
+                   #{jobType},
+                   #{salary})
+    </insert>
+
+    <insert id="insertCorpJob" parameterType="map" useGeneratedKeys="true" keyProperty="jobid">
+        insert into job_postings
+        (employer_id,
+         title,
+         app_mthds,
+         app_rsm_yjty,
+         app_rsm_cmpnty,
+         app_mthds_hmpg,
+         app_strt_tm,
+         app_end_tm,
+         app_prd_typ,
+         capabilities,
+         career_type,
+         isyear_matter,
+         cmpninfo_industry,
+         cmpninfo_name,
+         cmpninfo_namePrvt,
+         cmpninfo_phnfld_1,
+         cmpninfo_phnfld_2,
+         cmpninfo_phnfld_3,
+         cmpninfo_phnPrvt,
+         emp_cntrct_prd,
+         emp_cvrsn_avl,
+         emp_prb_mnths,
+         emp_types_str,
+         emp_wrk_prd,
+         job_type,
+         position_str,
+         position_rank_str,
+         qlfct_lan_str,
+         qlfct_lic_str,
+         qlfct_con_str,
+         qlfct_mjr_str,
+         use_lan,
+         use_lic,
+         use_con,
+         use_mjr,
+         rcrtmntcnt_type,
+         rcrtmntcnt_cnt,
+         skills_str,
+         terms_prsnl_inf,
+         terms_snstv_inf,
+         wrkcndtn_lct_type,
+         wrkcndtn_lct_addr,
+         wrkcndtn_lct_addr_dtl,
+         wrkcndtn_lct_rmt_avl,
+         wrkcndtn_lct_rgn_str,
+         wrkcndtn_lct_typ,
+         wrkcndtn_slr_typ,
+         wrkcndtn_slr_min,
+         wrkcndtn_slr_max,
+         wrkcndtn_slr_min_wg,
+         wrkcndtn_slr_dc,
+         wrkcndtn_wrkng_dy_cst_str,
+         wrkcndtn_wrkng_dy_typ,
+         wrkcndtn_hrs_isflex,
+         wrkcndtn_hrs_strt_hr,
+         wrkcndtn_hrs_strt_mn,
+         wrkcndtn_hrs_end_hr,
+         wrkcndtn_hrs_end_mn,
+         year_matter,
+         status,
+         content
+        )
+        VALUES (
+                   #{employerid},
+                   #{title},
+                   #{method_str},
+                   #{useYourJobType},
+                   #{useCompanyFormatType},
+                   #{homepage},
+                   #{app_strt_tm},
+                   #{app_end_tm},
+                   #{app_prd_typ},
+                   #{capabilities},
+                   #{career_type},
+                   #{isyear_matter},
+                   #{cmpninfo_industry},
+                   #{cmpninfo_name},
+                   #{cmpninfo_namePrvt},
+                   #{cmpninfo_phnfld_1},
+                   #{cmpninfo_phnfld_2},
+                   #{cmpninfo_phnfld_3},
+                   #{cmpninfo_phnPrvt},
+                   #{emp_cntrct_prd},
+                   #{emp_cvrsn_avl},
+                   #{emp_prb_mnths},
+                   #{emp_types_str},
+                   #{emp_wrk_prd},
+                   #{job_type},
+                   #{position_str},
+                   #{position_rank_str},
+                   #{qlfct_lan_str},
+                   #{qlfct_lic_str},
+                   #{qlfct_con_str},
+                   #{qlfct_mjr_str},
+                   #{use_lan},
+                   #{use_lic},
+                   #{use_con},
+                   #{use_mjr},
+                   #{rcrtmntcnt_type},
+                   #{rcrtmntcnt_cnt},
+                   #{skills_str},
+                   #{terms_prsnl_inf},
+                   #{terms_snstv_inf},
+                   #{wrkcndtn_lct_type},
+                   #{wrkcndtn_lct_addr},
+                   #{wrkcndtn_lct_addr_dtl},
+                   #{wrkcndtn_lct_rmt_avl},
+                   #{wrkcndtn_lct_rgn_str},
+                   #{wrkcndtn_lct_typ},
+                   #{wrkcndtn_slr_typ},
+                   #{wrkcndtn_slr_min},
+                   #{wrkcndtn_slr_max},
+                   #{wrkcndtn_slr_min_wg},
+                   #{wrkcndtn_slr_dc},
+                   #{wrkcndtn_wrkng_dy_cst_str},
+                   #{wrkcndtn_wrkng_dy_typ},
+                   #{wrkcndtn_hrs_isflex},
+                   #{wrkcndtn_hrs_strt_hr},
+                   #{wrkcndtn_hrs_strt_mn},
+                   #{wrkcndtn_hrs_end_hr},
+                   #{wrkcndtn_hrs_end_mn},
+                   #{year_matter},
+                   #{status},
+                   #{content}
+               )
+    </insert>
+
+    <update id="updateCorpJob" parameterType="map">
+        update job_postings set
+                                employer_id = #{employerid},
+                                title = #{title},
+                                app_mthds = #{method_str},
+                                app_rsm_yjty = #{useYourJobType},
+                                app_rsm_cmpnty = #{useCompanyFormatType},
+                                app_mthds_hmpg = #{homepage},
+                                app_strt_tm = #{app_strt_tm},
+                                app_end_tm = #{app_end_tm},
+                                app_prd_typ = #{app_prd_typ},
+                                capabilities = #{capabilities},
+                                career_type = #{career_type},
+                                isyear_matter = #{isyear_matter},
+                                cmpninfo_industry = #{cmpninfo_industry},
+                                cmpninfo_name = #{cmpninfo_name},
+                                cmpninfo_namePrvt = #{cmpninfo_namePrvt},
+                                cmpninfo_phnfld_1 = #{cmpninfo_phnfld_1},
+                                cmpninfo_phnfld_2 = #{cmpninfo_phnfld_2},
+                                cmpninfo_phnfld_3 = #{cmpninfo_phnfld_3},
+                                cmpninfo_phnPrvt = #{cmpninfo_phnPrvt},
+                                emp_cntrct_prd = #{emp_cntrct_prd},
+                                emp_cvrsn_avl = #{emp_cvrsn_avl},
+                                emp_prb_mnths = #{emp_prb_mnths},
+                                emp_types_str = #{emp_types_str},
+                                emp_wrk_prd = #{emp_wrk_prd},
+                                job_type = #{job_type},
+                                position_str = #{position_str},
+                                position_rank_str = #{position_rank_str},
+                                qlfct_lan_str = #{qlfct_lan_str},
+                                qlfct_lic_str = #{qlfct_lic_str},
+                                qlfct_con_str = #{qlfct_con_str},
+                                qlfct_mjr_str = #{qlfct_mjr_str},
+                                use_lan = #{use_lan},
+                                use_lic = #{use_lic},
+                                use_con = #{use_con},
+                                use_mjr = #{use_mjr},
+                                rcrtmntcnt_type = #{rcrtmntcnt_type},
+                                rcrtmntcnt_cnt = #{rcrtmntcnt_cnt},
+                                skills_str = #{skills_str},
+                                terms_prsnl_inf = #{terms_prsnl_inf},
+                                terms_snstv_inf = #{terms_snstv_inf},
+                                wrkcndtn_lct_type = #{wrkcndtn_lct_type},
+                                wrkcndtn_lct_addr = #{wrkcndtn_lct_addr},
+                                wrkcndtn_lct_addr_dtl = #{wrkcndtn_lct_addr_dtl},
+                                wrkcndtn_lct_rmt_avl = #{wrkcndtn_lct_rmt_avl},
+                                wrkcndtn_lct_rgn_str = #{wrkcndtn_lct_rgn_str},
+                                wrkcndtn_lct_typ = #{wrkcndtn_lct_typ},
+                                wrkcndtn_slr_typ = #{wrkcndtn_slr_typ},
+                                wrkcndtn_slr_min = #{wrkcndtn_slr_min},
+                                wrkcndtn_slr_max = #{wrkcndtn_slr_max},
+                                wrkcndtn_slr_min_wg = #{wrkcndtn_slr_min_wg},
+                                wrkcndtn_slr_dc = #{wrkcndtn_slr_dc},
+                                wrkcndtn_wrkng_dy_cst_str = #{wrkcndtn_wrkng_dy_cst_str},
+                                wrkcndtn_wrkng_dy_typ = #{wrkcndtn_wrkng_dy_typ},
+                                wrkcndtn_hrs_isflex = #{wrkcndtn_hrs_isflex},
+                                wrkcndtn_hrs_strt_hr = #{wrkcndtn_hrs_strt_hr},
+                                wrkcndtn_hrs_strt_mn = #{wrkcndtn_hrs_strt_mn},
+                                wrkcndtn_hrs_end_hr = #{wrkcndtn_hrs_end_hr},
+                                wrkcndtn_hrs_end_mn = #{wrkcndtn_hrs_end_mn},
+                                year_matter = #{year_matter},
+                                content = #{content},
+                                updated_at = NOW()
+        where job_id = #{jobId}
+    </update>
+
+    <insert id="insertJobScrap" parameterType="map">
+        insert into job_scrap
+        (user_id,
+         job_id)
+        values
+            (#{userId},
+             #{jobId})
+    </insert>
+
+    <select id="selectJobScrapList" parameterType="map" resultType="map">
+        select
+        job_scrap_id,
+        user_id,
+        job_id,
+        created_at,
+        updated_at
+        from job_scrap
+        where 1 = 1
+        <if test='userId != null and userId != ""'>
+            and user_id = #{userId}
+        </if>
+        <if test='jobId != null and jobId != ""'>
+            and job_id = #{jobId}
+        </if>
+        order by created_at DESC
+    </select>
+
+    <select id="selectJobScrapListCnt" parameterType="map" resultType="int">
+        select
+        count(*)
+        from job_scrap
+        where 1 = 1
+        <if test='userId != null and userId != ""'>
+            and user_id = #{userId}
+        </if>
+        <if test='jobId != null and jobId != ""'>
+            and job_id = #{jobId}
+        </if>
+    </select>
+
+    <insert id="insertJobType" parameterType="map">
+        insert into job_postings_jobtype
+        (job_id,
+         job_type)
+        values
+            (#{jobid},
+             #{jobtype})
+    </insert>
+
+    <select id="selectJobTypeList" parameterType="map" resultType="map">
+        select
+            jobtype_id,
+            job_id,
+            job_type
+        from job_postings_jobtype
+        where 1 = 1
+          and job_id = #{jobId}
+    </select>
+
+    <insert id="insertEmpJobType" parameterType="map">
+        insert into job_postings_empjobtype
+        (job_id,
+         job_type)
+        values
+            (#{jobid},
+             #{jobtype})
+    </insert>
+
+    <delete id="deleteEmpJobType" parameterType="int">
+        delete from job_postings_empjobtype where job_id = #{jobId}
+    </delete>
+
+    <delete id="deleteJobType" parameterType="int">
+        delete from job_postings_jobtype where job_id = #{jobId}
+    </delete>
+
+    <select id="selectJobDetail" parameterType="int" resultType="com.yourjob.backend.entity.JobResponse">
+        select
+            job_id as jobId,
+            (SELECT COUNT(*) FROM job_scrap sc WHERE j.job_id = sc.job_id) AS scrapes,
+            employer_id as employerId,
+            title as title,
+            position_str as position,
+            COALESCE(job_type, job_type_str) as jobType,
+            skills_str as skills,
+            capabilities as capabilities,
+            career_type as careerType,
+            isyear_matter as isYearMatter,
+            emp_types_str as empType,
+            emp_prb_mnths as empProbationMonths,
+            emp_cntrct_prd as empContractPeriod,
+            emp_cvrsn_avl as isConversionAvailable,
+            emp_wrk_prd as workingPeriod,
+            rcrtmntcnt_type as rcrtmntcntType,
+            rcrtmntcnt_cnt as rcrtmntcntCnt,
+            position_rank_str as positionRankStr,
+            qlfct_edu_lvl as educationLv,
+            qlfct_exp_grd as educationExpGrd,
+            use_lan as useLan,
+            use_lic as useLic,
+            use_con as useCon,
+            use_mjr as useMjr,
+            qlfct_lan_str as qlfctLanStr,
+            qlfct_lic_str as qlfctLicStr,
+            qlfct_con_str as qlfctConStr,
+            qlfct_mjr_str as qlfctMjrStr,
+            wrkcndtn_slr_typ as wrkcndtnSlrTyp,
+            wrkcndtn_slr_min as wrkcndtnSlrMin,
+            wrkcndtn_slr_max as wrkcndtnSlrMax,
+            wrkcndtn_slr_min_wg as wrkcndtnSlrMinWg,
+            wrkcndtn_slr_dc as wrkcndtnSlrDc,
+            wrkcndtn_lct_typ as wrkcndtnLctTyp,
+            wrkcndtn_lct_rmt_avl as wrkcndtnLctRmtAvl,
+            wrkcndtn_lct_addr as wrkcndtnLctAddr,
+            wrkcndtn_lct_addr_dtl as wrkcndtnLctAddrDtl,
+            wrkcndtn_lct_rgn_str as wrkcndtnLctRgnStr,
+            wrkcndtn_wrkng_dy_typ as wrkcndtnWrkngDyTyp,
+            wrkcndtn_hrs_strt_hr as wrkcndtnHrsStrtHr,
+            wrkcndtn_hrs_strt_mn as wrkcndtnHrsStrtMn,
+            wrkcndtn_hrs_end_hr as wrkcndtnHrsEndHr,
+            wrkcndtn_hrs_end_mn as wrkcndtnHrsEndMn,
+            wrkcndtn_hrs_isflex as wrkcndtnHrsIsflex,
+            app_strt_tm as appStrtTm,
+            app_end_tm as appEndTm,
+            app_prd_typ as appPrdTyp,
+            app_mthds as appMthds,
+            app_mthds_hmpg as appMthdsHmpg,
+            app_rsm_yjty as appRsmYjty,
+            app_rsm_cmpnty as appRsmCmpnty,
+            yourjob_fileidx as yourjobFileidx,
+            company_fileidx as companyFileidx,
+            content as content,
+            cmpninfo_phnfld_1 as cmpninfoPhnfld1,
+            cmpninfo_phnfld_2 as cmpninfoPhnfld2,
+            cmpninfo_phnfld_3 as cmpninfoPhnfld3,
+            cmpninfo_namePrvt as cmpninfoNamePrvt,
+            cmpninfo_phnPrvt as cmpninfoPhnPrvt,
+            cmpninfo_name as cmpninfoName,
+            cmpninfo_industry as cmpninfoIndustry,
+            description as description,
+            requirements as requirements,
+            location as location,
+            country_code as countryCode,
+            COALESCE(job_type, job_type_str) as jobType,
+            salary as salary,
+            views as views,
+            status as status,
+            app_strt_tm as startDate,
+            app_end_tm as endDate,
+            j.created_at as createdAt,
+            j.updated_at as updatedAt,
+            b.corp_logo_url AS logo_url,
+            b.company_name AS companyName,
+            (SELECT COUNT(*) FROM applications ap WHERE j.job_id = ap.job_id AND ap.status = 'UNREAD') AS appUnreadCnt,
+            (SELECT COUNT(*) FROM applications ap WHERE j.job_id = ap.job_id AND ap.status = 'PENDING') AS appPendingCnt,
+            (SELECT COUNT(*) FROM applications ap WHERE j.job_id = ap.job_id AND ap.status = 'PASSED') AS appPassedCnt,
+            (SELECT COUNT(*) FROM applications ap WHERE j.job_id = ap.job_id AND ap.status = 'FINAL') AS appFinalCnt,
+            (SELECT COUNT(*) FROM applications ap WHERE j.job_id = ap.job_id AND ap.status = 'FAILED') AS appFailedCnt,
+            (SELECT COUNT(*) FROM applications ap WHERE j.job_id = ap.job_id) AS appTotalCnt
+        from job_postings j LEFT JOIN users b
+        ON j.employer_id = b.user_id
+        where job_id = #{jobId}
+    </select>
+
+    <select id="selectJobDetail2" parameterType="map">
+        select
+            *
+        from job_postings where job_id = #{jobId}
+    </select>
+
+    <update id="updateJobStatus" parameterType="map">
+        update job_postings set
+                                status = #{status},
+                                updated_at = NOW()
+        where job_id = #{jobId}
+    </update>
+
+    <update id="incJobViewCnt" parameterType="map">
+        UPDATE job_postings
+        SET views = views + 1
+        WHERE job_id = #{jobId}
+    </update>
+
+    <update id="updateJobInfo" parameterType="com.yourjob.backend.entity.JobRequest">
+        update job_postings set
+                                title = #{title},
+                                description = #{description},
+                                requirements = #{requirements},
+                                location = #{location},
+                                country_code = #{countryCode},
+                                job_type = #{jobType},
+                                salary = #{salary},
+                                updated_at = NOW()
+        where job_id = #{jobid}
+    </update>
+
+    <update id="updateResumeYourJobFileIdx" parameterType="map">
+        update job_postings set
+                                yourjob_fileidx = #{yourjobfileidx},
+                                updated_at = NOW()
+        where job_id = #{jobid}
+    </update>
+
+    <update id="updateResumeCompanyFileIdx" parameterType="map">
+        update job_postings set
+                                company_fileidx = #{companyfileidx},
+                                updated_at = NOW()
+        where job_id = #{jobid}
+    </update>
+
+    <delete id="deleteJob" parameterType="int">
+        delete from job_postings where job_id = #{jobId}
+    </delete>
+
+    <delete id="deleteScrapJob" parameterType="int">
+        delete from job_scrap where job_id = #{jobId}
+    </delete>
+
+    <update id="migrateJobTypeStrToJobType">
+        UPDATE job_postings
+        SET job_type = job_type_str
+        WHERE job_type IS NULL AND job_type_str IS NOT NULL
+    </update>
+</mapper>

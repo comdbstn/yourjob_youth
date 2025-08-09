@@ -1,0 +1,579 @@
+/* screen - jobpost */
+
+.jobpost {
+  align-items: center;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  gap: 1.56vw;
+  width: 100%;
+}
+
+.container {
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px;
+}
+
+/* 제목 스타일 */
+h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* 정보 섹션 */
+p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* 버튼 스타일 */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.flex-con {
+  align-items: flex-start;
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+/* 검색부분 */
+.SearchForm {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 38px;
+}
+
+.select_nav {
+  display: flex;
+  width: 100%;
+  background-color: var(--bgcol05);
+  border: 1px solid var(--linecol05);
+  margin-top: 20px;
+}
+.select_nav li {
+  width: 25%;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxl);
+  padding: 20px;
+  border-right: 1px solid var(--linecol05);
+  font-weight: 500;
+}
+.select_nav li:last-child {
+  border-right: none;
+}
+
+.select_box {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--linecol05);
+  border-top: none;
+}
+.select_box li {
+  width: 25%;
+  padding: 20px 10px 20px 20px;
+  border-right: 1px solid var(--linecol05);
+}
+
+/* 스크롤바의 전체 영역 */
+.select_box-scroll {
+  width: 100%;
+  height: 230px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+.select_box-scroll li {
+  width: 100%;
+  padding: 7x 0px;
+  border: none;
+  cursor: pointer;
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+}
+.select_box-scroll .active {
+  color: var(--primary);
+  font-weight: 700;
+}
+.select_box-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 95px;
+}
+
+/* 스크롤바 배경 */
+.select_box-scroll::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+
+/* 스크롤바의 손잡이 (슬라이더) */
+.select_box-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--bgcol06);
+  border-radius: 10px;
+  width: 4px;
+}
+
+/* 마우스를 올렸을 때 스크롤바의 색상 */
+.select_box-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgcol02);
+}
+
+.select_box li:last-child {
+  border-right: none;
+}
+
+/* 선택된 값 박스*/
+.job_search_box {
+  width: 100%;
+  background-color: var(--white);
+  display: flex;
+  align-items: flex-start;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: var(--linecol05);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  padding: 15px 20px;
+}
+.choice_box {
+  display: flex;
+  gap: 0.8vw;
+  width: 75%;
+}
+.choice_flex {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+}
+.choice_txt {
+  white-space: nowrap;
+  margin-right: 4px;
+  color: var(--primary);
+  font-size: var(--font-size-m);
+}
+.choice_flex i {
+  color: var(--primary);
+}
+.rotate {
+  color: var(--txtcol02) !important;
+}
+.choice_flex span {
+  visibility: hidden;
+  display: none;
+}
+
+.choice_reset {
+  display: flex;
+  width: 25%;
+  justify-content: space-between;
+}
+.choice_btn {
+  align-items: center;
+  background-color: var(--primary) !important;
+  border-radius: 20px;
+  justify-content: center;
+  padding: 18px 30px;
+  position: relative;
+  color: var(--white);
+}
+
+/* 페이지 서브 타이틀 */
+.group_title {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  letter-spacing: -0.02vw;
+  line-height: normal;
+  margin-bottom: 0.78vw;
+  width: 100%;
+}
+
+/* top채용관 */
+.red_dday {
+  color: var(--red) !important;
+}
+.top_job {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 38px;
+}
+.comimg {
+  width: 110px;
+  height: 100%;
+  object-fit: contain;
+}
+.top_group {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.top_group .card {
+  align-items: flex-start;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--quill-gray);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 346.9px;
+}
+.top_group .card .img_box {
+  display: flex;
+  width: 160px;
+  height: 40px;
+  align-items: center;
+}
+.top_group .card .name {
+  width: 100%;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: 20px;
+}
+.top_group .card .txt {
+  width: 100%;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-top: 3px;
+}
+.top_group .card .text-container {
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: space-between;
+}
+.top_group .card .region {
+  line-height: normal;
+  width: 200px;
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+}
+.top_group .card .dday {
+  letter-spacing: 0;
+  line-height: normal;
+  min-width: 80px;
+  text-align: right;
+  color: var(--text-silver);
+  font-size: var(--font-size-ls);
+  font-weight: 500;
+}
+
+/* 채용정보 */
+.btnone {
+  border-top: none !important;
+}
+.stat_c {
+  color: var(--icon01) !important;
+}
+.listinfo {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+}
+
+.jobinfo {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 45px;
+}
+.jobinfo .list {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-top: 2px solid var(--quill-gray);
+  border-bottom: 1px solid var(--linecol05);
+  padding: 30px 20px;
+}
+
+.jobinfo .list .name {
+  align-items: center;
+  background-color: var(--white);
+  display: flex;
+  width: 170px;
+}
+.jobinfo .list .info_con {
+  display: flex;
+  gap: 20px;
+}
+.jobinfo .list .info_con .flex-col {
+  width: 90%;
+}
+.jobinfo .list .info_con .flex-col .info_txt {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxl);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.02vw;
+  line-height: normal;
+  min-height: 1.35vw;
+}
+.jobinfo .list .info_con .flex-col .text-container {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.52vw;
+  margin-top: 0.26vw;
+}
+.jobinfo .list .info_con .flex-col .cell {
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: normal;
+}
+.jobinfo .list .info_con .flex-col .dsc {
+  line-height: normal;
+  margin-top: 1.04vw;
+  color: var(--txtcol01);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+.jobinfo .list .info_con .vector_img {
+  color: var(--text-silver);
+  font-size: var(--font-size-xxl);
+  margin-top: 0.25vw;
+}
+
+.jobinfo .list .tplprv {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.26vw;
+  width: 7.45vw;
+}
+.jobinfo .list .tplprv .paystat {
+  background-color: var(--bgcol07);
+  border-radius: 0.16vw;
+  padding: 0.1vw 0.26vw;
+  color: var(--primary);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+}
+.jobinfo .list .tplprv .lstIe {
+  line-height: normal;
+  color: var(--txtcol01);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.jobinfo .list .tplnum {
+  display: flex;
+  flex-direction: column;
+  gap: 0.58vw;
+  width: 4.9vw;
+}
+.jobinfo .list .tplnum .nums {
+  display: flex;
+  gap: 0.58vw;
+  width: 100%;
+}
+.jobinfo .list .tplnum .nums .icon {
+  height: 0.57vw;
+  width: 0.83vw;
+}
+.jobinfo .list .tplnum .nums .icon i {
+  color: var(--text-silver);
+}
+.jobinfo .list .tplnum .nums .icon_txt {
+  letter-spacing: 0;
+  line-height: normal;
+  color: var(--txtcol01);
+  font-size: var(--font-size-xs);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.jobinfo .list .btn_odd {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+.jobinfo .list .btn_odd button {
+  border-radius: 20px;
+  padding: 18px 20px;
+  width: 150px;
+}
+.jobinfo .list .btn_odd .h_btn {
+  background-color: var(--btncol);
+  color: var(--white);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 500;
+}
+.jobinfo .list .btn_odd .d_btn {
+  background-color: var(--primary);
+  color: var(--white);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* detail */
+.colw1 {
+  width: 105px !important;
+}
+.colw2 {
+  width: 40px !important;
+}
+.colw3 {
+  width: 52px !important;
+}
+.colw4 {
+  width: 160px !important;
+}
+
+.jobdetail {
+  align-items: center;
+  background-color: var(--bgcol05);
+  border: 1px solid;
+  border-color: var(--linecol05);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 35px;
+  margin-bottom: 70px;
+}
+.jobdetail .logo_area {
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  border: 1px solid var(--linecol05);
+  display: flex;
+  width: 175px;
+  height: 175px;
+}
+.jobdetail .urjob {
+  color: var(--primary);
+  font-size: var(--font-size-xxxxl);
+  font-weight: 900;
+  letter-spacing: -0.03vw;
+  line-height: normal;
+}
+
+.jobdetail .detail_con {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 210px);
+}
+.jobdetail .detail_con .stxt {
+  width: 100%;
+  color: var(--txtcol02);
+  font-size: var(--font-size-xxl);
+  font-weight: 400;
+  letter-spacing: -0.36px;
+  line-height: normal;
+}
+.jobdetail .detail_con .htxt {
+  width: 100%;
+  color: var(--txtcol05);
+  font-size: var(--font-size-24);
+  font-weight: 500;
+  letter-spacing: -0.48px;
+  line-height: normal;
+  margin-top: 3px;
+}
+
+.jobdetail .detail_con .detail-group {
+  align-items: flex-start;
+  display: flex;
+  gap: 45px;
+  margin-top: 25px;
+  width: 100%;
+}
+.jobdetail .detail_con .detail-group .decol {
+  display: flex;
+  gap: 8px;
+  width: 300px;
+  flex-direction: column;
+}
+.jobdetail .detail_con .detail-group .decol dl {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  align-items: center;
+}
+.jobdetail .detail_con .detail-group .decol dl dt {
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-weight: 300;
+}
+.jobdetail .detail_con .detail-group .decol dl dd {
+  color: var(--txtcol05);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 400;
+}
+.jobdetail .detail_con .detail-group .decol .dday {
+  color: var(--primary);
+  font-size: var(--font-size-xxxxl);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+  text-align: right;
+}
+
+.detailBtn {
+  display: flex;
+  gap: 1vw;
+  width: 100%;
+  justify-content: center;
+}
+.detailBtn button {
+  align-items: center;
+  background-color: var(--btncol);
+  display: flex;
+  justify-content: center;
+  padding: 18px 30px;
+  border-radius: 1.04vw;
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 500;
+}
+.detailBtn .h_btn {
+  background-color: var(--btncol);
+  color: var(--white);
+}
+.detailBtn .s_btn {
+  background-color: var(--white);
+  color: var(--txtcol01);
+  border: 1px solid var(--txtcol01);
+}
+
+.detail_content {
+  display: flex;
+  gap: 1vw;
+  margin: 2vw 0;
+  width: 100%;
+}

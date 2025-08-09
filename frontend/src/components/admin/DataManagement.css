@@ -1,0 +1,522 @@
+/* DataManagement 스타일 */
+.dataManagement .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.6rem;
+    color: #666;
+}
+
+.dataManagement .error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    color: #ff6161;
+    font-size: 1.6rem;
+}
+
+.dataManagement .input {
+    width: 300px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.dataManagement .input:focus {
+    border-color: #2f80dc;
+    outline: none;
+}
+
+/* 버튼 기본 스타일 */
+.dataManagement .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 56px;
+    text-align: center;
+}
+
+.dataManagement .btn:active {
+    transform: translateY(1px);
+}
+
+/* 수정 버튼 스타일 */
+.dataManagement .admin--tool .btn-edit {
+    background-color: #2f80dc !important;
+    color: #ffffff !important;
+}
+
+.dataManagement .admin--tool .btn-edit:hover {
+    opacity: 0.85;
+}
+
+/* 삭제 버튼 스타일 */
+.dataManagement .admin--tool .btn-delete {
+    background-color: #dc3545 !important;
+    color: #ffffff !important;
+}
+
+.dataManagement .admin--tool .btn-delete:hover {
+    opacity: 0.85;
+}
+
+/* 버튼 종류별 스타일 */
+.dataManagement .btn-primary {
+    background-color: #2f80dc;
+    color: #ffffff;
+    border: none;
+}
+
+.dataManagement .btn-primary:hover {
+    background-color: #2666b0;
+    color: #ffffff;
+}
+
+.dataManagement .btn-warning {
+    background-color: #ffc107;
+    color: #000000;
+}
+
+.dataManagement .btn-success {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+/* 버튼 크기 */
+.dataManagement .btn-sm {
+    padding: 4px 8px;
+    font-size: 12px;
+    min-width: 48px;
+}
+
+.dataManagement .btn-lg {
+    padding: 12px 24px;
+    font-size: 16px;
+    min-width: 80px;
+}
+
+/* 버튼 그룹 */
+.dataManagement .btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.dataManagement .status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 80px;
+    text-align: center;
+}
+
+.dataManagement .status.active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.dataManagement .status.inactive {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.dataManagement .pagination-area {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 20px 0;
+}
+
+.dataManagement .page-btn {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dataManagement .page-btn:hover {
+    border-color: #2f80dc;
+    color: #2f80dc;
+}
+
+.dataManagement .page-btn.active {
+    background-color: #2f80dc;
+    border-color: #2f80dc;
+    color: #fff;
+}
+
+/* 관리자 툴 버튼 스타일 */
+.dataManagement .admin--tool {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.dataManagement .admin--tool .btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    min-width: 56px;
+    font-weight: 500;
+}
+
+.dataManagement .admin--tool .btn-sm {
+    padding: 4px 12px;
+    font-size: 12px;
+    min-width: 48px;
+}
+
+/* 테이블 스타일 개선 */
+.dataManagement .table-wrapper {
+    margin-top: 0;
+    border: none;
+    border-radius: 0;
+    overflow: auto;
+    background-color: #ffffff;
+    height: calc(100vh - 18rem);
+}
+
+.dataManagement .table-scroll {
+    width: 100%;
+    min-width: 100%;
+    overflow-x: auto;
+}
+
+.dataManagement .table-area {
+    width: 100%;
+}
+
+.dataManagement .table-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #f8f9fa;
+}
+
+.dataManagement .table-header table,
+.dataManagement .table-content table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.dataManagement .table-header th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    text-align: center;
+    padding: 14px 12px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    color: #333;
+    white-space: nowrap;
+}
+
+.dataManagement .table-header th:last-child {
+    border-right: none;
+}
+
+.dataManagement .table-content {
+    overflow: visible;
+}
+
+.dataManagement .table-content td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 14px;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.dataManagement .table-content td:last-child {
+    border-right: none;
+}
+
+/* 특정 컬럼 정렬 조정 */
+.dataManagement .table-content td:nth-child(4) {  /* 명칭 컬럼 */
+    text-align: left;
+}
+
+.dataManagement .table-content td:last-child {    /* 관리자툴 컬럼 */
+    text-align: center;
+}
+
+/* 체크박스 컬럼 정렬 */
+.table-content td:first-child,
+.dataManagement .table-header th:first-child {
+    text-align: center;
+}
+
+/* 상태 컬럼 스타일 */
+.dataManagement .table-content td:nth-child(6) {
+    text-align: center;
+}
+
+/* 테이블 hover 효과 */
+.dataManagement .table-content tr:hover td {
+    background-color: #f8f9fa;
+}
+
+/* colgroup 너비 조정 */
+.dataManagement table colgroup {
+    .dataManagement col:nth-child(1) { width: 44px; }  /* 체크박스 */
+    .dataManagement col:nth-child(2) { width: 70px; }  /* 번호 */
+    .dataManagement col:nth-child(3) { width: 200px; } /* 데이터종류 */
+    .dataManagement col:nth-child(4) { width: auto; }  /* 명칭 */
+    .dataManagement col:nth-child(5) { width: 180px; } /* 관리자툴 */
+}
+
+/* 일괄 삭제 영역 스타일 */
+.dataManagement .bulk-action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dataManagement .selected-count {
+    font-size: 14px;
+    color: #666;
+}
+
+.dataManagement .selected-count span {
+    font-weight: 500;
+    color: #2f80dc;
+}
+
+.dataManagement .bulk-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.dataManagement .bulk-actions .btn {
+    padding: 6px 16px;
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.dataManagement .bulk-actions .btn:hover {
+    opacity: 0.85;
+}
+
+.dataManagement .bulk-actions .btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* 체크박스 스타일 */
+.dataManagement .checkbox-column {
+    text-align: center !important;
+    vertical-align: middle;
+    width: 40px;
+    padding: 0 !important;
+}
+
+.dataManagement .checkbox-wrapper {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.dataManagement .checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.dataManagement .checkbox-custom {
+    position: relative;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border: 2px solid #ddd;
+    border-radius: 3px;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+}
+
+.dataManagement .checkbox:checked ~ .checkbox-custom {
+    background-color: #2f80dc;
+    border-color: #2f80dc;
+}
+
+.dataManagement .checkbox:checked ~ .checkbox-custom::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.dataManagement .checkbox-wrapper:hover .checkbox-custom {
+    border-color: #2f80dc;
+}
+
+/* 검색 영역 여백 조정 */
+.dataManagement .search-container {
+    margin-top: 0;
+}
+
+/* 검색 영역 스타일 개선 */
+.dataManagement .search-area {
+    padding: 16px 24px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+}
+
+.dataManagement .search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    gap: 16px;
+}
+
+.dataManagement .search--select {
+    min-width: 200px;
+}
+
+.dataManagement .search--select .select {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.763L10.825 4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+}
+
+.dataManagement .search--select .select:focus {
+    border-color: #2f80dc;
+    outline: none;
+}
+
+.dataManagement .search--select .select:hover {
+    border-color: #2f80dc;
+}
+
+.dataManagement .search--text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dataManagement .search--text .control {
+    position: relative;
+}
+
+.dataManagement .search--text .input {
+    width: 300px;
+    padding-right: 40px;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .dataManagement .dataManagement .table-wrapper {
+        margin-top: 16px;
+    }
+
+    .dataManagement .table-content td,
+    .dataManagement .table-header th {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+
+    .dataManagement .admin--tool .btn {
+        padding: 4px 8px;
+        font-size: 12px;
+        min-width: 48px;
+    }
+}
+
+.dataManagement .content {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.dataManagement .container {
+    width: 100%;
+    padding: 0;
+}
+
+.dataManagement .article-area {
+    height: calc(100vh - 10rem);
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* 테이블 스타일 */
+.dataManagement .table-wrapper {
+    margin-top: 0;
+    border: none;
+    border-radius: 0;
+    overflow: auto;
+    background-color: #ffffff;
+    height: calc(100vh - 18rem);
+}
+
+.dataManagement .table-content td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    font-size: 14px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.dataManagement .table-header th {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    background-color: #f8f9fa;
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+}
+
+.dataManagement .table-header th:last-child,
+.dataManagement .table-content td:last-child {
+    border-right: none;
+} 

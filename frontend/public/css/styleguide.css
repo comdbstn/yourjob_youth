@@ -1,0 +1,289 @@
+:root {
+	--bgcol01:#FBFBFB;
+	--bgcol02: #484848;
+    --bgcol03: #f9fbfc;
+	--bgcol04: #2F80DC;
+	--bgcol05: #FAFAFA;
+	--bgcol06: #D9D9D9;
+	--bgcol07: #e2eaf3;
+	--bgcol08: #F5F5F5;
+	--bgcol09: #eaeff3;
+	--bgcol10: #F2F2F2;
+	--bgcol11: #545454;
+	
+    --black: #000000;
+    --boulder: #7a7a7a;
+    --fuscous-gray: #55555580;
+    --linecol01: #b7b7b7;
+    --linecol02: #cacaca;
+	--linecol03:#DFDFDF;
+	--linecol04:#CBCBCB;
+    --linecol05: #eaeaea;
+	--linecol06: #FF6A6A;
+	--linecol07: #D6D6D6;
+	--linecol08: #BAD2EE;
+    --onahau: #d3efff;
+    --primary: #2e7fdb;
+    --quick-silver: #a6a6a6;
+    --quill-gray: #d2d2d2;
+    --red: #ff0000;
+    --red-2: #ff0b0b;
+    --solitude: #ebf3fc;
+    --star-dust: #9f9f9f;
+    --txtcol01: #a7a7a7;
+    --txtcol02: #8f8f8f;
+    --txtcol04: #525252;
+    --txtcol05: #333333;
+	--txtcol06: #535353;
+	--txtcol07: #2F80DC;
+	--txtcol08: #454545;
+	--txtcol09: #717171;
+	--txtcol10: #797979;
+	--txtcol11: #585858;
+	--txtcol12: #777777;
+	--txtcol13: #939393;
+	--txtcol14:#858585;
+
+    --white: #ffffff;
+	--text-silver:#A8A8A8;
+	--btncol:#535353;
+	--icon01:#FFC300;
+	--thbgcol01:#EFEFEF;
+	--tbnotice:#F9FBFC;
+	--sidecol01:#EDF6FD;
+	
+	--font-size-sl: 10px;
+	--font-size-ls: 12px;
+	--font-size-xs: 12px;
+	--font-size-s: 13px;
+	 --font-size-m: 14px;
+    --font-size-l: 15px;
+    --font-size-xl: 16px;
+    --font-size-xxl: 18px;
+    --font-size-xxxl: 20px;
+	--font-size-24:22px;
+	--font-size-24:24px;
+	--font-size-28:28px;
+    --font-size-xxxxl: 30px;
+	--font-size-36: 36px;
+	--font-size-sx: 40px;
+	--font-size-sxx: 50px;
+
+    --font-family-noto_sans_cjk_kr-black: "Noto Sans CJK KR-Black", Helvetica;
+    --font-family-noto_sans_cjk_kr-bold: "Noto Sans CJK KR-Bold", Helvetica;
+    --font-family-noto_sans_cjk_kr-medium: "Noto Sans CJK KR-Medium", Helvetica;
+    --font-family-noto_sans_cjk_kr-regular: "Noto Sans CJK KR-Regular", Helvetica;
+    --font-family-noto_sans_kr: "Noto Sans KR", sans-serif;
+    --font-family-roboto: "Roboto", Helvetica;
+
+	--mleft12: 12vw;
+}
+
+.notosanscjkkr-medium-stack-14px {
+    color: var(--txtcol02);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-m);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-regular-normal-quick-silver-14px {
+    color: var(--quick-silver);
+    font-family: var(--font-family-noto_sans_cjk_kr-regular);
+    font-size: var(--font-size-m);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanscjkkr-medium-quick-silver-12px {
+    color: var(--txtcol01);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-xs);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-medium-mine-shaft-18px {
+    color: var(--txtcol05);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-xxl);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-medium-mine-shaft-16px {
+    color: var(--txtcol05);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-xl);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-regular-normal-mine-shaft-16px {
+    color: var(--txtcol05);
+    font-family: var(--font-family-noto_sans_cjk_kr-regular);
+    font-size: var(--font-size-xl);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanscjkkr-medium-red-12px {
+    color: var(--red);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-xs);
+    font-style: normal;
+    font-weight: 500;
+}
+.notosanscjkkr-medium-silver-12px {
+    color: var(--red);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-xs);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-regular-normal-red-12px {
+    color: var(--red-2);
+    font-family: var(--font-family-noto_sans_cjk_kr-regular);
+    font-size: var(--font-size-xs);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanscjkkr-regular-normal-quick-silver-12px {
+    color: var(--txtcol01);
+    font-family: var(--font-family-noto_sans_cjk_kr-regular);
+    font-size: var(--font-size-xs);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanscjkkr-medium-fuscous-gray-14px {
+    color: var(--txtcol04);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-m);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-regular-normal-boulder-14px {
+    color: var(--boulder);
+    font-family: var(--font-family-noto_sans_cjk_kr-regular);
+    font-size: var(--font-size-m);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanscjkkr-bold-mine-shaft-20px {
+    color: var(--txtcol05);
+    font-family: var(--font-family-noto_sans_cjk_kr-bold);
+    font-size: var(--font-size-xxxl);
+    font-style: normal;
+    font-weight: 700;
+}
+
+.notosanscjkkr-bold-mine-shaft-18px {
+    color: var(--txtcol05);
+    font-family: var(--font-family-noto_sans_cjk_kr-bold);
+    font-size: var(--font-size-xxl);
+    font-style: normal;
+    font-weight: 700;
+}
+
+.notosanscjkkr-medium-fuscous-gray-16px {
+    color: var(--txtcol04);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-xl);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-medium-fuscous-gray-15px {
+    color: var(--txtcol04);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-l);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-medium-star-dust-13px {
+    color: var(--star-dust);
+    font-family: var(--font-family-noto_sans_cjk_kr-medium);
+    font-size: var(--font-size-s);
+    font-style: normal;
+    font-weight: 500;
+}
+
+.notosanscjkkr-regular-normal-onahau-12px {
+    color: var(--onahau);
+    font-family: var(--font-family-noto_sans_cjk_kr-regular);
+    font-size: var(--font-size-xs);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanscjkkr-regular-normal-quick-silver-14px-2 {
+    color: var(--txtcol01);
+    font-family: var(--font-family-noto_sans_cjk_kr-regular);
+    font-size: var(--font-size-m);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanskr-normal-white-18px {
+    color: var(--white);   
+    font-size: var(--font-size-xxl);
+    font-style: normal;
+    font-weight: 400;
+}
+.notosanskr-normal-block-18px {
+    color: var(--black);   
+    font-size: var(--font-size-xxl);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanskr-normal-stack-14px {
+    color: var(--txtcol02);   
+    font-size: var(--font-size-m);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.notosanskr-bold-mine-shaft-20px {
+  color: var(--txtcol05); 
+  font-size: var(--font-size-xxxl);
+  font-style: normal;
+  font-weight: 700;
+}
+.notosanskr-medium-fuscous-gray-16px {
+	color: var(--txtcol06);   
+    font-size: var(--font-size-xl);
+    font-style: normal;
+    font-weight: 500;
+}
+.notosanskr-normal-quick-silver-15px {
+    color: var(--txtcol01);   
+    font-size: var(--font-size-l);
+    font-style: normal;
+    font-weight: 400;
+}
+
+.form-control {display: block; width: 100%; border-radius:25px; border-width: 1px; --tw-border-opacity: 1; border-color: #fff; --tw-bg-opacity: 1; padding:4px 10px; font-size:14px; --tw-text-opacity: 1; color: rgb(17 24 39);}
+
+/* г╙ем */
+footer {width: 100%; margin-top:45px !important;}
+.footer_wrap {align-items: flex-start; flex-direction: column; background-color: var(--bgcol03); display: flex; width: 100%; }
+.footer_wrap .footer_link{width:1280px; margin:0 auto;}
+.footer_wrap .footer_link ul{display:flex; gap:20px; width:100%; padding:10px; }
+.footer_wrap .footer_link li{padding:10px 0;}
+.footer_wrap .footer_link a{ font-weight: 400;}
+
+
+.footer_con {align-items: center; background-color: #f2f4f5; display: flex; width: 100%; justify-content: space-between; padding:10px 0;}
+.footer_con .footer_box {display: flex; width: 100%; padding: 10px; justify-content: space-between; align-items: center;}
+.footer_con .footer_box .footer_info{display: flex; gap: 10px; flex-direction: column;}
+.footer_con .footer_box .footer_info ul{display:flex; gap:20px; width:100%}
+.footer_con .footer_box .footer_info li{font-size:var(--font-size-m); color:var(--boulder); font-weight: 400;}
+
+.footer_con .footer_box .urjob {color: #a3a3a3; font-size: 30px; font-weight: 900; letter-spacing: -0.5px; line-height: normal; }

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>통계</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 통계 대시보드 스타일 */
+        .stats-dashboard {
+            margin-bottom: 30px;
+        }
+
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+            justify-content: space-between;
+        }
+
+        .stats-card {
+            flex: 1 1 calc(33.333% - 20px);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .stats-card-title {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .stats-card-value {
+            color: #333;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stats-card-sub {
+            color: #777;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .stats-card-sub .tag {
+            margin-right: 5px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #fff;
+        }
+
+        .stats-card-sub .tag-blue {
+            background-color: #007bff;
+        }
+
+        .stats-card-sub .tag-green {
+            background-color: #28a745;
+        }
+
+        .stats-card-sub .tag-orange {
+            background-color: #fd7e14;
+        }
+
+        .stats-card-sub .tag-red {
+            background-color: #dc3545;
+        }
+
+        .stats-chart-container {
+            margin-top: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .stats-chart-title {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stats-chart {
+            height: 300px;
+            width: 100%;
+        }
+
+        .stats-chart-half {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+
+        .stats-chart-half > div {
+            flex: 1 1 calc(50% - 20px);
+            margin: 10px;
+            min-width: 300px;
+        }
+
+        /* 기간 선택 필터 */
+        .stats-filters {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .stats-filters select {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        /* 원형 차트 스타일 */
+        .pie-chart-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .pie-chart {
+            width: 150px;
+            height: 150px;
+            position: relative;
+        }
+
+        .pie-legend {
+            margin-left: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+
+        .legend-text {
+            font-size: 13px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="./Statistics.html" class="btn isActive">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">통계</h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+                <article class="article-area">
+                    <!-- 기간 선택 필터 -->
+                    <div class="stats-filters">
+                        <select id="periodFilter">
+                            <option value="1month" selected>최근 1개월</option>
+                            <option value="3months">최근 3개월</option>
+                            <option value="6months">최근 6개월</option>
+                            <option value="1year">최근 1년</option>
+                            <option value="all">전체 기간</option>
+                        </select>
+                    </div>
+
+                    <!-- 통계 카드 영역 -->
+                    <div class="stats-dashboard">
+                        <div class="stats-row">
+                            <!-- 사용자 통계 카드 -->
+                            <div class="stats-card">
+                                <div class="stats-card-title">가입 사용자 수</div>
+                                <div class="stats-card-value">-</div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-blue">개인</span> -명 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-green">기업</span> -개 (-%)
+                                </div>
+                            </div>
+
+                            <!-- 이력서 통계 카드 -->
+                            <div class="stats-card">
+                                <div class="stats-card-title">이력서 수</div>
+                                <div class="stats-card-value">-</div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-blue">공개</span> -개 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-orange">비공개</span> -개 (-%)
+                                </div>
+                            </div>
+
+                            <!-- 일 평균 가입자 통계 카드 -->
+                            <div class="stats-card">
+                                <div class="stats-card-title">일 평균 신규 가입자</div>
+                                <div class="stats-card-value">-</div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-blue">개인</span> -명 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-green">기업</span> -개 (-%)
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stats-row">
+                            <!-- 채용공고 통계 카드 -->
+                            <div class="stats-card">
+                                <div class="stats-card-title">채용공고 수</div>
+                                <div class="stats-card-value">-</div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-green">진행중</span> -개 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-red">마감</span> -개 (-%)
+                                </div>
+                            </div>
+
+                            <!-- 지원 통계 카드 -->
+                            <div class="stats-card">
+                                <div class="stats-card-title">입사지원 수</div>
+                                <div class="stats-card-value">-</div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-blue">진행중</span> -개 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-green">합격</span> -개 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-red">불합격</span> -개 (-%)
+                                </div>
+                            </div>
+
+                            <!-- 포지션 제안 통계 카드 -->
+                            <div class="stats-card">
+                                <div class="stats-card-title">포지션 제안 수</div>
+                                <div class="stats-card-value">-</div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-blue">열람</span> -개 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-green">수락</span> -개 (-%)
+                                </div>
+                                <div class="stats-card-sub">
+                                    <span class="tag tag-red">거절</span> -개 (-%)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 차트 영역 - 첫 번째 행 -->
+                    <div class="stats-chart-container">
+                        <div class="stats-chart-title">월별 사용자 증가 추이</div>
+                        <div class="stats-chart" id="userGrowthChart">
+                            <!-- 여기에 차트가 그려집니다 -->
+                            <img src="/api/placeholder/980/300" alt="월별 사용자 증가 추이 차트">
+                        </div>
+                    </div>
+
+                    <!-- 차트 영역 - 두 번째 행 -->
+                    <div class="stats-chart-half">
+                        <div class="stats-chart-container">
+                            <div class="stats-chart-title">사용자 유형 분포</div>
+                            <div class="pie-chart-container">
+                                <div class="pie-chart">
+                                    <img src="/api/placeholder/150/150" alt="사용자 유형 분포 차트">
+                                </div>
+                                <div class="pie-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #4e73df;"></div>
+                                        <div class="legend-text">개인 사용자: -%</div>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #1cc88a;"></div>
+                                        <div class="legend-text">기업 사용자: -%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stats-chart-container">
+                            <div class="stats-chart-title">채용공고 상태 분포</div>
+                            <div class="pie-chart-container">
+                                <div class="pie-chart">
+                                    <img src="/api/placeholder/150/150" alt="채용공고 상태 분포 차트">
+                                </div>
+                                <div class="pie-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #36b9cc;"></div>
+                                        <div class="legend-text">진행중: -%</div>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color" style="background-color: #e74a3b;"></div>
+                                        <div class="legend-text">마감: -%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // API 기본 URL
+        const API_BASE_URL = window.__CONFIG__?.API_BASE_URL || 'http://localhost:8082/api/v1';
+
+        // 차트 객체 저장을 위한 변수
+        let userGrowthChart = null;
+        let userTypeChart = null;
+        let jobStatusChart = null;
+
+        // 필터 변경 이벤트 리스너
+        document.getElementById('periodFilter').addEventListener('change', function() {
+            loadStatistics(this.value);
+        });
+
+        // 초기 통계 로드
+        loadStatistics('1month');
+
+        // 통계 데이터 로드 함수
+        function loadStatistics(period) {
+            // 대시보드 통계 데이터 로드
+            fetch(`${API_BASE_URL}/mdms/statistics/dashboard?period=${period}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('서버 응답 오류: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    updateDashboard(data);
+
+                    // 사용자 유형 분포 차트 데이터 로드
+                    fetch(`${API_BASE_URL}/mdms/statistics/user-type-distribution?period=${period}`)
+                        .then(response => response.json())
+                        .then(chartData => {
+                            renderUserTypeChart(chartData);
+                        })
+                        .catch(error => {
+                            console.error('사용자 유형 분포 데이터 로드 오류:', error);
+                        });
+
+                    // 채용공고 상태 분포 차트 데이터 로드
+                    fetch(`${API_BASE_URL}/mdms/statistics/job-status-distribution?period=${period}`)
+                        .then(response => response.json())
+                        .then(chartData => {
+                            renderJobStatusChart(chartData);
+                        })
+                        .catch(error => {
+                            console.error('채용공고 상태 분포 데이터 로드 오류:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('통계 데이터 로드 오류:', error);
+                    alert('통계 데이터를 불러오는 중 오류가 발생했습니다.');
+                });
+
+            // 월별 사용자 증가 추이 데이터 로드 (최근 12개월)
+            fetch(`${API_BASE_URL}/mdms/statistics/user-growth?months=12`)
+                .then(response => response.json())
+                .then(chartData => {
+                    renderUserGrowthChart(chartData);
+                })
+                .catch(error => {
+                    console.error('사용자 증가 추이 데이터 로드 오류:', error);
+                });
+        }
+
+        // 대시보드 업데이트 함수
+        function updateDashboard(data) {
+            // 사용자 통계 업데이트
+            document.querySelector('.stats-card:nth-child(1) .stats-card-value').textContent =
+                numberWithCommas(data.totalUsers);
+            document.querySelector('.stats-card:nth-child(1) .stats-card-sub:nth-child(3)').innerHTML =
+                `<span class="tag tag-blue">개인</span> ${numberWithCommas(data.individualUsers)}명 (${data.userRatio.individualPercentage.toFixed(1)}%)`;
+            document.querySelector('.stats-card:nth-child(1) .stats-card-sub:nth-child(4)').innerHTML =
+                `<span class="tag tag-green">기업</span> ${numberWithCommas(data.companyUsers)}개 (${data.userRatio.companyPercentage.toFixed(1)}%)`;
+
+            // 이력서 통계 업데이트
+            document.querySelector('.stats-card:nth-child(2) .stats-card-value').textContent =
+                numberWithCommas(data.totalResumes);
+            document.querySelector('.stats-card:nth-child(2) .stats-card-sub:nth-child(3)').innerHTML =
+                `<span class="tag tag-blue">공개</span> ${numberWithCommas(data.publicResumes)}개 (${data.resumeRatio.publicPercentage.toFixed(1)}%)`;
+            document.querySelector('.stats-card:nth-child(2) .stats-card-sub:nth-child(4)').innerHTML =
+                `<span class="tag tag-orange">비공개</span> ${numberWithCommas(data.privateResumes)}개 (${data.resumeRatio.privatePercentage.toFixed(1)}%)`;
+
+            // 일 평균 가입자 통계 업데이트
+            document.querySelector('.stats-card:nth-child(3) .stats-card-value').textContent =
+                numberWithCommas(data.dailyNewUsers);
+
+            const individualPct = data.dailyNewUsers > 0
+                ? (data.dailyNewIndividualUsers / data.dailyNewUsers * 100).toFixed(1)
+                : "0.0";
+            const companyPct = data.dailyNewUsers > 0
+                ? (data.dailyNewCompanyUsers / data.dailyNewUsers * 100).toFixed(1)
+                : "0.0";
+
+            document.querySelector('.stats-card:nth-child(3) .stats-card-sub:nth-child(3)').innerHTML =
+                `<span class="tag tag-blue">개인</span> ${numberWithCommas(data.dailyNewIndividualUsers)}명 (${individualPct}%)`;
+            document.querySelector('.stats-card:nth-child(3) .stats-card-sub:nth-child(4)').innerHTML =
+                `<span class="tag tag-green">기업</span> ${numberWithCommas(data.dailyNewCompanyUsers)}개 (${companyPct}%)`;
+
+            // 채용공고 통계 업데이트
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(1) .stats-card-value').textContent =
+                numberWithCommas(data.totalJobs);
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(1) .stats-card-sub:nth-child(3)').innerHTML =
+                `<span class="tag tag-green">진행중</span> ${numberWithCommas(data.activeJobs)}개 (${data.jobRatio.activePercentage.toFixed(1)}%)`;
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(1) .stats-card-sub:nth-child(4)').innerHTML =
+                `<span class="tag tag-red">마감</span> ${numberWithCommas(data.closedJobs)}개 (${data.jobRatio.closedPercentage.toFixed(1)}%)`;
+
+            // 지원 통계 업데이트
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(2) .stats-card-value').textContent =
+                numberWithCommas(data.totalApplications);
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(2) .stats-card-sub:nth-child(3)').innerHTML =
+                `<span class="tag tag-blue">진행중</span> ${numberWithCommas(data.activeApplications)}개 (${data.applicationRatio.activePercentage.toFixed(1)}%)`;
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(2) .stats-card-sub:nth-child(4)').innerHTML =
+                `<span class="tag tag-green">합격</span> ${numberWithCommas(data.acceptedApplications)}개 (${data.applicationRatio.acceptedPercentage.toFixed(1)}%)`;
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(2) .stats-card-sub:nth-child(5)').innerHTML =
+                `<span class="tag tag-red">불합격</span> ${numberWithCommas(data.rejectedApplications)}개 (${data.applicationRatio.rejectedPercentage.toFixed(1)}%)`;
+
+            // 포지션 제안 통계 업데이트
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(3) .stats-card-value').textContent =
+                numberWithCommas(data.totalJobOffers);
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(3) .stats-card-sub:nth-child(3)').innerHTML =
+                `<span class="tag tag-blue">열람</span> ${numberWithCommas(data.viewedJobOffers)}개 (${data.jobOfferRatio.viewedPercentage.toFixed(1)}%)`;
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(3) .stats-card-sub:nth-child(4)').innerHTML =
+                `<span class="tag tag-green">수락</span> ${numberWithCommas(data.acceptedJobOffers)}개 (${data.jobOfferRatio.acceptedPercentage.toFixed(1)}%)`;
+            document.querySelector('.stats-row:nth-child(2) .stats-card:nth-child(3) .stats-card-sub:nth-child(5)').innerHTML =
+                `<span class="tag tag-red">거절</span> ${numberWithCommas(data.rejectedJobOffers)}개 (${data.jobOfferRatio.rejectedPercentage.toFixed(1)}%)`;
+        }
+
+        // 숫자에 천 단위 콤마 추가 함수
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // 월별 사용자 증가 추이 차트 렌더링 함수
+        function renderUserGrowthChart(chartData) {
+            const ctx = document.getElementById('userGrowthChart');
+
+            // 이미지 요소 제거하고 캔버스 생성
+            ctx.innerHTML = '';
+            const canvas = document.createElement('canvas');
+            ctx.appendChild(canvas);
+
+            // 기존 차트가 있으면 제거
+            if (userGrowthChart) {
+                userGrowthChart.destroy();
+            }
+
+            // 새 차트 생성
+            userGrowthChart = new Chart(canvas, {
+                type: chartData.type,
+                data: {
+                    labels: chartData.labels,
+                    datasets: chartData.datasets.map(dataset => ({
+                        label: dataset.label,
+                        data: dataset.data,
+                        borderColor: dataset.borderColor,
+                        backgroundColor: dataset.backgroundColor,
+                        fill: dataset.fill,
+                        tension: 0.1,
+                        pointRadius: 3,
+                        pointHoverRadius: 5
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: false
+                        },
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                        }
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 사용자 유형 분포 파이 차트 렌더링 함수
+        function renderUserTypeChart(chartData) {
+            const container = document.querySelector('.stats-chart-half .stats-chart-container:first-child .pie-chart');
+            container.innerHTML = '';
+
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+
+            // 기존 차트가 있으면 제거
+            if (userTypeChart) {
+                userTypeChart.destroy();
+            }
+
+            // 새 차트 생성
+            userTypeChart = new Chart(canvas, {
+                type: chartData.type,
+                data: {
+                    labels: chartData.labels,
+                    datasets: chartData.datasets.map(dataset => ({
+                        label: dataset.label,
+                        data: dataset.data,
+                        backgroundColor: dataset.backgroundColor,
+                        borderWidth: 1
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // 범례 업데이트
+            const legend = document.querySelector('.stats-chart-half .stats-chart-container:first-child .pie-legend');
+            legend.innerHTML = '';
+
+            chartData.labels.forEach((label, index) => {
+                const percentage = chartData.datasets[0].data[index] /
+                    chartData.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
+                const color = chartData.datasets[0].backgroundColor[index];
+
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.innerHTML = `
+                    <div class="legend-color" style="background-color: ${color};"></div>
+                    <div class="legend-text">${label}: ${percentage.toFixed(1)}%</div>
+                `;
+                legend.appendChild(legendItem);
+            });
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        // 채용공고 상태 분포 파이 차트 렌더링 함수
+        function renderJobStatusChart(chartData) {
+            const container = document.querySelector('.stats-chart-half .stats-chart-container:last-child .pie-chart');
+            container.innerHTML = '';
+
+            const canvas = document.createElement('canvas');
+            container.appendChild(canvas);
+
+            // 기존 차트가 있으면 제거
+            if (jobStatusChart) {
+                jobStatusChart.destroy();
+            }
+
+            // 새 차트 생성
+            jobStatusChart = new Chart(canvas, {
+                type: chartData.type,
+                data: {
+                    labels: chartData.labels,
+                    datasets: chartData.datasets.map(dataset => ({
+                        label: dataset.label,
+                        data: dataset.data,
+                        backgroundColor: dataset.backgroundColor,
+                        borderWidth: 1
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // 범례 업데이트
+            const legend = document.querySelector('.stats-chart-half .stats-chart-container:last-child .pie-legend');
+            legend.innerHTML = '';
+
+            chartData.labels.forEach((label, index) => {
+                const percentage = chartData.datasets[0].data[index] /
+                    chartData.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
+                const color = chartData.datasets[0].backgroundColor[index];
+
+                const legendItem = document.createElement('div');
+                legendItem.className = 'legend-item';
+                legendItem.innerHTML = `
+                    <div class="legend-color" style="background-color: ${color};"></div>
+                    <div class="legend-text">${label}: ${percentage.toFixed(1)}%</div>
+                `;
+                legend.appendChild(legendItem);
+            });
+        }
+    });
+</script>
+</body>
+</html>

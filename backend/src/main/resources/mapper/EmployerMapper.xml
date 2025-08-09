@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.EmployerMapper">
+    <select id="selectJobListByEmp" parameterType="map" resultType="com.yourjob.backend.entity.JobResponse">
+        select
+        job_id as jobId,
+        employer_id as employerId,
+        title as title,
+        description as description,
+        requirements as requirements,
+        location as location,
+        country_code as countrycode,
+        job_type as jobType,
+        salary as salary,
+        views as views,
+        created_at as createdAt,
+        updated_at as updatedAt
+        from job_postings
+        where
+        employer_id = #{employerid}
+        limit 10
+    </select>
+    <select id="selectJobCntByEmp" parameterType="int" resultType="int">
+        select count(*) from job_postings
+        where
+        employer_id = #{employerid}
+    </select>
+    <select id="selectJobStatusByEmp" parameterType="map" resultType="com.yourjob.backend.entity.JobResponse">
+        select
+        job_id as jobId,
+        employer_id as employerId,
+        title as title,
+        description as description,
+        requirements as requirements,
+        status as status,
+        location as location,
+        country_code as countrycode,
+        job_type as jobType,
+        salary as salary,
+        views as views,
+        created_at as createdAt,
+        updated_at as updatedAt
+        from job_postings
+        where
+        employer_id = #{employerid} and
+        job_id = #{jobid}
+        limit 10
+    </select>
+    <update id="updateJobStatusByEmp" parameterType="map">
+        update job_postings set
+        status = #{status}
+        where
+        job_id = #{jobid} and
+        employer_id = #{employerid}
+    </update>
+</mapper>

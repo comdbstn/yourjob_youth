@@ -1,0 +1,50 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+frontend/.idea
+backend/.idea
+
+uploads
+uploads/
+
+### VS Code ###
+.vscode/
+
+# .gitignore
+.DS_Store
+*.log
+
+# Node
+node_modules/
+dist/
+build/
+
+# Gradle
+.gradle/
+build/
+out/
+
+# Etc
+bin/
+
+.env
+
+bff/src/main/resources/firebase/
+
+gradle/
+gradlew
+gradlew.bat
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/

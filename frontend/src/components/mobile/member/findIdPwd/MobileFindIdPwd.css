@@ -1,0 +1,41 @@
+.mobile-container-mobileFindIdPwd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobile-container-mobileFindIdPwd .findIdTab {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mobile-container-mobileFindIdPwd .findPwTab {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mobile-container-mobileFindIdPwd .findIdTab .header {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+}
+.mobile-container-mobileFindIdPwd .findPwTab .header {
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+}
+.mobile-container-mobileFindIdPwd .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mobile-container-mobileFindIdPwd .findPwTab {
+}

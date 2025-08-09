@@ -1,0 +1,1044 @@
+/* screen - jobpost */
+
+.accept {
+  width: 100%;
+}
+
+/* 검색부분 */
+.accept .SearchForm {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 45px;
+}
+.accept .titDetailSch {
+  color: var(--txtcol05);
+  font-family: var(--font-family-noto_sans_cjk_kr-bold);
+  font-size: var(--font-size-xxxxl);
+  font-weight: 700;
+  letter-spacing: -0.03vw;
+  line-height: normal;
+  margin-bottom: 20px;
+}
+
+.accept .select_nav {
+  display: flex;
+  width: 100%;
+  background-color: var(--bgcol05);
+  border: 1px solid var(--linecol05);
+}
+.accept .select_nav li {
+  width: 50%;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxl);
+  padding: 20px;
+  border-right: 1px solid var(--linecol05);
+  font-weight: 500;
+}
+.accept .select_nav li:last-child {
+  border-right: none;
+}
+
+.accept .select_box {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--linecol05);
+  border-top: none;
+}
+.accept .select_box li {
+  width: 50%;
+  padding: 20px 10px 20px 20px;
+  border-right: 1px solid var(--linecol05);
+}
+
+/* 스크롤바의 전체 영역 */
+.accept .select_box-scroll {
+  width: 100%;
+  height: 244px;
+  overflow: auto;
+}
+.accept .select_box-scroll li {
+  width: 100%;
+  padding: 7px 0px;
+  border: none;
+  cursor: pointer;
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+}
+.accept .select_box-scroll .active {
+  color: var(--primary);
+  font-weight: 500;
+}
+.accept .select_box-scroll::-webkit-scrollbar {
+  width: 0.26vw;
+  height: 180px;
+}
+
+/* 스크롤바 배경 */
+.accept .select_box-scroll::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+
+/* 스크롤바의 손잡이 (슬라이더) */
+.accept .select_box-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--bgcol06);
+  border-radius: 10px;
+  width: 4px;
+}
+
+/* 마우스를 올렸을 때 스크롤바의 색상 */
+.accept .select_box-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgcol02);
+}
+
+.accept .select_box li:last-child {
+  border-right: none;
+}
+
+/* 선택된 값 박스*/
+.accept .job_search_box {
+  width: 100%;
+  background-color: var(--white);
+  display: flex;
+  align-items: flex-start;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-color: var(--linecol05);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  padding: 15px 20px;
+}
+.accept .choice_box {
+  display: flex;
+  gap: 20px;
+  width: 75%;
+  flex-wrap: wrap;
+}
+.accept .choice_flex {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  cursor: pointer;
+}
+.accept .choice_txt {
+  white-space: nowrap;
+  margin-right: 4px;
+  color: var(--primary);
+  font-size: var(--font-size-m);
+}
+.accept .choice_flex i {
+  color: var(--primary);
+}
+.accept .rotate {
+  color: var(--txtcol02) !important;
+}
+.accept .choice_flex span {
+  visibility: hidden;
+  display: none;
+}
+
+.accept .choice_reset {
+  display: flex;
+  width: 25%;
+  justify-content: right;
+  gap: 10px;
+}
+.accept .choice_btn {
+  align-items: center;
+  background-color: var(--primary) !important;
+  border-radius: 20px;
+  justify-content: center;
+  padding: 18px 30px;
+  position: relative;
+  color: var(--white);
+}
+
+.accept .accep_title {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+.accept .accep_title .txt {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxl);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+}
+.accept .accep_title .search_box {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--linecol02);
+  border-radius: 20px;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  padding: 19px 15px;
+  position: relative;
+  width: 262px;
+}
+.accept .search_form {
+  border: none;
+}
+.accept .accep_title .search_box .searchbtn {
+  align-items: flex-start;
+  color: var(--linecol02);
+  display: flex;
+  justify-content: flex-end;
+  min-width: 1.25vw;
+  padding: 0.1vw 0.07vw;
+}
+
+.accept .accep_list {
+  align-items: center;
+  display: flex;
+  width: 100%;
+  border-top: 1px solid var(--linecol05);
+  padding: 35px 10px;
+}
+.accept .dataList li:last-of-type {
+  border-bottom: 1px solid var(--linecol05);
+}
+.accept .accep_list .clogo {
+  min-width: 150px;
+  justify-items: center;
+  color: var(--primary);
+  font-size: var(--font-size-xxxxl);
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  line-height: normal;
+}
+.accept .accep_list .cname {
+  width: 166px;
+  padding: 0 19px;
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+}
+.accept .accep_list .cinfo {
+  padding: 0px 20px;
+  width: 68%;
+}
+.accept .accep_list .cinfo p {
+  letter-spacing: -0.3px;
+  line-height: normal;
+}
+.accept .accep_list .cinfo p.q {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+.accept .accep_list .cinfo p.a-it {
+  margin-top: 5px;
+  color: var(--txtcol01);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+}
+.accept .accep_list .cinfo .infoBox {
+  display: flex;
+  margin-top: 25px;
+  color: var(--txtcol01);
+  font-size: var(--font-size-ls);
+  font-weight: 500;
+  gap: 25px;
+  align-items: center;
+}
+.accept .accep_list .cinfo .infoBox span {
+  position: relative;
+}
+.accept .accep_list .cinfo .infoBox .line::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: -11px;
+  width: 1px;
+  height: 90%;
+  background-color: var(--txtcol01);
+}
+
+.accept .accep_list .myselfBtn {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--primary);
+  color: var(--primary);
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  justify-content: center;
+  padding: 18px 30px;
+  position: relative;
+  width: 150px;
+  font-weight: 500;
+}
+
+/* 자소서 */
+.accept .acceptpost {
+  display: block;
+}
+
+.accept .acceptTap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bgcol08);
+  gap: 20px;
+  width: 100%;
+  padding: 5px 0;
+}
+.accept .acceptTap li {
+  position: relative;
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  padding: 10px;
+  cursor: pointer;
+}
+.accept .acceptTap .line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -11px;
+  width: 1px;
+  height: 9px;
+  background-color: var(--text-silver);
+}
+.accept .acceptTap .active {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.accept .accept_warp {
+  padding: 22px 0px;
+  padding-right: 10px;
+  margin-right: 5px;
+  height: 640px;
+  overflow: auto;
+}
+.accept .accept_warp::-webkit-scrollbar {
+  width: 8px;
+  height: 120px;
+}
+
+/* 스크롤바 배경 */
+.accept .accept_warp::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+/* 스크롤바의 손잡이 (슬라이더) */
+.accept .accept_warp::-webkit-scrollbar-thumb {
+  background-color: var(--bgcol06);
+  border-radius: 20px;
+  width: 8px;
+}
+/* 마우스를 올렸을 때 스크롤바의 색상 */
+.accept .accept_warp::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgcol02);
+}
+
+.accept .acceptSearch {
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 22px 20px;
+  border-bottom: 1px solid var(--linecol03);
+}
+.accept .acceptSearch .tottxt {
+  color: var(--txtcol01);
+  font-size: var(--font-size-m);
+  font-style: normal;
+  font-weight: 500;
+}
+.accept .acceptSearch .search_box {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--linecol02);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  position: relative;
+  width: 262px;
+}
+.accept .acceptSearch .search_box .searchbtn {
+  align-items: flex-start;
+  color: var(--linecol02);
+  display: flex;
+  justify-content: flex-end;
+  width: 24px;
+}
+
+.accept .acceptList {
+  height: 110px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--linecol03);
+  padding: 15px 0;
+}
+.accept .acceptList .clogo {
+  padding: 0 20px;
+  width: 124px;
+}
+.accept .acceptList .clogo img {
+  width: 100%;
+}
+.accept .acceptList .cinfo_box {
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+.accept .acceptList .cinfo_box .accepInfo {
+  width: 60%;
+}
+.accept .acceptList .cinfo_box .accepInfo .cname {
+  width: 100%;
+  color: var(--txtcol01);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.accept .acceptList .cinfo_box .accepInfo .ctxt {
+  width: 100%;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  font-weight: 500;
+}
+.accept .acceptList .cinfo_box .accepInfo .cdate {
+  width: 100%;
+  color: var(--text-silver);
+  font-size: var(--font-size-ls);
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.accept .acceptList .cinfo_box .accepBtn_box {
+  width: 25%;
+  text-align: center;
+}
+.accept .acceptList .cinfo_box .accepBtn_box .accepBtn {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--primary);
+  color: var(--primary);
+  font-size: var(--font-size-xl);
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  justify-content: center;
+  padding: 13px 20px;
+  position: relative;
+  width: 100%;
+  font-weight: 500;
+}
+.accept .acceptList .cinfo_box .accepBtn_box .accepdday {
+  color: var(--text-silver);
+  font-size: var(--font-size-ls);
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 10px;
+}
+
+.accept .acceptTitle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: var(--primary);
+  width: 100%;
+  padding: 5px 10px;
+}
+.accept .acceptTitle li {
+  color: var(--white);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  padding: 10px;
+  cursor: pointer;
+}
+.accept .acceptTitle button {
+  color: var(--white);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.accept .accept_rwarp {
+  border-left: 1px solid var(--linecol03);
+  border-right: 1px solid var(--linecol03);
+}
+.accept .write_box {
+  background-color: var(--bgcol08);
+  border-color: var(--linecol03);
+  display: flex;
+  gap: 9px;
+  padding: 22px 20px;
+}
+.accept .write_box .subject {
+  height: 115px;
+}
+.accept .write_box .formfild {
+  border: 1px solid;
+  border-color: var(--linecol04);
+  border-radius: 20px;
+  padding: 20px 25px;
+  color: var(--txtcol06);
+}
+.accept .write_box .writeBtn {
+  align-items: center;
+  background-color: var(--primary);
+  color: var(--white);
+  font-size: var(--font-size-xl);
+  border-radius: 20px;
+  position: relative;
+  padding: 40px 24px;
+  width: 135px;
+  font-weight: 500;
+}
+.accept .write_box input::placeholder {
+  color: var(--txtcol01);
+  font-size: var(--font-size-xl);
+}
+
+.accept .write_warp {
+  padding: 20px;
+  margin-right: 5px;
+  height: 490px;
+  overflow: auto;
+}
+.accept .write_warp::-webkit-scrollbar {
+  width: 8px;
+  height: 120px;
+}
+/* 스크롤바 배경 */
+.accept .write_warp::-webkit-scrollbar-track {
+  background-color: var(--white);
+}
+/* 스크롤바의 손잡이 (슬라이더) */
+.accept .write_warp::-webkit-scrollbar-thumb {
+  background-color: var(--bgcol06);
+  border-radius: 20px;
+  width: 8px;
+}
+/* 마우스를 올렸을 때 스크롤바의 색상 */
+.accept .write_warp::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgcol02);
+}
+
+.accept .writeForm_box {
+  position: relative;
+  border: 1px solid;
+  border-color: var(--linecol03);
+  border-radius: 20px;
+  padding: 10px 20px 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.accept .writeForm_box .input_field {
+  padding: 15px 0px;
+}
+.accept .writeForm_box .lines {
+  border-bottom: 1px solid var(--linecol03);
+}
+.accept .writeForm_box .input_field input {
+  border: none;
+  width: 90%;
+}
+.accept .writeForm_box .input_field input::placeholder {
+  color: var(--txtcol01);
+  font-size: var(--font-size-xl);
+}
+
+.accept .writeForm_box .write_warp_del {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.accept .writeForm_box .write_warp_del .addDel {
+  border: none;
+  font-size: var(--font-size-xl);
+  color: var(--text-silver);
+  font-weight: 500;
+}
+
+.accept .writeForm_addbox {
+  display: flex;
+  justify-content: flex-end;
+}
+.accept .writeForm_addbox .addBtn {
+  border: none;
+  font-size: var(--font-size-xl);
+  color: var(--text-silver);
+  font-weight: 500;
+}
+
+.accept-detail {
+  padding: 40px 0;
+}
+
+.accept-detail .accept-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accept-detail .accept-detail-header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.accept-detail .accept-detail-header-button {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-detail .accept-detail-header-button button {
+  align-items: center;
+  background-color: var(--primary);
+  border: 1px solid;
+  border-color: var(--primary);
+  color: var(--white);
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  justify-content: center;
+  padding: 18px 30px;
+  position: relative;
+  width: 150px;
+  font-weight: 500;
+}
+
+.accept-detail .company-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  padding: 40px 20px;
+  background-color: var(--bgcol05);
+  border: 1px solid var(--linecol05);
+  border-radius: 20px;
+}
+
+.accept-detail .company-info h1 {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.accept-detail .resume-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.accept-detail .resume-title span {
+  font-weight: bold;
+}
+
+.accept-detail .sub-info {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 14px;
+}
+
+.accept-detail .question-list {
+  margin-top: 30px;
+}
+
+.accept-detail .question-item {
+  margin-bottom: 20px;
+  border: 1px solid var(--linecol05);
+  border-radius: 20px;
+}
+
+.accept-detail .question-header {
+  padding: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: start;
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.accept-detail .q-mark {
+  font-size: 48px;
+  font-weight: bold;
+  margin-right: 15px;
+  color: #2d7de8;
+}
+
+.accept-detail .answer-content {
+  padding: 40px;
+  background-color: #fff;
+  line-height: 1.6;
+  color: var(--txtcol04);
+}
+
+.accept-detail .question-header-content {
+  display: flex;
+  align-items: center;
+}
+
+.accept-detail .question-header-icon {
+  margin-left: auto;
+}
+
+.accept-detail .button-group {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.accept-detail .submit-btn {
+  padding: 12px 40px;
+  background-color: var(--btncol);
+  border: 1px solid var(--btncol);
+  color: var(--white);
+  border-radius: 20px;
+}
+
+.accept-detail .submit-btn:hover {
+  background-color: #2468c5;
+}
+
+.accept-detail .divider {
+  border-bottom: 1px solid var(--linecol05);
+  margin: auto;
+  width: 90%;
+}
+
+.accept-post .my-accept-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.accept-post .my-accept-list {
+  padding: 20px;
+  border-bottom: 1px solid #e5e5e5;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.accept-post .my-accept-list.btnone {
+  border-top: none;
+}
+
+.accept-post .post_info {
+  flex: 1;
+}
+
+.accept-post .post_title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.accept-post .post_date {
+  font-size: 14px;
+  color: #666;
+}
+
+.accept-post .post_actions {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-post .editBtn,
+.accept-post .deleteBtn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.accept-post .editBtn {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--primary);
+  color: var(--primary);
+  font-size: var(--font-size-xl);
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  justify-content: center;
+  padding: 13px 30px;
+  width: 100%;
+  position: relative;
+  font-weight: 500;
+}
+
+.accept-post .deleteBtn {
+  align-items: center;
+  background-color: var(--white);
+  border: 1px solid;
+  border-color: var(--primary);
+  color: var(--primary);
+  font-size: var(--font-size-xl);
+  border-radius: 20px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  justify-content: center;
+  padding: 13px 30px;
+  width: 100%;
+  position: relative;
+  font-weight: 500;
+}
+
+/* 선택된 항목 스타일 */
+.accept-post .acceptList.selected {
+  background-color: #f8f9fa;
+  border: 1px solid #007bff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accept-post .my-accept-list.selected {
+  background-color: #f8f9fa;
+  border: 1px solid #007bff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 호버 효과 추가 */
+.accept-post .acceptList:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.accept-post .my-accept-list:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+/* 선택된 항목의 버튼 스타일 */
+.accept-post .acceptList.selected .accepBtn,
+.accept-post .my-accept-list.selected .editBtn {
+  background-color: #007bff;
+  color: white;
+}
+
+.accept-post .DetailBox {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accept-post .DetailBox .rows {
+  border-radius: 20px;
+  border: 1px solid #e4e4e4;
+  background: var(--white);
+  padding: 25px 23px;
+  width: 100%;
+}
+
+.accept-post .DetailBox .rows .detail_title {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.accept-post .DetailBox .rows .detail_title .logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110px;
+  height: 60px;
+  color: var(--primary);
+  font-size: var(--font-size-xxxl);
+  font-weight: 900;
+}
+
+.accept-post .DetailBox .rows .detail_title .logoBox img {
+  width: 100%;
+}
+
+.accept-post .DetailBox .rows .detail_title .txtBox {
+  display: flex;
+  width: calc(100% - 110px);
+  flex-direction: column;
+  gap: 5px;
+}
+
+.accept-post .DetailBox .rows .detail_title .txtBox .span {
+  color: var(--text-silver);
+  font-size: var(--font-size-m);
+}
+
+.accept-post .DetailBox .rows .detail_title .txtBox p {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+}
+
+.accept-post .DetailBox .rows .close {
+  position: absolute;
+  right: 0;
+  top: 0px;
+  z-index: 100;
+  width: 19px;
+}
+
+.accept-post .DetailBox .rows .detail_con {
+  line-height: normal;
+  transition: opacity 0.3s ease;
+}
+
+.accept-post .DetailBox .rows .detail_con .dhead_txt {
+  color: var(--txtcol05);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.32px;
+  margin-bottom: 35px;
+}
+
+.accept-post .DetailBox .rows .detail_con .dcontent {
+  color: var(--txtcol02);
+  font-size: var(--font-size-m);
+  font-weight: 400;
+  letter-spacing: -0.28px;
+}
+
+.accept-post .DetailBox .listBtn {
+  display: flex;
+  width: 100px;
+  height: 50px;
+  padding: 18px 0px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: var(--bgcol11);
+  color: var(--white);
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.accept-post .answer_section {
+  margin-top: 10px;
+}
+
+.accept-post .answer_item {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.accept-post .answer_item:last-child {
+  margin-bottom: 0;
+}
+
+.accept-post .question {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.accept-post .q_mark {
+  color: #0d6efd;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.accept-post .question_text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #212529;
+  line-height: 1.5;
+}
+
+.accept-post .answer {
+  display: flex;
+  gap: 10px;
+  line-height: 1.6;
+}
+
+.accept-post .a_mark {
+  color: #d2d2d2;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.accept-post .answer_text {
+  font-size: 15px;
+  color: #495057;
+  white-space: pre-wrap;
+}
+
+.accept-post .detail_title {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.accept-post .txtBox {
+  flex: 1;
+}
+
+.accept-post .txtBox .span {
+  font-size: 14px;
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+
+.accept-post .txtBox p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+}
+
+.accept-post .close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.accept-post .detail_con {
+  padding: 20px;
+}
+
+.accept-post .listBtn {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 30px auto;
+  padding: 10px 20px;
+  background-color: #0d6efd;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.accept-post .listBtn:hover {
+  background-color: #0b5ed7;
+}

@@ -1,0 +1,80 @@
+# Prometheus Configuration for YourJob Platform
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "alert_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []
+
+scrape_configs:
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Backend API metrics
+  - job_name: 'backend'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['backend:8082']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # BFF service metrics  
+  - job_name: 'bff'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['bff:8081']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # MySQL database metrics (if mysql_exporter is available)
+  - job_name: 'mysql'
+    static_configs:
+      - targets: ['db:3306']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    params:
+      module: [mysql]
+    # Uncomment if using mysql_exporter
+    # metrics_path: /metrics
+
+  # Redis metrics (if redis_exporter is available)
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    # Uncomment if using redis_exporter  
+    # metrics_path: /metrics
+
+  # Nginx metrics (if nginx_exporter is available)
+  - job_name: 'nginx'
+    static_configs:
+      - targets: ['nginx:80']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+    metrics_path: '/metrics'
+
+  # Node exporter for system metrics (if available)
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node_exporter:9100']
+    scrape_interval: 30s
+    scrape_timeout: 10s
+
+  # Custom application metrics from admin dashboard
+  - job_name: 'admin-dashboard'
+    metrics_path: '/api/admin/dashboard/metrics'
+    static_configs:
+      - targets: ['backend:8082']
+    scrape_interval: 60s
+    scrape_timeout: 15s
+    basic_auth:
+      username: 'admin'
+      password: 'admin_password'  # Change in production

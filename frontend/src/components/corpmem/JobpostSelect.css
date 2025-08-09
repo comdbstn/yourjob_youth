@@ -1,0 +1,144 @@
+/* Jobpost 컴포넌트의 select 요소 스타일 */
+
+/* nice-select 기본 스타일 확장 */
+.nice-select {
+  border-radius: 20px;
+  height: 42px;
+  line-height: 40px;
+  padding: 0 15px;
+  border-color: var(--linecol02);
+  font-size: 14px;
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+}
+
+.nice-select:hover {
+  border-color: #dbdbdb;
+}
+
+.nice-select:active, 
+.nice-select.open, 
+.nice-select:focus {
+  border-color: #999;
+}
+
+/* 화살표 스타일 */
+.nice-select:after {
+  border-bottom: 0;
+  border-right: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #999;
+  height: 0;
+  margin-top: -3px;
+  right: 12px;
+  transform: rotate(0);
+  width: 0;
+}
+
+.nice-select.open:after {
+  transform: rotate(180deg);
+}
+
+/* 드롭다운 리스트 스타일 */
+.nice-select .list {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(68, 68, 68, 0.11);
+  margin-top: 10px;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform-origin: 50% 0;
+  transform: scale(0.75) translateY(-21px);
+  transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+  z-index: 9;
+}
+
+.nice-select.open .list {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
+  overflow: scroll;
+}
+
+/* 옵션 스타일 */
+.nice-select .option {
+  cursor: pointer;
+  font-weight: 400;
+  line-height: 40px;
+  list-style: none;
+  min-height: 40px;
+  outline: none;
+  padding-left: 18px;
+  padding-right: 29px;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.nice-select .option:hover, 
+.nice-select .option.focus, 
+.nice-select .option.selected.focus {
+  background-color: #E2EAF3;
+}
+
+/* 너비 클래스 */
+.w02.nice-select {
+  width: 140px;
+}
+
+.w04.nice-select {
+  width: 100px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .nice-select {
+    width: 100%;
+  }
+  
+  .w02.nice-select,
+  .w04.nice-select {
+    width: 100%;
+  }
+}
+
+/* 에러 메시지 스타일 */
+.crop-wrap .error-message {
+  width: 100%;
+  text-align: left;
+  color: #ff4d4f;
+  font-size: 14px;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+
+/* 에러 상태의 입력 필드 스타일 */
+.form-control.error {
+  border-color: #ff4d4f !important;
+}
+
+.form-control.error:focus {
+  border-color: #ff4d4f !important;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+}
+
+/* 에러 상태의 선택 필드 스타일 */
+.nice-select.error {
+  border-color: #ff4d4f;
+}
+
+/* 에러 상태의 체크박스/라디오 버튼 스타일 */
+input[type="checkbox"].error + label,
+input[type="radio"].error + label {
+  color: #ff4d4f;
+}
+
+/* 에러 상태의 필드박스 스타일 */
+.fieldBox.error {
+  border-color: #ff4d4f;
+} 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.MetaTagMapper">
+    
+    <!-- 지원 상세 정보 조회 (메타태그용) -->
+    <select id="selectAcceptDetailForMetaTag" parameterType="long" resultType="map">
+        SELECT 
+            sr.title,
+            sr.title as position,
+            src.company_name,
+            src.corp_logo_url,
+            sr.created_at
+        FROM successful_resumes sr
+        JOIN successful_resumes_job_posts srjp ON sr.job_post_id = srjp.job_post_id
+        JOIN successful_resumes_companies src ON srjp.company_id = src.company_id
+        WHERE sr.resume_id = #{acceptId}
+    </select>
+    
+    <!-- 사용자 정보 조회 (메타태그용) -->
+    <select id="selectUserInfoForMetaTag" parameterType="long" resultType="map">
+        SELECT 
+            user_id,
+            company_name,
+            corp_logo_url
+        FROM users 
+        WHERE user_id = #{userId}
+    </select>
+    
+    <!-- 회사 정보 조회 (메타태그용) -->
+    <select id="selectCompanyInfoForMetaTag" parameterType="long" resultType="map">
+        SELECT 
+            company_name,
+            industry,
+            description
+        FROM users 
+        WHERE user_id = #{companyId} AND user_type = 'EMPLOYER'
+    </select>
+    
+</mapper> 

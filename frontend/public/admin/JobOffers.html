@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포지션제안</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 페이지네이션 스타일 */
+        .pagination-area {
+            margin-top: 20px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        /* 로딩 인디케이터 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            border-radius: 5px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-body {
+            margin-bottom: 15px;
+        }
+        .modal-footer {
+            text-align: right;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* 행 선택기 스타일 */
+        .row-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #pageSize {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <!-- lnb -->
+        <aside class="lnb">
+                
+            <!-- 로고 -->
+            <div class="lnb__logo">
+                <a href="/" class="lnb__logo--link">
+                    <img src="assets/images/logo.png">
+                </a>
+            </div>
+            <!-- //로고 -->
+
+            <!-- 메뉴1 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Jobs.html" class="btn">채용정보</a>
+                </li>
+                <li>
+                    <a href="Resumes.html" class="btn">이력서정보</a>
+                </li>
+                <li>
+                    <a href="Application.html" class="btn">입사지원</a>
+                </li>
+                <li>
+                    <a href="./JobOffers.html" class="btn isActive">포지션제안</a>
+                </li>
+                <li>
+                    <a href="CompanyProfile.html" class="btn">기업정보</a>
+                </li>
+                <li>
+                    <a href="CommunityPost.html" class="btn">커뮤니티</a>
+                </li>
+                <li>
+                    <a href="Payments.html" class="btn">결제관리</a>
+                </li>
+                <li>
+                    <a href="Products.html" class="btn">상품관리</a>
+                </li>
+                <li>
+                    <a href="Banner.html" class="btn">배너관리</a>
+                </li>
+                <li>
+                    <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+                </li>
+                <li>
+                    <a href="DataManagement.html" class="btn">데이터관리</a>
+                </li>
+            </ul>
+            <!-- //메뉴1 -->
+
+            <!-- 메뉴2 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Statistics.html" class="btn">통계</a>
+                </li>
+                <li>
+                    <a href="UserManagement.html" class="btn">회원관리</a>
+                </li>
+                <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+                <li>
+                    <a href="Settings.html" class="btn">환경설정</a>
+                </li>
+            </ul>
+            <!-- //메뉴2 -->
+        </aside>
+        <!-- //lnb -->
+
+        <!-- contents -->
+        <div class="contents">
+            
+            <!-- 상단 네비 영역 -->
+            <div class="navigation">
+                <div class="container">
+                    <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+                </div>
+            </div>
+            <!-- //상단 네비 영역 -->
+
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+                <div class="container">
+                    <h2 class="title--h2">포지션제안</h2>
+                </div>
+            </div>
+            <!-- //페이지 타이틀 -->
+
+            <!-- 컨텐츠 영역 -->
+            <div class="content">
+                <div class="container">
+
+                    <article class="article-area">
+
+                        <!-- 상단 버튼 영역 -->
+                        <div class="btn-area--top">
+                            <button type="button" class="btn btn-danger btn-small" id="deleteSelectedBtn">삭제</button>
+                        </div>
+                        <!-- //상단 버튼 영역 -->
+
+                        <!-- 상단 검색 영역 -->
+                        <div class="search-area">
+                            <div class="search--select select-box">
+                                <div class="control">
+                                    <select class="select" id="statusFilter">
+                                        <option value="">상태</option>
+                                        <option value="PENDING">대기</option>
+                                        <option value="REJECTED">거절</option>
+                                        <option value="ACCEPTED">수락</option>
+                                        <option value="CANCELED">취소</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="control">
+                                    <select class="select" id="interviewStatusFilter">
+                                        <option value="">면접 상태</option>
+                                        <option value="면접 진행중">면접 진행중</option>
+                                        <option value="면접 완료">면접 완료</option>
+                                        <option value="면접 대기">면접 대기</option>
+                                        <option value="면접 제안">면접 제안</option>
+                                    </select>
+                                </div>
+
+                                <div class="select--date">
+                                    <div class="control">
+                                        <input type="date" id="startDateFilter" class="select">
+                                    </div>
+                                    <div class="control">
+                                        <input type="date" id="endDateFilter" class="select">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="search--text">
+                                <div class="control">
+                                    <input type="text" id="keywordFilter" placeholder="검색어를 입력하세요">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="searchBtn">검색</button>
+                            </div>
+                        </div>
+                        <!-- //상단 검색 영역 -->
+
+                        <!-- 테이블 -->
+                        <section class="table-area">
+                            <div class="table-header">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <colgroup>
+                                        <col width="44px"/> <!-- 체크 -->
+                                        <col width="70px"/> <!-- 번호 -->
+                                        <col width="140px"/> <!-- 일시 -->
+                                        <col width="100px"/> <!-- 상태 -->
+                                        <col width="200px"/> <!-- 구인회원 -->
+                                        <col width="*"/> <!-- 채용정보명 -->
+                                        <col width="100px"/> <!-- 면접 상태 -->
+                                        <col width="200px"/> <!-- 구직회원 -->
+                                        <col width="*"/> <!-- 이력서명 -->
+                                        <col width="100px"/> <!-- 관리자툴 -->
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="control">
+                                                <input id="selectAllCheckbox" type="checkbox" class="checked--all">
+                                            </div>
+                                        </th>
+                                        <th>번호</th>
+                                        <th>제안일시</th>
+                                        <th>상태</th>
+                                        <th>구인회원</th>
+                                        <th>채용정보명</th>
+                                        <th>면접상태</th>
+                                        <th>구직회원</th>
+                                        <th>이력서명</th>
+                                        <th>관리자툴</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="table-content">
+                                <table cellpadding="0" cellspacing="0" border="0" id="jobOffersTable">
+                                    <colgroup>
+                                        <col width="44px"/> <!-- 체크 -->
+                                        <col width="70px"/> <!-- 번호 -->
+                                        <col width="140px"/> <!-- 일시 -->
+                                        <col width="100px"/> <!-- 상태 -->
+                                        <col width="200px"/> <!-- 구인회원 -->
+                                        <col width="*"/> <!-- 채용정보명 -->
+                                        <col width="100px"/> <!-- 면접 상태 -->
+                                        <col width="200px"/> <!-- 구직회원 -->
+                                        <col width="*"/> <!-- 이력서명 -->
+                                        <col width="100px"/> <!-- 관리자툴 -->
+                                    </colgroup>
+                                    <tbody id="jobOffersTableBody">
+                                        <!-- 데이터가 JavaScript로 채워집니다 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <!-- //테이블 -->
+
+                        <!-- 페이지네이션 -->
+                        <div class="row-selector">
+                            <select id="pageSize">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="pagination-area">
+                            <div class="pagination" id="pagination">
+                                <!-- 페이지네이션이 JavaScript로 채워집니다 -->
+                            </div>
+                            <div class="pagination-info" id="paginationInfo">
+                                <!-- 페이지 정보가 JavaScript로 채워집니다 -->
+                            </div>
+                        </div>
+                        <!-- //페이지네이션 -->
+                    </article>
+                </div>
+            </div>
+            <!-- //컨텐츠 영역 -->
+        </div>
+        <!-- //contents -->
+
+        <!-- 로딩 오버레이 -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- 확인 모달 -->
+        <div class="modal" id="confirmModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>확인</h2>
+                    <span class="close" id="closeConfirmModal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: medium" id="confirmMessage">이 포지션 제안을 취소 처리하시겠습니까?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="confirmYesBtn">예</button>
+                    <button type="button" class="btn btn-secondary" id="confirmNoBtn">아니오</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="./env-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // API 기본 URL
+            //const API_BASE_URL = 'http://localhost:8082/api/v1/admin';
+            //const API_BASE_URL = 'http://13.125.187.22:8082/api/v1';
+            const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+            // 현재 페이지 정보
+            const state = {
+                currentPage: 0,
+                pageSize: 10,
+                totalPages: 0,
+                totalElements: 0,
+                selectedJobOffers: new Set(),
+                filters: {
+                    status: '',
+                    interviewStatus: '',
+                    keyword: '',
+                    startDate: '',
+                    endDate: ''
+                }
+            };
+
+            // DOM 요소들
+            const elements = {
+                jobOffersTableBody: document.getElementById('jobOffersTableBody'),
+                pagination: document.getElementById('pagination'),
+                paginationInfo: document.getElementById('paginationInfo'),
+                searchBtn: document.getElementById('searchBtn'),
+                deleteSelectedBtn: document.getElementById('deleteSelectedBtn'),
+                selectAllCheckbox: document.getElementById('selectAllCheckbox'),
+                pageSize: document.getElementById('pageSize'),
+                loadingOverlay: document.getElementById('loadingOverlay'),
+                
+                // 필터 요소들
+                statusFilter: document.getElementById('statusFilter'),
+                interviewStatusFilter: document.getElementById('interviewStatusFilter'),
+                startDateFilter: document.getElementById('startDateFilter'),
+                endDateFilter: document.getElementById('endDateFilter'),
+                keywordFilter: document.getElementById('keywordFilter'),
+                
+                // 확인 모달
+                confirmModal: document.getElementById('confirmModal'),
+                closeConfirmModal: document.getElementById('closeConfirmModal'),
+                confirmYesBtn: document.getElementById('confirmYesBtn'),
+                confirmNoBtn: document.getElementById('confirmNoBtn'),
+                confirmMessage: document.getElementById('confirmMessage'),
+                
+                // 로그아웃 버튼
+                //logoutBtn: document.getElementById('logoutBtn')
+            };
+
+            // 필터링 옵션들에 change 이벤트 리스너 추가
+            const filterElements = [
+                'statusFilter',
+                'interviewStatusFilter',
+                'startDateFilter',
+                'endDateFilter'
+            ];
+
+            // 각 필터링 요소에 change 이벤트 리스너 추가
+            filterElements.forEach(elementId => {
+                document.getElementById(elementId).addEventListener('change', handleFilterChange);
+            });
+
+            // 필터 변경 이벤트 핸들러
+            function handleFilterChange() {
+                // 필터 값이 변경될 때마다 첫 페이지로 이동
+                state.currentPage = 0;
+                // 변경된 필터로 데이터 로드
+                loadJobOffers();
+            }
+
+            // 초기화 - 이벤트 리스너 및 초기 데이터 로드
+            function init() {
+                // URL 파라미터에서 jobId와 resumeId 가져오기
+                const urlParams = new URLSearchParams(window.location.search);
+                const jobIdParam = urlParams.get('jobId');
+                const resumeIdParam = urlParams.get('resumeId');
+
+
+                // 검색 이벤트 리스너
+                elements.searchBtn.addEventListener('click', handleSearch);
+
+                // 키워드 입력 필드에서 엔터키 이벤트 처리
+                elements.keywordFilter.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        handleSearch();
+                    }
+                });
+
+                // 전체 선택 체크박스 이벤트 리스너
+                elements.selectAllCheckbox.addEventListener('change', handleSelectAll);
+
+                // 선택 삭제 버튼 이벤트 리스너
+                elements.deleteSelectedBtn.addEventListener('click', confirmBulkDelete);
+
+                // 페이지 크기 변경 이벤트 리스너
+                elements.pageSize.addEventListener('change', handlePageSizeChange);
+
+                // 모달 관련 이벤트 리스너 등록
+
+                elements.closeConfirmModal.addEventListener('click', () => hideModal(elements.confirmModal));
+                elements.confirmNoBtn.addEventListener('click', () => hideModal(elements.confirmModal));
+                elements.confirmYesBtn.addEventListener('click', handleConfirmYes);
+
+                // URL에 jobId나 resumeId가 있으면 해당 파라미터로 필터링
+                if (jobIdParam) {
+                    // 키워드 필드에 jobId 설정
+                    elements.keywordFilter.value = jobIdParam;
+                    // 바로 검색 실행
+                    handleSearch();
+                } else if (resumeIdParam) {
+                    // 키워드 필드에 resumeId 설정
+                    elements.keywordFilter.value = resumeIdParam;
+                    // 바로 검색 실행
+                    handleSearch();
+                } else {
+                    // 초기 데이터 로드
+                    loadJobOffers();
+                }
+            }
+
+
+            // 로딩 표시/숨김 함수
+            function showLoading() {
+                elements.loadingOverlay.style.display = 'flex';
+            }
+            
+            function hideLoading() {
+                elements.loadingOverlay.style.display = 'none';
+            }
+            
+            // 모달 표시/숨김 함수
+            function showModal(modal) {
+                modal.style.display = 'block';
+            }
+            
+            function hideModal(modal) {
+                modal.style.display = 'none';
+            }
+
+            // 포지션 제안 목록 로드
+            async function loadJobOffers() {
+                showLoading();
+
+                try {
+                    // 필터 값 가져오기
+                    const currentFilters = {
+                        status: elements.statusFilter.value,
+                        interviewStatus: elements.interviewStatusFilter.value,
+                        keyword: elements.keywordFilter.value,
+                        startDate: elements.startDateFilter.value,
+                        endDate: elements.endDateFilter.value
+                    };
+
+                    // 상태 업데이트
+                    state.filters = currentFilters;
+
+                    // API URL 구성
+                    const params = new URLSearchParams({
+                        page: state.currentPage.toString(),
+                        size: state.pageSize.toString()
+                    });
+
+                    // 필터 추가
+                    if (currentFilters.status) {
+                        params.append('status', currentFilters.status);
+                    }
+                    if (currentFilters.interviewStatus) {
+                        params.append('interviewStatus', currentFilters.interviewStatus);
+                    }
+                    if (currentFilters.keyword) {
+                        // 키워드가 숫자만으로 구성되어 있는 경우
+                        if (/^\d+$/.test(currentFilters.keyword)) {
+                            // URL 파라미터 확인해서 jobId인지 resumeId인지 판단
+                            const urlParams = new URLSearchParams(window.location.search);
+                            if (urlParams.has('resumeId')) {
+                                params.append('resumeId', currentFilters.keyword);
+                            } else {
+                                params.append('jobId', currentFilters.keyword);
+                            }
+                        } else {
+                            params.append('keyword', currentFilters.keyword);
+                        }
+                    }
+                    if (currentFilters.startDate) {
+                        params.append('startDate', currentFilters.startDate);
+                    }
+                    if (currentFilters.endDate) {
+                        params.append('endDate', currentFilters.endDate);
+                    }
+
+                    const url = `${API_BASE_URL}/admin/job-offers?${params.toString()}`;
+                    console.log('API 요청 URL:', url); // URL 확인용 로그
+
+                    // API 호출
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error('서버 응답 에러: ' + response.status);
+                    }
+
+                    const data = await response.json();
+
+                    // 상태 업데이트
+                    state.totalPages = data.totalPages || 0;
+                    state.totalElements = data.totalElements || 0;
+                    state.currentPage = data.number !== undefined ? data.number : state.currentPage;
+
+                    // 테이블과 페이지네이션 렌더링
+                    renderJobOffersTable(data.content || []);
+                    renderPagination();
+                    updatePaginationInfo();
+
+                } catch (error) {
+                    console.error('데이터 로드 중 오류:', error);
+                    alert('데이터를 불러오는 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+                } finally {
+                    hideLoading();
+                }
+            }
+
+            async function handleCancelRequest(jobOfferId) {
+                // Show confirmation modal first
+                elements.confirmMessage.textContent = '이 포지션 제안을 취소 처리하시겠습니까?';
+                elements.confirmYesBtn.setAttribute('data-action', 'cancel');
+                elements.confirmYesBtn.setAttribute('data-id', jobOfferId);
+                showModal(elements.confirmModal);
+            }
+
+            async function updateJobOfferStatus(jobOfferId, status) {
+                showLoading();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/admin/job-offers/status${jobOfferId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ status: status })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('상태 변경 실패');
+                    }
+
+                    alert('포지션 제안 상태가 변경되었습니다.');
+                    loadJobOffers(); // 데이터 다시 로드
+                } catch (error) {
+                    console.error('상태 변경 중 오류:', error);
+                    alert('상태 변경 중 오류가 발생했습니다.');
+                } finally {
+                    hideLoading();
+                }
+            }
+
+            // 테이블 렌더링
+            function renderJobOffersTable(jobOffers) {
+                elements.jobOffersTableBody.innerHTML = '';
+
+                if (jobOffers.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td colspan="10" style="text-align: center; padding: 20px;">데이터가 없습니다.</td>`;
+                    elements.jobOffersTableBody.appendChild(row);
+                    return;
+                }
+
+                jobOffers.forEach((offer, index) => {
+                    //const displayIndex = state.currentPage * state.pageSize + index + 1;
+                    const displayIndex = state.totalElements - (state.currentPage * state.pageSize + index);
+
+                    // 상태 표시 텍스트 매핑
+                    const statusText = getStatusText(offer.status);
+                    const interviewStatusText = getInterviewStatusText(offer.interviewStatus);
+
+                    const HREF_BASE_URL = window.__CONFIG__.HREF_BASE_URL;
+                    const jobDetailUrl = `${HREF_BASE_URL}/jobs/${offer.jobId}`;
+                    const resumeDetailUrl = `${HREF_BASE_URL}/corpmem/resumedetail/${offer.resumeId}`;
+
+                    // 취소 신청 버튼 또는 취소 불가 버튼 생성
+                    let actionButtonHtml = '';
+                    if (offer.status === 'CANCELED') {
+                        actionButtonHtml = '<button type="button" class="btn btn-danger">취소불가</button>';
+                    } else {
+                        actionButtonHtml = `<a href="#!" class="btn btn-warning cancel-request-btn" data-id="${offer.jobOfferId}">취소신청</a>`;
+                    }
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+            <td>
+                <div class="control">
+                    <input type="checkbox" class="checked--node" data-id="${offer.jobOfferId}">
+                </div>
+            </td>
+            <td>${displayIndex}</td>
+            <td>${offer.createdAt || '-'}</td>
+            <td>${statusText}</td>
+            <td>${offer.employerId || '-'}</td>
+            <td>
+                <a href="${jobDetailUrl}" title="${offer.jobInfoTitle || '-'}">${offer.jobInfoTitle || '-'}</a>
+            </td>
+            <td>${interviewStatusText}</td>
+            <td>${offer.jobSeekerAccountId || '-'}</td>
+            <td>
+                <a href="${resumeDetailUrl}" title="${offer.resumeTitle || '-'}">${offer.resumeTitle || '-'}</a>
+            </td>
+            <td>
+                <div class="admin--tool">
+                    ${actionButtonHtml}
+                </div>
+            </td>
+        `;
+
+                    elements.jobOffersTableBody.appendChild(row);
+                });
+
+                // 체크박스 이벤트 리스너 등록
+                document.querySelectorAll('.checked--node').forEach(cb => {
+                    cb.addEventListener('change', updateSelectAllStatus);
+                });
+
+                // 취소 신청 버튼 이벤트 리스너 등록
+                document.querySelectorAll('.cancel-request-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const jobOfferId = this.getAttribute('data-id');
+                        handleCancelRequest(jobOfferId);
+                    });
+                });
+            }
+            
+            // 상태 텍스트 반환 함수
+            function getStatusText(status) {
+                const statusMap = {
+                    'PENDING': '대기',
+                    'REJECTED': '거절',
+                    'ACCEPTED': '수락',
+                    'CANCELED': '취소'
+                };
+                return statusMap[status] || status || '-';
+            }
+            
+            // 면접 상태 텍스트 반환 함수
+            function getInterviewStatusText(status) {
+                const statusMap = {
+                    'scheduled': '면접 예정',
+                    'completed': '면접 완료',
+                    'canceled': '면접 취소',
+                    'none': '면접 없음'
+                };
+                return statusMap[status] || status || '-';
+            }
+
+            // 페이지네이션 렌더링
+            function renderPagination() {
+                elements.pagination.innerHTML = '';
+                
+                const currentPage = state.currentPage;
+                const totalPages = state.totalPages;
+                
+                if (totalPages <= 0) return;
+                
+                // 페이지 버튼 수 설정
+                const maxPageButtons = 5;
+                const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+                const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+                
+                // 첫 페이지 버튼
+                const firstBtn = document.createElement('button');
+                firstBtn.className = 'pagination-btn';
+                firstBtn.textContent = '<<';
+                firstBtn.disabled = currentPage === 0;
+                firstBtn.addEventListener('click', () => goToPage(0));
+                elements.pagination.appendChild(firstBtn);
+                
+                // 이전 페이지 버튼
+                const prevBtn = document.createElement('button');
+                prevBtn.className = 'pagination-btn';
+                prevBtn.textContent = '<';
+                prevBtn.disabled = currentPage === 0;
+                prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+                elements.pagination.appendChild(prevBtn);
+                
+                // 페이지 번호 버튼들
+                for (let i = startPage; i <= endPage; i++) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = 'pagination-btn';
+                    if (i === currentPage) pageBtn.classList.add('active');
+                    pageBtn.textContent = i + 1;
+                    pageBtn.addEventListener('click', () => goToPage(i));
+                    elements.pagination.appendChild(pageBtn);
+                }
+                
+                // 다음 페이지 버튼
+                const nextBtn = document.createElement('button');
+                nextBtn.className = 'pagination-btn';
+                nextBtn.textContent = '>';
+                nextBtn.disabled = currentPage >= totalPages - 1;
+                nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+                elements.pagination.appendChild(nextBtn);
+                
+                // 마지막 페이지 버튼
+                const lastBtn = document.createElement('button');
+                lastBtn.className = 'pagination-btn';
+                lastBtn.textContent = '>>';
+                lastBtn.disabled = currentPage >= totalPages - 1;
+                lastBtn.addEventListener('click', () => goToPage(totalPages - 1));
+                elements.pagination.appendChild(lastBtn);
+            }
+
+            // 페이지네이션 정보 업데이트
+            function updatePaginationInfo() {
+                const info = elements.paginationInfo;
+                
+                if (state.totalElements === 0) {
+                    info.textContent = '데이터가 없습니다.';
+                } else {
+                    const start = state.currentPage * state.pageSize + 1;
+                    const end = Math.min((state.currentPage + 1) * state.pageSize, state.totalElements);
+                    info.textContent = `전체 ${state.totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+                }
+            }
+            
+            // 페이지 이동 함수
+            function goToPage(page) {
+                if (page < 0 || page >= state.totalPages) return;
+                state.currentPage = page;
+                loadJobOffers();
+                window.scrollTo(0, 0);
+            }
+            
+            // 검색 처리 함수
+            function handleSearch() {
+                // 필터 값 업데이트
+                state.filters.status = elements.statusFilter.value;
+                state.filters.interviewStatus = elements.interviewStatusFilter.value;
+                state.filters.keyword = elements.keywordFilter.value;
+                state.filters.startDate = elements.startDateFilter.value;
+                state.filters.endDate = elements.endDateFilter.value;
+                
+                // 첫 페이지로 이동하고 데이터 다시 로드
+                state.currentPage = 0;
+                loadJobOffers();
+            }
+            
+            // 페이지 크기 변경 핸들러
+            function handlePageSizeChange() {
+                state.pageSize = parseInt(elements.pageSize.value);
+                state.currentPage = 0;
+                loadJobOffers();
+            }
+
+
+            // 로그아웃 처리 함수
+            document.getElementById('btnLogout').addEventListener('click', function() {
+                if (confirm('로그아웃 하시겠습니까?')) {
+                    // 세션 스토리지 및 로컬 스토리지 클리어
+                    sessionStorage.clear();
+                    localStorage.removeItem('token');
+
+                    // 로그인 페이지로 리다이렉트
+                    window.location.href = '/admin/login.html';
+                }
+            });
+
+            // 전체 선택 체크박스 처리
+            function handleSelectAll(e) {
+                const isChecked = e.target.checked;
+                document.querySelectorAll('.checked--node').forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+            }
+            
+            // 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+            function updateSelectAllStatus() {
+                const checkboxes = document.querySelectorAll('.checked--node');
+                const checkedCount = document.querySelectorAll('.checked--node:checked').length;
+                elements.selectAllCheckbox.checked = checkboxes.length > 0 && checkedCount === checkboxes.length;
+            }
+            
+            // 선택된 아이디들 반환 함수
+            function getSelectedJobOfferIds() {
+                const ids = [];
+                document.querySelectorAll('.checked--node:checked').forEach(checkbox => {
+                    ids.push(parseInt(checkbox.getAttribute('data-id')));
+                });
+                return ids;
+            }
+            
+            // 상태 변경 모달 열기
+            function openStatusModal(jobOfferId) {
+                elements.selectedJobOfferId.value = jobOfferId;
+                showModal(elements.statusModal);
+            }
+            
+            // 면접 상태 변경 모달 열기
+            function openInterviewStatusModal(jobOfferId) {
+                elements.selectedInterviewJobOfferId.value = jobOfferId;
+                showModal(elements.interviewStatusModal);
+            }
+            
+            // 삭제 확인 모달 열기
+            function confirmDelete(jobOfferId) {
+                elements.confirmMessage.textContent = `정말 이 포지션 제안을 삭제하시겠습니까?`;
+                elements.confirmYesBtn.setAttribute('data-action', 'delete');
+                elements.confirmYesBtn.setAttribute('data-id', jobOfferId);
+                showModal(elements.confirmModal);
+            }
+            
+            // 일괄 삭제 확인 모달 열기
+            function confirmBulkDelete() {
+                const selectedIds = getSelectedJobOfferIds();
+                if (selectedIds.length === 0) {
+                    alert('삭제할 항목을 선택해주세요.');
+                    return;
+                }
+                
+                elements.confirmMessage.textContent = `선택한 ${selectedIds.length}개의 항목을 삭제하시겠습니까?`;
+                elements.confirmYesBtn.setAttribute('data-action', 'bulkDelete');
+                showModal(elements.confirmModal);
+            }
+            
+            // 확인 모달 확인 버튼 처리
+            function handleConfirmYes() {
+                const action = elements.confirmYesBtn.getAttribute('data-action');
+                const jobOfferId = elements.confirmYesBtn.getAttribute('data-id');
+
+                if (action === 'delete') {
+                    deleteJobOffer(jobOfferId);
+                } else if (action === 'bulkDelete') {
+                    bulkDeleteJobOffers();
+                } else if (action === 'cancel') {
+                    updateJobOfferStatus(jobOfferId, 'CANCELED');
+                }
+
+                hideModal(elements.confirmModal);
+            }
+
+            
+            // 포지션 제안 삭제 처리
+            async function deleteJobOffer(jobOfferId) {
+                showLoading();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/admin/job-offers/${jobOfferId}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('삭제 실패');
+                    }
+                    
+                    alert('포지션 제안이 삭제되었습니다.');
+                    loadJobOffers();
+                } catch (error) {
+                    console.error('삭제 중 오류:', error);
+                    alert('삭제 중 오류가 발생했습니다.');
+                } finally {
+                    hideLoading();
+                }
+            }
+            
+            // 일괄 삭제 처리
+            async function bulkDeleteJobOffers() {
+                const selectedIds = getSelectedJobOfferIds();
+                if (selectedIds.length === 0) return;
+                
+                showLoading();
+                try {
+                    const response = await fetch(`${API_BASE_URL}/admin/job-offers/bulk`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ jobOfferIds: selectedIds })
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('일괄 삭제 실패');
+                    }
+                    
+                    const result = await response.json();
+                    alert(`${result.deletedCount}개의 포지션 제안이 삭제되었습니다.`);
+                    loadJobOffers();
+                } catch (error) {
+                    console.error('일괄 삭제 중 오류:', error);
+                    alert('일괄 삭제 중 오류가 발생했습니다.');
+                } finally {
+                    hideLoading();
+                }
+            }
+
+            // 전역 함수로 노출 (모달 이벤트를 위함)
+            window.openStatusModal = openStatusModal;
+            window.openInterviewStatusModal = openInterviewStatusModal;
+            window.confirmDelete = confirmDelete;
+            window.handleCancelRequest = handleCancelRequest;
+
+            // 초기화 실행
+            init();
+        });
+            
+    </script>
+</body>
+</html>

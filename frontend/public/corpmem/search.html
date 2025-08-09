@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+	
+    <link rel="stylesheet" type="text/css" href="/css/corpmypage.css" />
+	<link rel="stylesheet" type="text/css" href="/css/jquery.modal.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/nice-select.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.nice-select.js"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<header>
+		<nav>
+			<div class="nav-container">
+				<div class="container  flex-row items-center">
+					<div class="logo">
+						<a href="/" class="title"><img src="/img/logo.png"></a>
+						<div class="logo_txt">유학생 채용 플랫폼</div>
+					</div>
+					<div class="top_search">
+						<div class="search_box"><input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="유학생 채용정보를 검색해 보세요."></div>
+						<div class="top_search_btn"><img class="union" src="/img/union.svg" alt="Union" /></div>
+					</div>
+				</div>
+			</div>
+			<div class="menu-container">
+				<div class="container flex-row items-center item_between">
+					<ul class="menunavi">
+						<li><a href="/corpmem/mypage.html" class="notosanscjkkr-bold-mine-shaft-18px">홈</a></li>
+						<li><a href="/corpmem/jobpost.html" class="notosanscjkkr-bold-mine-shaft-18px">공고등록</a></li>
+						<li><a href="/corpmem/applicant.html" class="notosanscjkkr-bold-mine-shaft-18px">공고·지원자관리</a></li>
+						<li><a href="/corpmem/search.html" class="notosanscjkkr-bold-mine-shaft-18px active">인재검색</a></li>
+						<li><a href="/corpmem/talent.html" class="notosanscjkkr-bold-mine-shaft-18px">인재관리</a></li>
+					</ul>
+					<ul class="userNav">
+						<!-- 로그인후 노출 -->
+						<li><a href="/corpmem/paid_history.html" class="text-12">유료 이용내역</a></li>
+						<li><a href="/corpmem/mypage.html" class="text-12"><i class="fa-regular fa-user"></i></a></li>
+						<li><a href="#" class="logOut">로그아웃</a></li>
+						<!-- 로그인후 노출 end -->
+
+						<!-- 로그인전 노출
+						<li><a href="/member/join.html" class="text-12">회원가입</a></li>
+						로그인전 노출 end -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- header end -->
+
+    <div class="container-center-horizontal">
+        <div class="crop-wrap screen">
+
+
+			<!-- container -->
+			<div class="container">
+				
+				<div class="search_control">
+					<select name="s-divi">
+						<option value="">통합검색</option>
+						<option value="">회사명</option>
+						<option value="">학교명/전공명</option>
+					</select>
+					<select name="s-gender">
+						<option value="">성별</option>
+						<option value="">남</option>
+						<option value="">여</option>
+					</select>
+					<select name="s-status">
+						<option value="">구직상태</option>
+						<option value="">재직중</option>
+						<option value="">구직중</option>
+					</select>
+					<select name="s-career">
+						<option value="">경력</option>
+						<option value="">신입</option>
+						<option value="">경력</option>
+					</select>
+					<select name="s-workplace">
+						<option value="">희망근무지</option>
+						<option value="">국내</option>
+						<option value="">해외</option>
+					</select>
+					<div class="searchbox">
+						<div class="search_box"><input type="search" id="s_keyword" name="s_keyword" class="form-control search_input" placeholder="공고제목"></div>
+						<button type="button" class="searchicon"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</div>
+					<button type="button" class="searchbtn">검색</button>
+				</div>
+				
+				<!-- TOP 인재 -->
+				<div class="head_txt">TOP 인재</div>
+				<div class="top_talent mb45">
+					<!-- loop -->
+					<div class="card">
+						<div class="talentBox">
+							<div class="picture">
+								<svg xmlns="http://www.w3.org/2000/svg" width="27" height="35" viewBox="0 0 27 35" fill="none">
+									<path d="M13.497 16.7143C18.1126 16.7143 21.8542 12.9727 21.8542 8.35714C21.8542 3.74162 18.1126 0 13.497 0C8.88151 0 5.13989 3.74162 5.13989 8.35714C5.13989 12.9727 8.88151 16.7143 13.497 16.7143Z" fill="white"/>
+									<path d="M13.5 17.9995C6.04979 17.9995 0 23.8987 0 31.1634V32.5289C0 33.7306 1.0083 34.7138 2.24066 34.7138H24.7593C25.9917 34.7138 27 33.7306 27 32.5289V31.1634C27 23.8987 20.9502 17.9995 13.5 17.9995Z" fill="white"/>
+								</svg>
+							</div>
+							<div class="info">
+								<div class="flex-row">
+									<p>홍ㅇㅇ<span>(남,만 30세)</span></p>
+									<p class="exper">경력 2년 8개월</p>
+								</div>
+								<h2>근무했던 회사명<span>근무</span></h2>
+								<div class="stxt">마케팅팀 주임</div>
+							</div>
+						</div>
+						<div class="TagBox">
+							<div class="talentTag">
+								<p>담당직무</p>
+								<p>거래처관리</p>
+								<p>MD</p>
+							</div>
+							<button type="button" class="Inter">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+									<path d="M19 6.85895L12.1695 6.27158L9.5 0L6.8305 6.28105L0 6.85895L5.187 11.34L3.629 18L9.5 14.4663L15.371 18L13.8225 11.34L19 6.85895ZM9.5 12.6947L5.928 14.8453L6.878 10.7905L3.724 8.06211L7.885 7.70211L9.5 3.88421L11.1245 7.71158L15.2855 8.07158L12.1315 10.8L13.0815 14.8547L9.5 12.6947Z" fill="#A8A8A8"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="talentBox">
+							<div class="picture">
+								<svg xmlns="http://www.w3.org/2000/svg" width="27" height="35" viewBox="0 0 27 35" fill="none">
+									<path d="M13.497 16.7143C18.1126 16.7143 21.8542 12.9727 21.8542 8.35714C21.8542 3.74162 18.1126 0 13.497 0C8.88151 0 5.13989 3.74162 5.13989 8.35714C5.13989 12.9727 8.88151 16.7143 13.497 16.7143Z" fill="white"/>
+									<path d="M13.5 17.9995C6.04979 17.9995 0 23.8987 0 31.1634V32.5289C0 33.7306 1.0083 34.7138 2.24066 34.7138H24.7593C25.9917 34.7138 27 33.7306 27 32.5289V31.1634C27 23.8987 20.9502 17.9995 13.5 17.9995Z" fill="white"/>
+								</svg>
+							</div>
+							<div class="info">
+								<div class="flex-row">
+									<p>홍ㅇㅇ<span>(남,만 30세)</span></p>
+									<p class="exper active">경력 2년 8개월</p>
+								</div>
+								<h2>근무했던 회사명<span>근무</span></h2>
+								<div class="stxt">마케팅팀 주임</div>
+							</div>
+						</div>
+						<div class="TagBox">
+							<div class="talentTag">
+								<p>담당직무</p>
+								<p>거래처관리</p>
+								<p>MD</p>
+							</div>
+							<button type="button" class="Inter">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+									<path d="M19 6.85895L12.1695 6.27158L9.5 0L6.8305 6.28105L0 6.85895L5.187 11.34L3.629 18L9.5 14.4663L15.371 18L13.8225 11.34L19 6.85895Z" fill="#FFC300"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="talentBox">
+							<div class="picture">
+								<svg xmlns="http://www.w3.org/2000/svg" width="27" height="35" viewBox="0 0 27 35" fill="none">
+									<path d="M13.497 16.7143C18.1126 16.7143 21.8542 12.9727 21.8542 8.35714C21.8542 3.74162 18.1126 0 13.497 0C8.88151 0 5.13989 3.74162 5.13989 8.35714C5.13989 12.9727 8.88151 16.7143 13.497 16.7143Z" fill="white"/>
+									<path d="M13.5 17.9995C6.04979 17.9995 0 23.8987 0 31.1634V32.5289C0 33.7306 1.0083 34.7138 2.24066 34.7138H24.7593C25.9917 34.7138 27 33.7306 27 32.5289V31.1634C27 23.8987 20.9502 17.9995 13.5 17.9995Z" fill="white"/>
+								</svg>
+							</div>
+							<div class="info">
+								<div class="flex-row">
+									<p>홍ㅇㅇ<span>(남,만 30세)</span></p>
+									<p class="exper">경력 2년 8개월</p>
+								</div>
+								<h2>근무했던 회사명<span>근무</span></h2>
+								<div class="stxt">마케팅팀 주임</div>
+							</div>
+						</div>
+						<div class="TagBox">
+							<div class="talentTag">
+								<p>담당직무</p>
+								<p>거래처관리</p>
+								<p>MD</p>
+							</div>
+							<button type="button" class="Inter">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+									<path d="M19 6.85895L12.1695 6.27158L9.5 0L6.8305 6.28105L0 6.85895L5.187 11.34L3.629 18L9.5 14.4663L15.371 18L13.8225 11.34L19 6.85895ZM9.5 12.6947L5.928 14.8453L6.878 10.7905L3.724 8.06211L7.885 7.70211L9.5 3.88421L11.1245 7.71158L15.2855 8.07158L12.1315 10.8L13.0815 14.8547L9.5 12.6947Z" fill="#A8A8A8"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="talentBox">
+							<div class="picture">
+								<svg xmlns="http://www.w3.org/2000/svg" width="27" height="35" viewBox="0 0 27 35" fill="none">
+									<path d="M13.497 16.7143C18.1126 16.7143 21.8542 12.9727 21.8542 8.35714C21.8542 3.74162 18.1126 0 13.497 0C8.88151 0 5.13989 3.74162 5.13989 8.35714C5.13989 12.9727 8.88151 16.7143 13.497 16.7143Z" fill="white"/>
+									<path d="M13.5 17.9995C6.04979 17.9995 0 23.8987 0 31.1634V32.5289C0 33.7306 1.0083 34.7138 2.24066 34.7138H24.7593C25.9917 34.7138 27 33.7306 27 32.5289V31.1634C27 23.8987 20.9502 17.9995 13.5 17.9995Z" fill="white"/>
+								</svg>
+							</div>
+							<div class="info">
+								<div class="flex-row">
+									<p>홍ㅇㅇ<span>(남,만 30세)</span></p>
+									<p class="exper">경력 2년 8개월</p>
+								</div>
+								<h2>근무했던 회사명<span>근무</span></h2>
+								<div class="stxt">마케팅팀 주임</div>
+							</div>
+						</div>
+						<div class="TagBox">
+							<div class="talentTag">
+								<p>담당직무</p>
+								<p>거래처관리</p>
+								<p>MD</p>
+							</div>
+							<button type="button" class="Inter">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+									<path d="M19 6.85895L12.1695 6.27158L9.5 0L6.8305 6.28105L0 6.85895L5.187 11.34L3.629 18L9.5 14.4663L15.371 18L13.8225 11.34L19 6.85895ZM9.5 12.6947L5.928 14.8453L6.878 10.7905L3.724 8.06211L7.885 7.70211L9.5 3.88421L11.1245 7.71158L15.2855 8.07158L12.1315 10.8L13.0815 14.8547L9.5 12.6947Z" fill="#A8A8A8"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="talentBox">
+							<div class="picture">
+								<svg xmlns="http://www.w3.org/2000/svg" width="27" height="35" viewBox="0 0 27 35" fill="none">
+									<path d="M13.497 16.7143C18.1126 16.7143 21.8542 12.9727 21.8542 8.35714C21.8542 3.74162 18.1126 0 13.497 0C8.88151 0 5.13989 3.74162 5.13989 8.35714C5.13989 12.9727 8.88151 16.7143 13.497 16.7143Z" fill="white"/>
+									<path d="M13.5 17.9995C6.04979 17.9995 0 23.8987 0 31.1634V32.5289C0 33.7306 1.0083 34.7138 2.24066 34.7138H24.7593C25.9917 34.7138 27 33.7306 27 32.5289V31.1634C27 23.8987 20.9502 17.9995 13.5 17.9995Z" fill="white"/>
+								</svg>
+							</div>
+							<div class="info">
+								<div class="flex-row">
+									<p>홍ㅇㅇ<span>(남,만 30세)</span></p>
+									<p class="exper">경력 2년 8개월</p>
+								</div>
+								<h2>근무했던 회사명<span>근무</span></h2>
+								<div class="stxt">마케팅팀 주임</div>
+							</div>
+						</div>
+						<div class="TagBox">
+							<div class="talentTag">
+								<p>담당직무</p>
+								<p>거래처관리</p>
+								<p>MD</p>
+							</div>
+							<button type="button" class="Inter">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+									<path d="M19 6.85895L12.1695 6.27158L9.5 0L6.8305 6.28105L0 6.85895L5.187 11.34L3.629 18L9.5 14.4663L15.371 18L13.8225 11.34L19 6.85895ZM9.5 12.6947L5.928 14.8453L6.878 10.7905L3.724 8.06211L7.885 7.70211L9.5 3.88421L11.1245 7.71158L15.2855 8.07158L12.1315 10.8L13.0815 14.8547L9.5 12.6947Z" fill="#A8A8A8"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="talentBox">
+							<div class="picture">
+								<svg xmlns="http://www.w3.org/2000/svg" width="27" height="35" viewBox="0 0 27 35" fill="none">
+									<path d="M13.497 16.7143C18.1126 16.7143 21.8542 12.9727 21.8542 8.35714C21.8542 3.74162 18.1126 0 13.497 0C8.88151 0 5.13989 3.74162 5.13989 8.35714C5.13989 12.9727 8.88151 16.7143 13.497 16.7143Z" fill="white"/>
+									<path d="M13.5 17.9995C6.04979 17.9995 0 23.8987 0 31.1634V32.5289C0 33.7306 1.0083 34.7138 2.24066 34.7138H24.7593C25.9917 34.7138 27 33.7306 27 32.5289V31.1634C27 23.8987 20.9502 17.9995 13.5 17.9995Z" fill="white"/>
+								</svg>
+							</div>
+							<div class="info">
+								<div class="flex-row">
+									<p>홍ㅇㅇ<span>(남,만 30세)</span></p>
+									<p class="exper">경력 2년 8개월</p>
+								</div>
+								<h2>근무했던 회사명<span>근무</span></h2>
+								<div class="stxt">마케팅팀 주임</div>
+							</div>
+						</div>
+						<div class="TagBox">
+							<div class="talentTag">
+								<p>담당직무</p>
+								<p>거래처관리</p>
+								<p>MD</p>
+							</div>
+							<button type="button" class="Inter">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18" fill="none">
+									<path d="M19 6.85895L12.1695 6.27158L9.5 0L6.8305 6.28105L0 6.85895L5.187 11.34L3.629 18L9.5 14.4663L15.371 18L13.8225 11.34L19 6.85895ZM9.5 12.6947L5.928 14.8453L6.878 10.7905L3.724 8.06211L7.885 7.70211L9.5 3.88421L11.1245 7.71158L15.2855 8.07158L12.1315 10.8L13.0815 14.8547L9.5 12.6947Z" fill="#A8A8A8"/>
+								</svg>
+							</button>
+						</div>
+					</div>
+					<!-- loop end -->
+				</div>
+				<!-- TOP 인재 end -->
+
+				<!-- 인재정보 -->
+				<div class="head_txt">인재정보</div>
+				<div class="talentSort">
+					<button type="button" class="sortBtn active">추천순</button>
+					<button type="button" class="sortBtn">업데이트일순</button>
+				</div>
+
+				<ul class="talentList">
+					<!-- loop -->
+					<li>
+						<div class="uinfo"><p>홍ㅇㅇ<span>(남,만 30세)</span></p><p class="exper">경력 2년 8개월</p></div>
+						<div class="uinfoBox">
+							<div class="infodata">
+								<p>근무했던 회사명<span>근무</span></p>
+								<p><span>서울대학교 졸업</span></p>
+								<p class="area">
+									<svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" viewBox="0 0 11 14" fill="none">
+										<path d="M5.5 0C2.45929 0 0 2.39129 0 5.34792C0 9.35887 5.5 13.582 5.5 13.582C5.5 13.582 11 9.35887 11 5.34792C11 2.39129 8.54071 0 5.5 0ZM1.57143 5.34792C1.57143 3.23931 3.33143 1.52798 5.5 1.52798C7.66857 1.52798 9.42857 3.23931 9.42857 5.34792C9.42857 7.54821 7.16571 9.40471 5.5 11.4598C3.86571 9.41999 1.57143 7.52529 1.57143 5.34792Z" fill="#A8A8A8"/>
+										<path d="M5.49944 7.25989C6.58429 7.25989 7.46373 6.40476 7.46373 5.34991C7.46373 4.29507 6.58429 3.43994 5.49944 3.43994C4.4146 3.43994 3.53516 4.29507 3.53516 5.34991C3.53516 6.40476 4.4146 7.25989 5.49944 7.25989Z" fill="#A8A8A8"/>
+									</svg> 서울</p>
+								<div class="TagBox">
+									<div class="talentTag">
+										<p>담당직무</p>
+										<p>거래처관리</p>
+										<p>MD</p>
+									</div>
+								</div>
+							</div>
+							<div class="uinfobtnBox">
+								<button type="button" class="save">후보자 저장</button>
+								<button type="button" class="proposal">포지션 제안하기</button>
+							</div>
+						</div>
+					</li>
+
+					<li>
+						<div class="uinfo"><p>홍ㅇㅇ<span>(남,만 30세)</span></p><p class="exper">경력 2년 8개월</p></div>
+						<div class="uinfoBox">
+							<div class="infodata">
+								<p>근무했던 회사명<span>근무</span></p>
+								<p><span>서울대학교 졸업</span></p>
+								<p class="area">
+									<svg xmlns="http://www.w3.org/2000/svg" width="11" height="14" viewBox="0 0 11 14" fill="none">
+										<path d="M5.5 0C2.45929 0 0 2.39129 0 5.34792C0 9.35887 5.5 13.582 5.5 13.582C5.5 13.582 11 9.35887 11 5.34792C11 2.39129 8.54071 0 5.5 0ZM1.57143 5.34792C1.57143 3.23931 3.33143 1.52798 5.5 1.52798C7.66857 1.52798 9.42857 3.23931 9.42857 5.34792C9.42857 7.54821 7.16571 9.40471 5.5 11.4598C3.86571 9.41999 1.57143 7.52529 1.57143 5.34792Z" fill="#A8A8A8"/>
+										<path d="M5.49944 7.25989C6.58429 7.25989 7.46373 6.40476 7.46373 5.34991C7.46373 4.29507 6.58429 3.43994 5.49944 3.43994C4.4146 3.43994 3.53516 4.29507 3.53516 5.34991C3.53516 6.40476 4.4146 7.25989 5.49944 7.25989Z" fill="#A8A8A8"/>
+									</svg> 서울</p>
+								<div class="TagBox">
+									<div class="talentTag">
+										<p>담당직무</p>
+										<p>거래처관리</p>
+										<p>MD</p>
+									</div>
+								</div>
+							</div>
+							<div class="uinfobtnBox">
+								<button type="button" class="save">후보자 저장</button>
+								<button type="button" class="proposal">포지션 제안하기</button>
+							</div>
+						</div>
+					</li>
+					<!-- loop end -->
+				</ul>
+				<!-- 인재정보 end-->
+
+
+				<!-- page -->
+				<div class="page_num">
+					<a href="#"><i class="fa-solid fa-angle-left"></i></a>
+					<a href="#" class="active">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+					<a href="#"><i class="fa-solid fa-angle-right"></i></a>
+				</div>
+				<!-- page end -->
+
+			</div>
+			<!-- container end-->
+
+        </div>
+    </div>
+
+
+	<!-- footer -->
+	<footer>
+		<div class="footer_wrap">
+			<div class="footer_link">
+				<ul>
+					<li>이용약관</li>
+					<li>개인정보처리방침</li>
+				</ul>
+			</div>
+	
+			<div class="footer_con">
+				<div class="container">
+
+					<div class="footer_box">
+						<div class="footer_info">
+							<ul>
+								<li>고객센터 : 0000-0000</li>
+								<li>FAX : 00-0000-0000</li>
+								<li>E-mail : abcd@gmail.com</li>
+							</ul>
+							<ul>
+								<li>서울시 서초구 서초대로 301</li>
+								<li>대표 : 홍길동</li>
+								<li>사업자등록번호 : 000-00-00000</li>
+							</ul>
+							<ul>
+								<li>Copyright ©아이비리거. All rights reserved.</li>
+							</ul>
+						</div>
+						<div class="urjob"><img src="/img/f_logo.png"></div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer end -->
+
+<script src="/js/jquery.modal.js"></script>
+<script src="/js/modal.js"></script>
+<script>
+$(document).ready(function () {
+	$('select').niceSelect();
+
+	/* 후보자 저장 모달창열기 */
+	$('.uinfobtnBox').on("click", ".save", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'talentscrap_modal.html',
+			largeModal: "small-modal", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/* 포지션 제안하기 모달창열기 */
+	$('.uinfobtnBox').on("click", ".proposal", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'position_modal.html',
+			largeModal: "large-min", 
+			close: function(result) {
+			}
+		});
+	});
+
+});
+</script>
+</body>
+</html>

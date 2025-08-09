@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유료옵션 변경</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+    <main class="main">
+        <!-- lnb -->
+        <aside class="lnb">
+                
+            <!-- 로고 -->
+            <div class="lnb__logo">
+                <a href="/" class="lnb__logo--link">
+                    <img src="assets/images/logo.png">
+                </a>
+            </div>
+            <!-- //로고 -->
+
+            <!-- 메뉴1 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Jobs.html" class="btn">채용정보</a>
+                </li>
+                <li>
+                    <a href="./이력서정보.html isActive" class="btn">이력서정보</a>
+                </li>
+                <li>
+                    <a href="Application.html" class="btn">입사지원</a>
+                </li>
+                <li>
+                    <a href="JobOffers.html" class="btn">포지션제안</a>
+                </li>
+                <li>
+                    <a href="CompanyProfile.html" class="btn">기업정보</a>
+                </li>
+                <li>
+                    <a href="CommunityPost.html" class="btn">커뮤니티</a>
+                </li>
+                <li>
+                    <a href="Payments.html" class="btn">결제관리</a>
+                </li>
+                <li>
+                    <a href="Products.html" class="btn">상품관리</a>
+                </li>
+                <li>
+                    <a href="Banner.html" class="btn">배너관리</a>
+                </li>
+                <li>
+                    <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+                </li>
+                <li>
+                    <a href="DataManagement.html" class="btn">데이터관리</a>
+                </li>
+            </ul>
+            <!-- //메뉴1 -->
+
+            <!-- 메뉴2 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Statistics.html" class="btn">통계</a>
+                </li>
+                <li>
+                    <a href="UserManagement.html" class="btn">회원관리</a>
+                </li>
+                <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+                <li>
+                    <a href="Settings.html" class="btn">환경설정</a>
+                </li>
+            </ul>
+            <!-- //메뉴2 -->
+        </aside>
+        <!-- //lnb -->
+
+        <!-- contents -->
+        <div class="contents">
+            
+            <!-- 상단 네비 영역 -->
+            <div class="navigation">
+                <div class="container">
+                    <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+                </div>
+            </div>
+            <!-- //상단 네비 영역 -->
+
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+                <div class="container">
+                    <h2 class="title--h2">유료옵션 변경</h2>
+                </div>
+            </div>
+            <!-- //페이지 타이틀 -->
+
+            <!-- 컨텐츠 영역 -->
+            <div class="content">
+                <div class="container">
+
+                    <article class="article-area nosearch-area">
+
+                        <ul class="list option">
+                            <li class="items">
+                                <span class="title">상품 1</span>
+                                <div class="form-radio">
+                                    <div class="control">
+                                        <input type="radio" disabled="disabled" checked="checked">
+                                        <span class="text">기간</span>
+                                    </div>
+                                    <div class="control">
+                                        <input type="radio" disabled="disabled">
+                                        <span class="text">클릭</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control has-text">
+                                    <input type="text">
+                                    <span class="after--text">남음</span>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">상품 2</span>
+                                <div class="form-radio">
+                                    <div class="control">
+                                        <input type="radio" disabled="disabled" checked="checked">
+                                        <span class="text">기간</span>
+                                    </div>
+                                    <div class="control">
+                                        <input type="radio" disabled="disabled">
+                                        <span class="text">클릭</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control has-text">
+                                    <input type="text">
+                                    <span class="after--text">남음</span>
+                                </div>
+                            </li>
+                            <li class="items">
+                                <span class="title">상품 3</span>
+                                <div class="form-radio">
+                                    <div class="control">
+                                        <input type="radio" disabled="disabled" checked="checked">
+                                        <span class="text">기간</span>
+                                    </div>
+                                    <div class="control">
+                                        <input type="radio" disabled="disabled">
+                                        <span class="text">클릭</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="control has-text">
+                                    <input type="text">
+                                    <span class="after--text">남음</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="btn-area">
+                            <button type="button" class="btn btn-success">저장</button>
+                            <a href="#!" class="btn btn-primary">목록으로</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <!-- //컨텐츠 영역 -->
+        </div>
+        <!-- //contents -->
+    </div>
+            
+    </main>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // API 기본 URL
+        const API_BASE_URL = window.__CONFIG__ ? window.__CONFIG__.API_BASE_URL : 'http://localhost:8082/api/v1';
+
+        // URL에서 공고 ID 가져오기
+        const urlParams = new URLSearchParams(window.location.search);
+        const jobId = urlParams.get('id');
+
+        if (!jobId) {
+            alert('채용공고 ID가 필요합니다.');
+            location.href = 'Jobs.html';
+            return;
+        }
+
+        // DOM 요소들
+        const productItems = document.querySelectorAll('.list.option .items');
+        const saveBtn = document.querySelector('.btn.btn-success');
+        const listBtn = document.querySelector('.btn.btn-primary');
+
+        // 로딩 인디케이터
+        let loadingOverlay;
+
+        // 로딩 오버레이 생성
+        function createLoadingOverlay() {
+            loadingOverlay = document.createElement('div');
+            loadingOverlay.className = 'loading-overlay';
+            loadingOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        `;
+
+            const spinner = document.createElement('div');
+            spinner.className = 'loading-spinner';
+            spinner.style.cssText = `
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        `;
+
+            const style = document.createElement('style');
+            style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+            document.head.appendChild(style);
+
+            loadingOverlay.appendChild(spinner);
+            document.body.appendChild(loadingOverlay);
+        }
+
+        // 로딩 표시/숨김 함수
+        function showLoading() {
+            if (!loadingOverlay) createLoadingOverlay();
+            loadingOverlay.style.display = 'flex';
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        function hideLoading() {
+            if (loadingOverlay) loadingOverlay.style.display = 'none';
+        }
+
+        // 프리미엄 옵션 데이터 로드
+        async function loadPremiumOptions() {
+            showLoading();
+
+            try {
+                // 채용공고의 활성 프리미엄 옵션 조회
+                const response = await fetch(`${API_BASE_URL}/admin/job-payment/job/${jobId}/active-payment`);
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                const data = await response.json();
+
+                // 프리미엄 옵션이 있는 경우
+                if (data.hasActivePayment && data.payment) {
+                    const payment = data.payment;
+
+                    // 첫 번째 상품 정보 채우기
+                    const item = productItems[0];
+                    const title = item.querySelector('.title');
+                    const periodRadio = item.querySelector('.form-radio input:nth-of-type(1)');
+                    const clickRadio = item.querySelector('.form-radio input:nth-of-type(2)');
+                    const remainingText = item.querySelector('.control.has-text input');
+
+                    // 상품명 설정
+                    title.textContent = payment.productName || '상품 1';
+
+                    // 노출 형식 설정
+                    if (payment.maxExposureCount > 0) {
+                        // 건별 상품
+                        clickRadio.checked = true;
+                        const remaining = payment.maxExposureCount - payment.exposureCount;
+                        remainingText.value = remaining;
+                    } else {
+                        // 기간별 상품
+                        periodRadio.checked = true;
+
+                        // 남은 일수 계산
+                        const endDate = new Date(payment.endDate);
+                        const today = new Date();
+                        const diffTime = endDate - today;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                        remainingText.value = diffDays > 0 ? diffDays : 0;
+                    }
+                } else {
+                    // 프리미엄 옵션이 없는 경우 기본값 설정
+                    resetPremiumOptions();
+                }
+            } catch (error) {
+                console.error('데이터 로드 중 오류:', error);
+                alert('프리미엄 옵션 정보를 불러오는 중 오류가 발생했습니다.');
+                resetPremiumOptions();
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 프리미엄 옵션 초기화
+        function resetPremiumOptions() {
+            productItems.forEach((item, index) => {
+                const title = item.querySelector('.title');
+                const periodRadio = item.querySelector('.form-radio input:nth-of-type(1)');
+                const remainingText = item.querySelector('.control.has-text input');
+
+                title.textContent = `상품 ${index + 1}`;
+                periodRadio.checked = true;
+                remainingText.value = '0';
+            });
+        }
+
+        // 프리미엄 옵션 저장
+        async function savePremiumOptions() {
+            // 첫 번째 상품의 값만 가져옴 (현재 UI 구조상)
+            const item = productItems[0];
+            const productName = item.querySelector('.title').textContent;
+            const isClickType = item.querySelector('.form-radio input:nth-of-type(2)').checked;
+            const valueText = item.querySelector('.control.has-text input').value;
+            const value = parseInt(valueText, 10);
+
+            if (isNaN(value) || value < 0) {
+                alert('남은 기간/클릭 수는 0 이상의 숫자여야 합니다.');
+                return;
+            }
+
+            showLoading();
+
+            try {
+                // 기존 프리미엄 옵션이 있는지 확인
+                const checkResponse = await fetch(`${API_BASE_URL}/admin/job-payment/job/${jobId}/active-payment`);
+                const checkData = await checkResponse.json();
+
+                // 요청 데이터 구성
+                const requestData = {
+                    productType: getProductTypeFromName(productName), // 상품명에서 유형 추출
+                    exposureType: isClickType ? '건별' : '기간별',
+                    periodOrCount: value,
+                    paymentMethod: 'bank', // 기본값: 무통장입금
+                    phoneNumber: null
+                };
+
+                let response;
+
+                if (checkData.hasActivePayment) {
+                    // 기존 옵션 교체
+                    response = await fetch(`${API_BASE_URL}/admin/job-payment/job/${jobId}/replace-payment`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+                } else {
+                    // 새 옵션 생성
+                    response = await fetch(`${API_BASE_URL}/admin/job-payment/job/${jobId}/create-payment`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(requestData)
+                    });
+                }
+
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                alert('프리미엄 옵션이 저장되었습니다.');
+                loadPremiumOptions(); // 데이터 새로고침
+
+            } catch (error) {
+                console.error('저장 중 오류:', error);
+                alert('프리미엄 옵션 저장 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 상품명에서 유형 추출 함수
+        function getProductTypeFromName(name) {
+            if (!name) return 'SPECIAL'; // 기본값
+
+            name = name.toUpperCase();
+            if (name.includes('VVIP')) return 'VVIP';
+            if (name.includes('VIP')) return 'VIP';
+            return 'SPECIAL';
+        }
+
+        // 이벤트 리스너 등록
+        function initEventListeners() {
+            // 저장 버튼 클릭 이벤트
+            saveBtn.addEventListener('click', savePremiumOptions);
+
+            // 목록으로 버튼 클릭 이벤트
+            listBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'Jobs.html';
+            });
+        }
+
+        // 초기화
+        function init() {
+            initEventListeners();
+            loadPremiumOptions();
+        }
+
+        // 초기화 실행
+        init();
+    });
+</script>
+</body>
+</html>

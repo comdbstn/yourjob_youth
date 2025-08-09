@@ -1,0 +1,66 @@
+.accept-delete-item-modal {
+  padding: 45px 0px;
+  text-align: center;
+}
+
+.accept-delete-item-modal p {
+  margin-bottom: 30px;
+  line-height: 1.5;
+  color: #333;
+  font-size: 16px;
+  font-size: 20px;
+}
+
+.accept-delete-item-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.accept-delete-item-modal-buttons button {
+  cursor: pointer;
+  color: #fff;
+  text-align: center;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent !important;
+  padding: 0.375rem 0.75rem;
+  border-radius: 20px;
+  font-size: var(--font-size-xl);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.accept-delete-item-modal-buttons .cancel-button {
+  display: flex;
+  width: 150px;
+  height: 50px;
+  padding: 18px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background-color: var(--white) !important;
+  border-color: var(--text-silver) !important;
+  color: var(--text-silver);
+}
+
+.accept-delete-item-modal-buttons .confirm-button {
+  display: flex;
+  width: 150px;
+  height: 50px;
+  padding: 18px 0px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  background-color: var(--bgcol04) !important;
+  border-color: var(--bgcol04) !important;
+  color: var(--white);
+}

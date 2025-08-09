@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+	
+    <link rel="stylesheet" type="text/css" href="/css/corpmypage.css" />
+	<link rel="stylesheet" type="text/css" href="/css/jquery.modal.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/nice-select.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.nice-select.js"></script>
+	<script type="text/javascript" src="/js/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<header>
+		<nav>
+			<div class="nav-container">
+				<div class="container  flex-row items-center">
+					<div class="logo">
+						<a href="/" class="title"><img src="/img/logo.png"></a>
+						<div class="logo_txt">유학생 채용 플랫폼</div>
+					</div>
+					<div class="top_search">
+						<div class="search_box"><input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="유학생 채용정보를 검색해 보세요."></div>
+						<div class="top_search_btn"><img class="union" src="/img/union.svg" alt="Union" /></div>
+					</div>
+				</div>
+			</div>
+			<div class="menu-container">
+				<div class="container flex-row items-center item_between">
+					<ul class="menunavi">
+						<li><a href="/corpmem/mypage.html" class="notosanscjkkr-bold-mine-shaft-18px">홈</a></li>
+						<li><a href="/corpmem/jobpost.html" class="notosanscjkkr-bold-mine-shaft-18px active">공고등록</a></li>
+						<li><a href="/corpmem/applicant.html" class="notosanscjkkr-bold-mine-shaft-18px">공고·지원자관리</a></li>
+						<li><a href="/corpmem/search.html" class="notosanscjkkr-bold-mine-shaft-18px">인재검색</a></li>
+						<li><a href="/corpmem/talent.html" class="notosanscjkkr-bold-mine-shaft-18px">인재관리</a></li>
+					</ul>
+					<ul class="userNav">
+						<!-- 로그인후 노출 -->
+						<li><a href="/corpmem/paid_history.html" class="text-12">유료 이용내역</a></li>
+						<li><a href="/corpmem/mypage.html" class="text-12"><i class="fa-regular fa-user"></i></a></li>
+						<li><a href="#" class="logOut">로그아웃</a></li>
+						<!-- 로그인후 노출 end -->
+
+						<!-- 로그인전 노출
+						<li><a href="/member/join.html" class="text-12">회원가입</a></li>
+						로그인전 노출 end -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- header end -->
+
+    <div class="container-center-horizontal">
+        <div class="crop-wrap screen">
+
+
+			<!-- container -->
+			<div class="container">				
+				
+				<!-- jobpost-reg -->
+				<div class="jobpost-reg">
+					<div class="inputfield">
+						<button type="button" class="bring_btn"  id="bring_btn">+ 이전공고 불러오기</button>
+						<ul class="prev_Layer">
+							<li>[(주)유어잡]문구, 캐릭터 디자인 정규직 채용(경력&신입)</li>
+							<li class="active">[(주)유어잡]패키지 디자이너 채용</li>
+							<li>[(주)유어잡]기획 경력직 채용</li>
+							<li>[(주)유어잡]개발자 상시채용</li>
+						</ul>
+					</div>
+					<h2>채용 제목을 입력해 주세요.</h2>
+					<div class="inputfield">
+						<input type="text" class="form-control subject" id="subject" name="subject" placeholder="제목을 입력해 주세요.">
+					</div>
+
+					<h2>어떤 포지션을 채용하시나요?</h2>
+					<div class="inputfield mb25">
+						<label class="label" for="">포지션<span>*</span></label>
+						<input type="text" class="form-control" id="position" name="position" placeholder="최대한 직무명을 포함하여 입력하세요.">
+					</div>
+					<div class="inputfield mb25">
+						<label class="label" for="">직무<span>*</span></label>
+						<div class="fieldBox">
+							<div class="viewItem">
+								<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+							</div>
+							<button type="button" class="viewAll"  id="roleview">전체보기</button>
+						</div>
+					</div>
+					<div class="inputfield mb25">
+						<label class="label" for="">스킬</label>
+						<div class="fieldBox">
+							<div class="viewItem">
+								<div class="items noitem">직무와 관련있는 스킬을 선택해 주세요.</div>
+							</div>
+							<button type="button" class="viewAll"  id="skillview">전체보기</button>
+						</div>
+					</div>
+					<div class="inputfield mb25">
+						<label class="label" for="">핵심역량</label>
+						<div class="fieldBox">
+							<div class="viewItem">
+								<div class="items noitem">인재를 채용할 때 중요하게 생각하는 역량을 선택해 주세요(3~12개 선택)</div>
+							</div>
+							<button type="button" class="viewAll"  id="capview">전체보기</button>
+						</div>
+					</div>
+					<div class="inputfield mb25">
+						<label class="label" for="">경력<span>*</span></label>
+						<div class="fieldBox">
+							<div class="viewItem ml1">
+								<div class="items"><input type="radio" id="career1" name="career" value="1"><label for="career1" class="label">신입</label></div>
+								<div class="items"><input type="radio" id="career2" name="career" value="2"><label for="career2" class="label">경력</label></div>
+								<div class="items"><input type="radio" id="career3" name="career" value="3"><label for="career3" class="label">경력무관</label></div>
+							</div>
+						</div>
+						<!-- opne layer -->
+						<div class="career_Layer">
+							<div class="Layer-container">
+								<div class="box">
+									<div class="txt">경력</div>
+									<input type="number" class="form-control" placeholder="숫자."><span>년 이상</span>
+								</div>
+								<div class="box ml3">
+									<input type="checkbox" id="year_matter" name="year_matter" value="1"><label for="year_matter">경력년수 무관</label>
+								</div>
+							</div>
+						</div>
+						<!-- opne layer end -->
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">고용형태<span>*</span><span class="slabel">최대 3개</span></label>
+						<div class="fieldBox">
+							<div class="viewItem ml1">
+								<div class="items"><input type="radio" id="empl1" name="empl" value="1"><label for="empl1" class="label">정규직</label></div>
+								<div class="items"><input type="radio" id="empl2" name="empl" value="2"><label for="empl2" class="label">계약직</label></div>
+								<div class="items"><input type="radio" id="empl3" name="empl" value="3"><label for="empl3" class="label">인턴</label></div>
+								<div class="items"><input type="radio" id="empl4" name="empl" value="4"><label for="empl4" class="label">파견직</label></div>
+								<div class="items"><input type="radio" id="empl5" name="empl" value="5"><label for="empl5" class="label">도급</label></div>
+								<div class="items"><input type="radio" id="empl6" name="empl" value="6"><label for="empl6" class="label">프리랜서</label></div>
+								<div class="items"><input type="radio" id="empl7" name="empl" value="7"><label for="empl7" class="label">아르바이트</label></div>
+								<div class="items"><input type="radio" id="empl8" name="empl" value="8"><label for="empl8" class="label">연수생/교육생</label></div>
+								<div class="items"><input type="radio" id="empl9" name="empl" value="9"><label for="empl9" class="label">병역특례</label></div>
+								<div class="items"><input type="radio" id="empl10" name="empl" value="10"><label for="empl10" class="label">위촉직/개인사업자</label></div>
+							</div>
+						</div>
+						<!-- opne 정규직 layer -->
+						<div class="permanent_Layer ">
+							<div class="Layer-container">
+								<div class="box">
+									<div class="txt">정규직 수습기간</div>
+									<select id="prod" name="prod">
+										<option value="">1개월</option>
+										<option value="">2개월</option>
+										<option value="">3개월</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- opne 정규직 layer end -->
+
+						<!-- opne 계약직 layer -->
+						<div class="temporary_Layer ">
+							<div class="Layer-container">
+								<div class="box">
+									<div class="txt">정규직 수습기간</div>
+									<select id="prod1" name="prod1">
+										<option value="">1개월</option>
+										<option value="">2개월</option>
+										<option value="">3개월</option>
+									</select>
+								</div>
+								<div class="box ml3">
+									<input type="checkbox" id="temp_conver" name="temp_conver" value="1"><label for="temp_conver">정규직 전환가능</label>
+								</div>
+							</div>
+						</div>
+						<!-- opne 계약직 layer end -->
+
+						<!-- opne 위촉직/개인사업자 layer -->
+						<div class="contractual_Layer ">
+							<div class="Layer-container">
+								<div class="box">
+									<div class="txt">근무기간</div>
+									<select id="prod2" name="prod2">
+										<option value="">1개월</option>
+										<option value="">2개월</option>
+										<option value="">3개월</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<!-- opne 위촉직/개인사업자 layer end -->
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">모집인원</label>
+						<div class="recruitNum">
+							<div class="direct">
+								<input type="radio" id="direct" name="direct" value="1"><label for="direct" class="label">직접입력</label>
+								<input type="number" class="form-control" placeholder="숫자."><span>명</span>
+							</div>
+							<div class="direct">
+								<input type="radio" id="num1" name="nums" value="1"><label for="num1" class="label">0명</label>
+							</div>
+							<div class="direct">
+								<input type="radio" id="num2" name="nums" value="1"><label for="num2" class="label">0명</label>
+							</div>
+							<div class="direct">
+								<input type="radio" id="num3" name="nums" value="1"><label for="num3" class="label">0명</label>
+							</div>							
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">직급/직책</label>
+						<div class="fieldBox">
+							<div class="viewItem">
+								<div class="items noitem">직급/직책 선택해 주세요</div>
+							</div>
+							<button type="button" class="viewAll"  id="jobrankview">전체보기</button>
+						</div>
+					</div>
+
+
+
+					<h2>지원자격은 어떤 것들이 있나요?</h2>
+					<div class="inputfield mb25">
+						<label class="label" for="">학력<span>*</span></label>
+						<div class="field_row gap01">
+							<select id="eligibility" name="eligibility" class="w02">
+								<option value="">학력무관</option>
+								<option value="">고등학교졸업</option>
+								<option value="">대학졸업(2,3년)</option>
+								<option value="">대학교졸업(4년)</option>
+								<option value="">대학원 석사졸업</option>
+								<option value="">대학원 박사졸업</option>
+							</select>
+							<input type="checkbox" id="grad_chk" name="grad_chk" value="1"><label for="grad_chk" class="label">졸업예정자 가능</label>
+						</div>
+					</div>
+
+					<div class="inputfield mb10" id="choice_item">
+						<label class="label" for="">선택항목</label>
+						<div class="field_row gap01">
+							<div class="SelectBox w04">
+								<div class="military">
+									<div class="scheck-primary">
+										<input type="checkbox" id="chkitem1" name="chkitem1" value="1">
+										<label for="chkitem1">우대조건</label>
+									</div>
+								</div>
+							</div>
+							<div class="SelectBox w04">
+								<div class="military">
+									<div class="scheck-primary">
+										<input type="checkbox" id="chkitem2" name="chkitem2" value="2">
+										<label for="chkitem2">외국어</label>
+									</div>
+								</div>
+							</div>
+							<div class="SelectBox w04">
+								<div class="military">
+									<div class="scheck-primary">
+										<input type="checkbox" id="chkitem3" name="chkitem3" value="3">
+										<label for="chkitem3">자격증</label>
+									</div>
+								</div>
+							</div>
+							<div class="SelectBox w04">
+								<div class="military">
+									<div class="scheck-primary">
+										<input type="checkbox" id="chkitem4" name="chkitem4" value="4">
+										<label for="chkitem4">우대전공</label>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="inputfield_none" id="choice1">
+						<div class="inputfield mb10">
+							<label class="label addlabel" for="">우대조건</label>
+							<div class="fieldBox">
+								<div class="viewItem">
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								</div>
+								<button type="button" class="viewAll"  id="prefeview">전체보기</button>
+							</div>
+						</div>
+					</div>
+					<div class="inputfield_none" id="choice2">
+						<div class="inputfield mb10">
+							<label class="label addlabel" for="">외국어(0/3)</label>
+							<div class="fieldBox">
+								<div class="viewItem">
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								</div>
+								<button type="button" class="viewAll"  id="prefeview">전체보기</button>
+							</div>
+						</div>
+					</div>
+					<div class="inputfield_none"  id="choice3">
+						<div class="inputfield mb10">
+							<label class="label addlabel" for="">자격증(0/3)</label>
+							<div class="fieldBox">
+								<div class="viewItem">
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								</div>
+								<button type="button" class="viewAll"  id="prefeview">전체보기</button>
+							</div>
+						</div>
+					</div>
+					<div class="inputfield_none"  id="choice4">
+						<div class="inputfield mb10">
+							<label class="label addlabel" for="">우대전공(0/3)</label>
+							<div class="fieldBox">
+								<div class="viewItem">
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+									<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								</div>
+								<button type="button" class="viewAll"  id="prefeview">전체보기</button>
+							</div>
+						</div>
+					</div>
+
+
+					<h2>근무조건을 입력해 주세요.</h2>
+					<div class="inputfield mb25">
+						<label class="label" for="">급여<span>*</span></label>
+						<div class="field_row gap01">
+							<select id="eligibility" name="eligibility" class="w02">
+								<option value="">연봉</option>
+								<option value="">월급</option>
+								<option value="">주급</option>
+								<option value="">일급</option>
+								<option value="">시급</option>
+								<option value="">건별</option>
+								<option value="">회사내규에 따름</option>
+							</select>
+							<input type="text" class="form-control w03" id="position" name="position" placeholder="최소급여">
+							~
+							<input type="text" class="form-control w03" id="position" name="position" placeholder="최대급여">
+							<input type="checkbox" id="interview" name="interview" value="1">
+							<label for="interview" class="label">면접 후 결정</label>
+						</div>
+					</div>
+					<div class="inputfield mb25">
+						<label class="label" for=""></label>
+						<div class="field_row gap01 Salary">
+							<input type="checkbox" id="salary_chk" name="salary_chk" value="1">
+							<label for="salary_chk" class="label">당사는 본 채용 건과 관련하여 ‘최저임금법’을 준수하며, 최저임금 미만의 공고는 강제 마감될 수 있음을 동의합니다.<br>(최저임금법 위반 시 3년 이하의 징역 또는 2천만원 이하의 벌금에 처함)</label>
+						</div>
+					</div>
+
+					<div class="inputfield mb15">
+						<label class="label" for="">근무지 주소<span>*</span></label>
+						<div class="field_row gap01">
+								<div class="workAdd">
+									<div class="direct">
+										<input type="radio" id="workadd1" name="workadd" value="1"><label for="workadd1" class="label">국내</label>
+									</div>
+									<div class="direct">
+										<input type="radio" id="workadd2" name="workadd" value="1"><label for="workadd2" class="label">해외</label>
+									</div>
+									<div class="direct">
+										<input type="checkbox" id="remote-work" name="remote-work" value="1">
+										<label for="remote-work" class="label">재택근무 가능</label>
+									</div>
+								</div>
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for=""></label>
+						<div class="fieldBox">
+							<div class="viewItem">
+								<div class="items noitem">주소를 검색해 주세요</div>
+							</div>
+							<button type="button" class="viewAll" id="addsearch">찾기</button>
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">근무지역<span>*</span></label>
+						<div class="fieldBox">
+							<div class="viewItem">
+								<div class="items noitem">선택해주세요.</div>
+							</div>
+							<button type="button" class="viewAll" id="worklocation">전체보기</button>
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">근무요일</label>
+						<div class="field_row gap01">
+							<select id="workday" name="workday" class="w02">
+								<option value="">주5일</option>
+								<option value="">주6일</option>
+								<option value="">격주휴무</option>
+								<option value="">격일근무</option>
+								<option value="">협의가능</option>
+								<option value="">직접입력</option>
+							</select>
+							<input type="checkbox" id="grad_chk" name="grad_chk" value="1"><label for="grad_chk" class="label">상세요일 선택</label>
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">근무시간</label>
+						<div class="field_row gap01 worktimes">
+							<select id="sworkhour" name="sworkhour" class="w04">
+								<option value="">00</option>
+								<option value="">01</option>
+								<option value="">02</option>
+								<option value="">03</option>
+								<option value="">04</option>
+								<option value="">05</option>
+								<option value="">06</option>
+								<option value="">07</option>
+								<option value="">08</option>
+							</select>
+							<select id="sworkminute" name="sworkminute" class="w04">
+								<option value="">00</option>
+								<option value="">10</option>
+								<option value="">20</option>
+								<option value="">30</option>
+								<option value="">40</option>
+								<option value="">50</option>
+								<option value="">60</option>
+							</select>
+							~
+							<select id="eworkhour" name="eworkhour" class="w04">
+								<option value="">00</option>
+								<option value="">01</option>
+								<option value="">02</option>
+								<option value="">03</option>
+								<option value="">04</option>
+								<option value="">05</option>
+								<option value="">06</option>
+								<option value="">07</option>
+								<option value="">08</option>
+							</select>
+							<select id="eworkminute" name="eworkminute" class="w04">
+								<option value="">00</option>
+								<option value="">10</option>
+								<option value="">20</option>
+								<option value="">30</option>
+								<option value="">40</option>
+								<option value="">50</option>
+								<option value="">60</option>
+							</select>
+							<button type="button" class="minus">
+								<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+									<rect x="0.5" y="0.5" width="59" height="59" rx="19.5" fill="#F5F5F5" stroke="#CBCBCB"/>
+									<rect x="20" y="30" width="21" height="1" fill="#8F8F8F"/>
+								</svg>
+							</button>
+							<button type="button" class="plusBtn">
+								<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+									<rect x="0.5" y="0.5" width="59" height="59" rx="19.5" fill="#F5F5F5" stroke="#CBCBCB"/>
+									<rect x="20" y="30" width="21" height="1" fill="#8F8F8F"/>
+									<rect x="31" y="19" width="21" height="1" transform="rotate(90 31 19)" fill="#8F8F8F"/>
+								</svg>
+							</button>
+							<input type="checkbox" id="flexiblestat" name="flexiblestat" value="1"><label for="flexiblestat" class="label">탄력근무제 가능</label>
+						</div>
+					</div>
+		
+
+					<h2>접수기간과 방법을 선택해 주세요.</h2>
+					<div class="inputfield mb25">
+						<label class="label" for="">접수기간<span>*</span></label>
+						<div class="field_row gap01 worktimes">
+							<div class="dateBox w05">
+								<i class="fa-regular fa-calendar-days"></i>
+								<input type="text" class="form-control" id="receptsdate" name="receptsdate" placeholder="2024.10.10(월)">
+							</div>
+							<select id="receptshour" name="receptshour" class="w04">
+								<option value="">00</option>
+								<option value="">01</option>
+								<option value="">02</option>
+								<option value="">03</option>
+								<option value="">04</option>
+								<option value="">05</option>
+								<option value="">06</option>
+								<option value="">07</option>
+								<option value="">08</option>
+							</select>
+							~
+							<div class="dateBox w05">
+								<i class="fa-regular fa-calendar-days"></i>
+								<input type="text" class="form-control" id="receptedate" name="receptedate" placeholder="2024.10.10(월)">
+							</div>
+							<select id="receptehour" name="receptehour" class="w04">
+								<option value="">00</option>
+								<option value="">01</option>
+								<option value="">02</option>
+								<option value="">03</option>
+								<option value="">04</option>
+								<option value="">05</option>
+								<option value="">06</option>
+								<option value="">07</option>
+								<option value="">08</option>
+							</select>
+							<select id="receptstat" name="receptstat" class="w02">
+								<option value="">접수기간 후 마감</option>
+								<option value="">채용시 마감</option>
+								<option value="">상시채용</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">접수방법<span>*</span></label>
+						<div class="field_row gap30" id="recepmethod">
+							<input type="checkbox" id="methodstat1" name="methodstat[]" value="1"><label for="methodstat1" class="label">유어잡 지원(즉시지원)</label>
+							<input type="checkbox" id="methodstat2" name="methodstat[]" value="2"><label for="methodstat2" class="label">홈페이지</label>
+							<input type="checkbox" id="methodstat3" name="methodstat[]" value="3"><label for="methodstat3" class="label">우편</label>
+							<input type="checkbox" id="methodstat4" name="methodstat[]" value="4"><label for="methodstat4" class="label">방문</label>
+							<input type="checkbox" id="methodstat5" name="methodstat[]" value="5"><label for="methodstat5" class="label">e-메일</label>
+							<input type="checkbox" id="methodstat6" name="methodstat[]" value="6"><label for="methodstat6" class="label">fax</label>
+						</div>
+					</div>
+					<div class="inputfield_none mb25" id="method">
+						<div class="inputfield">
+							<label class="label addlabel" for="">홈페이지</label>
+							<input type="text" class="form-control" id="homeurl" name="homeurl" placeholder="홈페이지 url">
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">이력서<span>*</span></label>
+						<div class="field_row gap30" id="resumemethod">
+							<input type="checkbox" id="resumemethod1" name="resumestat[]" value="1"><label for="resumemethod1" class="label">유어잡 양식</label>
+							<input type="checkbox" id="resumemethod2" name="resumestat[]" value="2"><label for="resumemethod2" class="label">자사양식</label>
+						</div>
+					</div>
+					<div class="inputfield_none mb25" id="resume1">
+						<!-- 첨부파일이 있으면 item_start class를 추가한다 -->
+						<div class="inputfield item_start">
+							<label class="label addlabel" for="">유어잡 양식</label>
+							<!-- 첨부파일이 있을시 노출 -->
+							<div class="fileBox">
+								<!-- loop -->
+								<div class="fileItem item_between">
+									<div class="items">
+										<div class="fileicon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
+												<path d="M8.75016 0.250977H1.75081C0.788403 0.250977 0.000976562 1.0384 0.000976562 2.00081V15.9995C0.000976562 16.9619 0.788403 17.7494 1.75081 17.7494H12.2498C13.2122 17.7494 13.9997 16.9619 13.9997 15.9995V5.50049L8.75016 0.250977ZM12.2498 15.9995H1.75081V2.00081H8.75016V5.50049H12.2498V15.9995ZM7.00033 13.3748C6.03792 13.3748 5.25049 12.5873 5.25049 11.6249V6.81287C5.25049 6.56789 5.44297 6.37541 5.68795 6.37541C5.93293 6.37541 6.12541 6.56789 6.12541 6.81287V11.6249H7.87525V6.81287C7.87525 5.60548 6.89534 4.62557 5.68795 4.62557C4.48056 4.62557 3.50065 5.60548 3.50065 6.81287V11.6249C3.50065 13.5585 5.06676 15.1246 7.00033 15.1246C8.9339 15.1246 10.5 13.5585 10.5 11.6249V8.12525H8.75016V11.6249C8.75016 12.5873 7.96274 13.3748 7.00033 13.3748Z" fill="#A8A8A8"/>
+											</svg>
+										</div>
+										선택해주세요.
+									</div>
+									<button type="button" class="items">
+										<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+											<rect x="0.5" y="0.5" width="59" height="59" rx="19.5" fill="#F5F5F5" stroke="#CBCBCB"/>
+											<rect x="24.4141" y="23" width="17" height="2" transform="rotate(45 24.4141 23)" fill="#A8A8A8"/>
+											<rect x="36.4355" y="24.4141" width="17" height="2" transform="rotate(135 36.4355 24.4141)" fill="#A8A8A8"/>
+										</svg>
+									</button>
+								</div>
+								<!-- loop end -->
+								<button type="button" class="fileOpenBtn" id="fileOpen">+ 추가</button>
+							</div>
+							<!-- 첨부파일이 없을시 노출
+							<div class="fileOpen" id="fileOpen">+ 파일추가</div>
+							 -->
+						</div>
+					</div>
+					<div class="inputfield_none mb25" id="resume2">
+						<!-- 첨부파일이 있으면 item_start class를 추가한다 -->
+						<div class="inputfield item_start">
+							<label class="label addlabel" for="">자사양식</label>
+							<!-- 첨부파일이 있을시 노출 -->
+							<div class="fileBox">
+								<!-- loop -->
+								<div class="fileItem item_between">
+									<div class="items">
+										<div class="fileicon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18" fill="none">
+												<path d="M8.75016 0.250977H1.75081C0.788403 0.250977 0.000976562 1.0384 0.000976562 2.00081V15.9995C0.000976562 16.9619 0.788403 17.7494 1.75081 17.7494H12.2498C13.2122 17.7494 13.9997 16.9619 13.9997 15.9995V5.50049L8.75016 0.250977ZM12.2498 15.9995H1.75081V2.00081H8.75016V5.50049H12.2498V15.9995ZM7.00033 13.3748C6.03792 13.3748 5.25049 12.5873 5.25049 11.6249V6.81287C5.25049 6.56789 5.44297 6.37541 5.68795 6.37541C5.93293 6.37541 6.12541 6.56789 6.12541 6.81287V11.6249H7.87525V6.81287C7.87525 5.60548 6.89534 4.62557 5.68795 4.62557C4.48056 4.62557 3.50065 5.60548 3.50065 6.81287V11.6249C3.50065 13.5585 5.06676 15.1246 7.00033 15.1246C8.9339 15.1246 10.5 13.5585 10.5 11.6249V8.12525H8.75016V11.6249C8.75016 12.5873 7.96274 13.3748 7.00033 13.3748Z" fill="#A8A8A8"/>
+											</svg>
+										</div>
+										선택해주세요.
+									</div>
+									<button type="button" class="items">
+										<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
+											<rect x="0.5" y="0.5" width="59" height="59" rx="19.5" fill="#F5F5F5" stroke="#CBCBCB"/>
+											<rect x="24.4141" y="23" width="17" height="2" transform="rotate(45 24.4141 23)" fill="#A8A8A8"/>
+											<rect x="36.4355" y="24.4141" width="17" height="2" transform="rotate(135 36.4355 24.4141)" fill="#A8A8A8"/>
+										</svg>
+									</button>
+								</div>
+								<!-- loop end -->
+								<button type="button" class="fileOpenBtn" id="fileOpen">+ 추가</button>
+							</div>
+							<!-- 첨부파일이 없을시 노출
+							<div class="fileOpen" id="fileOpen">+ 파일추가</div>
+							 -->
+						</div>
+					</div>
+
+
+					<h2>우리 기업의 정보가 맞나요?</h2>
+					<div class="inputfield mb25">
+						<label class="label" for="">담당자명<span>*</span></label>
+						
+						<div class="field_row gap01">
+							<input type="text" class="form-control w02" id="person" name="person" placeholder="담당자명 입력">
+							<input type="checkbox" id="disstat" name="disstat" value="1"><label for="disstat" class="label">비공개</label>
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">연락처<span>*</span></label>						
+						<div class="field_row gap01">
+							<input type="text" class="form-control w04" id="htel1" name="htel1" placeholder="010">
+							-
+							<input type="text" class="form-control w04" id="htel2" name="htel2" placeholder="1111">
+							-
+							<input type="text" class="form-control w04" id="htel3" name="htel3" placeholder="2222">
+							<input type="checkbox" id="disstat" name="disstat" value="1"><label for="disstat" class="label">비공개</label>
+						</div>
+					</div>
+
+					<div class="inputfield mb25">
+						<label class="label" for="">업종<span>*</span></label>
+						<div class="fieldBox">
+							<div class="viewItem">
+								<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+								<div class="items">국가유공자<i class="fa-solid fa-xmark" id="itemDel"></i></div>
+							</div>
+							<button type="button" class="viewAll"  id="Industryview">전체보기</button>
+						</div>
+					</div>
+
+					<div class="btnBox mt50">
+						<button type="button" class="apply_btn"  id="apply_ok">입력한 내용으로 적용</button>
+					</div>
+
+					<div class="inputfield mt45">
+						<textarea id="txtContent" name="txtContent" class="form-control" style="width:100%;" cols="100" rows="10"></textarea>
+						<!-- textarea 밑에 script 작성하기 -->
+						<script id="smartEditor" type="text/javascript"> 
+							var oEditors = [];
+							nhn.husky.EZCreator.createInIFrame({
+								oAppRef: oEditors,
+								elPlaceHolder: "txtContent",  //textarea ID 입력
+								sSkinURI: "/js/smarteditor2/SmartEditor2Skin.html",  //martEditor2Skin.html 경로 입력
+								fCreator: "createSEditor2",
+								htParams : { 
+									// 툴바 사용 여부 (true:사용/ false:사용하지 않음) 
+									bUseToolbar : true, 
+									// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음) 
+									bUseVerticalResizer : true, 
+									// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음) 
+									bUseModeChanger : false	,
+									oStyleMap: {
+										fontFamily : false
+									}
+								}
+							});
+						</script>
+					</div>
+
+					<div class="inputfield mt35">
+						<div class="termsBox">
+							<div class="field_row mb15">
+								<input type="checkbox" id="termAll" name="termAll" value="1"><label for="termAll" class="label">개인정보 수집 및 이용 동의(필수/선택)2가지 항목에 모두 동의합니다.</label>
+							</div>
+							<div class="field_row item_column item_start mb10 pdl2">
+								<input type="checkbox" id="term1" name="term1" value="1"><label for="term1" class="termlabel mb13"><span>(필수)</span>민감정보 수집에 동의합니다. <i class="fa-solid fa-angle-down"></i></label>
+							
+								<div class="term_info" id="termCon1">
+									<p>채용공고 등록을 위해 아래와 같이 개인정보를 수집 및 이용합니다.</p>
+									<p class="mb15">동의를 거부할 권리가 있으며, 동의 거부 시 채용공고 등록이 불가합니다.</p>
+									<p>목적 : 채용정보 등록자 확인 및 관리, 구직자 지원 및 문의. 등록 결과 안내 및 고객불만처리. 각종 맞춤형 서비스 제공</p>
+									<p>항목 : 이름, 전화번호, 이메일</p>
+									<p>보유 및 이용기간 : 회원 탈퇴 시 즉시 파기</p>
+								</div>
+
+								<input type="checkbox" id="term2" name="term2" value="1"><label for="term2" class="termlabel mb13">(선택)민감정보 수집에 동의합니다. <i class="fa-solid fa-angle-down"></i></label>
+					
+								<div class="term_info" id="termCon2">
+									<p>채용공고 등록을 위해 아래와 같이 개인정보를 수집 및 이용합니다.</p>
+									<p class="mb15">동의를 거부할 권리가 있으며, 동의 거부 시 채용공고에 선택항목 등록이 불가합니다.</p>
+									<p>목적 : 채용정보 등록자 확인 및 관리, 구직자 지원 및 문의. 등록 결과 안내 및 고객불만처리. 각종 맞춤형 서비스 제공</p>
+									<p>항목 : 부서명, 휴대폰번호</p>
+									<p>보유 및 이용기간 : 회원 탈퇴 시 즉시 파기</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="btnBox mt80">
+						<button type="button" class="form_btn"  id="complete_ok">수정하기</button>
+						<button type="button" class="home_btn" id="cancle">취소</button>
+					</div>
+				</div>
+				<!-- jobpost-reg end -->
+
+			</div>
+			<!-- container end-->
+
+        </div>
+    </div>
+
+
+	<!-- footer -->
+	<footer>
+		<div class="footer_wrap">
+			<div class="footer_link">
+				<ul>
+					<li>이용약관</li>
+					<li>개인정보처리방침</li>
+				</ul>
+			</div>
+	
+			<div class="footer_con">
+				<div class="container">
+
+					<div class="footer_box">
+						<div class="footer_info">
+							<ul>
+								<li>고객센터 : 0000-0000</li>
+								<li>FAX : 00-0000-0000</li>
+								<li>E-mail : abcd@gmail.com</li>
+							</ul>
+							<ul>
+								<li>서울시 서초구 서초대로 301</li>
+								<li>대표 : 홍길동</li>
+								<li>사업자등록번호 : 000-00-00000</li>
+							</ul>
+							<ul>
+								<li>Copyright ©아이비리거. All rights reserved.</li>
+							</ul>
+						</div>
+						<div class="urjob"><img src="/img/f_logo.png"></div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer end -->
+
+<script src="/js/jquery.modal.js"></script>
+<script src="/js/modal.js"></script>
+<script>
+$(document).ready(function () {
+	$('select').niceSelect();
+
+	/* 이전공고 불러오기 레이어 */
+	$('#bring_btn').click(function(){
+		$('.prev_Layer').toggle(); // prev_Layer 요소의 표시/숨김을 전환
+	});
+
+	/* 직무 모달창열기 */
+	$("#roleview").on("click", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'role_modal.html',
+			largeModal: "x-large", 
+			close: function(result) {
+			}
+		});
+	});
+	/* 스킬 모달창열기 */
+	$("#skillview").on("click", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'skill_modal.html',
+			largeModal: "x-large", 
+			close: function(result) {
+			}
+		});
+	});
+	/* 핵심역량 모달창열기 */
+	$("#capview").on("click", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'capacity_modal.html',
+			largeModal: "x-large", 
+			close: function(result) {
+			}
+		});
+	});
+	/* 직급직책 모달창열기 */
+	$("#jobrankview").on("click", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'jobrank_modal.html',
+			largeModal: "x-large", 
+			close: function(result) {
+			}
+		});
+	});
+	
+	/* 우대조건 모달창열기 */
+	$('.fieldBox').on("click", "#prefeview", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'prefeview_modal.html',
+			largeModal: "x-large", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/* 근무지역 모달 */
+	$("#worklocation").on("click", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'worklocation_modal.html',
+			largeModal: "x-large", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/* 파일첨부 모달 */
+	$('.fileBox').on("click", "#fileOpen", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'fileup_modal.html',
+			largeModal: "modal-lg", 
+			close: function(result) {
+			}
+		});
+	});
+
+	/* 업종 모달 */
+	$("#Industryview").on("click", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'Industry_modal.html',
+			largeModal: "x-large", 
+			close: function(result) {
+			}
+		});
+	});
+	
+	
+	
+	/* 경력 체크시 레이어 노출 */
+		$('#career2').on('click', function() {
+			if ($(this).prop('checked')) {
+				$('.career_Layer').toggle(); 
+			}
+		});
+
+		// career2가 아닌 다른 항목 선택 시 career_Layer 숨기기
+		$('input[name="career"]').not('#career2').on('change', function() {
+			$('.career_Layer').hide(); 
+		});
+
+
+	/* 정규직 체크시 레이어 노출 */
+		$('#empl1').on('click', function() {
+			if ($(this).prop('checked')) {
+				$('.permanent_Layer').toggle(); 
+			}
+		});
+
+		// 경력직이 아닌 다른 항목 선택 시 career_Layer 숨기기
+		$('input[name="empl"]').not('#empl1').on('change', function() {
+			$('.permanent_Layer').hide(); 
+		});
+
+	/* 계약직 체크시 레이어 노출 */
+		$('#empl2').on('click', function() {
+			if ($(this).prop('checked')) {
+				$('.temporary_Layer').toggle(); 
+			}
+		});
+
+		// 계약직이 아닌 다른 항목 선택 시 career_Layer 숨기기
+		$('input[name="empl"]').not('#empl2').on('change', function() {
+			$('.temporary_Layer').hide(); 
+		});
+
+	/* 위촉직/개인사업자 체크시 레이어 노출 */
+		$('#empl10').on('click', function() {
+			if ($(this).prop('checked')) {
+				$('.contractual_Layer').toggle(); 
+			}
+		});
+
+		// 위촉직/개인사업자이 아닌 다른 항목 선택 시 career_Layer 숨기기
+		$('input[name="empl"]').not('#empl10').on('change', function() {
+			$('.contractual_Layer').hide(); 
+		});
+
+		// Layer 숨기기
+		$(document).click(function(event) {
+			if (!$(event.target).closest('.career_Layer').length && !$(event.target).closest('input[name="career"]').length) {
+				$('.career_Layer').hide();  // 클릭한 곳이 specific_Layer가 아니면 숨기기
+			}
+			if (!$(event.target).closest('.permanent_Layer').length && !$(event.target).closest('input[name="empl"]').length) {
+				$('.permanent_Layer').hide();  // 클릭한 곳이 permanent_Layer가 아니면 숨기기
+			}
+			if (!$(event.target).closest('.temporary_Layer').length && !$(event.target).closest('input[name="empl"]').length) {
+				$('.temporary_Layer').hide();  // 클릭한 곳이 temporary_Layer가 아니면 숨기기
+			}
+			if (!$(event.target).closest('.contractual_Layer').length && !$(event.target).closest('input[name="empl"]').length) {
+				$('.contractual_Layer').hide();  // 클릭한 곳이 contractual_Layer가 아니면 숨기기
+			}
+		});
+
+
+	$('#choice_item input[type="checkbox"]').on('change', function() {
+		var id = $(this).val(); // 체크박스 ID 가져오기
+		var targetDiv = $('#choice' + id); // 대상 div ID 생성
+		targetDiv.toggle(); // 체크된 경우 보이기
+	});
+
+
+	$('#resumemethod input[type="checkbox"]').on('change', function() {
+		var id = $(this).val(); // 체크박스 ID 가져오기
+		var targetDiv = $('#resume' + id); // 대상 div ID 생성
+		targetDiv.toggle(); // 체크된 경우 보이기
+	});
+
+
+	/* 등록,수정이 완료되면 띄우는 모달 */
+	$("#complete_ok").on("click", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'message_modal.html',
+			close: function(result) {
+			}
+		});
+	});
+	
+
+	/* 개인정보 수집 */
+    // term1 체크박스의 상태에 따른 동작
+    $('#term1').change(function() {
+        if ($(this).prop('checked')) {
+            $('#termCon1').show(); // termCon1 노출
+            $('#term1').next('label').find('i').addClass('Mui-expanded'); // Mui-expanded 추가
+        } else {
+            $('#termCon1').hide(); // termCon1 숨김
+            $('#term1').next('label').find('i').removeClass('Mui-expanded'); // Mui-expanded 제거
+        }
+        updateTermAll(); // termAll 상태 업데이트
+    });
+
+    // term2 체크박스의 상태에 따른 동작
+    $('#term2').change(function() {
+        if ($(this).prop('checked')) {
+            $('#termCon2').show(); // termCon2 노출
+            $('#term2').next('label').find('i').addClass('Mui-expanded'); // Mui-expanded 추가
+        } else {
+            $('#termCon2').hide(); // termCon2 숨김
+            $('#term2').next('label').find('i').removeClass('Mui-expanded'); // Mui-expanded 제거
+        }
+        updateTermAll(); // termAll 상태 업데이트
+    });
+
+    // termAll 체크박스의 상태에 따른 동작
+    $('#termAll').change(function() {
+        if ($(this).prop('checked')) {
+            $('#term1, #term2').prop('checked', true); // term1과 term2 체크
+            $('#termCon1').show(); // termCon1 노출
+            $('#termCon2').show(); // termCon2 노출
+            $('#term1').next('label').find('i').addClass('Mui-expanded'); // Mui-expanded 추가
+            $('#term2').next('label').find('i').addClass('Mui-expanded'); // Mui-expanded 추가
+        } else {
+            $('#term1, #term2').prop('checked', false); // term1과 term2 체크 해제
+            $('#termCon1').hide(); // termCon1 숨김
+            $('#termCon2').hide(); // termCon2 숨김
+            $('#term1').next('label').find('i').removeClass('Mui-expanded'); // Mui-expanded 제거
+            $('#term2').next('label').find('i').removeClass('Mui-expanded'); // Mui-expanded 제거
+        }
+    });
+
+    // termAll 상태 업데이트 함수
+    function updateTermAll() {
+        if ($('#term1').prop('checked') && $('#term2').prop('checked')) {
+            $('#termAll').prop('checked', true); // termAll 체크
+        } else {
+            $('#termAll').prop('checked', false); // termAll 체크 해제
+        }
+    }
+
+
+});
+</script>
+</body>
+</html>

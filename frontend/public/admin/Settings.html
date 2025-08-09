@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환경설정</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+    <main class="main">
+        <!-- lnb -->
+        <aside class="lnb">
+                
+            <!-- 로고 -->
+            <div class="lnb__logo">
+                <a href="/" class="lnb__logo--link">
+                    <img src="assets/images/logo.png">
+                </a>
+            </div>
+            <!-- //로고 -->
+
+            <!-- 메뉴1 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Jobs.html" class="btn">채용정보</a>
+                </li>
+                <li>
+                    <a href="Resumes.html" class="btn">이력서정보</a>
+                </li>
+                <li>
+                    <a href="Application.html" class="btn">입사지원</a>
+                </li>
+                <li>
+                    <a href="JobOffers.html" class="btn">포지션제안</a>
+                </li>
+                <li>
+                    <a href="CompanyProfile.html" class="btn">기업정보</a>
+                </li>
+                <li>
+                    <a href="CommunityPost.html" class="btn">커뮤니티</a>
+                </li>
+                <li>
+                    <a href="Payments.html" class="btn">결제관리</a>
+                </li>
+                <li>
+                    <a href="Products.html" class="btn">상품관리</a>
+                </li>
+                <li>
+                    <a href="Banner.html" class="btn">배너관리</a>
+                </li>
+                <li>
+                    <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+                </li>
+                <li>
+                    <a href="DataManagement.html" class="btn">데이터관리</a>
+                </li>
+            </ul>
+            <!-- //메뉴1 -->
+
+            <!-- 메뉴2 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Statistics.html" class="btn">통계</a>
+                </li>
+                <li>
+                    <a href="UserManagement.html" class="btn">회원관리</a>
+                </li>
+                <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+                <li>
+                    <a href="./Settings.html" class="btn isActive">환경설정</a>
+                </li>
+            </ul>
+            <!-- //메뉴2 -->
+        </aside>
+        <!-- //lnb -->
+
+        <!-- contents -->
+        <div class="contents">
+            
+            <!-- 상단 네비 영역 -->
+            <div class="navigation">
+                <div class="container">
+                    <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+                </div>
+            </div>
+            <!-- //상단 네비 영역 -->
+
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+                <div class="container">
+                    <h2 class="title--h2">환경설정</h2>
+                </div>
+            </div>
+            <!-- //페이지 타이틀 -->
+
+            <!-- 컨텐츠 영역 -->
+            <div class="content">
+                <div class="container">
+
+                    <article class="article-area nosearch-area">
+
+                        <div class="bundle-wrap">
+                            <div class="bundle">
+                                <label for="test1">API 1</label>
+                                <div class="control">
+                                    <input type="text">
+                                </div>
+                            </div>
+
+                            <div class="bundle">
+                                <label for="test1">API 2</label>
+                                <div class="control">
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bundle-wrap">
+                            <div class="bundle">
+                                <label for="test1">API 3</label>
+                                <div class="control">
+                                    <input type="text">
+                                </div>
+                            </div>
+
+                            <div class="bundle">
+                                <label for="test1">API 4</label>
+                                <div class="control">
+                                    <input type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="btn-area">
+                            <button type="button" class="btn btn-success">저장</button>
+                            <a href="#!" class="btn btn-primary">목록으로</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <!-- //컨텐츠 영역 -->
+        </div>
+        <!-- //contents -->
+    </div>
+            
+    </main>
+</body>
+<script>
+    // 로그아웃 버튼 이벤트 리스너
+    document.getElementById('btnLogout').addEventListener('click', function() {
+        if (confirm('로그아웃 하시겠습니까?')) {
+            // 세션 스토리지 및 로컬 스토리지 클리어
+            sessionStorage.clear();
+            localStorage.removeItem('token');
+
+            // 로그인 페이지로 리다이렉트
+            window.location.href = '/admin/login.html';
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유어잡 관리자 로그인</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+<div class="intro">
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <a href="/" class="lnb__logo--link">
+                    <img src="./assets/images/logo.png">
+                </a>
+            </div>
+            <span class="title mt-20">유어잡 관리자페이지</span>
+
+            <!-- 에러 메시지 표시 영역 -->
+            <div id="error-message" class="msg msg--error mt-10"></div>
+
+            <form id="login-form">
+                <fieldset>
+                    <legend>로그인 폼</legend>
+                    <div class="control">
+                        <input type="text" id="email" name="email" placeholder="이메일" value="">
+                    </div>
+                    <div class="control">
+                        <input type="password" id="password" name="password" placeholder="비밀번호" value="">
+                    </div>
+                    <button type="button" id="login-btn" class="btn btn-primary is-fullwidth mt-20">로그인</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.getElementById('login-btn');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMessageEl = document.getElementById('error-message');
+
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+        // 로그인 버튼 클릭 이벤트
+        loginBtn.addEventListener('click', handleLogin);
+
+        // 비밀번호 입력 필드에서 엔터키 입력 시 로그인 처리
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleLogin();
+            }
+        });
+
+        function handleLogin() {
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            // 입력값 검증
+            if (!email || !password) {
+                showError('이메일과 비밀번호를 입력해주세요.');
+                return;
+            }
+
+            // 실제 API 호출
+            fetch(`${API_BASE_URL}/auth/adminlogin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(response.status === 401
+                        ? '비밀번호가 일치하지 않습니다.'
+                        : response.status === 404
+                            ? '존재하지 않는 계정입니다.'
+                            : '로그인에 실패했습니다.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // 사용자 정보 저장
+                localStorage.setItem('token', data.token);
+                sessionStorage.setItem('userId', data.userId);
+                sessionStorage.setItem('userType', data.userType);
+                sessionStorage.setItem('accountId', data.accountId);
+
+                // 관리자 계정 확인
+                if (data.userType === 'ADMIN') {
+                    window.location.href = 'Jobs.html';
+                } else {
+                    showError('관리자 계정으로만 접근이 가능합니다.');
+                }
+            })
+            .catch(error => {
+                showError(error.message);
+                console.error('Error:', error);
+            });
+
+
+            // 시연용 - 무조건 로그인 성공 처리
+            /*localStorage.setItem('token', 'demo_token');
+            sessionStorage.setItem('userId', '633086');
+            sessionStorage.setItem('userType', 'ADMIN');
+            sessionStorage.setItem('accountId', 'admin');
+            sessionStorage.setItem('userName', '관리자');*/
+
+            //window.location.href = 'Jobs.html';
+        }
+
+        function showError(message) {
+            errorMessageEl.textContent = message;
+            errorMessageEl.style.display = message ? 'block' : 'none';
+        }
+    });
+</script>
+</body>
+</html>

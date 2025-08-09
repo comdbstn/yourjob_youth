@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 페이지네이션 스타일 */
+        .pagination-area {
+            margin-top: 20px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        /* 로딩 인디케이터 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            border-radius: 5px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-body {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .modal-footer {
+            text-align: right;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* 행 선택기 스타일 */
+        .row-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #pageSize {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="./Products.html" class="btn isActive">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">상품관리</h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+
+                <article class="article-area">
+
+                    <!-- 상단 버튼 영역 -->
+                    <div class="btn-area--top">
+                        <button type="button" class="btn btn-danger btn-small" id="deleteSelectedBtn">삭제</button>
+                        <button type="button" class="btn btn-success btn-small" id="addProductBtn">등록</button>
+                    </div>
+                    <!-- //상단 버튼 영역 -->
+
+                    <!-- 상단 검색 영역 -->
+                    <div class="search-area">
+                        <div class="search--select select-box">
+
+                            <div class="control">
+                                <select class="select" id="statusFilter">
+                                    <option value="">상태</option>
+                                    <option value="active">사용중</option>
+                                    <option value="inactive">사용중지</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <select class="select" id="typeFilter">
+                                    <option value="">구분</option>
+                                    <option value="personal">개인</option>
+                                    <option value="company">기업</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="search--text">
+                            <div class="control">
+                                <input type="text" id="keywordFilter" placeholder="상품명을 입력하세요">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="searchBtn">검색</button>
+                        </div>
+                    </div>
+                    <!-- //상단 검색 영역 -->
+
+                    <!-- 테이블 -->
+                    <section class="table-area">
+                        <div class="table-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 등록일 -->
+                                    <col width="100px"/> <!-- 상태 -->
+                                    <col width="80"/> <!-- 구분 -->
+                                    <col width="*"/> <!-- 상품명 -->
+                                    <col width="200px"/> <!-- 노출형식 -->
+                                    <col width="180px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="control">
+                                            <input id="selectAllCheckbox" type="checkbox" class="checked--all">
+                                        </div>
+                                    </th>
+                                    <th>번호</th>
+                                    <th>등록일시</th>
+                                    <th>상태</th>
+                                    <th>구분</th>
+                                    <th>상품명</th>
+                                    <th>노출형식</th>
+                                    <th>관리자툴</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="table-content">
+                            <table cellpadding="0" cellspacing="0" border="0" id="productsTable">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 등록일 -->
+                                    <col width="100px"/> <!-- 상태 -->
+                                    <col width="80"/> <!-- 구분 -->
+                                    <col width="*"/> <!-- 상품명 -->
+                                    <col width="200px"/> <!-- 노출형식 -->
+                                    <col width="180px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <tbody id="productsTableBody">
+                                <!-- 데이터가 JavaScript로 채워집니다 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!-- //테이블 -->
+
+                    <!-- 페이지네이션 -->
+                    <div class="row-selector">
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="pagination-area">
+                        <div class="pagination" id="pagination">
+                            <!-- 페이지네이션이 JavaScript로 채워집니다 -->
+                        </div>
+                        <div class="pagination-info" id="paginationInfo">
+                            <!-- 페이지 정보가 JavaScript로 채워집니다 -->
+                        </div>
+                    </div>
+                    <!-- //페이지네이션 -->
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- 상품 등록/수정 모달 -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">상품 등록</h2>
+                <span class="close" id="closeProductModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="productForm">
+                    <input type="hidden" id="productId" name="id">
+                    <div class="form-group">
+                        <label for="name">상품명:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">구분:</label>
+                        <select id="type" name="type" class="form-control" required>
+                            <option value="personal">개인</option>
+                            <option value="company">기업</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">상태:</label>
+                        <select id="status" name="status" class="form-control" required>
+                            <option value="active">사용중</option>
+                            <option value="inactive">사용중지</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="explosureType">노출형식:</label>
+                        <select id="explosureType" name="explosureType" class="form-control" required>
+                            <option value="기간별">기간별</option>
+                            <option value="건별">건별</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveProductBtn">저장</button>
+                <button type="button" class="btn btn-secondary" id="cancelProductBtn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 확인 모달 -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>확인</h2>
+                <span class="close" id="closeConfirmModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmYesBtn">예</button>
+                <button type="button" class="btn btn-secondary" id="confirmNoBtn">아니오</button>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="./env-config.js"></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // API 기본 URL
+        const API_BASE_URL = window.__CONFIG__ ? window.__CONFIG__.API_BASE_URL : 'http://localhost:8082/api/v1';
+
+        // 현재 페이지 정보
+        const state = {
+            currentPage: 0,
+            pageSize: 10,
+            totalPages: 0,
+            totalElements: 0,
+            filters: {
+                status: '',
+                type: '',
+                keyword: ''
+            }
+        };
+
+        // DOM 요소들
+        const elements = {
+            productsTableBody: document.getElementById('productsTableBody'),
+            pagination: document.getElementById('pagination'),
+            paginationInfo: document.getElementById('paginationInfo'),
+            searchBtn: document.getElementById('searchBtn'),
+            deleteSelectedBtn: document.getElementById('deleteSelectedBtn'),
+            addProductBtn: document.getElementById('addProductBtn'),
+            selectAllCheckbox: document.getElementById('selectAllCheckbox'),
+            pageSize: document.getElementById('pageSize'),
+            loadingOverlay: document.getElementById('loadingOverlay'),
+
+            // 필터 요소들
+            statusFilter: document.getElementById('statusFilter'),
+            typeFilter: document.getElementById('typeFilter'),
+            keywordFilter: document.getElementById('keywordFilter'),
+
+            // 확인 모달
+            confirmModal: document.getElementById('confirmModal'),
+            closeConfirmModal: document.getElementById('closeConfirmModal'),
+            confirmYesBtn: document.getElementById('confirmYesBtn'),
+            confirmNoBtn: document.getElementById('confirmNoBtn'),
+            confirmMessage: document.getElementById('confirmMessage')
+        };
+
+        // 초기화 - 이벤트 리스너 및 초기 데이터 로드
+        function init() {
+            // 검색 이벤트 리스너
+            elements.searchBtn.addEventListener('click', handleSearch);
+
+            // 전체 선택 체크박스 이벤트 리스너
+            elements.selectAllCheckbox.addEventListener('change', handleSelectAll);
+
+            // 선택 삭제 버튼 이벤트 리스너
+            elements.deleteSelectedBtn.addEventListener('click', confirmBulkDelete);
+
+            // 상품 추가 버튼 이벤트 리스너
+            elements.addProductBtn.addEventListener('click', () => {
+                location.href = 'ProductDetail.html';
+            });
+
+            // 페이지 크기 변경 이벤트 리스너
+            elements.pageSize.addEventListener('change', handlePageSizeChange);
+
+            // 필터 변경 이벤트 리스너 추가
+            elements.statusFilter.addEventListener('change', handleFilterChange);
+            elements.typeFilter.addEventListener('change', handleFilterChange);
+
+            // 확인 모달 관련 이벤트 리스너
+            elements.closeConfirmModal.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmNoBtn.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmYesBtn.addEventListener('click', handleConfirmYes);
+
+            // 초기 데이터 로드
+            loadProducts();
+        }
+
+        // 필터 변경 이벤트 핸들러
+        function handleFilterChange() {
+            // 필터 값 업데이트
+            state.filters.status = elements.statusFilter.value;
+            state.filters.type = elements.typeFilter.value;
+
+            // 첫 페이지로 이동
+            state.currentPage = 0;
+            // 변경된 필터로 데이터 로드
+            loadProducts();
+        }
+
+        // 로딩 표시/숨김 함수
+        function showLoading() {
+            elements.loadingOverlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            elements.loadingOverlay.style.display = 'none';
+        }
+
+        // 모달 표시/숨김 함수
+        function showModal(modal) {
+            modal.style.display = 'block';
+        }
+
+        function hideModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        // 상품 목록 로드
+        async function loadProducts() {
+            showLoading();
+            try {
+                const q = new URLSearchParams({
+                    page: state.currentPage,
+                    size: state.pageSize,
+                    ...(state.filters.status && { status: state.filters.status }),
+                    ...(state.filters.type &&   { type: state.filters.type })
+                });
+                if (state.filters.keyword) q.append('keyword', state.filters.keyword);
+
+                const res = await fetch(`${API_BASE_URL}/products?${q}`);
+                if (!res.ok) throw new Error(res.status);
+                const data = await res.json();
+
+                // Page<ProductResponse> 구조
+                state.totalElements = data.totalElements;
+                state.totalPages    = data.totalPages;
+                state.currentPage   = data.number;
+
+                renderProductsTable(data.content);
+                renderPagination();
+                updatePaginationInfo();
+            } catch(e) {
+                alert('상품 목록 로드 실패');
+                console.error(e);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 테이블 렌더링
+        function renderProductsTable(products) {
+            elements.productsTableBody.innerHTML = '';
+
+            if (products.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="8" style="text-align: center; padding: 20px;">데이터가 없습니다.</td>`;
+                elements.productsTableBody.appendChild(row);
+                return;
+            }
+
+            products.forEach((product, index) => {
+                //const displayIndex = state.currentPage * state.pageSize + index + 1;
+                const displayIndex = state.totalElements - (state.currentPage * state.pageSize + index);
+
+                // 상태 및 유형 텍스트 변환
+                const statusText = product.status === 'active' ? '사용중' : '사용중지';
+                const typeText = product.type === 'personal' ? '개인' : '기업';
+
+                // 노출 정보 (기간별/횟수별)
+                let exposureInfo = product.explosureType || '-';
+                if (product.explosureType === '기간별') {
+                    exposureInfo += ` (${product.periodDays}일)`;
+                } else if (product.explosureType === '건별') {
+                    exposureInfo += ` (${product.exposureCount}회)`;
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>
+                    <div class="control">
+                        <input type="checkbox" class="checked--node" data-id="${product.id}">
+                    </div>
+                </td>
+                <td>${displayIndex}</td>
+                <td>${formatDate(product.createdAt) || '-'}</td>
+                <td>${statusText}</td>
+                <td>${typeText}</td>
+                <td>${product.name || '-'}</td>
+                <td>${exposureInfo}</td>
+                <td>
+                    <div class="admin--tool">
+                        <button type="button" class="btn btn-warning edit-btn" data-id="${product.id}">수정</button>
+                        <button type="button" class="btn btn-danger delete-btn" data-id="${product.id}">삭제</button>
+                    </div>
+                </td>
+            `;
+
+                elements.productsTableBody.appendChild(row);
+            });
+
+            // 체크박스 이벤트 리스너 등록
+            document.querySelectorAll('.checked--node').forEach(cb => {
+                cb.addEventListener('change', updateSelectAllStatus);
+            });
+
+            // 수정 버튼 이벤트 리스너
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    location.href = `ProductDetail.html?id=${productId}`;
+                });
+            });
+
+            // 삭제 버튼 이벤트 리스너
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-id');
+                    confirmDelete(productId);
+                });
+            });
+        }
+
+        // 날짜 포맷 함수
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+
+            return `${year}-${month}-${day} ${hours}:${minutes}`;
+        }
+
+        // 페이지네이션 렌더링
+        function renderPagination() {
+            elements.pagination.innerHTML = '';
+
+            const currentPage = parseInt(state.currentPage);
+            const totalPages = parseInt(state.totalPages);
+
+            if (totalPages <= 0) return;
+
+            // 페이지 버튼 수 설정
+            const maxPageButtons = 5;
+            const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+            const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+            // 첫 페이지 버튼
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = '<<';
+            firstBtn.disabled = currentPage === 0;
+            firstBtn.addEventListener('click', () => goToPage(0));
+            elements.pagination.appendChild(firstBtn);
+
+            // 이전 페이지 버튼
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.textContent = '<';
+            prevBtn.disabled = currentPage === 0;
+            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            elements.pagination.appendChild(prevBtn);
+
+            // 페이지 번호 버튼들
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn';
+                if (i === currentPage) pageBtn.classList.add('active');
+                pageBtn.textContent = i + 1;
+                pageBtn.addEventListener('click', () => goToPage(i));
+                elements.pagination.appendChild(pageBtn);
+            }
+
+            // 다음 페이지 버튼
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.textContent = '>';
+            nextBtn.disabled = currentPage >= totalPages - 1;
+            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            elements.pagination.appendChild(nextBtn);
+
+            // 마지막 페이지 버튼
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = '>>';
+            lastBtn.disabled = currentPage >= totalPages - 1;
+            lastBtn.addEventListener('click', () => goToPage(totalPages - 1));
+            elements.pagination.appendChild(lastBtn);
+        }
+
+        // 페이지네이션 정보 업데이트
+        function updatePaginationInfo() {
+            const info = elements.paginationInfo;
+
+            if (state.totalElements === 0) {
+                info.textContent = '데이터가 없습니다.';
+            } else {
+                const start = state.currentPage * state.pageSize + 1;
+                const end = Math.min((state.currentPage + 1) * state.pageSize, state.totalElements);
+                info.textContent = `전체 ${state.totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+            }
+        }
+
+        // 페이지 이동 함수
+        function goToPage(page) {
+            if (page < 0 || page >= state.totalPages) return;
+            state.currentPage = page;
+            loadProducts();
+            window.scrollTo(0, 0);
+        }
+
+        // 검색 처리 함수
+        function handleSearch() {
+            // 필터 값 업데이트
+            state.filters.status = elements.statusFilter.value;
+            state.filters.type = elements.typeFilter.value;
+            state.filters.keyword = elements.keywordFilter.value;
+
+            // 첫 페이지로 이동하고 데이터 다시 로드
+            state.currentPage = 0;
+            loadProducts();
+        }
+
+        // 페이지 크기 변경 핸들러
+        function handlePageSizeChange() {
+            state.pageSize = parseInt(elements.pageSize.value);
+            state.currentPage = 0;
+            loadProducts();
+        }
+
+        // 전체 선택 체크박스 처리
+        function handleSelectAll(e) {
+            const isChecked = e.target.checked;
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        }
+
+        // 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+        function updateSelectAllStatus() {
+            const checkboxes = document.querySelectorAll('.checked--node');
+            const checkedCount = document.querySelectorAll('.checked--node:checked').length;
+            elements.selectAllCheckbox.checked = checkboxes.length > 0 && checkedCount === checkboxes.length;
+        }
+
+        // 선택된 아이디들 반환 함수
+        function getSelectedProductIds() {
+            const ids = [];
+            document.querySelectorAll('.checked--node:checked').forEach(checkbox => {
+                ids.push(parseInt(checkbox.getAttribute('data-id')));
+            });
+            return ids;
+        }
+
+        // 삭제 확인 모달 열기
+        function confirmDelete(productId) {
+            elements.confirmMessage.textContent = `정말 이 상품을 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'delete');
+            elements.confirmYesBtn.setAttribute('data-id', productId);
+            showModal(elements.confirmModal);
+        }
+
+        // 일괄 삭제 확인 모달 열기
+        function confirmBulkDelete() {
+            const selectedIds = getSelectedProductIds();
+            if (selectedIds.length === 0) {
+                alert('삭제할 항목을 선택해주세요.');
+                return;
+            }
+
+            elements.confirmMessage.textContent = `선택한 ${selectedIds.length}개의 항목을 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'bulkDelete');
+            showModal(elements.confirmModal);
+        }
+
+        // 확인 모달 확인 버튼 처리
+        function handleConfirmYes() {
+            const action = elements.confirmYesBtn.getAttribute('data-action');
+
+            if (action === 'delete') {
+                const productId = elements.confirmYesBtn.getAttribute('data-id');
+                deleteProduct(productId);
+            } else if (action === 'bulkDelete') {
+                bulkDeleteProducts();
+            }
+
+            hideModal(elements.confirmModal);
+        }
+
+        // 상품 삭제 처리
+        async function deleteProduct(productId) {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('삭제 실패');
+                }
+
+                alert('상품이 삭제되었습니다.');
+                loadProducts();
+            } catch (error) {
+                console.error('삭제 중 오류:', error);
+                alert('삭제 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 일괄 삭제 처리
+        async function bulkDeleteProducts() {
+            const selectedIds = getSelectedProductIds();
+            if (selectedIds.length === 0) return;
+
+            showLoading();
+            try {
+                // 각 ID에 대해 개별 삭제 요청 수행
+                const deletePromises = selectedIds.map(id => {
+                    return fetch(`${API_BASE_URL}/products/${id}`, {
+                        method: 'DELETE'
+                    });
+                });
+
+                const results = await Promise.all(deletePromises);
+                const allSuccess = results.every(response => response.ok);
+
+                if (!allSuccess) {
+                    throw new Error('일부 항목 삭제에 실패했습니다.');
+                }
+
+                alert(`${selectedIds.length}개의 상품이 삭제되었습니다.`);
+                loadProducts();
+            } catch (error) {
+                console.error('일괄 삭제 중 오류:', error);
+                alert('일괄 삭제 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 전역 함수로 노출
+        window.confirmDelete = confirmDelete;
+
+        // 초기화 실행
+        init();
+    });
+</script>
+</body>
+</html>

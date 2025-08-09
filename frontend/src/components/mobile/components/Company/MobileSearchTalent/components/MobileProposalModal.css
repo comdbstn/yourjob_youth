@@ -1,0 +1,43 @@
+.mobileProposalModalContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0px;
+  .headerSection {
+    background-color: #f9fbfc;
+    height: 90px;
+    width: 100%;
+    border: #eaeaea 1px solid;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    select {
+      width: 90%;
+    }
+  }
+  .nameRow {
+    display: flex;
+    gap: 15px;
+    margin-top: 22px;
+    p {
+      font-size: 14px;
+    }
+    p:nth-child(1) {
+      font-weight: 500;
+    }
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    .rowHeader {
+      font-weight: 500;
+    }
+    textarea {
+      border: #eaeaea 1px solid;
+      height: 140px;
+    }
+  }
+}

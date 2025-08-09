@@ -1,0 +1,305 @@
+.TalentManagement_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.TalentManagement_container .trashBtn {
+  margin-left: auto;
+}
+
+.TalentManagement_container .content {
+  width: 100%;
+}
+
+.TalentManagement_container .paddingSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+
+}
+
+.TalentManagement_container .paddingSection .btns {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  justify-content: center;
+}
+
+.TalentManagement_container .paddingSection .btns button {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  display: flex;
+  /* width: 112px; */
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  border: 1px solid var(--line_col_01, #b8b8b8);
+  background: #fff;
+  color: var(--txt_col_01, #a8a8a8);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+  max-width: 112px;
+  flex: 1;
+}
+
+.TalentManagement_container .paddingSection .btns .selected {
+  border-radius: 15px;
+  background: var(--primary, #2f80dc);
+  color: #fff;
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.TalentManagement_container .contentSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.TalentManagement_container .contentSection .sectionHeader {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.4px;
+  text-align: start;
+  width: 100%;
+}
+
+.TalentManagement_container .contentSection .board {
+  /* width: 390px; */
+  height: 116px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 27px 0;
+
+  width: 100%;
+}
+
+.TalentManagement_container .contentSection .board .row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: #eaeaea 1px solid;
+  height: 62px;
+  /* width: 70px; */
+  justify-content: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.TalentManagement_container .contentSection .board .row p:nth-child(1) {
+  color: var(--txt_col_02, #8f8f8f);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.48px;
+}
+
+.TalentManagement_container .contentSection .board .row p:nth-child(2) {
+  color: var(--txt_col_02, #8f8f8f);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.TalentManagement_container .contentSection .lists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+  padding: 0 20px;
+}
+
+.TalentManagement_container .contentSection .lists li {
+  width: 100%;
+  padding: 25px 0;
+  /* border-radius: #eaeaea 1px solid; */
+  color: var(--txt_col_02, #8f8f8f);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  display: flex;
+  flex-direction: column;
+  /* gap: 10px; */
+
+  border-bottom: #eaeaea 1px solid;
+  margin-bottom: 20px;
+}
+
+.TalentManagement_container .contentSection ul li:last-child {
+  border-bottom: 0;
+  margin-bottom: 0;
+}
+
+.TalentManagement_container .contentSection ul li strong {
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.TalentManagement_container .contentSection ul li .blueLabel {
+  color: var(--primary, #2f80dc);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.TalentManagement_container .contentSection ul li .dateLabel {
+  word-break: keep-all;
+}
+
+.TalentManagement_container .contentSection ul li .dateLabel .bar {
+  width: 1px;
+  display: inline-block;
+  height: 10px;
+  background-color: #8f8f8f;
+  margin: 0 10px;
+}
+
+.TalentManagement_container .contentSection ul li .userinfo {
+  margin-bottom: 5px;
+}
+
+.TalentManagement_container .contentSection ul li .userinfo .bar {
+  width: 1px;
+  display: inline-block;
+  height: 10px;
+  background-color: #a8a8a8;
+  margin: 0 10px;
+}
+
+.TalentManagement_container .contentSection ul li .state {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.TalentManagement_container .contentSection ul li .conpanyinfo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.TalentManagement_container .contentSection ul li .state .procLabel {
+  display: inline-flex;
+  height: 28px;
+  padding: 0 19px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  color: var(--txt_col_02, #8f8f8f);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.TalentManagement_container .contentSection ul li .state img {
+  margin-left: auto;
+}
+
+
+.TalentManagement_container .contentSection ul li .btns2 {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+}
+
+.TalentManagement_container .contentSection ul li .btns2 button {
+  display: flex;
+  width: 170px;
+  height: 50px;
+  padding: 18px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  color: var(--txt_col_01, #a8a8a8);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.32px;
+}
+
+.TalentManagement_container .contentSection ul li .btns2 select {
+  width: 170px;
+  height: 50px;
+  border-radius: 15px;
+}
+
+.TalentManagement_container .contentSection .hideLabelCont {
+  width: 100%;
+  display: flex;
+  width: 340px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.TalentManagement_container .contentSection .hideLabel {
+  color: var(--red02, #ff6a6a);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  letter-spacing: -0.32px;
+  width: 100%;
+}

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원관리 상세</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        .error-message {
+            color: #dc3545;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <aside class="lnb">
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="Banner.html" class="btn">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn isActive">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="contents">
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2" id="pageTitle">회원 등록</h2>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <article class="article-area nosearch-area">
+                    <form id="userForm">
+                        <input type="hidden" id="userId" name="userId">
+                        <div class="col2">
+                            <ul class="list option">
+                                <li class="items">
+                                    <span class="title">아이디</span>
+                                    <div class="control">
+                                        <input type="text" id="accountId" name="accountId" required>
+                                        <div class="error-message" id="accountId-error"></div>
+                                    </div>
+                                </li>
+                                <li class="items">
+                                    <span class="title">이름</span>
+                                    <div class="control">
+                                        <input type="text" id="name" name="name" required>
+                                        <div class="error-message" id="name-error"></div>
+                                    </div>
+                                </li>
+                                <li class="items">
+                                    <span class="title">휴대전화</span>
+                                    <div class="control">
+                                        <input type="text" id="phone" name="phone" placeholder="010-0000-0000" required>
+                                        <div class="error-message" id="phone-error"></div>
+                                    </div>
+                                </li>
+                                <li class="items">
+                                    <span class="title">사용자 종류</span>
+                                    <div class="select-box">
+                                        <div class="control">
+                                            <select class="select" id="userType" name="userType">
+                                                <option value="JOB_SEEKER">구직자</option>
+                                                <option value="EMPLOYER">기업회원</option>
+                                                <option value="COMPANY">기업회원</option>
+                                                <option value="COMPANY_EXCEL">기업회원(엑셀)</option>
+                                                <option value="ADMIN">관리자</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <ul class="list option">
+                                <li class="items">
+                                    <span class="title">패스워드</span>
+                                    <div class="control">
+                                        <input type="password" id="password" name="password">
+                                        <div class="error-message" id="password-error"></div>
+                                    </div>
+                                </li>
+                                <li class="items">
+                                    <span class="title">패스워드 확인</span>
+                                    <div class="control">
+                                        <input type="password" id="passwordConfirm" name="passwordConfirm">
+                                        <div class="error-message" id="passwordConfirm-error"></div>
+                                    </div>
+                                </li>
+                                <li class="items">
+                                    <span class="title">이메일주소</span>
+                                    <div class="control">
+                                        <input type="email" id="email" name="email" required>
+                                        <div class="error-message" id="email-error"></div>
+                                    </div>
+                                </li>
+                                <li class="items">
+                                    <span class="title">상태</span>
+                                    <div class="form-radio">
+                                        <div class="control">
+                                            <input type="radio" id="statusActive" name="status" value="active">
+                                            <span class="text">활성화</span>
+                                        </div>
+                                        <div class="control">
+                                            <input type="radio" id="statusBanned" name="status" value="banned">
+                                            <span class="text">차단</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="companyFields" class="hidden">
+                            <h3 class="title--h3 mt-4">기업 정보</h3>
+                            <div class="col2">
+                                <ul class="list option">
+                                    <li class="items">
+                                        <span class="title">회사명</span>
+                                        <div class="control">
+                                            <input type="text" id="companyName" name="companyName">
+                                            <div class="error-message" id="companyName-error"></div>
+                                        </div>
+                                    </li>
+                                    <li class="items">
+                                        <span class="title">사업자번호</span>
+                                        <div class="control">
+                                            <input type="text" id="businessNumber" name="businessNumber" placeholder="000-00-00000">
+                                            <div class="error-message" id="businessNumber-error"></div>
+                                        </div>
+                                    </li>
+                                    <li class="items">
+                                        <span class="title">대표자명</span>
+                                        <div class="control">
+                                            <input type="text" id="representative" name="representative">
+                                            <div class="error-message" id="representative-error"></div>
+                                        </div>
+                                    </li>
+                                    <li class="items">
+                                        <span class="title">기업형태</span>
+                                        <div class="select-box">
+                                            <div class="control">
+                                                <select class="select" id="companyType" name="companyType">
+                                                    <option value="large_company">대기업</option>
+                                                    <option value="medium_company">중견기업</option>
+                                                    <option value="public_company">공공기관</option>
+                                                    <option value="foreign_company">외국계기업</option>
+                                                    <option value="mid_sized_company">중소기업</option>
+                                                    <option value="non_profit">비영리법인</option>
+                                                    <option value="startup">스타트업</option>
+                                                    <option value="financial">금융기관</option>
+                                                    <option value="hospital">병원/의료기관</option>
+                                                    <option value="student_org">학생단체</option>
+                                                    <option value="other">기타</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <ul class="list option">
+                                    <li class="items">
+                                        <span class="title">직원수</span>
+                                        <div class="control">
+                                            <input type="number" id="employeeCount" name="employeeCount" min="0">
+                                            <div class="error-message" id="employeeCount-error"></div>
+                                        </div>
+                                    </li>
+                                    <li class="items">
+                                        <span class="title">자본금</span>
+                                        <div class="control">
+                                            <input type="text" id="capital" name="capital" placeholder="단위: 만원">
+                                            <div class="error-message" id="capital-error"></div>
+                                        </div>
+                                    </li>
+                                    <li class="items">
+                                        <span class="title">매출액</span>
+                                        <div class="control">
+                                            <input type="text" id="revenue" name="revenue" placeholder="단위: 만원">
+                                            <div class="error-message" id="revenue-error"></div>
+                                        </div>
+                                    </li>
+                                    <li class="items">
+                                        <span class="title">영업이익</span>
+                                        <div class="control">
+                                            <input type="text" id="profit" name="profit" placeholder="단위: 만원">
+                                            <div class="error-message" id="profit-error"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="col1">
+                                <ul class="list option">
+                                    <li class="items">
+                                        <span class="title">사업자등록증</span>
+                                        <div class="control">
+                                            <input type="file" id="businessCertificate" name="businessCertificate" accept="image/*,.pdf">
+                                            <div class="error-message" id="businessCertificate-error"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="btn-area">
+                            <button type="button" class="btn btn-danger" id="btnCancel">취소</button>
+                            <button type="submit" class="btn btn-success" id="btnSave">저장</button>
+                            <a href="UserManagement.html" class="btn btn-primary">목록으로</a>
+                        </div>
+                    </form>
+                </article>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+        let isEditMode = false;
+        let currentUserId = null;
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('id');
+
+        if (userId) {
+            isEditMode = true;
+            currentUserId = userId;
+            document.getElementById('pageTitle').textContent = '회원 수정';
+            loadUserData(userId);
+        }
+
+        document.getElementById('userType').addEventListener('change', function() {
+            const companyFields = document.getElementById('companyFields');
+            if (this.value === 'EMPLOYER' || this.value === 'COMPANY' || this.value === 'COMPANY_EXCEL') {
+                companyFields.classList.remove('hidden');
+            } else {
+                companyFields.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                saveUser();
+            }
+        });
+
+        document.getElementById('btnCancel').addEventListener('click', function() {
+            if (confirm('작성 중인 내용이 사라집니다. 취소하시겠습니까?')) {
+                window.location.href = 'UserManagement.html';
+            }
+        });
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        function loadUserData(userId) {
+            fetch(`${API_BASE_URL}/mdms/user-management/${userId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('사용자 정보를 불러올 수 없습니다.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('userId').value = data.id;
+                    document.getElementById('accountId').value = data.accountId || '';
+                    document.getElementById('name').value = data.name || '';
+                    document.getElementById('phone').value = data.phone || '';
+                    document.getElementById('email').value = data.email || '';
+                    document.getElementById('userType').value = data.userType || 'JOB_SEEKER';
+
+                    if (data.isBanned) {
+                        document.getElementById('statusBanned').checked = true;
+                    } else {
+                        document.getElementById('statusActive').checked = true;
+                    }
+
+                    if (data.userType === 'EMPLOYER' || data.userType === 'COMPANY' || data.userType === 'COMPANY_EXCEL') {
+                        document.getElementById('companyFields').classList.remove('hidden');
+                        if (data.companyName) {
+                            document.getElementById('companyName').value = data.companyName;
+                        }
+                    }
+
+                    const passwordField = document.getElementById('password');
+                    const passwordConfirmField = document.getElementById('passwordConfirm');
+                    passwordField.removeAttribute('required');
+                    passwordConfirmField.removeAttribute('required');
+                    passwordField.placeholder = '변경하지 않으려면 비워두세요';
+                    passwordConfirmField.placeholder = '변경하지 않으려면 비워두세요';
+                })
+                .catch(error => {
+                    console.error('사용자 정보 로드 실패:', error);
+                    alert('사용자 정보를 불러오는데 실패했습니다.');
+                    window.location.href = 'UserManagement.html';
+                });
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            const accountId = document.getElementById('accountId').value.trim();
+            if (!accountId) {
+                document.getElementById('accountId-error').textContent = '아이디를 입력해주세요.';
+                isValid = false;
+            } else {
+                document.getElementById('accountId-error').textContent = '';
+            }
+
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                document.getElementById('name-error').textContent = '이름을 입력해주세요.';
+                isValid = false;
+            } else {
+                document.getElementById('name-error').textContent = '';
+            }
+
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                document.getElementById('email-error').textContent = '이메일을 입력해주세요.';
+                isValid = false;
+            } else if (!emailRegex.test(email)) {
+                document.getElementById('email-error').textContent = '올바른 이메일 형식이 아닙니다.';
+                isValid = false;
+            } else {
+                document.getElementById('email-error').textContent = '';
+            }
+
+            const phone = document.getElementById('phone').value.trim();
+            const phoneRegex = /^01[0-9]-?[0-9]{3,4}-?[0-9]{4}$/;
+            if (!phone) {
+                document.getElementById('phone-error').textContent = '휴대전화를 입력해주세요.';
+                isValid = false;
+            } else if (!phoneRegex.test(phone.replace(/-/g, ''))) {
+                document.getElementById('phone-error').textContent = '올바른 휴대전화 형식이 아닙니다.';
+                isValid = false;
+            } else {
+                document.getElementById('phone-error').textContent = '';
+            }
+
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('passwordConfirm').value;
+
+            if (!isEditMode || password) {
+                if (!password) {
+                    document.getElementById('password-error').textContent = '패스워드를 입력해주세요.';
+                    isValid = false;
+                } else if (password.length < 8) {
+                    document.getElementById('password-error').textContent = '패스워드는 8자 이상이어야 합니다.';
+                    isValid = false;
+                } else {
+                    document.getElementById('password-error').textContent = '';
+                }
+
+                if (password !== passwordConfirm) {
+                    document.getElementById('passwordConfirm-error').textContent = '패스워드가 일치하지 않습니다.';
+                    isValid = false;
+                } else {
+                    document.getElementById('passwordConfirm-error').textContent = '';
+                }
+            }
+
+            const userType = document.getElementById('userType').value;
+            if (userType === 'EMPLOYER' || userType === 'COMPANY' || userType === 'COMPANY_EXCEL') {
+                const companyName = document.getElementById('companyName').value.trim();
+                if (!companyName) {
+                    document.getElementById('companyName-error').textContent = '회사명을 입력해주세요.';
+                    isValid = false;
+                } else {
+                    document.getElementById('companyName-error').textContent = '';
+                }
+            }
+
+            return isValid;
+        }
+
+        function saveUser() {
+            const formData = {
+                accountId: document.getElementById('accountId').value.trim(),
+                name: document.getElementById('name').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                userType: document.getElementById('userType').value,
+                isBanned: document.getElementById('statusBanned').checked,
+                isActive: !document.getElementById('statusBanned').checked
+            };
+
+            const password = document.getElementById('password').value;
+            if (password) {
+                formData.password = password;
+            }
+
+            const userType = document.getElementById('userType').value;
+            if (userType === 'EMPLOYER' || userType === 'COMPANY' || userType === 'COMPANY_EXCEL') {
+                formData.companyName = document.getElementById('companyName').value.trim();
+            }
+
+            const url = isEditMode
+                ? `${API_BASE_URL}/mdms/user-management/${currentUserId}`
+                : `${API_BASE_URL}/mdms/user-management`;
+
+            const method = isEditMode ? 'PUT' : 'POST';
+
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(isEditMode ? '회원 정보가 수정되었습니다.' : '회원이 등록되었습니다.');
+                        window.location.href = 'UserManagement.html';
+                    } else {
+                        alert(data.message || '저장 중 오류가 발생했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('저장 실패:', error);
+                    alert('저장 중 오류가 발생했습니다.');
+                });
+        }
+    });
+</script>
+</body>
+</html>

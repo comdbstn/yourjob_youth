@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+	
+    <link rel="stylesheet" type="text/css" href="/css/corpmypage.css" />
+	<link rel="stylesheet" type="text/css" href="/css/jquery.modal.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/nice-select.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+	<script src="/js/jquery.min.js"></script>
+	<script src="/js/jquery.nice-select.js"></script>
+</head>
+
+<body>
+	<!-- header -->
+	<header>
+		<nav>
+			<div class="nav-container">
+				<div class="container  flex-row items-center">
+					<div class="logo">
+						<a href="/" class="title"><img src="/img/logo.png"></a>
+						<div class="logo_txt">유학생 채용 플랫폼</div>
+					</div>
+					<div class="top_search">
+						<div class="search_box"><input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="유학생 채용정보를 검색해 보세요."></div>
+						<div class="top_search_btn"><img class="union" src="/img/union.svg" alt="Union" /></div>
+					</div>
+				</div>
+			</div>
+			<div class="menu-container">
+				<div class="container flex-row items-center item_between">
+					<ul class="menunavi">
+						<li><a href="/corpmem/mypage.html" class="notosanscjkkr-bold-mine-shaft-18px">홈</a></li>
+						<li><a href="/corpmem/jobpost.html" class="notosanscjkkr-bold-mine-shaft-18px">공고등록</a></li>
+						<li><a href="/corpmem/applicant.html" class="notosanscjkkr-bold-mine-shaft-18px active">공고·지원자관리</a></li>
+						<li><a href="/corpmem/search.html" class="notosanscjkkr-bold-mine-shaft-18px">인재검색</a></li>
+						<li><a href="/corpmem/talent.html" class="notosanscjkkr-bold-mine-shaft-18px">인재관리</a></li>
+					</ul>
+					<ul class="userNav">
+						<!-- 로그인후 노출 -->
+						<li><a href="/corpmem/paid_history.html" class="text-12">유료 이용내역</a></li>
+						<li><a href="/corpmem/mypage.html" class="text-12"><i class="fa-regular fa-user"></i></a></li>
+						<li><a href="#" class="logOut">로그아웃</a></li>
+						<!-- 로그인후 노출 end -->
+
+						<!-- 로그인전 노출
+						<li><a href="/member/join.html" class="text-12">회원가입</a></li>
+						로그인전 노출 end -->
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<!-- header end -->
+
+    <div class="container-center-horizontal">
+        <div class="crop-wrap screen">
+
+
+			<!-- container -->
+			<div class="container">
+
+				<div class="head_txt">채용공고</div>
+				<!-- tabBox -->
+				<div class="tabBox">
+					<div class="tabMenu">
+						<a href="" class="active">진행중 2</a>
+						<a href="">접수마감 2</a>
+						<a href="">채용종료 5</a>
+						<a href="">임시저장 2</a>
+					</div>
+
+					<div class="search_box">
+						<input type="search" id="s_keyword" name="s_keyword" class="form-control search_form" placeholder="검색어를 입력하세요.">
+						<button type="button" class="searchbtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</div>
+				</div>
+				<!-- tabBox end -->
+				
+				<!-- loop -->
+				<div class="item_list">
+					<div class="list_info col2">
+						<p class="pcolor">진행중</p>
+						<h3>문구, 캐릭터 디자인 정규직 채용(경력&신입)</h3>
+						<ul>
+							<li class="line">공고번호 1523636232626</li>
+							<li class="line">2024.09.11~2024.10.11</li>
+							<li>09.11등록</li>
+						</ul>
+						<div class="btnGroup">
+							<button type="button" class="aBtn" id="view">공고 보기</button>
+							<button type="button" class="aBtn" id="modify">수정</button>
+							<button type="button" class="aBtn" id="copy">복사</button>
+							<button type="button" class="aBtn" id="deadline">마감</button>
+							<button type="button" class="aBtn" id="delete">삭제</button>
+						</div>
+					</div>
+
+					<div class="list_data col2">
+						<a href="volunter_list.html">
+						<div class="circle bg">
+							<h2>10</h2>
+							<p>전체 지원자</p>
+						</div>
+						</a>
+						<a href="volunter_list.html">
+						<div class="circle">
+							<h2>0</h2>
+							<p>미열람</p>
+						</div>
+						</a>
+						<a href="volunter_list.html">
+						<div class="circle">
+							<h2>2</h2>
+							<p>미심사</p>
+						</div>
+						</a>
+						<a href="volunter_list.html">
+						<div class="circle">
+							<h2>5</h2>
+							<p>서류합격</p>
+						</div>
+						</a>
+						<a href="volunter_list.html">
+						<div class="circle bg">
+							<h2>0</h2>
+							<p>최종합격</p>
+						</div>
+						</a>
+					</div>
+				</div>
+
+				<div class="item_list">
+					<div class="list_info col2">
+						<p>접수마감</p>
+						<h3>문구, 캐릭터 디자인 정규직 채용(경력&신입)</h3>
+						<ul>
+							<li class="line">공고번호 1523636232626</li>
+							<li class="line">2024.09.11~2024.10.11</li>
+							<li>09.11등록</li>
+						</ul>
+						<div class="btnGroup">
+							<button type="button" class="aBtn" id="view">공고 보기</button>
+							<button type="button" class="aBtn" id="copy">복사</button>
+							<button type="button" class="aBtn" id="delete">삭제</button>
+						</div>
+					</div>
+
+					<div class="list_data col2">
+						<div class="circle bg">
+							<h2>10</h2>
+							<p>전체 지원자</p>
+						</div>
+						<div class="circle">
+							<h2>0</h2>
+							<p>미열람</p>
+						</div>
+						<div class="circle">
+							<h2>2</h2>
+							<p>미심사</p>
+						</div>
+						<div class="circle">
+							<h2>5</h2>
+							<p>서류합격</p>
+						</div>
+						<div class="circle bg">
+							<h2>0</h2>
+							<p>최종합격</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="item_list">
+					<div class="list_info col2">
+						<p>채용종료</p>
+						<h3>문구, 캐릭터 디자인 정규직 채용(경력&신입)</h3>
+						<ul>
+							<li class="line">공고번호 1523636232626</li>
+							<li class="line">2024.09.11~2024.10.11</li>
+							<li>09.11등록</li>
+						</ul>
+						<div class="btnGroup">
+							<button type="button" class="aBtn" id="view">공고 보기</button>
+							<button type="button" class="aBtn" id="copy">복사</button>
+							<button type="button" class="aBtn" id="delete">삭제</button>
+						</div>
+					</div>
+
+					<div class="list_data col2">
+						<div class="circle bg">
+							<h2>10</h2>
+							<p>전체 지원자</p>
+						</div>
+						<div class="circle">
+							<h2>0</h2>
+							<p>미열람</p>
+						</div>
+						<div class="circle">
+							<h2>2</h2>
+							<p>미심사</p>
+						</div>
+						<div class="circle">
+							<h2>5</h2>
+							<p>서류합격</p>
+						</div>
+						<div class="circle bg">
+							<h2>0</h2>
+							<p>최종합격</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="item_list">
+					<div class="list_info col2">
+						<p>임시저장</p>
+						<h3>문구, 캐릭터 디자인 정규직 채용(경력&신입)</h3>
+						<ul>
+							<li class="line">공고번호 1523636232626</li>
+							<li class="line">2024.09.11~2024.10.11</li>
+							<li>09.11등록</li>
+						</ul>
+						<div class="btnGroup">
+							<button type="button" class="aBtn" id="modify">수정</button>
+							<button type="button" class="aBtn" id="copy">복사</button>
+							<button type="button" class="aBtn" id="delete">삭제</button>
+						</div>
+					</div>
+				</div>
+				<!-- loop end -->
+
+
+				<!-- page -->
+				<div class="page_num">
+					<a href="#"><i class="fa-solid fa-angle-left"></i></a>
+					<a href="#" class="active">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+					<a href="#"><i class="fa-solid fa-angle-right"></i></a>
+				</div>
+				<!-- page end -->
+
+			</div>
+			<!-- container end-->
+
+        </div>
+    </div>
+
+
+	<!-- footer -->
+	<footer>
+		<div class="footer_wrap">
+			<div class="footer_link">
+				<ul>
+					<li>이용약관</li>
+					<li>개인정보처리방침</li>
+				</ul>
+			</div>
+	
+			<div class="footer_con">
+				<div class="container">
+
+					<div class="footer_box">
+						<div class="footer_info">
+							<ul>
+								<li>고객센터 : 0000-0000</li>
+								<li>FAX : 00-0000-0000</li>
+								<li>E-mail : abcd@gmail.com</li>
+							</ul>
+							<ul>
+								<li>서울시 서초구 서초대로 301</li>
+								<li>대표 : 홍길동</li>
+								<li>사업자등록번호 : 000-00-00000</li>
+							</ul>
+							<ul>
+								<li>Copyright ©아이비리거. All rights reserved.</li>
+							</ul>
+						</div>
+						<div class="urjob"><img src="/img/f_logo.png"></div>
+
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer end -->
+
+<script src="/js/jquery.modal.js"></script>
+<script src="/js/modal.js"></script>
+<script>
+$(document).ready(function () {
+	$('select').niceSelect();
+
+	/* 공고상세 */
+	$('.item_list').on("click", "#view", function () {
+		window.location.href = "job_detail.html";
+	});
+
+	/* 수정 */
+	$('.item_list').on("click", "#modify", function () {
+		window.location.href = "jobpost.html";
+	});
+
+	/* 마감 모달창열기 */
+	$('.item_list').on("click", "#deadline", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'deadline_modal.html',
+			largeModal: "small-modal", 
+			close: function(result) {
+			}
+		});
+	});
+	/* 삭제 모달창열기 */
+	$('.item_list').on("click", "#delete", function () {
+		event.preventDefault();
+		this.blur();
+		$.popup({
+			url: 'delete_modal.html',
+			largeModal: "small-modal", 
+			close: function(result) {
+			}
+		});
+	});
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="https://animaproject.s3.amazonaws.com/home/favicon.png"
+    />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+
+    <link rel="stylesheet" type="text/css" href="/css/mypage.css" />
+    <link rel="stylesheet" type="text/css" href="/css/nice-select.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.nice-select.js"></script>
+  </head>
+
+  <body>
+    <!-- header -->
+    <header>
+      <nav>
+        <div class="nav-container">
+          <div class="container flex-row items-center">
+            <div class="logo">
+              <a href="/" class="title"><img src="/img/logo.png" /></a>
+              <div class="logo_txt">유학생 채용 플랫폼</div>
+            </div>
+            <div class="top_search">
+              <div class="search_box">
+                <input
+                  type="search"
+                  id="s_keyword"
+                  name="s_keyword"
+                  class="form-control search_form"
+                  placeholder="유학생 채용정보를 검색해 보세요."
+                />
+              </div>
+              <div class="top_search_btn">
+                <img class="union" src="/img/union.svg" alt="Union" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="menu-container">
+          <div class="container flex-row items-center item_between">
+            <ul class="menunavi">
+              <li>
+                <a
+                  href="/jobpost/joblist_dom.html"
+                  class="notosanscjkkr-bold-mine-shaft-18px"
+                  >채용공고</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/community/bbsList.html"
+                  class="notosanscjkkr-bold-mine-shaft-18px"
+                  >커뮤니티</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/accept/acceptList.html"
+                  class="notosanscjkkr-bold-mine-shaft-18px"
+                  >합격자소서</a
+                >
+              </li>
+            </ul>
+            <ul class="userNav">
+              <li><a href="/member/join.html" class="text-12">회원가입</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- header end -->
+
+    <div class="container-center-horizontal">
+      <div class="mypage screen">
+        <div class="container">
+          <div class="flex-con">
+            <!-- resume_write -->
+            <div class="resume_write">
+              <!-- form start -->
+              <div class="resume_write_form">
+                <div class="resume_title">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="resume_title"
+                    id="resume_title"
+                    placeholder="이력서 제목을 입력해 주세요."
+                  />
+                </div>
+                <!-- formProfile -->
+                <div class="formProfile">
+                  <div class="picture">
+                    <div class="file-upload">
+                      <label for="ex_file">사진 업로드</label>
+                      <input type="file" id="ex_file" />
+                    </div>
+                  </div>
+                  <div class="user-profile">
+                    <div class="user-profile_row">
+                      <div class="user-profile_name-container">
+                        <div class="user-profile_name">홍길동</div>
+                        <span>남</span>
+                        <span>1998년(만 26세)</span>
+                        <span>
+                          <select>
+                            <option value="">신입</option>
+                            <option value="">경력</option>
+                          </select>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="user-profile_detail-contents">
+                      <div class="profile_detail">
+                        <div class="user-profile_list-container">
+                          <dl>
+                            <dt>휴대폰</dt>
+                            <dd>010-1234-5678</dd>
+                          </dl>
+                          <dl>
+                            <dt>영문이름</dt>
+                            <dd>hong gildong</dd>
+                          </dl>
+                        </div>
+                      </div>
+                      <div class="profile_detail">
+                        <div class="user-profile_list-container">
+                          <dl>
+                            <dt>주소</dt>
+                            <dd>서울시 서초 서초대로</dd>
+                          </dl>
+                          <dl>
+                            <dt>국적</dt>
+                            <dd>대한민국</dd>
+                          </dl>
+                        </div>
+                      </div>
+                      <div class="profile_detail">
+                        <div class="user-profile_list-container">
+                          <dl>
+                            <dt>Email</dt>
+                            <dd>abcd@gmail.com</dd>
+                          </dl>
+                          <dl>
+                            <dt>비자여부</dt>
+                            <dd>해당없음</dd>
+                          </dl>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- formProfile end -->
+
+                <div class="user-inform">
+                  <!-- 학력 -->
+                  <dl>
+                    <dt>학력</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="schoolDevi"
+                            >학교 구분<span>*</span></label
+                          >
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">고등학교</option>
+                            <option value="">대학(2,3년)</option>
+                            <option value="">대학(4년)</option>
+                            <option value="">대학원</option>
+                          </select>
+                        </div>
+                        <div class="SelectBox">
+                          <label for="schoolNm">학교명<span>*</span></label>
+                          <input
+                            type="text"
+                            name="schoolNm"
+                            id="schoolNm"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="faculty">학과<span>*</span></label>
+                          <input
+                            type="text"
+                            name="faculty"
+                            id="faculty"
+                            class="form-control"
+                          />
+                        </div>
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="admidt">입학년월<span>*</span></label>
+                          <input
+                            type="text"
+                            name="admidt"
+                            id="admidt"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="graddt">졸업년월<span>*</span></label>
+                          <input
+                            type="text"
+                            name="graddt"
+                            id="graddt"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="gradstatu">졸업상태<span>*</span></label>
+                          <select id="gradstatu" name="gradstatu">
+                            <option value="">졸업</option>
+                            <option value="">졸업예정</option>
+                            <option value="">재학중</option>
+                            <option value="">중퇴</option>
+                            <option value="">수료</option>
+                            <option value="">휴학</option>
+                          </select>
+                        </div>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="acadtot">학점 총점</label>
+                          <input
+                            type="text"
+                            name="acadtot"
+                            id="acadtot"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="acad">학점</label>
+                          <input
+                            type="text"
+                            name="acad"
+                            id="acad"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="transfer">
+                          <div class="scheck-primary">
+                            <input
+                              type="checkbox"
+                              id="college"
+                              name="college"
+                              value="1"
+                            />
+                            <label for="college">편입</label>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- row end-->
+                      <!-- row -->
+                      <div class="row">
+                        <div class="addBtnbox">
+                          <button type="button" id="addArea">+ 지역</button>
+                          <button type="button" id="addMajor">
+                            + 추가전공
+                          </button>
+                        </div>
+                      </div>
+                      <!-- row end-->
+                      <!-- row -->
+                      <button type="button" id="infoaddBrn" class="infoaddBrn">
+                        + 추가
+                      </button>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 학력 end-->
+
+                  <!-- 어학능력 -->
+                  <dl>
+                    <dt>어학능력</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="schoolDevi">외국어<span>*</span></label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">영어</option>
+                            <option value="">일본어</option>
+                            <option value="">중국어</option>
+                            <option value="">프랑스어</option>
+                            <option value="">독일어</option>
+                          </select>
+                        </div>
+                        <div class="SelectBox w01">
+                          <label for="schoolDevi">회화수준</label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">Authentic</option>
+                            <option value="">Advanced</option>
+                            <option value="">Intermediate</option>
+                            <option value="">Basic</option>
+                            <option value="">Beginner</option>
+                          </select>
+                        </div>
+                        <div class="SelectBox w01">
+                          <label for="schoolDevi">작문수준</label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">Authentic</option>
+                            <option value="">Advanced</option>
+                            <option value="">Intermediate</option>
+                            <option value="">Basic</option>
+                            <option value="">Beginner</option>
+                          </select>
+                        </div>
+                        <div class="SelectBox w01">
+                          <label for="schoolDevi">독해수준</label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">Authentic</option>
+                            <option value="">Advanced</option>
+                            <option value="">Intermediate</option>
+                            <option value="">Basic</option>
+                            <option value="">Beginner</option>
+                          </select>
+                        </div>
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <button type="button" id="infoaddBrn" class="infoaddBrn">
+                        + 추가
+                      </button>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 어학능력 end-->
+
+                  <!-- 경력 -->
+                  <dl>
+                    <dt>경력</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="schoolDevi">회사명<span>*</span></label>
+                          <input
+                            type="text"
+                            name="acadtot"
+                            id="acadtot"
+                            class="form-control"
+                          />
+                          <button type="button" class="searchbtn">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                          </button>
+                        </div>
+                        <div class="SelectBox">
+                          <label for="schoolDevi">담당직무<span>*</span></label>
+                          <input
+                            type="text"
+                            name="acadtot"
+                            id="acadtot"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="schoolDevi">직급/직책</label>
+                          <input
+                            type="text"
+                            name="acadtot"
+                            id="acadtot"
+                            class="form-control"
+                          />
+                        </div>
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+                      <!-- row -->
+                      <div class="row">
+                        <textarea
+                          type="text"
+                          name="spellingText"
+                          id="spellingText"
+                          class="form-control"
+                          placeholder="담당업무"
+                        ></textarea>
+                      </div>
+                      <!-- row end-->
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox w02">
+                          <label for="schoolDevi">입사년월<span>*</span></label>
+                          <input
+                            type="text"
+                            name="acadtot"
+                            id="acadtot"
+                            class="form-control"
+                          />
+                          <button type="button" class="searchbtn">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                          </button>
+                        </div>
+                        <div class="SelectBox w02">
+                          <label for="schoolDevi">퇴사년월<span>*</span></label>
+                          <input
+                            type="text"
+                            name="acadtot"
+                            id="acadtot"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox w02">
+                          <label>재직여부</label>
+                          <div class="flex-row items-center empstat">
+                            <input
+                              id="use_gradebot1"
+                              type="radio"
+                              name="use_gradebot"
+                              value="1"
+                            />
+                            <label for="use_gradebot1">재직중</label>
+                            <input
+                              id="use_gradebot2"
+                              type="radio"
+                              name="use_gradebot"
+                              value="1"
+                            />
+                            <label for="use_gradebot2">퇴사</label>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <button type="button" id="infoaddBrn" class="infoaddBrn">
+                        + 추가
+                      </button>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 경력 end-->
+
+                  <!-- 인턴/대외활동 -->
+                  <dl>
+                    <dt>인턴/대외활동</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox w03">
+                          <label for="schoolDevi">활동구분<span>*</span></label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">인턴</option>
+                            <option value="">아르바이트</option>
+                            <option value="">동아리</option>
+                            <option value="">자원봉사</option>
+                            <option value="">사회활동</option>
+                            <option value="">교내활동</option>
+                            <option value="">기타</option>
+                          </select>
+                        </div>
+                        <div class="SelectBox w03">
+                          <label for="schoolDevi"
+                            >회사/기관/단체명<span>*</span></label
+                          >
+                          <div class="comnm">
+                            <input
+                              type="text"
+                              name="acadtot"
+                              id="acadtot"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="schoolDevi">시작년월</label>
+                          <div class="comnm">
+                            <input
+                              type="text"
+                              name="acadtot"
+                              id="acadtot"
+                              class="form-control"
+                              value="2024.01.10"
+                            />
+                          </div>
+                        </div>
+                        <div class="SelectBox">
+                          <label for="schoolDevi">종료년월</label>
+                          <div class="comnm">
+                            <input
+                              type="text"
+                              name="acadtot"
+                              id="acadtot"
+                              class="form-control"
+                              value="2024.01.10"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <!-- row end-->
+                      <!-- row -->
+                      <div class="row">
+                        <textarea
+                          type="text"
+                          name="spellingText"
+                          id="spellingText"
+                          class="form-control"
+                          placeholder="활동내용"
+                        ></textarea>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <button type="button" id="infoaddBrn" class="infoaddBrn">
+                        + 추가
+                      </button>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 인턴/대외활동 end-->
+
+                  <!-- 아포스티유 -->
+                  <dl>
+                    <dt>아포스티유</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="apostille-upload">
+                          <label for="apostille_file">+ 파일추가</label>
+                          <input type="file" id="apostille_file" />
+                        </div>
+
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 아포스티유 end-->
+
+                  <!-- 자격증 -->
+                  <dl>
+                    <dt>자격증</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="schoolNm">자격증 명<span>*</span></label>
+                          <input
+                            type="text"
+                            name="schoolNm"
+                            id="schoolNm"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="schoolNm">발행처</label>
+                          <input
+                            type="text"
+                            name="schoolNm"
+                            id="schoolNm"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="faculty">취득년월</label>
+                          <input
+                            type="text"
+                            name="faculty"
+                            id="faculty"
+                            class="form-control"
+                          />
+                        </div>
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <button type="button" id="infoaddBrn" class="infoaddBrn">
+                        + 추가
+                      </button>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 자격증 end-->
+
+                  <!-- 수상 -->
+                  <dl>
+                    <dt>수상</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox">
+                          <label for="schoolNm">수상 명<span>*</span></label>
+                          <input
+                            type="text"
+                            name="schoolNm"
+                            id="schoolNm"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="schoolNm">수여기관</label>
+                          <input
+                            type="text"
+                            name="schoolNm"
+                            id="schoolNm"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox">
+                          <label for="faculty">수상연도</label>
+                          <input
+                            type="text"
+                            name="faculty"
+                            id="faculty"
+                            class="form-control"
+                          />
+                        </div>
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+                      <!-- row -->
+                      <div class="row">
+                        <textarea
+                          type="text"
+                          name="spellingText"
+                          id="spellingText"
+                          class="form-control"
+                          placeholder="활동내용"
+                        ></textarea>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <button type="button" id="infoaddBrn" class="infoaddBrn">
+                        + 추가
+                      </button>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 수상 end-->
+
+                  <!-- 취업우대·병역 -->
+                  <dl>
+                    <dt>취업우대·병역</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="SelectBox bg1 w04">
+                          <div class="military">
+                            <div class="scheck-primary">
+                              <input
+                                type="checkbox"
+                                id="military1"
+                                name="military"
+                                value="1"
+                              />
+                              <label for="military1">보훈대상</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="SelectBox bg1 w04">
+                          <div class="military">
+                            <div class="scheck-primary">
+                              <input
+                                type="checkbox"
+                                id="military2"
+                                name="military"
+                                value="1"
+                              />
+                              <label for="military2">취업보호대상</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="SelectBox bg1 w04">
+                          <div class="military">
+                            <div class="scheck-primary">
+                              <input
+                                type="checkbox"
+                                id="military3"
+                                name="military"
+                                value="1"
+                              />
+                              <label for="military3">고용지원금 대상</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="SelectBox bg1 w04">
+                          <div class="military">
+                            <div class="scheck-primary">
+                              <input
+                                type="checkbox"
+                                id="military4"
+                                name="military"
+                                value="1"
+                              />
+                              <label for="military4">장애</label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="SelectBox bg1 w04">
+                          <div class="military">
+                            <div class="scheck-primary">
+                              <input
+                                type="checkbox"
+                                id="military5"
+                                name="military"
+                                value="1"
+                              />
+                              <label for="military5">병역</label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- 장애 체크시 노출 -->
+                      <div class="row" id="display4">
+                        <div class="SelectBox">
+                          <label for="schoolDevi">장애 등급</label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">중증</option>
+                            <option value="">경증</option>
+                            <option value="">1급</option>
+                            <option value="">2급</option>
+                            <option value="">3급</option>
+                            <option value="">4급</option>
+                            <option value="">5급</option>
+                            <option value="">6급</option>
+                          </select>
+                        </div>
+                      </div>
+                      <!--  장애 체크시 노출 end-->
+
+                      <!-- 병역 체크시 노출 -->
+                      <div class="row" id="display5">
+                        <div class="SelectBox">
+                          <label for="schoolDevi">병역</label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">군필</option>
+                            <option value="">미필</option>
+                            <option value="">면제</option>
+                            <option value="">해당없음</option>
+                          </select>
+                        </div>
+                        <div class="SelectBox w01">
+                          <label for="schoolNm">입대일</label>
+                          <input
+                            type="text"
+                            name="schoolNm"
+                            id="schoolNm"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox w01">
+                          <label for="schoolNm">제대일</label>
+                          <input
+                            type="text"
+                            name="schoolNm"
+                            id="schoolNm"
+                            class="form-control"
+                          />
+                        </div>
+                        <div class="SelectBox w01">
+                          <label for="schoolNm">제대 계급</label>
+                          <select id="schoolDevi" name="schoolDevi">
+                            <option value="">이병</option>
+                            <option value="">일병</option>
+                            <option value="">상병</option>
+                            <option value="">병장</option>
+                            <option value="">하사</option>
+                            <option value="">원사</option>
+                            <option value="">준위</option>
+                            <option value="">소위</option>
+                            <option value="">중위</option>
+                            <option value="">대위</option>
+                            <option value="">소령</option>
+                            <option value="">중령</option>
+                            <option value="">대령</option>
+                            <option value="">준장</option>
+                            <option value="">소장</option>
+                            <option value="">중장</option>
+                            <option value="">대장</option>
+                            <option value="">기타</option>
+                          </select>
+                        </div>
+                      </div>
+                      <!--  병역 체크시 노출 end-->
+
+                      <!-- row -->
+                      <div class="row">
+                        <div class="agreeBox">
+                          <input
+                            type="checkbox"
+                            id="agree"
+                            name="agree"
+                            value="1"
+                            class="check_box"
+                          />
+                          <label for="agree" class="txt"
+                            ><span>(필수)</span>민감정보 수집에 동의합니다.
+                            <i class="fa-solid fa-angle-down"></i
+                          ></label>
+                        </div>
+                      </div>
+                      <!-- row end-->
+
+                      <!-- row -->
+                      <div class="row">
+                        <textarea
+                          type="text"
+                          name="spellingText"
+                          id="spellingText"
+                          class="form-control bg1 txt1"
+                          placeholder="활동내용"
+                        >
+1. 수집·이용목적 : 일반회원 의사에 따른 구직활동
+2. 수집 항목 : 취업보호
+3. 보유 및 이용기간 : 서비스 이용 시점까지
+4. 민감정보는 선택 항목이며, 입력하지 않아도 이력서 작성에 제한을 두지 않습니다.</textarea
+                        >
+                      </div>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 취업우대·병역 end-->
+
+                  <!-- 자기소개서 -->
+                  <dl>
+                    <dt>자기소개서</dt>
+                    <dd id="defult-row">
+                      <!-- row -->
+                      <div class="row">
+                        <div class="personal">
+                          <div class="personal_title">
+                            <input
+                              type="text"
+                              id="personal_title"
+                              name="personal_title"
+                              placeholder="제목을 입력해 주세요."
+                            />
+                          </div>
+                          <div class="personal_textarea">
+                            <textarea
+                              type="text"
+                              name="personal_textarea"
+                              id="personal_textarea"
+                              class="form-control"
+                              placeholder="내용을 입력해 주세요."
+                            ></textarea>
+                          </div>
+                        </div>
+
+                        <button type="button" class="adddelBtn">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="60"
+                            height="60"
+                            viewBox="0 0 60 60"
+                            fill="none"
+                          >
+                            <rect
+                              x="0.5"
+                              y="0.5"
+                              width="59"
+                              height="59"
+                              rx="19.5"
+                              fill="#F5F5F5"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="24.4141"
+                              y="23"
+                              width="17"
+                              height="2"
+                              transform="rotate(45 24.4141 23)"
+                              fill="#A8A8A8"
+                            />
+                            <rect
+                              x="36.4355"
+                              y="24.4141"
+                              width="17"
+                              height="2"
+                              transform="rotate(135 36.4355 24.4141)"
+                              fill="#A8A8A8"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <!-- row end-->
+                    </dd>
+                  </dl>
+                  <!-- 자기소개서 end-->
+                </div>
+              </div>
+              <!-- form end -->
+
+              <!-- side start -->
+              <div class="resume_side">
+                <aside>
+                  <!-- sidebarBox -->
+                  <div class="sidebarBox">
+                    <ul>
+                      <li>
+                        <div class="txt active">학력</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#CBCBCB"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7.5"
+                              y="11.5"
+                              width="9"
+                              height="1"
+                              fill="#CBCBCB"
+                              stroke="#CBCBCB"
+                            />
+                            <rect
+                              x="12.5"
+                              y="7.5"
+                              width="9"
+                              height="1"
+                              transform="rotate(90 12.5 7.5)"
+                              fill="#CBCBCB"
+                              stroke="#CBCBCB"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">어학</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">경력</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">인턴/대외활동</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">아포스티유</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">자격증</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">수상</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">취업우대·병역</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="txt">자기소개서</div>
+                        <div class="icon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="11"
+                              fill="white"
+                              stroke="#2F80DC"
+                              stroke-width="2"
+                            />
+                            <rect
+                              x="7"
+                              y="11"
+                              width="10"
+                              height="2"
+                              fill="#2F80DC"
+                            />
+                          </svg>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- sidebarBox end -->
+                  <div class="ResumeSave">
+                    <button type="button" id="ResumeSave">이력서 저장</button>
+                  </div>
+                </aside>
+              </div>
+              <!-- side end -->
+            </div>
+            <!-- resume_write end -->
+          </div>
+        </div>
+
+        <!-- footer -->
+        <footer>
+          <div class="footer_wrap">
+            <div class="footer_link">
+              <ul>
+                <li>이용약관</li>
+                <li>개인정보처리방침</li>
+              </ul>
+            </div>
+
+            <div class="footer_con">
+              <div class="container">
+                <div class="footer_box">
+                  <div class="footer_info">
+                    <ul>
+                      <li>고객센터 : 0000-0000</li>
+                      <li>FAX : 00-0000-0000</li>
+                      <li>E-mail : abcd@gmail.com</li>
+                    </ul>
+                    <ul>
+                      <li>서울시 서초구 서초대로 301</li>
+                      <li>대표 : 홍길동</li>
+                      <li>사업자등록번호 : 000-00-00000</li>
+                    </ul>
+                    <ul>
+                      <li>Copyright ©아이비리거. All rights reserved.</li>
+                    </ul>
+                  </div>
+                  <div class="urjob"><img src="/img/f_logo.png" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- footer end -->
+      </div>
+    </div>
+
+    <script src="/js/jquery.modal.js"></script>
+    <script src="/js/modal.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("select").niceSelect();
+
+        // 모든 div 숨기기
+        $("#display4").hide();
+        $("#display5").hide();
+
+        $('input[name="military"]').change(function () {
+          if ($("#military4").prop("checked")) {
+            $("#display4").show();
+          } else {
+            $("#display4").hide();
+          }
+          if ($("#military5").prop("checked")) {
+            $("#display5").show();
+          } else {
+            $("#display5").hide();
+          }
+        });
+
+        $("#profileWrite").on("click", function () {
+          window.location.href = "profile.html";
+        });
+
+        $("#ResumeSave").on("click", function () {
+          this.blur();
+          $.popup({
+            url: "complete_modal.html",
+            close: function (result) {},
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+@charset "utf-8";
+$transition: 'cubic-bezier(0.17, 0.04, 0.03, 0.94)';
+
+@import '_reboot';
+@import '_boot';
+@import '_font';
+@import '_button';
+@import '_form';
+@import '_common';
+@import '_helpers';
+
+
+@import '_header';
+@import '_lnb';
+// @import '_footer';
+@import '_intro';
+
+// icon sprite 정의
+@import './sprites/_icon-sprite';
+@include sprites($icon-sprites);
+// 반응형 레티나용 이미지아이콘
+@import './sprites/_icon2-sprite';
+@include sprites($icon2-sprites);
+@include retina-sprites($retina-groups);

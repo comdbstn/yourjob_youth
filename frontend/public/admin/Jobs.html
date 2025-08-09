@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채용정보</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 페이지네이션 스타일 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .page-size-selector {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .page-size-selector label {
+            margin-right: 5px;
+        }
+        .page-size-selector select {
+            padding: 2px 5px;
+        }
+    </style>
+</head>
+<body>
+    <main class="main">
+        <!-- lnb -->
+        <aside class="lnb">
+
+            <!-- 로고 -->
+            <div class="lnb__logo">
+                <a href="/" class="lnb__logo--link">
+                    <img src="assets/images/logo.png">
+                </a>
+            </div>
+            <!-- //로고 -->
+
+            <!-- 메뉴1 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="./Jobs.html" class="btn isActive">채용정보</a>
+                </li>
+                <li>
+                    <a href="Resumes.html" class="btn">이력서정보</a>
+                </li>
+                <li>
+                    <a href="Application.html" class="btn">입사지원</a>
+                </li>
+                <li>
+                    <a href="JobOffers.html" class="btn">포지션제안</a>
+                </li>
+                <li>
+                    <a href="CompanyProfile.html" class="btn">기업정보</a>
+                </li>
+                <li>
+                    <a href="CommunityPost.html" class="btn">커뮤니티</a>
+                </li>
+                <li>
+                    <a href="Payments.html" class="btn">결제관리</a>
+                </li>
+                <li>
+                    <a href="Products.html" class="btn">상품관리</a>
+                </li>
+                <li>
+                    <a href="Banner.html" class="btn">배너관리</a>
+                </li>
+                <li>
+                    <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+                </li>
+                <li>
+                    <a href="DataManagement.html" class="btn">데이터관리</a>
+                </li>
+            </ul>
+            <!-- //메뉴1 -->
+
+            <!-- 메뉴2 -->
+            <ul class="lnb--menu">
+                <li>
+                    <a href="Statistics.html" class="btn">통계</a>
+                </li>
+                <li>
+                    <a href="UserManagement.html" class="btn">회원관리</a>
+                </li>
+                <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+                <li>
+                    <a href="Settings.html" class="btn">환경설정</a>
+                </li>
+            </ul>
+            <!-- //메뉴2 -->
+        </aside>
+        <!-- //lnb -->
+
+        <!-- contents -->
+        <div class="contents">
+
+            <!-- 상단 네비 영역 -->
+            <div class="navigation">
+                <div class="container">
+                    <button type="button" class="btn btn-danger btn-small" id="btnLogout" onclick="location.href='/login.html'">로그아웃</button>
+                </div>
+            </div>
+            <!-- //상단 네비 영역 -->
+
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+                <div class="container">
+                    <h2 class="title--h2">채용정보</h2>
+                </div>
+            </div>
+            <!-- //페이지 타이틀 -->
+
+            <!-- 컨텐츠 영역 -->
+            <div class="content">
+                <div class="container">
+
+                    <article class="article-area">
+
+                        <!-- 상단 버튼 영역 -->
+                        <div class="btn-area--top">
+                            <button type="button" class="btn btn-danger btn-small" id="btnBulkDelete">삭제</button>
+                            <button type="button" class="btn btn-success btn-small" id="btnBulkShow">노출</button>
+                            <button type="button" class="btn btn-warning btn-small" id="btnBulkHide">비노출</button>
+                        </div>
+                        <!-- //상단 버튼 영역 -->
+
+                        <!-- 상단 검색 영역 -->
+                        <div class="search-area">
+                            <div class="search--select select-box">
+                                <div class="control">
+                                    <select class="select" id="status">
+                                        <option value="">상태</option>
+                                        <option value="채용중">채용중</option>
+                                        <option value="close">close</option>
+                                        <option value="PENDING">대기</option>
+                                    </select>
+                                </div>
+                                <div class="control">
+                                    <select class="select" id="locationType">
+                                        <option value="">국가</option>
+                                        <option value="국내">국내</option>
+                                        <option value="domestic">해외</option>
+                                    </select>
+                                </div>
+
+                                <div class="control">
+                                    <select class="select" id="region">
+                                        <option value="">지역</option>
+                                        <!-- 지역 옵션이 동적으로 로드됩니다 -->
+                                    </select>
+                                </div>
+
+                                <div class="control">
+                                    <select class="select" id="jobType">
+                                        <option value="">근무형태</option>
+                                        <!-- 근무형태 옵션이 동적으로 로드됩니다 -->
+                                    </select>
+                                </div>
+
+                                <div class="select--date">
+                                    <div class="control">
+                                        <input type="date" id="startDate" class="select">
+                                    </div>
+                                    <div class="control">
+                                        <input type="date" id="endDate" class="select">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="search--text">
+                                <div class="control">
+                                    <input type="text" id="keyword" placeholder="검색어를 입력하세요">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="btnSearch">검색</button>
+                            </div>
+                        </div>
+                        <!-- //상단 검색 영역 -->
+
+                        <!-- 테이블 -->
+                        <section class="table-area">
+                            <div class="table-header">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <colgroup>
+                                        <col width="44px"/> <!-- 체크 -->
+                                        <col width="60px"/> <!-- 번호 -->
+                                        <col width="100px"/> <!-- 시작일 -->
+                                        <col width="100px"/> <!-- 마감일 -->
+                                        <col width="80px"/> <!-- 상태 -->
+                                        <col width="200px"/> <!-- 아이디 -->
+                                        <col width="180px"/> <!-- 기업명 -->
+                                        <col width="*"/> <!-- 제목 -->
+                                        <col width="80px"/> <!-- 국가 -->
+                                        <col width="140px"/> <!-- 지역 -->
+                                        <col width="140px"/> <!-- 근무형태 -->
+                                        <col width="250px"/> <!-- 관리자툴 -->
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="control">
+                                                <input id="selectAll" type="checkbox" class="checked--all">
+                                            </div>
+                                        </th>
+                                        <th>번호</th>
+                                        <th>시작일</th>
+                                        <th>마감일</th>
+                                        <th>상태</th>
+                                        <th>아이디</th>
+                                        <th>기업명</th>
+                                        <th>제목</th>
+                                        <th>국가</th>
+                                        <th>지역</th>
+                                        <th>근무형태</th>
+                                        <th>관리자툴</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div class="table-content">
+                                <table cellpadding="0" cellspacing="0" border="0">
+                                    <colgroup>
+                                        <col width="44px"/> <!-- 체크 -->
+                                        <col width="60px"/> <!-- 번호 -->
+                                        <col width="100px"/> <!-- 시작일 -->
+                                        <col width="100px"/> <!-- 마감일 -->
+                                        <col width="80px"/> <!-- 상태 -->
+                                        <col width="200px"/> <!-- 아이디 -->
+                                        <col width="180px"/> <!-- 기업명 -->
+                                        <col width="*"/> <!-- 제목 -->
+                                        <col width="80px"/> <!-- 국가 -->
+                                        <col width="140px"/> <!-- 지역 -->
+                                        <col width="140px"/> <!-- 근무형태 -->
+                                        <col width="250px"/> <!-- 관리자툴 -->
+                                    </colgroup>
+                                    <tbody id="jobTableBody">
+                                        <!-- 데이터가 여기에 동적으로 로드됩니다 -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <!-- //테이블 -->
+
+                        <!-- 페이지네이션 영역 -->
+                        <div class="page-size-selector">
+                            <select id="pageSize">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="pagination">
+                            <!-- 페이지 버튼이 여기에 동적으로 로드됩니다 -->
+                        </div>
+                        <div class="pagination-info">
+                            <!-- 페이지 정보가 여기에 표시됩니다 -->
+                        </div>
+                        <!-- //페이지네이션 영역 -->
+                    </article>
+                </div>
+            </div>
+            <!-- //컨텐츠 영역 -->
+        </div>
+        <!-- //contents -->
+    </main>
+    <script src="./env-config.js"></script>
+    <script>
+        //const API_BASE_URL = 'http://localhost:8082/api/v1';
+        //const API_BASE_URL = 'http://13.125.187.22:8082/api/v1';
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 상태 변수
+            let selectedIds = [];
+            let jobItems = [];
+            let currentPage = 0;
+            let pageSize = 10;
+            let totalPages = 0;
+            let totalElements = 0;
+
+            // 필터 데이터 저장 변수
+            let regionOptions = [];
+            let jobTypeOptions = [];
+
+            // 초기화 함수
+            async function initialize() {
+                // 지역 및 근무형태 옵션 로드
+                await Promise.all([
+                    loadRegionOptions(),
+                    loadJobTypeOptions()
+                ]);
+
+                // 채용 정보 로드
+                loadJobItems();
+            }
+
+            // 지역 옵션 로드 (level1 codes with dataType 00000012)
+            async function loadRegionOptions() {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/mdms/operation-data/level1-codes?dataType=00000012`);
+                    if (!response.ok) {
+                        throw new Error('지역 데이터를 불러오는데 실패했습니다.');
+                    }
+
+                    const responseData = await response.json();
+                    console.log('Region API response:', responseData);
+
+                    // API 응답 구조에 따라 데이터 추출
+                    const levelCodes = responseData.levelCodes || [];
+
+                    // 지역 옵션 데이터 구조 변환 (code를 id로, levelValue를 name으로 사용)
+                    regionOptions = levelCodes.map(item => ({
+                        id: item.code,
+                        name: item.levelValue
+                    }));
+
+                    // 지역 셀렉트 박스 채우기
+                    const regionSelect = document.getElementById('region');
+                    // 기본 옵션 유지
+                    const defaultOption = regionSelect.querySelector('option');
+                    regionSelect.innerHTML = '';
+                    regionSelect.appendChild(defaultOption);
+
+                    // 새 옵션 추가
+                    regionOptions.forEach(option => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = option.id; // code 값을 value로 사용
+                        optionElement.textContent = option.name; // levelValue를 표시 텍스트로 사용
+                        regionSelect.appendChild(optionElement);
+                    });
+                } catch (error) {
+                    console.error('지역 옵션 로드 실패:', error);
+                }
+            }
+
+            // 근무형태 옵션 로드 (level2 codes with dataType 00000010)
+            async function loadJobTypeOptions() {
+                try {
+                    // 직접 dataType=00000010에 대한 데이터 가져오기
+                    const response = await fetch(`${API_BASE_URL}/mdms/operation-data/level1-codes?dataType=00000010`);
+                    if (!response.ok) {
+                        throw new Error('근무형태 데이터를 불러오는데 실패했습니다.');
+                    }
+
+                    const responseData = await response.json();
+                    console.log('Job Type API response:', responseData);
+
+                    // API 응답 구조에 따라 데이터 추출
+                    const levelCodes = responseData.levelCodes || [];
+
+                    // 근무형태 옵션 데이터 구조 변환 (code를 id로, levelValue를 name으로 사용)
+                    jobTypeOptions = levelCodes.map(item => ({
+                        id: item.code,
+                        name: item.levelValue
+                    }));
+
+                    // 근무형태 셀렉트 박스 채우기
+                    const jobTypeSelect = document.getElementById('jobType');
+                    // 기본 옵션 유지
+                    const defaultOption = jobTypeSelect.querySelector('option');
+                    jobTypeSelect.innerHTML = '';
+                    jobTypeSelect.appendChild(defaultOption);
+
+                    // 새 옵션 추가
+                    jobTypeOptions.forEach(option => {
+                        const optionElement = document.createElement('option');
+                        optionElement.value = option.id; // code 값을 value로 사용
+                        optionElement.textContent = option.name; // levelValue를 표시 텍스트로 사용
+                        jobTypeSelect.appendChild(optionElement);
+                    });
+                } catch (error) {
+                    console.error('근무형태 옵션 로드 실패:', error);
+                }
+            }
+
+            // 초기 로드
+            initialize();
+
+            // 이벤트 리스너 등록
+            document.getElementById('btnSearch').addEventListener('click', handleSearch);
+            document.getElementById('selectAll').addEventListener('change', handleSelectAllClick);
+            document.getElementById('btnBulkDelete').addEventListener('click', handleBulkDelete);
+            document.getElementById('btnBulkShow').addEventListener('click', () => handleBulkStatusChange('채용중'));
+            document.getElementById('btnBulkHide').addEventListener('click', () => handleBulkStatusChange('close'));
+            document.getElementById('btnLogout').addEventListener('click', handleLogout);
+            document.getElementById('pageSize').addEventListener('change', handlePageSizeChange);
+
+            document.getElementById('keyword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+
+            // 필터링 옵션들에 change 이벤트 리스너 추가
+            const filterElements = [
+                'status',
+                'locationType',
+                'region',
+                'jobType',
+                'startDate',
+                'endDate'
+            ];
+
+            // 각 필터링 요소에 change 이벤트 리스너 추가
+            filterElements.forEach(elementId => {
+                document.getElementById(elementId).addEventListener('change', handleFilterChange);
+            });
+
+            // 필터 변경 이벤트 핸들러
+            function handleFilterChange() {
+                currentPage = 0; // 필터 변경 시 첫 페이지로 이동
+                loadJobItems();
+            }
+
+            // 데이터 로드 함수 - 새 API 사용
+            function loadJobItems() {
+                const status = document.getElementById('status').value;
+                const locationType = document.getElementById('locationType').value;
+                const region = document.getElementById('region').value;
+                const jobType = document.getElementById('jobType').value;
+                const startDate = document.getElementById('startDate').value;
+                const endDate = document.getElementById('endDate').value;
+                const keyword = document.getElementById('keyword').value;
+
+                // 새 API 호출 URL 구성
+                let url = `${API_BASE_URL}/mdms/job-management?page=${currentPage}&size=${pageSize}`;
+                if (status) url += `&status=${status}`;
+                if (locationType) url += `&locationType=${locationType}`;
+                if (region) url += `&region=${region}`; // operation_data_id 값을 전송
+                if (jobType) url += `&jobType=${jobType}`; // operation_data_id 값을 전송
+                if (startDate) url += `&startDate=${startDate}`;
+                if (endDate) url += `&endDate=${endDate}`;
+                if (keyword) url += `&keyword=${keyword}`;
+
+                // API 호출
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('네트워크 응답이 정상이 아닙니다');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // 데이터 처리
+                        jobItems = data.content;
+                        totalPages = data.totalPages;
+                        totalElements = data.totalElements;
+                        currentPage = data.number;
+
+                        renderTable();
+                        renderPagination();
+                        updatePaginationInfo();
+                    })
+                    .catch(error => {
+                        console.error('데이터 로드 실패:', error);
+                        alert('데이터를 불러오는 중 오류가 발생했습니다.');
+                    });
+            }
+
+            // 테이블 렌더링 함수
+            function renderTable() {
+                const tableBody = document.getElementById('jobTableBody');
+                tableBody.innerHTML = '';
+
+                if (jobItems.length === 0) {
+                    const emptyRow = document.createElement('tr');
+                    emptyRow.innerHTML = `
+            <td colspan="12" style="text-align: center; padding: 20px 0;">
+                데이터가 없습니다.
+            </td>
+        `;
+                    tableBody.appendChild(emptyRow);
+                    return;
+                }
+
+                jobItems.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    //const displayIndex = currentPage * pageSize + index + 1; // 페이지별 순서 계산
+                    const displayIndex = totalElements - (currentPage * pageSize + index);
+
+                    const HREF_BASE_URL = window.__CONFIG__.HREF_BASE_URL;
+                    const jobDetailUrl = `${HREF_BASE_URL}/jobs/${item.jobId || item.id}`;
+                    const editUrl = `${HREF_BASE_URL}/corpmem/jobpost/${item.jobId || item.id}`;
+
+                    row.innerHTML = `
+            <td>
+                <div class="control">
+                    <input type="checkbox" class="checked--node" data-id="${item.id}" ${selectedIds.includes(item.id) ? 'checked' : ''}>
+                </div>
+            </td>
+            <td>${displayIndex}</td>
+            <td>${item.startDate || '-'}</td>
+            <td>${item.endDate || '-'}</td>
+            <td>${item.status}</td>
+            <td>${item.userId || '-'}</td>
+            <td>${item.companyName || '-'}</td>
+            <td>
+                <a href="${jobDetailUrl}">
+                    <p class="announcement--title">${item.title || '-'}</p>
+                </a>
+            </td>
+            <td>${item.locationType || '-'}</td>
+            <td>${getRegionName(item.regionId) || item.region || '-'}</td>
+            <td>${getJobTypeName(item.jobTypeId) || item.jobType || '-'}</td>
+            <td>
+                <div class="admin--tool">
+                    <a href="${editUrl}" class="btn btn-primary btn-edit" data-id="${item.id}">수정</a>
+                    <button type="button" class="btn btn-primary btn-delete" data-id="${item.id}">삭제</button>
+                    <a href="Application.html?jobId=${item.jobId || item.id}" class="btn btn-primary btn-apply" data-id="${item.id}">지원내역</a>
+                    <a href="JobOffers.html?jobId=${item.jobId || item.id}" class="btn btn-primary btn-position" data-id="${item.id}">포지션</a>
+                </div>
+            </td>
+        `;
+                    tableBody.appendChild(row);
+                });
+
+                // 체크박스 이벤트 리스너 추가
+                document.querySelectorAll('.checked--node').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        handleCheckboxClick(id);
+                    });
+                });
+
+                // 버튼 이벤트 리스너 추가
+                document.querySelectorAll('.btn-paid').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        handlePaidOptions(id);
+                    });
+                });
+
+                document.querySelectorAll('.btn-delete').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const id = parseInt(this.getAttribute('data-id'));
+                        handleDelete(id);
+                    });
+                });
+            }
+
+
+            // 일괄 삭제 이벤트 핸들러
+            function handleBulkDelete() {
+                if (selectedIds.length === 0) {
+                    alert('삭제할 항목을 선택해주세요.');
+                    return;
+                }
+
+                if (confirm(`선택한 ${selectedIds.length}개의 채용정보를 삭제하시겠습니까?`)) {
+                    // API 호출
+                    fetch(`${API_BASE_URL}/mdms/job-management/bulk-delete`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(selectedIds)
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message || '선택한 항목이 삭제되었습니다.');
+                            if (data.success) {
+                                // 삭제 후 선택된 아이템 목록 초기화
+                                selectedIds = [];
+                                // 데이터 다시 로드
+                                loadJobItems();
+                            }
+                        })
+                        .catch(error => {
+                            console.error('일괄 삭제 실패:', error);
+                            alert('삭제 중 오류가 발생했습니다.');
+                        });
+                }
+            }
+
+            // 일괄 상태 변경 이벤트 핸들러
+            function handleBulkStatusChange(status) {
+                if (selectedIds.length === 0) {
+                    alert('상태를 변경할 항목을 선택해주세요.');
+                    return;
+                }
+
+                const statusText = status === '채용중' ? '노출' : '비노출';
+                if (confirm(`선택한 ${selectedIds.length}개의 채용정보를 ${statusText}로 변경하시겠습니까?`)) {
+                    // 새 API 호출
+                    fetch(`${API_BASE_URL}/mdms/job-management/bulk-status?status=${status}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(selectedIds)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            loadJobItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('일괄 상태 변경 실패:', error);
+                        alert('상태 변경 중 오류가 발생했습니다.');
+                    });
+                }
+            }
+
+            // 단일 삭제 이벤트 핸들러
+            function handleDelete(id) {
+                if (confirm('이 채용정보를 삭제하시겠습니까?')) {
+                    // 새 API 호출
+                    fetch(`${API_BASE_URL}/mdms/job-management/${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.success) {
+                            // 삭제 후 선택된 아이템에서도 제거
+                            const index = selectedIds.indexOf(id);
+                            if (index !== -1) {
+                                selectedIds.splice(index, 1);
+                            }
+                            loadJobItems();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('삭제 실패:', error);
+                        alert('삭제 중 오류가 발생했습니다.');
+                    });
+                }
+            }
+
+            // 페이지네이션 렌더링 함수
+            function renderPagination() {
+                const paginationContainer = document.querySelector('.pagination');
+                paginationContainer.innerHTML = '';
+
+                // 첫 페이지 버튼
+                const firstPageBtn = document.createElement('button');
+                firstPageBtn.className = 'pagination-btn';
+                firstPageBtn.textContent = '<<';
+                firstPageBtn.disabled = currentPage === 0;
+                firstPageBtn.addEventListener('click', () => goToPage(0));
+                paginationContainer.appendChild(firstPageBtn);
+
+                // 이전 페이지 버튼
+                const prevPageBtn = document.createElement('button');
+                prevPageBtn.className = 'pagination-btn';
+                prevPageBtn.textContent = '<';
+                prevPageBtn.disabled = currentPage === 0;
+                prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1));
+                paginationContainer.appendChild(prevPageBtn);
+
+                // 페이지 번호 버튼들
+                const maxPageButtons = 5; // 표시할 페이지 버튼 최대 개수
+                const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+                const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+                for (let i = startPage; i <= endPage; i++) {
+                    const pageBtn = document.createElement('button');
+                    pageBtn.className = 'pagination-btn';
+                    if (i === currentPage) {
+                        pageBtn.classList.add('active');
+                    }
+                    pageBtn.textContent = i + 1;
+                    pageBtn.addEventListener('click', () => goToPage(i));
+                    paginationContainer.appendChild(pageBtn);
+                }
+
+                // 다음 페이지 버튼
+                const nextPageBtn = document.createElement('button');
+                nextPageBtn.className = 'pagination-btn';
+                nextPageBtn.textContent = '>';
+                nextPageBtn.disabled = currentPage >= totalPages - 1;
+                nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1));
+                paginationContainer.appendChild(nextPageBtn);
+
+                // 마지막 페이지 버튼
+                const lastPageBtn = document.createElement('button');
+                lastPageBtn.className = 'pagination-btn';
+                lastPageBtn.textContent = '>>';
+                lastPageBtn.disabled = currentPage >= totalPages - 1;
+                lastPageBtn.addEventListener('click', () => goToPage(totalPages - 1));
+                paginationContainer.appendChild(lastPageBtn);
+            }
+
+            // 페이지네이션 정보 업데이트
+            function updatePaginationInfo() {
+                const paginationInfo = document.querySelector('.pagination-info');
+                if (totalElements === 0) {
+                    paginationInfo.textContent = '';
+                } else {
+                    const start = currentPage * pageSize + 1;
+                    const end = Math.min((currentPage + 1) * pageSize, totalElements);
+                    paginationInfo.textContent = `전체 ${totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+                }
+            }
+
+            // 페이지 이동 함수
+            function goToPage(page) {
+                if (page < 0 || page >= totalPages) return;
+
+                currentPage = page;
+                loadJobItems();
+                window.scrollTo(0, 0); // 페이지 상단으로 스크롤
+            }
+
+            // 페이지 사이즈 변경 핸들러
+            function handlePageSizeChange() {
+                pageSize = parseInt(document.getElementById('pageSize').value);
+                currentPage = 0; // 페이지 사이즈가 변경되면 첫 페이지로 이동
+                loadJobItems();
+            }
+
+            // 검색 이벤트 핸들러
+            function handleSearch() {
+                currentPage = 0; // 검색 시 첫 페이지로 이동
+                loadJobItems();
+            }
+
+            // 전체 선택 이벤트 핸들러
+            function handleSelectAllClick(event) {
+                const isChecked = event.target.checked;
+
+                if (isChecked) {
+                    selectedIds = jobItems.map(item => item.id);
+                } else {
+                    selectedIds = [];
+                }
+
+                document.querySelectorAll('.checked--node').forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+            }
+
+            // 개별 체크박스 이벤트 핸들러
+            function handleCheckboxClick(id) {
+                const index = selectedIds.indexOf(id);
+
+                if (index === -1) {
+                    selectedIds.push(id);
+                } else {
+                    selectedIds.splice(index, 1);
+                }
+
+                // 전체 선택 체크박스 상태 업데이트
+                document.getElementById('selectAll').checked = 
+                    jobItems.length > 0 && selectedIds.length === jobItems.length;
+            }
+
+            // 유료 옵션 관리 핸들러
+            function handlePaidOptions(id) {
+                window.location.href = `PriceOptionChange.html`;
+            }
+
+            // 수정 이벤트 핸들러
+            function handleEdit(id) {
+                window.location.href = `/admin/jobs/${id}/edit`;
+            }
+
+            // 지원내역 조회 핸들러
+            function handleViewApplies(id) {
+                window.location.href = `/admin/jobs/${id}/applies`;
+            }
+
+            // 포지션 조회 핸들러
+            function handleViewPositions(id) {
+                window.location.href = `/admin/jobs/${id}/positions`;
+            }
+
+            // 로그아웃 이벤트 핸들러
+            function handleLogout() {
+                if (confirm('로그아웃 하시겠습니까?')) {
+                    sessionStorage.clear();
+                    localStorage.removeItem('token');
+
+                    window.location.href = '/admin/login.html';
+                }
+            }
+
+            // 지역 ID로부터 이름 조회 함수
+            function getRegionName(regionId) {
+                if (!regionId) return null;
+
+                const region = regionOptions.find(option => option.id === regionId);
+                return region ? region.name : null;
+            }
+
+            // 근무형태 ID로부터 이름 조회 함수
+            function getJobTypeName(jobTypeId) {
+                if (!jobTypeId) return null;
+
+                const jobType = jobTypeOptions.find(option => option.id === jobTypeId);
+                return jobType ? jobType.name : null;
+            }
+        });
+    </script>
+</body>
+</html>

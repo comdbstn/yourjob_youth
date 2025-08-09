@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.ApplicationMapper">
+    <insert id="insertApplication" parameterType="com.yourjob.backend.entity.ApplicationRequest" useGeneratedKeys="true" keyProperty="applicationId">
+        insert into applications
+        (job_id,
+        job_seeker_id,
+        resume_id,
+        status)
+        VALUES (
+        #{jobId},
+        #{jobseekerId},
+        #{resumeId},
+        #{status})
+    </insert>
+    <select id="selectCntMyApply" parameterType="com.yourjob.backend.entity.ApplicationRequest" resultType="int">
+        select count(*) as cnt from applications
+        where job_id = #{jobId} and job_seeker_id = #{jobseekerId}
+    </select>
+    <select id="selectListMyApply" parameterType="int" resultType="com.yourjob.backend.entity.ApplicationResponse">
+        select
+        a.application_id as id,
+        a.job_id as jobId,
+        a.job_seeker_id as jobseekerId,
+        a.resume_id as resumeId,
+        a.status as status,
+        a.coverletter as coverLetter,
+        a.attach_files_idx as attach_files_idx,
+        a.created_at as createdAt,
+        a.created_at AS applyDate,
+        b.job_type_str AS position,
+        b.title AS title,
+        a.status AS status,
+        b.employer_id AS employerId,
+        c.company_name AS companyName
+        from applications a LEFT JOIN job_postings b
+        ON a.job_id = b.job_id
+        LEFT JOIN users c
+        ON b.employer_id = c.user_id
+        where job_seeker_id = #{userid}
+        order BY a.created_at desc
+        limit #{offSetNumb}, #{size}
+    </select>
+    <select id="selectListMyApplyCnt" parameterType="int" resultType="int">
+        select
+        count(*)
+        from applications a
+        where job_seeker_id = #{userid}
+    </select>
+    <select id="selectApplyListByJobId" parameterType="int" resultType="com.yourjob.backend.entity.Volunteer">
+        SELECT
+        a.application_id AS id,
+        a.job_seeker_id as job_seeker_id,
+        a.resume_id as resumeId,
+        a.job_id AS jobId,
+        (SELECT employer_id FROM job_postings WHERE job_id = a.job_id) AS employerId,
+        (SELECT company_name FROM users WHERE user_id =
+        (SELECT employer_id FROM job_postings WHERE job_id = a.job_id)) AS companyName,
+        u.gender as gender,
+        u.name AS name,
+        u5.department as major,
+        u5.lastSchool as education,
+        u5.gpa as gpa,
+        a.created_at as applicationDate,
+        a.status as status
+        FROM
+        applications AS a LEFT JOIN resumes AS u
+        ON a.resume_id = u.resume_id
+        LEFT JOIN resume_activities AS u1
+        ON a.resume_id = u1.resume_id
+        LEFT JOIN resume_awards AS u2
+        ON a.resume_id = u2.resume_id
+        LEFT JOIN resume_careers AS u3
+        ON a.resume_id = u3.resume_id
+        LEFT JOIN resume_certifications AS u4
+        ON a.resume_id = u4.resume_id
+        LEFT JOIN resume_educations AS u5
+        ON a.resume_id = u5.resume_id
+        LEFT JOIN resume_employmentprf AS u6
+        ON a.resume_id = u6.resume_id
+        LEFT JOIN resume_languages AS u7
+        ON a.resume_id = u7.resume_id
+        LEFT JOIN resume_selfintroductions AS u8
+        ON a.resume_id = u8.resume_id
+        WHERE
+        a.job_id = #{jobid}
+        GROUP BY a.resume_id
+    </select>
+    <select id="selectApplyDetail" parameterType="int" resultType="map">
+        SELECT
+        *
+        FROM applications
+        WHERE application_id = #{applicationId}
+    </select>
+    <update id="updateApplyStatus" parameterType="map">
+        update applications set
+        status = #{status}
+        where
+        application_id = #{applicationId}
+    </update>
+    <update id="updateApplyAttchFilesIdx" parameterType="map">
+        update applications set
+        attach_files_idx = #{attach_files_idx}
+        where
+        application_id = #{applicationId}
+    </update>
+</mapper>

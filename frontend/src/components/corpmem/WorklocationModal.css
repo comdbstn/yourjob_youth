@@ -1,0 +1,230 @@
+.work-location-modal-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.work-location-modal-container .modal_title {
+  display: flex;
+  align-items: center;
+  line-height: normal;
+  margin-bottom: 20px;
+  color: var(--txtcol05);
+  font-size: var(--font-size-xxxl);
+  font-weight: 700;
+}
+
+.work-location-modal-container .select_nav {
+  display: flex;
+  width: 100%;
+  background-color: var(--bgcol03, #F9FBFC);
+  border: 1px solid var(--linecol05, #EAEAEA);
+}
+
+.work-location-modal-container .select_nav li {
+  width: 25%;
+  color: var(--txtcol05, #333333);
+  font-size: var(--font-size-m, 14px);
+  padding: 12px 0;
+  border-right: 1px solid var(--linecol05, #EAEAEA);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+}
+
+.work-location-modal-container .select_nav li:last-child {
+  border-right: none;
+}
+
+.work-location-modal-container .select_box {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--linecol05, #EAEAEA);
+  border-top: none;
+}
+
+.work-location-modal-container .select_box li {
+  width: 25%;
+  padding: 15px;
+  border-right: 1px solid var(--linecol05, #EAEAEA);
+}
+
+.work-location-modal-container .select_box li:last-child {
+  border-right: none;
+}
+
+/* 스크롤바의 전체 영역 */
+.work-location-modal-container .select_box .select_box-scroll {
+  width: 100%;
+  height: 230px;
+  overflow: auto;
+  background-color: #FFFFFF; /* 배경색을 흰색으로 설정 */
+}
+
+.work-location-modal-container .select_box .select_box-scroll li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4.5px 0px;
+  border: none;
+  cursor: pointer;
+  color: var(--txtcol02, #8F8F8F);
+  font-size: var(--font-size-m, 14px);
+  font-weight: 400;
+  background-color: #FFFFFF; /* 각 항목의 배경색도 흰색으로 설정 */
+}
+
+.work-location-modal-container .select_box .select_box-scroll .label {
+  color: var(--txtcol06, #484848);
+  font-size: var(--font-size-m, 14px);
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.work-location-modal-container .select_box .select_box-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 95px;
+}
+
+/* 스크롤바 배경 */
+.work-location-modal-container .select_box .select_box-scroll::-webkit-scrollbar-track {
+  background-color: var(--white, #FFFFFF);
+}
+
+/* 스크롤바의 손잡이 (슬라이더) */
+.work-location-modal-container .select_box .select_box-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--bgcol06, #D9D9D9);
+  border-radius: 10px;
+  width: 5px;
+}
+
+/* 마우스를 올렸을 때 스크롤바의 색상 */
+.work-location-modal-container .select_box .select_box-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: var(--bgcol02, #CCCCCC);
+}
+
+/* 선택된 값 박스 */
+.work-location-modal-container .choice_container {
+  width: 100%;
+  background-color: var(--white, #FFFFFF);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 15px 0px;
+}
+
+.work-location-modal-container .choice_box {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 90%;
+}
+
+.work-location-modal-container .choice_flex {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  color: var(--primary, #2F80DC) !important;
+  font-size: var(--font-size-m, 14px) !important;
+}
+
+.work-location-modal-container .choice_txt {
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+.work-location-modal-container .rotate {
+  color: var(--txtcol02, #8F8F8F) !important;
+}
+
+.work-location-modal-container .choice_flex span {
+  visibility: hidden;
+  display: none;
+}
+
+.work-location-modal-container .choice_reset {
+  display: flex;
+  justify-content: space-between;
+}
+
+.work-location-modal-container .modal_sbtn {
+  margin-top: 20px;
+}
+
+.work-location-modal-container .btnm {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.work-location-modal-container .btnm button {
+  display: flex;
+  padding: 16px 67px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.work-location-modal-container .btnm .btn-submit {
+  width: unset;
+  background-color: var(--bgcol04, #2F80DC) !important;
+  border-color: var(--bgcol04, #2F80DC) !important;
+  color: var(--white, #FFFFFF);
+}
+
+.work-location-modal-container .btnm .btn-cancel {
+  width: unset;
+  background-color: var(--white, #FFFFFF) !important;
+  border: 1px solid var(--text-silver, #8F8F8F) !important;
+  color: var(--text-silver, #8F8F8F);
+}
+
+.work-location-modal-container .select_box-scroll input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.job-type-modal-container .pagination-container,
+.work-location-modal-container .pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.job-type-modal-container .page_num,
+.work-location-modal-container .page_num {
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.job-type-modal-container .page_num a,
+.work-location-modal-container .page_num a {
+  display: inline-block;
+  margin: 0 5px;
+  color: #484848;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.job-type-modal-container .page_num a.active,
+.work-location-modal-container .page_num a.active {
+  color: #2F80DC;
+  font-weight: bold;
+}
+
+.job-type-modal-container .page_num i,
+.work-location-modal-container .page_num i {
+  font-size: 12px;
+  color: #999;
+}
+
+.job-type-modal-container .page_num span,
+.work-location-modal-container .page_num span {
+  margin: 0 3px;
+  color: #ccc;
+}

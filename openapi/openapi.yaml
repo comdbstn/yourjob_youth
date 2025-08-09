@@ -1,0 +1,2999 @@
+openapi: 3.0.3
+info:
+  title: URJOB API
+  description: "URJOB 프로젝트의 전체 API 명세 (Backend + BFF)"
+  version: "1.2.0"
+
+servers:
+  - url: http://localhost:8081  # BFF 호스트 (dev)
+    description: BFF (dev)
+  - url: http://localhost:8082  # Backend 호스트 (dev)
+    description: Backend (dev)
+
+tags:
+  - name: Auth
+    description: 인증 및 OAuth2 관련 API
+  - name: Jobs
+    description: 구인 공고 관리 API
+  - name: CompanyProfile
+    description: 기업 프로필 관리 API
+  - name: Applications
+    description: 지원 내역 관리 API
+  - name: Resumes
+    description: 이력서 관리 API
+  - name: Introductions
+    description: 자기소개서 관리 API
+  - name: Community
+    description: 사용자 커뮤니티 API
+  - name: JobOffers
+    description: 구인자의 포지션 제안 API
+  - name: TalentPool
+    description: 재능풀 관리 API
+  - name: Corpmem
+    description: 기업회원 관련 API (BFF → Backend)
+  - name: mdms
+    description: 마스터 데이터 관리 시스템 API (운영데이터 - 국가, 지역, 대학구분, 국내대학, 해외대학, 전공, 학력구분 등)
+  - name: DUMS
+    description: 데이터 유틸리티 관리 시스템 API (국내대, 해외대, 전공, 자격증리스트, 대학구분, 졸업상태, 지역)
+    
+paths:
+  # ---------------------------
+  # mdms(master data management system) API
+  # ---------------------------
+  /api/v1/mdms/import-excel:
+    post:
+      summary: "엑셀 파일 업로드 및 데이터 임포트"
+      description: "엑셀 파일에서 운영 데이터와 데이터 종류를 임포트합니다"
+      tags:
+        - mdms
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: "엑셀 파일(.xlsx 또는 .xls)"
+              required:
+                - file
+      responses:
+        '200':
+          description: "데이터 임포트 성공"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExcelImportResponse'
+  /api/v1/mdms/operation-data:
+    get:
+      summary: "운영 데이터 조회"
+      description: "페이징, 검색 조건에 맞는 운영 데이터를 조회합니다"
+      tags:
+        - mdms
+      parameters:
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: "페이지 번호 (0부터 시작)"
+        - name: size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 10
+          description: "페이지 크기 (한 페이지당 row 수)"
+        - name: keyword
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "검색어 (level1, level2, level3 컬럼에서 검색)"
+        - name: dataType
+          in: query
+          required: false
+          schema:
+            type: string
+          description: "데이터 종류 필터링 (예: '지역', '국가', '대학구분')"
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            default: "id,asc"
+          description: "정렬 조건 (예: 'id,asc' 또는 'id,desc')"
+      responses:
+        '200':
+          description: "페이징된 운영 데이터 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/OperationDataResponse'
+                  pageable:
+                    type: object
+                    properties:
+                      pageNumber:
+                        type: integer
+                      pageSize:
+                        type: integer
+                      sort:
+                        type: object
+                  totalPages:
+                    type: integer
+                  totalElements:
+                    type: integer
+                  last:
+                    type: boolean
+                  size:
+                    type: integer
+                  number:
+                    type: integer
+                  sort:
+                    type: object
+                  numberOfElements:
+                    type: integer
+                  first:
+                    type: boolean
+                  empty:
+                    type: boolean
+        '400':
+          description: "잘못된 요청"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "서버 오류"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      summary: "운영 데이터 생성"
+      description: "새로운 운영 데이터를 생성합니다"
+      tags:
+        - mdms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperationDataCreateRequest'
+      responses:
+        '201':
+          description: "운영 데이터 생성 성공"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationDataResponse'
+        '400':
+          description: "잘못된 요청"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "서버 오류"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    put:
+      summary: "운영 데이터 수정"
+      description: "기존 운영 데이터를 수정합니다"
+      tags:
+        - mdms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OperationDataUpdateRequest'
+      responses:
+        '200':
+          description: "운영 데이터 수정 성공"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: "잘못된 요청"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: "데이터를 찾을 수 없음"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "서버 오류"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      summary: "운영 데이터 삭제"
+      description: "기존 운영 데이터를 삭제합니다"
+      tags:
+        - mdms
+      parameters:
+        - name: operationDataId
+          in: query
+          required: true
+          schema:
+            type: string
+          description: "삭제할 운영 데이터의 ID"
+      responses:
+        '200':
+          description: "운영 데이터 삭제 성공"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '404':
+          description: "데이터를 찾을 수 없음"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: "서버 오류"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  # ---------------------------
+  # BFF Public API
+  # ---------------------------
+  /api/bff/corpmem/mydata:
+    get:
+      summary: "기업회원 대시보드 데이터 조회 (BFF)"
+      description: "BFF가 백엔드의 회사 프로필 정보를 가져와 반환합니다."
+      responses:
+        '200':
+          description: "회사 정보 조회 성공"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyInfo"
+        '404':
+          description: "회사 정보를 찾을 수 없음"
+
+  # --- Auth ---
+  /api/v1/auth/signup:
+    post:
+      summary: 회원가입
+      description: "새로운 사용자를 생성한다. (BFF → Backend 내부 호출)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignupResponse'
+        '400':
+          description: Bad Request
+        '409':
+          description: Conflict
+
+  /api/v1/auth/login:
+    post:
+      summary: 로그인
+      description: "사용자의 인증을 처리한다. (BFF → Backend 내부 호출)"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: 로그인 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '401':
+          description: Unauthorized
+
+  # ---------------------------
+  # Jobs (구인 공고)
+  # ---------------------------
+  /api/v1/jobs:
+    get:
+      summary: 채용 공고 목록 조회
+      description: >
+        현재 활성화된 모든 채용 공고를 반환한다.
+        (검색, 페이징, 국가/지역, 직무 유형 필터 지원)
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: searchType
+          in: query
+          schema:
+            type: string
+            enum: [title, content, title_content, writer]
+          description: 검색 유형
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: 검색어
+        - name: country
+          in: query
+          schema:
+            type: string
+          description: 국가 필터
+        - name: location
+          in: query
+          schema:
+            type: string
+          description: 지역 필터
+        - name: jobType
+          in: query
+          schema:
+            type: string
+            enum: [FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP, TEMPORARY]
+          description: 직무 유형 필터
+      responses:
+        "200":
+          description: 채용 공고 목록 반환
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobListItem'
+    post:
+      summary: 채용 공고 등록
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobCreate'
+      responses:
+        "201":
+          description: 채용 공고 등록 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+  /api/v1/jobs/{jobId}:
+    get:
+      summary: 채용 공고 상세 조회
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 채용 공고 상세 정보 반환
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobDetailItem'
+        "404":
+          description: 채용 공고를 찾을 수 없음
+    put:
+      summary: 채용 공고 수정
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobUpdate'
+      responses:
+        "200":
+          description: 채용 공고 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+    delete:
+      summary: 채용 공고 삭제
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 채용 공고 삭제 성공
+  /api/v1/jobs/{jobId}/scrap:
+    post:
+      summary: 채용 공고 스크랩
+      description: "특정 채용 공고를 사용자 스크랩 목록에 추가"
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: 스크랩 성공
+        "400":
+          description: 잘못된 요청
+  /api/v1/jobs/{jobId}/status:
+    put:
+      summary: 채용 공고 상태 변경
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [OPEN, CLOSED, EXPIRED, DRAFT]
+              required:
+                - status
+      responses:
+        "200":
+          description: 채용 공고 상태 변경 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job'
+  
+  # ---------------------------
+  # Corpmem (기업회원 관련)
+  # ---------------------------
+  /api/v1/corpmem/accept:
+    post:
+      summary: 승인 요청 처리
+      description: "기업 회원의 승인 요청을 처리하는 API"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  example: 123
+                status:
+                  type: string
+                  example: "approved"
+      responses:
+        "200":
+          description: 승인 요청이 처리됨
+        "400":
+          description: 잘못된 요청
+  /api/v1/corpmem/applicants:
+    get:
+      summary: 지원자 목록 조회
+      description: "기업이 채용 공고에 지원한 지원자 목록을 조회하는 API"
+      responses:
+        "200":
+          description: 지원자 목록 반환
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ApplicantItem'
+  /api/v1/corpmem/corpinfo:
+    get:
+      summary: 회사 프로필 정보 조회
+      description: "DB에 시드된 회사 프로필 데이터를 반환합니다."
+      responses:
+        "200":
+          description: 회사 정보 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompanyInfo"
+        "404":
+          description: 회사 정보를 찾을 수 없음
+    put:
+      summary: 기업 정보 수정
+      description: "기업 회원의 정보를 수정하는 API"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompanyInfo"
+      responses:
+        "200":
+          description: 기업 정보 수정 완료
+        "400":
+          description: 잘못된 요청
+  /api/v1/corpmem/talents/filter:
+    post:
+      summary: 핵심역량 필터 기반 인재 검색
+      description: "선택된 핵심역량을 바탕으로 검색된 인재 목록 반환"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                selectedSkills:
+                  type: array
+                  items:
+                    type: string
+                  example: ["계획성", "성실성"]
+      responses:
+        "200":
+          description: 필터링된 인재 목록 반환
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TalentItem'
+
+  # ---------------------------
+  # Resumes (이력서)
+  # ---------------------------
+  /resumes:
+    get:
+      summary: 이력서 목록 조회
+      responses:
+        "200":
+          description: 이력서 목록 반환
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResumeListItem'
+    post:
+      summary: 이력서 작성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeDetail'
+      responses:
+        "201":
+          description: 이력서 작성 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeDetail'
+  /resumes/{id}:
+    get:
+      summary: 이력서 상세 조회
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 이력서 상세 정보 반환
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeDetail'
+    put:
+      summary: 이력서 수정
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeDetail'
+      responses:
+        "200":
+          description: 이력서 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeDetail'
+    delete:
+      summary: 이력서 삭제
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 이력서 삭제 성공
+
+  # ---------------------------
+  # Introductions (자기소개서)
+  # ---------------------------
+  /introductions:
+    get:
+      summary: 자기소개서 목록 조회
+      responses:
+        "200":
+          description: 자기소개서 목록 반환
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Introduction'
+    post:
+      summary: 자기소개서 작성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntroductionCreate'
+      responses:
+        "201":
+          description: 자기소개서 작성 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Introduction'
+  /introductions/{id}:
+    get:
+      summary: 자기소개서 상세 조회
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 자기소개서 상세 정보 반환
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Introduction'
+    put:
+      summary: 자기소개서 수정
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntroductionCreate'
+      responses:
+        "200":
+          description: 자기소개서 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Introduction'
+    delete:
+      summary: 자기소개서 삭제
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 자기소개서 삭제 성공
+
+  # ---------------------------
+  # Community (사용자 커뮤니티)
+  # ---------------------------
+  /community/posts:
+    get:
+      summary: 커뮤니티 게시글 목록 조회
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: country
+          in: query
+          schema:
+            type: string
+          description: (선택) 게시글 필터링용 나라 정보
+        - name: searchType
+          in: query
+          schema:
+            type: string
+            enum: [title, content, title_content, writer]
+          description: 검색 유형
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: 검색어
+      responses:
+        "200":
+          description: 게시글 목록 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalPages:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  posts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CommunityPostListItem'
+    post:
+      summary: 게시글 작성
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunityPostCreate'
+      responses:
+        "201":
+          description: 게시글 작성 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityPostDetail'
+  /community/posts/{id}:
+    get:
+      summary: 게시글 상세 조회 (조회수 증가)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 게시글 상세 정보 반환
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityPostDetail'
+    put:
+      summary: 게시글 수정
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunityPostCreate'
+      responses:
+        "200":
+          description: 게시글 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityPostDetail'
+    delete:
+      summary: 게시글 삭제
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 게시글 삭제 성공
+  /community/posts/{postId}/comments:
+    post:
+      summary: 댓글 작성
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunityCommentCreate'
+      responses:
+        "201":
+          description: 댓글 작성 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommunityComment'
+  /community/posts/{postId}/comments/report:
+    post:
+      summary: 댓글 신고
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+              required:
+                - content
+      responses:
+        "200":
+          description: 댓글 신고 성공
+  /community/posts/{postId}/comments/block:
+    post:
+      summary: 댓글 차단
+      parameters:
+        - name: postId
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                commentId:
+                  type: number
+              required:
+                - commentId
+      responses:
+        "200":
+          description: 댓글 차단 성공
+
+  # ---------------------------
+  # JobOffers (구인자의 포지션 제안)
+  # ---------------------------
+  /job-offers:
+    get:
+      summary: 포지션 제안 목록 조회
+      parameters:
+        - name: employerId
+          in: query
+          schema:
+            type: number
+          description: (선택) 제안을 보낸 기업의 ID
+        - name: jobSeekerId
+          in: query
+          schema:
+            type: number
+          description: (선택) 제안을 받은 구직자의 ID
+      responses:
+        "200":
+          description: 포지션 제안 목록 조회 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobOffer'
+    post:
+      summary: 포지션 제안 등록
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobOfferCreate'
+      responses:
+        "201":
+          description: 포지션 제안 등록 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobOffer'
+  /job-offers/{offerId}:
+    put:
+      summary: 포지션 제안 수정
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobOfferUpdate'
+      responses:
+        "200":
+          description: 포지션 제안 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobOffer'
+    delete:
+      summary: 포지션 제안 삭제
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 포지션 제안 삭제 성공
+
+  # ---------------------------
+  # TalentPool (재능풀)
+  # ---------------------------
+  /talent-pool:
+    get:
+      summary: 재능풀 목록 조회 (기업회원)
+      responses:
+        "200":
+          description: 재능풀 목록 반환
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TalentPoolItem'
+    post:
+      summary: 재능풀에 구직자 추가
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TalentPoolCreate'
+      responses:
+        "201":
+          description: 재능풀 추가 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TalentPoolItem'
+  /talent-pool/{id}:
+    delete:
+      summary: 재능풀 항목 삭제
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: 재능풀 항목 삭제 성공
+
+  # ---------------------------
+  # Internal API (BFF → Backend)
+  # ---------------------------
+  /api/v1/auth/oauth2/login:
+    post:
+      summary: OAuth2 로그인 처리 (Backend)
+      description: >
+        BFF에서 전달받은 인증 완료된 사용자 이메일을 기반으로,
+        백엔드에서 JWT 토큰을 발급합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+      responses:
+        "200":
+          description: JWT 토큰 반환
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /api/v1/auth/oauth2/signup:
+    post:
+      summary: OAuth2 회원가입 처리 (Backend)
+      description: >
+        BFF에서 전달받은 사용자 정보를 기반으로,
+        백엔드에서 신규 회원가입을 처리합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        "201":
+          description: 회원가입 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  /api/v1/jobs (Internal):
+    get:
+      summary: 구인 공고 목록 조회 (Backend)
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: 검색어
+      responses:
+        "200":
+          description: 구인 공고 목록 반환 (Backend)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalPages:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  jobs:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Job'
+  /api/v1/applications (Internal):
+    get:
+      summary: 지원 내역 조회 (Backend)
+      responses:
+        "200":
+          description: 지원 내역 목록 반환 (Backend)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+
+
+  # ---------------------------
+  # DUMS API
+  # ---------------------------
+
+  # 국내 대학 (Domestic University)
+  /api/v1/dums/domestic-universities:
+    get:
+      summary: "국내 대학 목록 조회"
+      description: "국내대 데이터를 학부·과(전공)명(대학 이름) 기준 검색 및 페이징 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: keyword
+          in: query
+          description: "학부·과(전공)명으로 검색"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: "페이지 번호"
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: "페이지 크기"
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "국내 대학 목록 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DomesticUniversityResponse'
+    post:
+      summary: "국내 대학 등록"
+      description: "새로운 국내대 데이터를 등록한다."
+      tags:
+        - DUMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomesticUniversityRequest'
+      responses:
+        '201':
+          description: "국내 대학 등록 성공"
+  /api/v1/dums/domestic-universities/{id}:
+    get:
+      summary: "국내 대학 상세 조회"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "국내 대학 상세 정보 반환"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DomesticUniversityResponse'
+    put:
+      summary: "국내 대학 수정"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DomesticUniversityRequest'
+      responses:
+        '200':
+          description: "국내 대학 수정 성공"
+    delete:
+      summary: "국내 대학 삭제"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "국내 대학 삭제 성공"
+
+  # 해외 대학 (International University)
+  /api/v1/dums/international-universities:
+    get:
+      summary: "해외 대학 목록 조회"
+      description: "해외대 데이터를 대학 이름 기준 검색 및 페이징 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: keyword
+          in: query
+          description: "대학 이름으로 검색"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: "페이지 번호"
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: "페이지 크기"
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "해외 대학 목록 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/InternationalUniversityResponse'
+    post:
+      summary: "해외 대학 등록"
+      description: "새로운 해외대 데이터를 등록한다."
+      tags:
+        - DUMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternationalUniversityRequest'
+      responses:
+        '201':
+          description: "해외 대학 등록 성공"
+  /api/v1/dums/international-universities/{id}:
+    get:
+      summary: "해외 대학 상세 조회"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "해외 대학 상세 정보 반환"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternationalUniversityResponse'
+    put:
+      summary: "해외 대학 수정"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InternationalUniversityRequest'
+      responses:
+        '200':
+          description: "해외 대학 수정 성공"
+    delete:
+      summary: "해외 대학 삭제"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "해외 대학 삭제 성공"
+
+  # 전공 (Major)
+  /api/v1/dums/majors:
+    get:
+      summary: "전공 목록 조회"
+      description: "전공명을 검색어 기준 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: keyword
+          in: query
+          description: "전공명 검색"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: "페이지 번호"
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: "페이지 크기"
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "전공 목록 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MajorResponse'
+    post:
+      summary: "전공 등록"
+      description: "새로운 전공명을 등록한다."
+      tags:
+        - DUMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MajorRequest'
+      responses:
+        '201':
+          description: "전공 등록 성공"
+  /api/v1/dums/majors/{id}:
+    get:
+      summary: "전공 상세 조회"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "전공 상세 정보 반환"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MajorResponse'
+    put:
+      summary: "전공 수정"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MajorRequest'
+      responses:
+        '200':
+          description: "전공 수정 성공"
+    delete:
+      summary: "전공 삭제"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "전공 삭제 성공"
+
+  # 자격증리스트 (Certificate List)
+  /api/v1/dums/certificates:
+    get:
+      summary: "자격증리스트 조회"
+      description: "자격증 데이터를 검색어 기준 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: keyword
+          in: query
+          description: "자격증명으로 검색"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: "페이지 번호"
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: "페이지 크기"
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "자격증리스트 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CertificateListResponse'
+    post:
+      summary: "자격증리스트 등록"
+      description: "새로운 자격증 데이터를 등록한다."
+      tags:
+        - DUMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertificateListRequest'
+      responses:
+        '201':
+          description: "자격증리스트 등록 성공"
+  /api/v1/dums/certificates/{id}:
+    get:
+      summary: "자격증리스트 상세 조회"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "자격증리스트 상세 정보 반환"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateListResponse'
+    put:
+      summary: "자격증리스트 수정"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CertificateListRequest'
+      responses:
+        '200':
+          description: "자격증리스트 수정 성공"
+    delete:
+      summary: "자격증리스트 삭제"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "자격증리스트 삭제 성공"
+
+  # 대학구분 (University Classification)
+  /api/v1/dums/university-classifications:
+    get:
+      summary: "대학구분 목록 조회"
+      description: "대학구분 데이터를 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "대학구분 목록 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UniversityClassificationResponse'
+    post:
+      summary: "대학구분 등록"
+      description: "새로운 대학구분 데이터를 등록한다."
+      tags:
+        - DUMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityClassificationRequest'
+      responses:
+        '201':
+          description: "대학구분 등록 성공"
+  /api/v1/dums/university-classifications/{id}:
+    get:
+      summary: "대학구분 상세 조회"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "대학구분 상세 정보 반환"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityClassificationResponse'
+    put:
+      summary: "대학구분 수정"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityClassificationRequest'
+      responses:
+        '200':
+          description: "대학구분 수정 성공"
+    delete:
+      summary: "대학구분 삭제"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "대학구분 삭제 성공"
+
+  # 졸업상태 (Graduation Status)
+  /api/v1/dums/graduation-statuses:
+    get:
+      summary: "졸업상태 목록 조회"
+      description: "졸업상태 데이터를 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "졸업상태 목록 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GraduationStatusResponse'
+    post:
+      summary: "졸업상태 등록"
+      description: "새로운 졸업상태 데이터를 등록한다."
+      tags:
+        - DUMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraduationStatusRequest'
+      responses:
+        '201':
+          description: "졸업상태 등록 성공"
+  /api/v1/dums/graduation-statuses/{id}:
+    get:
+      summary: "졸업상태 상세 조회"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "졸업상태 상세 정보 반환"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraduationStatusResponse'
+    put:
+      summary: "졸업상태 수정"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraduationStatusRequest'
+      responses:
+        '200':
+          description: "졸업상태 수정 성공"
+    delete:
+      summary: "졸업상태 삭제"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "졸업상태 삭제 성공"
+
+  # 지역 (Region)
+  /api/v1/dums/regions:
+    get:
+      summary: "지역 목록 조회"
+      description: "지역 데이터를 국내/해외 구분과 함께 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: keyword
+          in: query
+          description: "지역명 검색"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: "페이지 번호"
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: "페이지 크기"
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "지역 목록 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegionResponse'
+    post:
+      summary: "지역 등록"
+      description: "새로운 지역 데이터를 등록한다."
+      tags:
+        - DUMS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionRequest'
+      responses:
+        '201':
+          description: "지역 등록 성공"
+  /api/v1/dums/regions/{id}:
+    get:
+      summary: "지역 상세 조회"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "지역 상세 정보 반환"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionResponse'
+    put:
+      summary: "지역 수정"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegionRequest'
+      responses:
+        '200':
+          description: "지역 수정 성공"
+    delete:
+      summary: "지역 삭제"
+      tags:
+        - DUMS
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: "지역 삭제 성공"
+
+  # 통합 뷰 (Integrated View)
+  /api/v1/dums/integrated:
+    get:
+      summary: "통합 뷰 목록 조회"
+      description: "국내대학, 해외대학, 학과, 자격증, 대학구분, 졸업상태, 지역, 국가 데이터를 통합하여 조회한다."
+      tags:
+        - DUMS
+      parameters:
+        - name: keyword
+          in: query
+          description: "검색어"
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: "페이지 번호"
+          schema:
+            type: integer
+            default: 1
+        - name: size
+          in: query
+          description: "페이지 크기"
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: "통합 뷰 목록 반환"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalElements:
+                    type: integer
+                  currentPage:
+                    type: integer
+                  content:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DumsIntegratedView'
+
+components:
+  schemas:
+    ExcelImportResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: "임포트 성공 여부"
+          example: true
+        message:
+          type: string
+          description: "성공 메시지"
+          example: "데이터 가져오기 성공"
+        inserted:
+          type: integer
+          description: "신규 삽입된 데이터 수"
+          example: 15
+        updated:
+          type: integer
+          description: "수정된 데이터 수"
+          example: 5
+      required:
+        - success
+        - inserted
+        - updated
+
+    ExcelImportErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          description: "임포트 성공 여부"
+          example: false
+        errors:
+          type: array
+          items:
+            type: string
+          description: "오류 메시지 목록"
+          example: [ "데이터종류 시트 5행: 코드는 정확히 7자리여야 합니다. (현재: 12345)", "지역(0000001) 시트 10행: 운영 데이터 ID가 비어 있습니다." ]
+        inserted:
+          type: integer
+          description: "신규 삽입된 데이터 수"
+          example: 10
+        updated:
+          type: integer
+          description: "수정된 데이터 수"
+          example: 3
+      required:
+        - success
+        - errors
+    OperationDataResponse:
+      type: object
+      properties:
+        operationDataId:
+          type: string
+          description: "운영 데이터 고유 식별자"
+          example: "OP00001"
+        dataType:
+          type: string
+          description: "데이터 종류"
+          example: "지역"
+        level1:
+          type: string
+          nullable: true
+          description: "레벨1 값"
+          example: "서울"
+        level2:
+          type: string
+          nullable: true
+          description: "레벨2 값"
+          example: null
+        level3:
+          type: string
+          nullable: true
+          description: "레벨3 값"
+          example: null
+      required:
+        - operationDataId
+        - dataType
+    OperationDataCreateRequest:
+      type: object
+      properties:
+        operationDataId:
+          type: string
+          description: "생성할 운영 데이터 ID"
+          example: "1000002"
+        dataType:
+          type: string
+          description: "데이터 종류 (코드 또는 이름)"
+          example: "지역"
+        level1:
+          type: string
+          nullable: true
+          description: "레벨1 값"
+          example: "경기"
+        level2:
+          type: string
+          nullable: true
+          description: "레벨2 값"
+          example: null
+        level3:
+          type: string
+          nullable: true
+          description: "레벨3 값"
+          example: null
+      required:
+        - operationDataId
+        - dataType
+    OperationDataUpdateRequest:
+      type: object
+      properties:
+        operationDataId:
+          type: string
+          description: "수정할 운영 데이터 ID"
+          example: "1000002"
+        dataType:
+          type: string
+          description: "데이터 종류 (코드 또는 이름)"
+          example: "지역"
+        level1:
+          type: string
+          nullable: true
+          description: "레벨1 값"
+          example: "경기"
+        level2:
+          type: string
+          nullable: true
+          description: "레벨2 값"
+          example: null
+        level3:
+          type: string
+          nullable: true
+          description: "레벨3 값"
+          example: null
+      required:
+        - operationDataId
+        - dataType
+    OperationDataType:
+      type: object
+      properties:
+        code:
+          type: string
+          description: "데이터 종류 코드"
+          example: "0000001"
+        name:
+          type: string
+          description: "데이터 종류 이름"
+          example: "지역"
+      required:
+        - id
+        - code
+        - name
+    ResponseMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          description: "응답 메시지"
+          example: "Data updated successfully."
+      required:
+        - message
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: "오류 메시지"
+          example: "operationDataId가 0000001인 데이터를 찾을 수 없습니다."
+        status:
+          type: integer
+          format: int32
+          description: "HTTP 상태 코드"
+          example: 404
+      required:
+        - message
+        - status
+    SignupRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        userType:
+          type: string
+      required:
+        - email
+        - password
+        - name
+        - phone
+        - userType
+    SignupResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        email:
+          type: string
+        userType:
+          type: string
+      required:
+        - id
+        - email
+        - userType
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        userId:
+          type: number
+        userType:
+          type: string
+      required:
+        - token
+        - userId
+        - userType
+    JobListItem:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        company:
+          type: string
+        location:
+          type: string
+        salary:
+          type: number
+      required:
+        - id
+        - title
+        - company
+        - location
+        - salary
+    JobDetailItem:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: string
+        location:
+          type: string
+        company:
+          type: string
+        salary:
+          type: number
+        views:
+          type: integer
+        likes:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - description
+        - requirements
+        - location
+        - company
+        - salary
+    Job:
+      type: object
+      properties:
+        id:
+          type: number
+        employerId:
+          type: number
+        title:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: string
+        location:
+          type: string
+        countryCode:
+          type: string
+        jobType:
+          type: string
+        salary:
+          type: number
+        views:
+          type: integer
+        likes:
+          type: integer
+        status:
+          type: string
+          enum: [OPEN, CLOSED, EXPIRED, DRAFT]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - employerId
+        - title
+        - description
+        - requirements
+        - location
+        - jobType
+        - salary
+        - status
+    JobCreate:
+      type: object
+      properties:
+        employerId:
+          type: number
+        title:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: string
+        location:
+          type: string
+        countryCode:
+          type: string
+        jobType:
+          type: string
+          enum: [FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP, TEMPORARY]
+        salary:
+          type: number
+      required:
+        - employerId
+        - title
+        - description
+        - requirements
+        - location
+        - jobType
+        - salary
+    JobUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        requirements:
+          type: string
+        location:
+          type: string
+        countryCode:
+          type: string
+        jobType:
+          type: string
+          enum: [FULL_TIME, PART_TIME, CONTRACT, INTERNSHIP, TEMPORARY]
+        salary:
+          type: number
+        status:
+          type: string
+          enum: [OPEN, CLOSED, EXPIRED, DRAFT]
+      required:
+        - title
+        - description
+        - requirements
+        - location
+        - jobType
+        - salary
+    CompanyInfo:
+      type: object
+      properties:
+        companyName:
+          type: string
+          example: "(주)유어잡"
+        employeeCount:
+          type: integer
+          example: 100
+        capitalAmount:
+          type: number
+          format: double
+          example: 288
+        revenueAmount:
+          type: number
+          format: double
+          example: 5000
+        netIncome:
+          type: number
+          format: double
+          example: 500
+        address:
+          type: string
+          example: "서울특별시 강남구"
+        website:
+          type: string
+          nullable: true
+          example: "https://www.yourjob.com"
+        logo_url:
+          type: string
+          nullable: true
+          example: "/img/logo.png"
+      required:
+        - companyName
+        - employeeCount
+        - capitalAmount
+        - revenueAmount
+        - netIncome
+        - address
+    ApplicantItem:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        resumeId:
+          type: number
+        appliedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - resumeId
+        - appliedAt
+    Application:
+      type: object
+      properties:
+        id:
+          type: number
+          description: 지원 ID
+        jobId:
+          type: number
+        jobSeekerId:
+          type: number
+        resumeId:
+          type: number
+        status:
+          type: string
+          enum: [SUBMITTED, REVIEW, INTERVIEW, HIRED, REJECTED]
+        coverLetter:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        employerName:
+          type: string
+          description: 구인자(기업)의 이름
+        jobPostingTitle:
+          type: string
+          description: 지원한 채용 공고 제목
+      required:
+        - id
+        - jobId
+        - jobSeekerId
+        - resumeId
+        - status
+        - createdAt
+    ApplicationCreate:
+      type: object
+      properties:
+        jobId:
+          type: number
+        jobSeekerId:
+          type: number
+        resumeId:
+          type: number
+        coverLetter:
+          type: string
+      required:
+        - jobId
+        - jobSeekerId
+        - resumeId
+    ResumeListItem:
+      type: object
+      properties:
+        id:
+          type: number
+          description: resumes.resume_id
+        title:
+          type: string
+          description: resumes.resume_title
+        date:
+          type: string
+          format: date-time
+          description: resumes.created_at
+      required:
+        - id
+        - title
+        - date
+    ResumeDetail:
+      type: object
+      properties:
+        id:
+          type: number
+          description: resumes.resume_id
+        jobSeekerId:
+          type: number
+          description: resumes.job_seeker_id
+        title:
+          type: string
+          description: resumes.resume_title
+        filePath:
+          type: string
+          description: resumes.file_path
+        createdAt:
+          type: string
+          format: date-time
+          description: resumes.created_at
+        updatedAt:
+          type: string
+          format: date-time
+          description: resumes.updated_at
+      required:
+        - id
+        - jobSeekerId
+        - title
+        - filePath
+        - createdAt
+        - updatedAt
+    Introduction:
+      type: object
+      properties:
+        id:
+          type: number
+          description: 자기소개서의 고유 ID
+        jobSeekerId:
+          type: number
+          description: 구직자의 ID
+        title:
+          type: string
+          description: 자기소개서 제목
+        content:
+          type: string
+          description: 자기소개서 내용
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - jobSeekerId
+        - title
+        - content
+        - createdAt
+        - updatedAt
+    IntroductionCreate:
+      type: object
+      properties:
+        jobSeekerId:
+          type: number
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - jobSeekerId
+        - title
+        - content
+    CommunityPostListItem:
+      type: object
+      properties:
+        id:
+          type: number
+          description: community_posts.post_id
+        subTitle:
+          type: string
+          description: "게시글 내용의 요약 (프론트엔드에서 계산)"
+        title:
+          type: string
+          description: community_posts.title
+        writer:
+          type: string
+          description: "게시글 작성자 이름"
+        date:
+          type: string
+          format: date-time
+          description: community_posts.created_at
+        views:
+          type: integer
+          description: community_posts.views
+        likes:
+          type: integer
+          description: community_posts.likes
+        isMine:
+          type: boolean
+          description: "현재 사용자와 작성자 비교 결과"
+        isNotice:
+          type: boolean
+          description: "공지 여부"
+      required:
+        - id
+        - title
+        - writer
+        - date
+        - views
+        - likes
+        - isMine
+    CommunityPostDetail:
+      type: object
+      properties:
+        id:
+          type: number
+          description: community_posts.post_id
+        subTitle:
+          type: string
+          description: "게시글 내용 요약 또는 부제목"
+        title:
+          type: string
+        writer:
+          type: string
+        date:
+          type: string
+          format: date-time
+        views:
+          type: integer
+        likes:
+          type: integer
+        content:
+          type: string
+          description: community_posts.content
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommunityComment'
+      required:
+        - id
+        - title
+        - writer
+        - date
+        - views
+        - likes
+        - content
+        - comments
+    CommunityPostCreate:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        area:
+          type: string
+      required:
+        - title
+        - content
+        - area
+    CommunityComment:
+      type: object
+      properties:
+        id:
+          type: number
+          description: community_comments.comment_id
+        writer:
+          type: string
+          description: "댓글 작성자 이름"
+        date:
+          type: string
+          format: date-time
+          description: community_comments.created_at
+        content:
+          type: string
+          description: community_comments.content
+        likes:
+          type: integer
+          description: community_comments.likes
+        recommentId:
+          type: number
+          description: "부모 댓글 ID (대댓글인 경우)"
+      required:
+        - id
+        - writer
+        - date
+        - content
+        - likes
+    CommunityCommentCreate:
+      type: object
+      properties:
+        content:
+          type: string
+      required:
+        - content
+    JobOffer:
+      type: object
+      properties:
+        id:
+          type: number
+          description: 포지션 제안의 고유 ID
+        employerId:
+          type: number
+        jobSeekerId:
+          type: number
+        position:
+          type: string
+          description: 제안된 포지션(직무)
+        message:
+          type: string
+          description: 제안 메시지
+        status:
+          type: string
+          enum: [PENDING, ACCEPTED, DECLINED]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - employerId
+        - jobSeekerId
+        - position
+        - message
+        - status
+        - createdAt
+        - updatedAt
+    JobOfferCreate:
+      type: object
+      properties:
+        employerId:
+          type: number
+        jobSeekerId:
+          type: number
+        position:
+          type: string
+        message:
+          type: string
+      required:
+        - employerId
+        - jobSeekerId
+        - position
+        - message
+    JobOfferUpdate:
+      type: object
+      properties:
+        position:
+          type: string
+        message:
+          type: string
+        status:
+          type: string
+          enum: [PENDING, ACCEPTED, DECLINED]
+      required:
+        - status
+    TalentPoolItem:
+      type: object
+      properties:
+        id:
+          type: number
+          description: talent_pool.talent_pool_id
+        employerId:
+          type: number
+        jobSeekerId:
+          type: number
+        note:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - employerId
+        - jobSeekerId
+        - note
+    TalentPoolCreate:
+      type: object
+      properties:
+        employerId:
+          type: number
+        jobSeekerId:
+          type: number
+        note:
+          type: string
+      required:
+        - employerId
+        - jobSeekerId
+        - note
+    UserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        userType:
+          type: string
+        oauthProvider:
+          type: string
+        oauthProviderId:
+          type: string
+      required:
+        - email
+        - name
+        - phone
+        - userType
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: number
+        email:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        userType:
+          type: string
+        oauthProvider:
+          type: string
+        oauthProviderId:
+          type: string
+        isActive:
+          type: boolean
+        isBanned:
+          type: boolean
+      required:
+        - id
+        - email
+        - name
+        - phone
+        - userType
+        - isActive
+        - isBanned
+    DomesticUniversityRequest:
+      type: object
+      properties:
+        domesticUniversityId:
+          type: integer
+        schoolDepartmentCode:
+          type: string
+          description: "학교별학과코드"
+        departmentName:
+          type: string
+          description: "학부·과(전공)명"
+        dayNightType:
+          type: string
+          description: "주야간구분"
+        departmentCharacteristics:
+          type: string
+          description: "학과특성"
+        departmentStatus:
+          type: string
+          description: "학과상태"
+        majorCategory:
+          type: string
+          description: "대계열분류"
+        midCategory:
+          type: string
+          description: "중계열분류"
+        subCategory:
+          type: string
+          description: "소계열분류"
+        universityInternalCategory:
+          type: string
+          description: "대학자체대계열"
+        courseDuration:
+          type: string
+          description: "수업연한"
+        degreeProgram:
+          type: string
+          description: "학위과정"
+        departmentLocation:
+          type: string
+          description: "(학과)소재지"
+        departmentLocationDetail:
+          type: string
+          description: "(학과)소재지(상세)"
+      required:
+        - schoolDepartmentCode
+        - departmentName
+    DomesticUniversityResponse:
+      type: object
+      properties:
+        domesticUniversityId:
+          type: integer
+        schoolDepartmentCode:
+          type: string
+        departmentName:
+          type: string
+        dayNightType:
+          type: string
+        departmentCharacteristics:
+          type: string
+        departmentStatus:
+          type: string
+        majorCategory:
+          type: string
+        midCategory:
+          type: string
+        subCategory:
+          type: string
+        universityInternalCategory:
+          type: string
+        courseDuration:
+          type: string
+        degreeProgram:
+          type: string
+        departmentLocation:
+          type: string
+        departmentLocationDetail:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    InternationalUniversityRequest:
+      type: object
+      properties:
+        internationalUniversityId:
+          type: integer
+        universityName:
+          type: string
+          description: "대학 이름 (Institution name)"
+        location:
+          type: string
+        region:
+          type: string
+      required:
+        - universityName
+    InternationalUniversityResponse:
+      type: object
+      properties:
+        internationalUniversityId:
+          type: integer
+        universityName:
+          type: string
+        location:
+          type: string
+        region:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    MajorRequest:
+      type: object
+      properties:
+        majorId:
+          type: integer
+        majorName:
+          type: string
+          description: "전공명"
+      required:
+        - majorName
+    MajorResponse:
+      type: object
+      properties:
+        majorId:
+          type: integer
+        majorName:
+          type: string
+    CertificateListRequest:
+      type: object
+      properties:
+        certificateId:
+          type: integer
+        certificateName:
+          type: string
+          description: "자격증명 (A 컬럼)"
+        certificateType:
+          type: string
+          description: "자격증종류 (B 컬럼)"
+        certificateIssuer:
+          type: string
+          description: "발급기관 (C 컬럼)"
+      required:
+        - certificateName
+    CertificateListResponse:
+      type: object
+      properties:
+        certificateId:
+          type: integer
+        certificateName:
+          type: string
+        certificateType:
+          type: string
+        certificateIssuer:
+          type: string
+    UniversityClassificationRequest:
+      type: object
+      properties:
+        classificationId:
+          type: integer
+        classification:
+          type: string
+          description: "대학구분 (대학구분 시트 A 컬럼 2~6행)"
+      required:
+        - classification
+    UniversityClassificationResponse:
+      type: object
+      properties:
+        classificationId:
+          type: integer
+        classification:
+          type: string
+    GraduationStatusRequest:
+      type: object
+      properties:
+        graduationStatusId:
+          type: integer
+        status:
+          type: string
+          description: "졸업상태 (대학구분 시트 A 컬럼 15~20행)"
+      required:
+        - status
+    GraduationStatusResponse:
+      type: object
+      properties:
+        graduationStatusId:
+          type: integer
+        status:
+          type: string
+    RegionRequest:
+      type: object
+      properties:
+        regionId:
+          type: integer
+        regionName:
+          type: string
+        regionType:
+          type: string
+          enum: [domestic, international]
+          description: "국내 또는 해외"
+      required:
+        - regionName
+        - regionType
+    RegionResponse:
+      type: object
+      properties:
+        regionId:
+          type: integer
+        regionName:
+          type: string
+        regionType:
+          type: string
+          enum: [domestic, international]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    DumsIntegratedView:
+      type: object
+      properties:
+        id:
+          type: integer
+        dataType:
+          type: string
+          enum: [DOMESTIC_UNIVERSITY, INTERNATIONAL_UNIVERSITY, MAJOR, CERTIFICATE, UNIVERSITY_CLASSIFICATION, GRADUATION_STATUS, REGION, COUNTRY]
+        code:
+          type: string
+          nullable: true
+        name:
+          type: string
+        status:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - dataType
+        - name
+        - createdAt
+        - updatedAt

@@ -1,0 +1,71 @@
+
+<!-- 모달창  -->
+<div id="addmodal">	
+	<div class="modal_title">
+		<h2>거절 사유를 선택해 주세요.</h2>
+	</div>
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+		<div class="modal_row">
+			<div class="chked-primary">
+				<input type="radio" id="military1" name="refusal" value="1">
+				<label for="military1">원하는 직종이 아닙니다.</label>
+			</div>
+			<div class="chked-primary">
+				<input type="radio" id="military2" name="refusal" value="1">
+				<label for="military2">경력이 맞지 않습니다.</label>
+			</div>
+			<div class="chked-primary">
+				<input type="radio" id="military3" name="refusal" value="1">
+				<label for="military3">원하는 근무지역이 아닙니다.</label>
+			</div>
+			<div class="chked-primary">
+				<input type="radio" id="military4" name="refusal" value="1">
+				<label for="military4">원하는 급여조건이 아닙니다.</label>
+			</div>
+			<div class="chked-primary">
+				<input type="radio" id="military5" name="refusal" value="1">
+				<label for="military5">이미 다른 곳에 취업했습니다.</label>
+			</div>
+			<div class="chked-primary">
+				<input type="radio" id="military6" name="refusal" value="1">
+				<label for="military6">직접입력</label>
+			</div>
+		</div>
+
+		<div class="modal_sbtn">
+			<div class="btnm">
+				<button type="button" class="btns btn-submit" id="AcceptSubmit">보내기</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+	/* 거절 */
+	$("#AcceptSubmit").on('click',function() {
+		event.preventDefault();
+		this.blur();
+		const message = "포지션 제안 <span class='red'>거절</span>이 완료되었습니다.";
+		$.popup({
+			url: 'message_modal.html',
+			largeModal: "small-modal", 
+			closeExisting:true,
+			close: function(result) {
+			}
+		});
+		// DOM 변경 감지
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				const $modal = $('#addmodal');
+				const $title = $modal.find('.modal_title h2');
+				if ($title.length > 0) {
+					$title.html(message);
+					observer.disconnect(); // 감지 중단
+				}
+			});
+		});
+
+		// 감시할 대상 설정
+		observer.observe(document.body, { childList: true, subtree: true });
+	});
+</script>

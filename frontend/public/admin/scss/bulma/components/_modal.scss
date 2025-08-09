@@ -1,0 +1,253 @@
+// $modal-z: 40 !default;
+$modal-z: 100 !default;
+
+$modal-background-background-color: bulmaRgba($scheme-invert, 0.86) !default;
+
+$modal-content-width: 780px !default;
+// $modal-content-margin-mobile: 20px !default;
+//$modal-content-spacing-mobile: 160px !default;
+//$modal-content-spacing-tablet: 40px !default;
+$modal-content-margin-mobile: 0 !default;
+$modal-content-spacing-mobile: 0 !default;
+$modal-content-spacing-tablet: 0 !default;
+
+$modal-close-dimensions: 1.4rem !default;
+$modal-close-right: 1rem !default;
+$modal-close-top: 1.9rem !default;
+
+// $modal-card-spacing: 40px !default;
+$modal-card-spacing: 0 !default;
+
+$modal-card-head-background-color: $white !default;
+$modal-card-head-border-bottom: 1px solid #333 !default;
+$modal-card-head-padding: 0.8rem 0 !default;
+$modal-card-head-radius: 0 !default;
+
+$modal-card-title-color: $text-strong !default;
+$modal-card-title-line-height: 1 !default;
+$modal-card-title-size: 1.5rem !default;
+
+$modal-card-foot-radius: 0 !default;
+// $modal-card-foot-border-top: 1px solid #333 !default;
+
+$modal-card-body-background-color: $scheme-main !default;
+$modal-card-body-padding: 2rem 1rem !default;
+
+.modal {
+	@extend %overlay;
+
+	display: none;
+	overflow: hidden;
+	position: fixed;
+	z-index: $modal-z;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	padding: 1rem;
+
+	// Modifiers
+	&.is-active {
+		display: flex;
+	}
+
+	&-full {
+		padding: 0 !important;
+
+		.modal-card-head {
+			position: relative;
+			z-index: 0;
+			width: 100%;
+			margin: 0;
+			border-bottom: 1px solid #eee !important;
+
+			.delete {
+				position: absolute;
+				right: 1rem;
+			}
+		}
+
+		.modal-card-title {
+			position: absolute;
+			width: 80%;
+			left: 50%;
+			transform: translateX(-50%);
+			text-align: center;
+			transition: all 0.5s cubic-bezier(0.17, 0.04, 0.03, 0.94);
+		}
+
+		.modal-card {
+			max-height: calc(100vh);
+			height: 100vh;
+
+			// Responsiveness
+			@include tablet {
+				max-height: calc(100vh - #{$modal-content-spacing-tablet});
+			}
+		}
+
+		.modal-card-foot {
+			.buttons {
+				margin: 0;
+			}
+		}
+	}
+
+	form {
+		display: block;
+		width: 100%;
+	}
+}
+
+.modal-background {
+	@extend %overlay;
+	background-color: $modal-background-background-color;
+}
+
+.modal-background-unclose {
+	@extend %overlay;
+	background-color: $modal-background-background-color;
+}
+
+.modal-content,
+.modal-card {
+	margin: 0 $modal-content-margin-mobile;
+	max-height: calc(100vh - #{$modal-content-spacing-mobile});
+	overflow: auto;
+	position: relative;
+	width: 100%;
+	background-color: $modal-card-body-background-color;
+	padding: 0;
+
+	// Responsiveness
+	@include tablet {
+		margin: 0 auto;
+		max-height: calc(100vh - #{$modal-content-spacing-tablet});
+		width: $modal-content-width;
+	}
+}
+
+.modal-close {
+	@extend %delete;
+	background: none;
+	height: $modal-close-dimensions;
+	position: fixed;
+	right: $modal-close-right;
+	top: $modal-close-top;
+	width: $modal-close-dimensions;
+}
+
+.modal-card {
+	display: flex;
+	flex-direction: column;
+	max-height: calc(100vh - #{$modal-card-spacing});
+	overflow: hidden;
+	-ms-overflow-y: visible;
+
+	@at-root .modal-alert & {
+		max-width: 360px;
+		padding: 10px;
+	}
+}
+
+.modal-card-head {
+	align-items: center;
+	background-color: $modal-card-head-background-color;
+	display: flex;
+	flex-shrink: 0;
+	justify-content: flex-start;
+	height: 5.5rem;
+	padding: $modal-card-head-padding;
+	margin: 0 1rem;
+	position: relative;
+	border-bottom: $modal-card-head-border-bottom;
+	border-top-left-radius: $modal-card-head-radius;
+	border-top-right-radius: $modal-card-head-radius;
+
+	&.no-border {
+		border: none !important;
+	}
+
+	.delete {
+		margin-right: -1rem;
+	}
+	@at-root .modal-alert & {
+		height: 2rem;
+		padding: 0;
+		border: none;
+		justify-content: flex-end;
+
+		.delete {
+			margin-top: 0;
+		}
+	}
+}
+
+.modal-card-title {
+	flex-grow: 1;
+	flex-shrink: 0;
+	width: 90%;
+	font-size: $modal-card-title-size;
+	font-weight: 600;
+	line-height: $modal-card-title-line-height;
+	color: $modal-card-title-color;
+	@include text-ellipsis();
+}
+
+.modal-card-foot {
+	border-bottom-left-radius: $modal-card-foot-radius;
+	border-bottom-right-radius: $modal-card-foot-radius;
+	// border-top: $modal-card-foot-border-top;
+
+	.buttons {
+		justify-content: center;
+		margin: 0.5rem 0 3rem;
+
+		.control {
+			margin: 0 !important;
+		}
+
+		.button {
+			&:not(:last-child) {
+				margin-right: 0.5em;
+			}
+		}
+	}
+}
+
+// .modal-card-foot__fixed {
+// 	position: fixed;
+// 	bottom: 0;
+// 	width: 100%;
+// 	max-width: 780px;
+// 	margin: 0 -1rem;
+// }
+
+.modal-card-body {
+	@include overflow-touch;
+	// background-color: $modal-card-body-background-color;
+	flex-grow: 1;
+	flex-shrink: 1;
+	overflow: auto;
+	padding: $modal-card-body-padding;
+	@at-root .modal-alert & {
+		font-size: $size-normal;
+		text-align: center;
+		padding: 10px;
+
+		.button-area {
+			margin-top: 2rem;
+
+			.button {
+				min-width: 10rem;
+				margin: 3px;
+				height: 3rem;
+			}
+		}
+	}
+}
+
+.bg-gray-full {
+	height: 1rem;
+	margin: 0 -1rem;
+	background-color: #f0f0f0;
+}

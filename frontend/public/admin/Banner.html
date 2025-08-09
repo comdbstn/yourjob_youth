@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배너관리</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+        /* 페이지네이션 스타일 */
+        .pagination-area {
+            margin-top: 20px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            padding: 10px 0;
+        }
+        .pagination-btn {
+            padding: 5px 10px;
+            margin: 0 3px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .pagination-btn.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        .pagination-btn:disabled {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+        .pagination-info {
+            text-align: center;
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        /* 로딩 인디케이터 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+        .loading-spinner {
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 500px;
+            border-radius: 5px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .modal-body {
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        .modal-footer {
+            text-align: right;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* 행 선택기 스타일 */
+        .row-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        #pageSize {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        /* 이미지 미리보기 스타일 */
+        .image-preview {
+            max-width: 100%;
+            height: 150px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+        .image-preview img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+<main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+
+        <!-- 로고 -->
+        <div class="lnb__logo">
+            <a href="/" class="lnb__logo--link">
+                <img src="assets/images/logo.png">
+            </a>
+        </div>
+        <!-- //로고 -->
+
+        <!-- 메뉴1 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Jobs.html" class="btn">채용정보</a>
+            </li>
+            <li>
+                <a href="Resumes.html" class="btn">이력서정보</a>
+            </li>
+            <li>
+                <a href="Application.html" class="btn">입사지원</a>
+            </li>
+            <li>
+                <a href="JobOffers.html" class="btn">포지션제안</a>
+            </li>
+            <li>
+                <a href="CompanyProfile.html" class="btn">기업정보</a>
+            </li>
+            <li>
+                <a href="CommunityPost.html" class="btn">커뮤니티</a>
+            </li>
+            <li>
+                <a href="Payments.html" class="btn">결제관리</a>
+            </li>
+            <li>
+                <a href="Products.html" class="btn">상품관리</a>
+            </li>
+            <li>
+                <a href="./Banner.html" class="btn isActive">배너관리</a>
+            </li>
+            <li>
+                <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+            </li>
+            <li>
+                <a href="DataManagement.html" class="btn">데이터관리</a>
+            </li>
+        </ul>
+        <!-- //메뉴1 -->
+
+        <!-- 메뉴2 -->
+        <ul class="lnb--menu">
+            <li>
+                <a href="Statistics.html" class="btn">통계</a>
+            </li>
+            <li>
+                <a href="UserManagement.html" class="btn">회원관리</a>
+            </li>
+            <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+            <li>
+                <a href="Settings.html" class="btn">환경설정</a>
+            </li>
+        </ul>
+        <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+
+        <!-- 상단 네비 영역 -->
+        <div class="navigation">
+            <div class="container">
+                <button type="button" class="btn btn-danger btn-small" id="btnLogout">로그아웃</button>
+            </div>
+        </div>
+        <!-- //상단 네비 영역 -->
+
+        <!-- 페이지 타이틀 -->
+        <div class="title-area">
+            <div class="container">
+                <h2 class="title--h2">배너관리</h2>
+            </div>
+        </div>
+        <!-- //페이지 타이틀 -->
+
+        <!-- 컨텐츠 영역 -->
+        <div class="content">
+            <div class="container">
+
+                <article class="article-area">
+
+                    <!-- 상단 버튼 영역 -->
+                    <div class="btn-area--top">
+                        <button type="button" class="btn btn-danger btn-small" id="deleteSelectedBtn">삭제</button>
+                        <button type="button" class="btn btn-success btn-small" id="addBannerBtn">등록</button>
+                    </div>
+                    <!-- //상단 버튼 영역 -->
+
+                    <!-- 상단 검색 영역 -->
+                    <div class="search-area">
+                        <div class="search--select select-box">
+
+                            <div class="control">
+                                <select class="select" id="groupFilter">
+                                    <option value="">그룹</option>
+                                    <option value="메인A">메인A (구직자 화면)</option>
+                                    <option value="메인B">메인B (채용담당자 화면)</option>
+                                    <option value="서브A">서브A (구직자 화면)</option>
+                                    <option value="서브B">서브B (채용담당자 화면)</option>
+                                </select>
+                            </div>
+
+                            <div class="control">
+                                <select class="select" id="statusFilter">
+                                    <option value="">상태</option>
+                                    <option value="active">활성</option>
+                                    <option value="inactive">비활성</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="search--text">
+                            <div class="control">
+                                <input type="text" id="keywordFilter" placeholder="배너 제목을 입력하세요">
+                            </div>
+                            <button type="button" class="btn btn-primary" id="searchBtn">검색</button>
+                        </div>
+                    </div>
+                    <!-- //상단 검색 영역 -->
+
+                    <!-- 테이블 -->
+                    <section class="table-area">
+                        <div class="table-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 등록일시 -->
+                                    <col width="140px"/> <!-- 마감일 -->
+                                    <col width="300px"/> <!-- 이미지 -->
+                                    <col width="140px"/> <!-- 그룹명 -->
+                                    <col width="100px"/> <!-- 상태 -->
+                                    <col width="*"/> <!-- 배너제목 -->
+                                    <col width="180px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>
+                                        <div class="control">
+                                            <input id="selectAllCheckbox" type="checkbox" class="checked--all">
+                                        </div>
+                                    </th>
+                                    <th>번호</th>
+                                    <th>등록일시</th>
+                                    <th>마감일</th>
+                                    <th>이미지</th>
+                                    <th>그룹명</th>
+                                    <th>상태</th>
+                                    <th>배너제목</th>
+                                    <th>관리자툴</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div class="table-content">
+                            <table cellpadding="0" cellspacing="0" border="0" id="bannersTable">
+                                <colgroup>
+                                    <col width="44px"/> <!-- 체크 -->
+                                    <col width="70px"/> <!-- 번호 -->
+                                    <col width="150px"/> <!-- 등록일 -->
+                                    <col width="140px"/> <!-- 마감일 -->
+                                    <col width="300px"/> <!-- 이미지 -->
+                                    <col width="140px"/> <!-- 그룹명 -->
+                                    <col width="100px"/> <!-- 상태 -->
+                                    <col width="*"/> <!-- 배너제목 -->
+                                    <col width="180px"/> <!-- 관리자툴 -->
+                                </colgroup>
+                                <tbody id="bannersTableBody">
+                                <!-- 데이터가 JavaScript로 채워집니다 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!-- //테이블 -->
+
+                    <!-- 페이지네이션 -->
+                    <div class="row-selector">
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <div class="pagination-area">
+                        <div class="pagination" id="pagination">
+                            <!-- 페이지네이션이 JavaScript로 채워집니다 -->
+                        </div>
+                        <div class="pagination-info" id="paginationInfo">
+                            <!-- 페이지 정보가 JavaScript로 채워집니다 -->
+                        </div>
+                    </div>
+                    <!-- //페이지네이션 -->
+                </article>
+            </div>
+        </div>
+        <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+
+    <!-- 로딩 오버레이 -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- 배너 등록/수정 모달 -->
+    <div class="modal" id="bannerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">배너 등록</h2>
+                <span class="close" id="closeBannerModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="bannerForm">
+                    <input type="hidden" id="bannerId" name="id">
+                    <div class="form-group">
+                        <label for="title">배너 제목:</label>
+                        <input type="text" id="title" name="title" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="groupName">그룹명:</label>
+                        <select id="groupName" name="groupName" class="form-control" required>
+                            <option value="메인A">메인A (구직자 화면)</option>
+                            <option value="메인B">메인B (채용담당자 화면)</option>
+                            <option value="서브A">서브A (구직자 화면)</option>
+                            <option value="서브B">서브B (채용담당자 화면)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">시작일:</label>
+                        <input type="date" id="startDate" name="startDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">종료일:</label>
+                        <input type="date" id="endDate" name="endDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageUrl">이미지 URL:</label>
+                        <input type="text" id="imageUrl" name="imageUrl" class="form-control" required>
+                        <div class="image-preview" id="imagePreview">
+                            <img id="previewImg" src="" alt="이미지 미리보기" style="display: none;">
+                            <span id="previewPlaceholder">이미지 URL을 입력하면 미리보기가 표시됩니다</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveBannerBtn">저장</button>
+                <button type="button" class="btn btn-secondary" id="cancelBannerBtn">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 확인 모달 -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>확인</h2>
+                <span class="close" id="closeConfirmModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage">정말 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="confirmYesBtn">예</button>
+                <button type="button" class="btn btn-secondary" id="confirmNoBtn">아니오</button>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="./env-config.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // API 기본 URL
+        //const API_BASE_URL = 'http://localhost:8082/api/v1';
+        //const API_BASE_URL = 'http://13.125.187.22:8082/api/v1';
+        const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+        // 현재 페이지 정보
+        const state = {
+            currentPage: 0,
+            pageSize: 10,
+            totalPages: 0,
+            totalElements: 0,
+            filters: {
+                groupName: '',
+                status: '',
+                keyword: ''
+            },
+            isEditing: false
+        };
+
+        // DOM 요소들
+        const elements = {
+            bannersTableBody: document.getElementById('bannersTableBody'),
+            pagination: document.getElementById('pagination'),
+            paginationInfo: document.getElementById('paginationInfo'),
+            searchBtn: document.getElementById('searchBtn'),
+            deleteSelectedBtn: document.getElementById('deleteSelectedBtn'),
+            addBannerBtn: document.getElementById('addBannerBtn'),
+            selectAllCheckbox: document.getElementById('selectAllCheckbox'),
+            pageSize: document.getElementById('pageSize'),
+            loadingOverlay: document.getElementById('loadingOverlay'),
+
+            // 필터 요소들
+            groupFilter: document.getElementById('groupFilter'),
+            statusFilter: document.getElementById('statusFilter'),
+            keywordFilter: document.getElementById('keywordFilter'),
+
+            // 배너 모달
+            bannerModal: document.getElementById('bannerModal'),
+            closeBannerModal: document.getElementById('closeBannerModal'),
+            saveBannerBtn: document.getElementById('saveBannerBtn'),
+            cancelBannerBtn: document.getElementById('cancelBannerBtn'),
+            bannerForm: document.getElementById('bannerForm'),
+            modalTitle: document.getElementById('modalTitle'),
+            imageUrl: document.getElementById('imageUrl'),
+            previewImg: document.getElementById('previewImg'),
+            previewPlaceholder: document.getElementById('previewPlaceholder'),
+
+            // 확인 모달
+            confirmModal: document.getElementById('confirmModal'),
+            closeConfirmModal: document.getElementById('closeConfirmModal'),
+            confirmYesBtn: document.getElementById('confirmYesBtn'),
+            confirmNoBtn: document.getElementById('confirmNoBtn'),
+            confirmMessage: document.getElementById('confirmMessage')
+        };
+
+        // 초기화 - 이벤트 리스너 및 초기 데이터 로드
+        function init() {
+            // 검색 이벤트 리스너
+            elements.searchBtn.addEventListener('click', handleSearch);
+
+            // 전체 선택 체크박스 이벤트 리스너
+            elements.selectAllCheckbox.addEventListener('change', handleSelectAll);
+
+            // 선택 삭제 버튼 이벤트 리스너
+            elements.deleteSelectedBtn.addEventListener('click', confirmBulkDelete);
+
+            // 페이지 크기 변경 이벤트 리스너
+            elements.pageSize.addEventListener('change', handlePageSizeChange);
+
+            // 배너 등록 버튼 이벤트 리스너
+            elements.addBannerBtn.addEventListener('click', openAddBannerModal);
+
+            // 배너 모달 관련 이벤트 리스너
+            elements.closeBannerModal.addEventListener('click', () => hideModal(elements.bannerModal));
+            elements.cancelBannerBtn.addEventListener('click', () => hideModal(elements.bannerModal));
+            elements.saveBannerBtn.addEventListener('click', handleSaveBanner);
+
+            // 이미지 URL 입력 시 미리보기 업데이트
+            elements.imageUrl.addEventListener('input', updateImagePreview);
+
+            // 확인 모달 관련 이벤트 리스너
+            elements.closeConfirmModal.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmNoBtn.addEventListener('click', () => hideModal(elements.confirmModal));
+            elements.confirmYesBtn.addEventListener('click', handleConfirmYes);
+
+            // 초기 데이터 로드
+            loadBanners();
+        }
+
+        // 필터링 옵션들에 change 이벤트 리스너 추가
+        const filterElements = [
+            'statusFilter',
+            'groupFilter'
+        ];
+
+        // 각 필터링 요소에 change 이벤트 리스너 추가
+        filterElements.forEach(elementId => {
+            document.getElementById(elementId).addEventListener('change', handleFilterChange);
+        });
+
+        // 필터 변경 이벤트 핸들러
+        function handleFilterChange() {
+            // 필터 값을 상태에 업데이트
+            updateFiltersFromDOM();
+
+            // 첫 페이지로 이동
+            state.currentPage = 0;
+
+            // 변경된 필터로 데이터 로드
+            loadBanners();
+        }
+
+        function updateFiltersFromDOM() {
+            state.filters = {
+                groupName: elements.groupFilter.value,
+                status: elements.statusFilter.value,
+                keyword: elements.keywordFilter.value
+            };
+        }
+
+        // 로딩 표시/숨김 함수
+        function showLoading() {
+            elements.loadingOverlay.style.display = 'flex';
+        }
+
+        function hideLoading() {
+            elements.loadingOverlay.style.display = 'none';
+        }
+
+        // 모달 표시/숨김 함수
+        function showModal(modal) {
+            modal.style.display = 'block';
+        }
+
+        function hideModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        // 이미지 미리보기 업데이트
+        function updateImagePreview() {
+            const url = elements.imageUrl.value.trim();
+            if (url) {
+                elements.previewImg.src = url;
+                elements.previewImg.style.display = 'block';
+                elements.previewPlaceholder.style.display = 'none';
+
+                // 이미지 로드 오류 처리
+                elements.previewImg.onerror = function() {
+                    elements.previewImg.style.display = 'none';
+                    elements.previewPlaceholder.style.display = 'block';
+                    elements.previewPlaceholder.textContent = '이미지 로드 실패';
+                };
+            } else {
+                elements.previewImg.style.display = 'none';
+                elements.previewPlaceholder.style.display = 'block';
+                elements.previewPlaceholder.textContent = '이미지 URL을 입력하면 미리보기가 표시됩니다';
+            }
+        }
+
+        // 배너 목록 로드
+        async function loadBanners() {
+            showLoading();
+
+            try {
+                // 현재 DOM에서 필터 값 가져오기
+                const currentFilters = {
+                    groupName: elements.groupFilter.value,
+                    status: elements.statusFilter.value,
+                    keyword: elements.keywordFilter.value
+                };
+
+                // 상태 업데이트
+                state.filters = currentFilters;
+
+                // API URL 구성
+                const params = new URLSearchParams({
+                    page: state.currentPage.toString(),
+                    size: state.pageSize.toString()
+                });
+
+                // 필터 추가 - 현재의 필터 값 사용
+                if (currentFilters.groupName) {
+                    params.append('groupName', currentFilters.groupName);
+                }
+                if (currentFilters.status) {
+                    params.append('status', currentFilters.status);
+                }
+                if (currentFilters.keyword) {
+                    params.append('keyword', currentFilters.keyword);
+                }
+
+                const url = `${API_BASE_URL}/banners?${params.toString()}`;
+
+                // API 호출
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('서버 응답 에러: ' + response.status);
+                }
+
+                const data = await response.json();
+
+                // 응답이 배열인 경우 (페이징 정보가 없는 경우)
+                if (Array.isArray(data)) {
+                    // 상태 업데이트 - 배열의 길이로 계산
+                    state.totalElements = data.length;
+                    state.totalPages = Math.ceil(data.length / state.pageSize);
+
+                    // 페이징 처리
+                    const start = state.currentPage * state.pageSize;
+                    const end = Math.min(start + state.pageSize, data.length);
+                    const paginatedData = data.slice(start, end);
+
+                    // 테이블과 페이지네이션 렌더링
+                    renderBannersTable(paginatedData);
+                }
+                // 페이징된 응답인 경우
+                else if (data.content !== undefined) {
+                    // 상태 업데이트
+                    state.totalPages = data.totalPages || 0;
+                    state.totalElements = data.totalElements || 0;
+                    state.currentPage = data.number !== undefined ? data.number : state.currentPage;
+
+                    // 테이블과 페이지네이션 렌더링
+                    renderBannersTable(data.content || []);
+                }
+                // 그 외 형식의 응답인 경우 - 전체 데이터를 표시
+                else {
+                    renderBannersTable([data]);
+                    state.totalElements = 1;
+                    state.totalPages = 1;
+                }
+
+                renderPagination();
+                updatePaginationInfo();
+
+            } catch (error) {
+                console.error('데이터 로드 중 오류:', error);
+                alert('데이터를 불러오는 중 오류가 발생했습니다. 나중에 다시 시도해주세요.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 테이블 렌더링
+        function renderBannersTable(banners) {
+            elements.bannersTableBody.innerHTML = '';
+
+            if (banners.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td colspan="8" style="text-align: center; padding: 20px;">데이터가 없습니다.</td>`;
+                elements.bannersTableBody.appendChild(row);
+                return;
+            }
+
+            banners.forEach((banner, index) => {
+                //const displayIndex = state.currentPage * state.pageSize + index + 1;
+                const displayIndex = state.totalElements - (state.currentPage * state.pageSize + index);
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                        <td>
+                            <div class="control">
+                                <input type="checkbox" class="checked--node" data-id="${banner.id}">
+                            </div>
+                        </td>
+                        <td>${displayIndex}</td>
+                        <td>${formatDate(banner.createdAt) || '-'}</td>
+                        <td>${formatDate(banner.endDate) || '-'}</td>
+                        <td>
+                            <div class="thumb">
+                                <img src="${banner.imageUrl || '/assets/images/default-profile.jpg'}" alt="이미지">
+                            </div>
+                        </td>
+                        <td>${banner.groupName || '-'}</td>
+                        <td>${banner.status === 'active' ? '활성' : '비활성' }</td>
+                        <td>${banner.title || '-'}</td>
+                        <td>
+                            <div class="admin--tool">
+                                <button type="button" class="btn btn-warning" data-id="${banner.id}" onclick="editBanner(${banner.id})">수정</button>
+                                <button type="button" class="btn btn-danger" data-id="${banner.id}" onclick="confirmDelete(${banner.id})">삭제</button>
+                            </div>
+                        </td>
+                    `;
+
+                elements.bannersTableBody.appendChild(row);
+            });
+
+            // 체크박스 이벤트 리스너 등록
+            document.querySelectorAll('.checked--node').forEach(cb => {
+                cb.addEventListener('change', updateSelectAllStatus);
+            });
+        }
+
+        // 날짜 포맷 함수
+        function formatDate(dateString) {
+            if (!dateString) return '-';
+
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+
+            if (dateString.includes('T')) {
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day} ${hours}:${minutes}`;
+            } else {
+                return `${year}-${month}-${day}`;
+            }
+        }
+
+        // 페이지네이션 렌더링
+        function renderPagination() {
+            elements.pagination.innerHTML = '';
+
+            const currentPage = state.currentPage;
+            const totalPages = state.totalPages;
+
+            if (totalPages <= 0) return;
+
+            // 페이지 버튼 수 설정
+            const maxPageButtons = 5;
+            const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+            const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+            // 첫 페이지 버튼
+            const firstBtn = document.createElement('button');
+            firstBtn.className = 'pagination-btn';
+            firstBtn.textContent = '<<';
+            firstBtn.disabled = currentPage === 0;
+            firstBtn.addEventListener('click', () => goToPage(0));
+            elements.pagination.appendChild(firstBtn);
+
+            // 이전 페이지 버튼
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'pagination-btn';
+            prevBtn.textContent = '<';
+            prevBtn.disabled = currentPage === 0;
+            prevBtn.addEventListener('click', () => goToPage(currentPage - 1));
+            elements.pagination.appendChild(prevBtn);
+
+            // 페이지 번호 버튼들
+            for (let i = startPage; i <= endPage; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.className = 'pagination-btn';
+                if (i === currentPage) pageBtn.classList.add('active');
+                pageBtn.textContent = i + 1;
+                pageBtn.addEventListener('click', () => goToPage(i));
+                elements.pagination.appendChild(pageBtn);
+            }
+
+            // 다음 페이지 버튼
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'pagination-btn';
+            nextBtn.textContent = '>';
+            nextBtn.disabled = currentPage >= totalPages - 1;
+            nextBtn.addEventListener('click', () => goToPage(currentPage + 1));
+            elements.pagination.appendChild(nextBtn);
+
+            // 마지막 페이지 버튼
+            const lastBtn = document.createElement('button');
+            lastBtn.className = 'pagination-btn';
+            lastBtn.textContent = '>>';
+            lastBtn.disabled = currentPage >= totalPages - 1;
+            lastBtn.addEventListener('click', () => goToPage(totalPages - 1));
+            elements.pagination.appendChild(lastBtn);
+        }
+
+        // 페이지네이션 정보 업데이트
+        function updatePaginationInfo() {
+            const info = elements.paginationInfo;
+
+            if (state.totalElements === 0) {
+            } else {
+                const start = state.currentPage * state.pageSize + 1;
+                const end = Math.min((state.currentPage + 1) * state.pageSize, state.totalElements);
+                info.textContent = `전체 ${state.totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+            }
+        }
+
+        // 페이지 이동 함수
+        function goToPage(page) {
+            if (page < 0 || page >= state.totalPages) return;
+            state.currentPage = page;
+            loadBanners();
+            window.scrollTo(0, 0);
+        }
+
+        // 검색 처리 함수
+        function handleSearch() {
+            // 필터 값 업데이트
+            updateFiltersFromDOM();
+
+            // 첫 페이지로 이동하고 데이터 다시 로드
+            state.currentPage = 0;
+            loadBanners();
+        }
+
+        // 페이지 크기 변경 핸들러
+        function handlePageSizeChange() {
+            state.pageSize = parseInt(elements.pageSize.value);
+            state.currentPage = 0;
+            loadBanners();
+        }
+
+        // 전체 선택 체크박스 처리
+        function handleSelectAll(e) {
+            const isChecked = e.target.checked;
+            document.querySelectorAll('.checked--node').forEach(checkbox => {
+                checkbox.checked = isChecked;
+            });
+        }
+
+        // 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+        function updateSelectAllStatus() {
+            const checkboxes = document.querySelectorAll('.checked--node');
+            const checkedCount = document.querySelectorAll('.checked--node:checked').length;
+            elements.selectAllCheckbox.checked = checkboxes.length > 0 && checkedCount === checkboxes.length;
+        }
+
+        // 선택된 아이디들 반환 함수
+        function getSelectedBannerIds() {
+            const ids = [];
+            document.querySelectorAll('.checked--node:checked').forEach(checkbox => {
+                ids.push(parseInt(checkbox.getAttribute('data-id')));
+            });
+            return ids;
+        }
+
+        // 배너 추가 모달 열기
+        function openAddBannerModal() {
+            window.location.href = '/admin/BannerDetail.html';
+            /*state.isEditing = false;
+            elements.modalTitle.textContent = "배너 등록";
+            elements.bannerForm.reset();
+            document.getElementById('bannerId').value = '';
+
+            // 오늘 날짜 설정
+            const today = new Date();
+            const formattedDate = today.toISOString().split('T')[0];
+            document.getElementById('startDate').value = formattedDate;
+
+            // 한 달 뒤 날짜 설정
+            const nextMonth = new Date(today);
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            document.getElementById('endDate').value = nextMonth.toISOString().split('T')[0];
+
+            // 이미지 미리보기 초기화
+            elements.previewImg.style.display = 'none';
+            elements.previewPlaceholder.style.display = 'block';
+
+            showModal(elements.bannerModal);*/
+        }
+
+        // BannerDetail.html로 리다이렉트
+        function openEditBannerModal(bannerId) {
+            // BannerDetail.html 페이지로 이동하면서 배너 ID를 전달
+            window.location.href = `BannerDetail.html?id=${bannerId}`;
+        }
+
+        function openAddBannerModal() {
+            window.location.href = 'BannerDetail.html';
+        }
+
+        // 배너 저장 처리
+        async function handleSaveBanner() {
+            // 폼 유효성 검사
+            const form = elements.bannerForm;
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const bannerId = document.getElementById('bannerId').value;
+            const bannerData = {
+                title: document.getElementById('title').value,
+                groupName: document.getElementById('groupName').value,
+                startDate: document.getElementById('startDate').value,
+                endDate: document.getElementById('endDate').value,
+                imageUrl: document.getElementById('imageUrl').value
+            };
+
+            // 시작일과 종료일 검증
+            const startDate = new Date(bannerData.startDate);
+            const endDate = new Date(bannerData.endDate);
+
+            if (endDate < startDate) {
+                alert('종료일은 시작일 이후여야 합니다.');
+                return;
+            }
+
+            showLoading();
+            try {
+                let url = `${API_BASE_URL}/admin/banners`;
+                let method = 'POST';
+
+                if (state.isEditing && bannerId) {
+                    url = `${API_BASE_URL}/admin/banners/${bannerId}`;
+                    method = 'PUT';
+                    bannerData.id = parseInt(bannerId);
+                }
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bannerData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('저장 실패');
+                }
+
+                alert(state.isEditing ? '배너가 수정되었습니다.' : '배너가 등록되었습니다.');
+                hideModal(elements.bannerModal);
+                loadBanners();
+            } catch (error) {
+                console.error('저장 중 오류:', error);
+                alert('저장 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 삭제 확인 모달 열기
+        function confirmDelete(bannerId) {
+            elements.confirmMessage.textContent = `정말 이 배너를 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'delete');
+            elements.confirmYesBtn.setAttribute('data-id', bannerId);
+            showModal(elements.confirmModal);
+        }
+
+        // 일괄 삭제 확인 모달 열기
+        function confirmBulkDelete() {
+            const selectedIds = getSelectedBannerIds();
+            if (selectedIds.length === 0) {
+                alert('삭제할 항목을 선택해주세요.');
+                return;
+            }
+
+            elements.confirmMessage.textContent = `선택한 ${selectedIds.length}개의 항목을 삭제하시겠습니까?`;
+            elements.confirmYesBtn.setAttribute('data-action', 'bulkDelete');
+            showModal(elements.confirmModal);
+        }
+
+        // 확인 모달 확인 버튼 처리
+        function handleConfirmYes() {
+            const action = elements.confirmYesBtn.getAttribute('data-action');
+
+            if (action === 'delete') {
+                const bannerId = elements.confirmYesBtn.getAttribute('data-id');
+                deleteBanner(bannerId);
+            } else if (action === 'bulkDelete') {
+                bulkDeleteBanners();
+            }
+
+            hideModal(elements.confirmModal);
+        }
+
+        // 배너 삭제 처리
+        async function deleteBanner(bannerId) {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/banners/${bannerId}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('삭제 실패');
+                }
+
+                alert('배너가 삭제되었습니다.');
+                loadBanners();
+            } catch (error) {
+                console.error('삭제 중 오류:', error);
+                alert('삭제 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // 일괄 삭제 처리
+        async function bulkDeleteBanners() {
+            const selectedIds = getSelectedBannerIds();
+            if (selectedIds.length === 0) return;
+
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/banners/bulk`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ids: selectedIds })
+                });
+
+                if (!response.ok) {
+                    throw new Error('일괄 삭제 실패');
+                }
+
+                alert(`${selectedIds.length}개의 배너가 삭제되었습니다.`);
+                loadBanners();
+            } catch (error) {
+                console.error('일괄 삭제 중 오류:', error);
+                alert('일괄 삭제 중 오류가 발생했습니다.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        document.getElementById('btnLogout').addEventListener('click', function() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                // 세션 스토리지 및 로컬 스토리지 클리어
+                sessionStorage.clear();
+                localStorage.removeItem('token');
+
+                // 로그인 페이지로 리다이렉트
+                window.location.href = '/admin/login.html';
+            }
+        });
+
+        // 전역 함수로 노출
+        window.editBanner = openEditBannerModal;
+        window.confirmDelete = confirmDelete;
+
+        // 초기화 실행
+        init();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+.CompanyAsideMenuContainer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 99;
+}
+
+.CompanyAsideMenuContainer .headers {
+  height: 73px;
+  width: 100%;
+  background-color: #fbfbfb;
+  /* border-bottom: #a8a8a8 1px solid; */
+  padding: 20px 27px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 40px);
+}
+
+.CompanyAsideMenuContainer .headers .leftSide .leftcon {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide>img {
+  height: 20px;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide .logout {
+  border-radius: 20px;
+  border: #a8a8a8 1px solid;
+  color: #a8a8a8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 33px;
+}
+
+.UserAsideMenuContainer .headers .leftSide .leftcon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide p {
+  color: #a8a8a8;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide strong {
+  color: #535353;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide strong b {
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide p strong span {
+  color: #a8a8a8;
+  font-size: 16px;
+}
+
+.CompanyAsideMenuContainer .headers .leftSide button {
+  border-radius: 20px;
+  border: #a8a8a8 1px solid;
+  color: #a8a8a8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 33px;
+}
+
+.CompanyAsideMenuContainer .buttons {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.CompanyAsideMenuContainer .buttons button {
+  height: 50px;
+  color: #a8a8a8;
+  width: 100%;
+  text-align: start;
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+.CompanyAsideMenuContainer .buttons .selected {
+  background-color: #edf6fd;
+  border-radius: 10px;
+  color: #2f80dc;
+  font-weight: 700;
+}

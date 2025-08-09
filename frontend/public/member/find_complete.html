@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!--<meta name=description content="This site was generated with Anima. www.animaapp.com"/>-->
+    <!-- <link rel="shortcut icon" type=image/png href="https://animaproject.s3.amazonaws.com/home/favicon.png" /> -->
+    <meta name="viewport" content="width=1920, maximum-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png" />
+    <meta name="og:type" content="website" />
+    <meta name="twitter:card" content="photo" />
+    <link rel="stylesheet" type="text/css" href="/css/corp_join.css" />
+    <link rel="stylesheet" type="text/css" href="/css/styleguide.css" />
+    <link rel="stylesheet" type="text/css" href="/css/globals.css" />
+
+	<script src="/js/jquery.min.js"></script>
+</head>
+<body>
+
+    <div class="container-center-horizontal">
+		<div class="mem_container">
+			<div class="corp_join">
+				 <a href="/" class="title"><img src="/img/logo.png"></a>
+				<h1 class="find_complete_title mt3">회원님의 아이디는 abcd입니다.</h1>
+				<div class="complete-container">
+					<button type="button" class="form_btn">로그인</button>
+					<button type="button" class="home_btn">홈으로</button>
+				</div>
+			</div>
+		</div>
+    </div>
+
+<script>
+$(document).ready(function () {
+	$(".form_btn").on('click',function() {
+		window.location.href="corp_login.html";
+	});
+
+	$(".home_btn").on('click',function() {
+		window.location.href="/";
+	});
+});
+</script>
+
+</body>
+</html>

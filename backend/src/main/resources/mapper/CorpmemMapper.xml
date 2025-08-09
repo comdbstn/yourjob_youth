@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.CorpmemMapper">
+    <select id="selectListJobApply" parameterType="int" resultType="map">
+        SELECT u.user_id, u.account_id, b.job_id, b.resume_id
+        from users as u inner join applications as b
+        on u.user_id=b.job_seeker_id
+        where u.user_id=#{jobid}
+    </select>
+    <select id="selectMyJobCnt" parameterType="int" resultType="int">
+        select count(*) from job_postings where employer_id = #{userId} and status="채용중"
+    </select>
+    <insert id="insertResumeView" parameterType="map">
+        insert into corps_view
+        (user_id,
+        resume_id)
+        VALUES
+        (#{userId},
+        #{resumeId})
+    </insert>
+    <select id="selectMyJobApplierCnt" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM applications
+        WHERE 1 = 1
+        <if test='status != null and status != ""'>
+            and status = #{status}
+        </if>
+        <if test='jobId != null and jobId != ""'>
+            and job_id = #{jobId}
+        </if>
+    </select>
+
+    <select id="selectMyJobApplierCntStatus" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM applications
+        WHERE 1 = 1
+        <if test='status != null and status != ""'>
+            AND status = #{status}
+        </if>
+        <if test='jobIds != null and jobIds.size > 0'>
+            AND job_id IN
+            <foreach item="item" collection="jobIds" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+    </select>
+    <select id="selectMyJobOffersCnt" parameterType="int" resultType="int">
+        SELECT
+        count(*)
+        FROM job_offers
+        WHERE employer_id = #{userId}
+    </select>
+    <select id="selectMyJobList" parameterType="int" resultType="com.yourjob.backend.entity.JobResponse">
+        select
+        job_id as id,
+        job_id as jobId,
+        employer_id as employerId,
+        title as title,
+        status as status,
+        position_str as position,
+        app_strt_tm as startDate,
+        app_end_tm as endDate,
+        created_at as registeredDate,
+        deadline as deadline
+        from job_postings where employer_id = #{user_id} order by created_at desc
+    </select>
+    <select id="selectCompanyInfo" parameterType="int" resultType="com.yourjob.backend.entity.CompanyInfo">
+        select
+        user_id as userId,
+        company_name as companyName,
+        employ_cnt as employeeCount,
+        capital as capitalAmount,
+        revenue as revenueAmount,
+        netincome as netIncome,
+        address as address,
+        homepage as website,
+        corp_logo_url as logo_url,
+        corpcert_imgidx as corpcertImgidx,
+        created_at as createdAt,
+        updated_at as updatedAt
+        from users where user_id = #{userId}
+    </select>
+    <update id="updateCompanyInfo" parameterType="com.yourjob.backend.entity.CompanyInfo">
+        update company_profile set
+        company_name = #{companyName},
+        employee_count = #{employeeCount},
+        capital_amount = #{capitalAmount},
+        revenue_amount = #{revenueAmount},
+        net_income = #{netIncome},
+        address = #{address},
+        website = #{website},
+        logo_url = #{logo_url},
+        updated_at = NOW()
+        where user_id = #{userId}
+    </update>
+    <update id="updateCompanyInfoLogoUrl" parameterType="com.yourjob.backend.entity.CompanyInfo">
+        update users set
+                                   corp_logo_url = #{logo_url}
+        where user_id = #{userId}
+    </update>
+    <update id="updateUserInfo" parameterType="map">
+        update users set
+        password_hash = #{password},
+        name = #{managerName},
+        email = #{managerEmail},
+        phone = #{managerPhone},
+        company_name = #{companyName},
+        business_rgst_numb = #{businessNumber},
+        representative = #{representative},
+        capital = #{capital},
+        revenue = #{revenue},
+        netincome = #{profit},
+        corp_type = #{companyType},
+        <if test='corpcertImgidx != null and corpcertImgidx != ""'>
+            corpcert_imgidx = #{corpcertImgidx},
+        </if>
+        employ_cnt = #{employeeCount}
+        where user_id = #{userId}
+    </update>
+    <update id="updateCorpThmbImgIdx" parameterType="map">
+        update users set
+        corpthmb_imgidx = #{thumbimgidx}
+        where user_id = #{userId}
+    </update>
+    <update id="updateCorpCertImgIdx" parameterType="map">
+        update users set
+        corpcert_imgidx = #{corpcertImgidx}
+        where user_id = #{userId}
+    </update>
+</mapper>

@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>기업정보</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* 페이지네이션 스타일 */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      padding: 10px 0;
+    }
+    .pagination-btn {
+      padding: 5px 10px;
+      margin: 0 3px;
+      border: 1px solid #ddd;
+      background-color: #fff;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .pagination-btn.active {
+      background-color: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+    .pagination-btn:disabled {
+      background-color: #f8f9fa;
+      color: #6c757d;
+      cursor: not-allowed;
+    }
+    .pagination-info {
+      text-align: center;
+      margin-top: 10px;
+      color: #6c757d;
+      font-size: 14px;
+    }
+    .page-size-selector {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .page-size-selector label {
+      margin-right: 5px;
+    }
+    .page-size-selector select {
+      padding: 2px 5px;
+    }
+  </style>
+</head>
+<body>
+  <main class="main">
+    <!-- lnb -->
+    <aside class="lnb">
+      <!-- 로고 -->
+      <div class="lnb__logo">
+        <a href="/" class="lnb__logo--link">
+          <img src="assets/images/logo.png">
+        </a>
+      </div>
+      <!-- //로고 -->
+
+      <!-- 메뉴1 -->
+      <ul class="lnb--menu">
+        <li>
+          <a href="Jobs.html" class="btn">채용정보</a>
+        </li>
+        <li>
+          <a href="Resumes.html" class="btn">이력서정보</a>
+        </li>
+        <li>
+          <a href="Application.html" class="btn">입사지원</a>
+        </li>
+        <li>
+          <a href="JobOffers.html" class="btn">포지션제안</a>
+        </li>
+        <li>
+          <a href="./CompanyProfile.html" class="btn isActive">기업정보</a>
+        </li>
+        <li>
+          <a href="CommunityPost.html" class="btn">커뮤니티</a>
+        </li>
+        <li>
+          <a href="Payments.html" class="btn">결제관리</a>
+        </li>
+        <li>
+          <a href="Products.html" class="btn">상품관리</a>
+        </li>
+        <li>
+          <a href="Banner.html" class="btn">배너관리</a>
+        </li>
+        <li>
+          <a href="SuccessfulResumes.html" class="btn">합격자소서</a>
+        </li>
+        <li>
+          <a href="DataManagement.html" class="btn">데이터관리</a>
+        </li>
+      </ul>
+      <!-- //메뉴1 -->
+
+      <!-- 메뉴2 -->
+      <ul class="lnb--menu">
+        <li>
+          <a href="Statistics.html" class="btn">통계</a>
+        </li>
+        <li>
+          <a href="UserManagement.html" class="btn">회원관리</a>
+        </li>
+        <li><a href="CommentReports.html" class="btn">댓글신고</a></li>
+        <li>
+          <a href="Settings.html" class="btn">환경설정</a>
+        </li>
+      </ul>
+      <!-- //메뉴2 -->
+    </aside>
+    <!-- //lnb -->
+
+    <!-- contents -->
+    <div class="contents">
+      <!-- 상단 네비 영역 -->
+      <div class="navigation">
+        <div class="container">
+          <button type="button" class="btn btn-danger btn-small" id="btnLogout" onclick="location.href='/login.html'">로그아웃</button>
+        </div>
+      </div>
+      <!-- //상단 네비 영역 -->
+
+      <!-- 페이지 타이틀 -->
+      <div class="title-area">
+        <div class="container">
+          <h2 class="title--h2">기업정보</h2>
+        </div>
+      </div>
+      <!-- //페이지 타이틀 -->
+
+      <!-- 컨텐츠 영역 -->
+      <div class="content">
+        <div class="container">
+          <article class="article-area">
+            <!-- 상단 버튼 영역 (일괄 삭제만 남김) -->
+            <div class="btn-area--top">
+              <button type="button" class="btn btn-success btn-small" id="addPaymentBtn">등록</button>
+              <button type="button" class="btn btn-danger btn-small" id="btnBulkDelete">삭제</button>
+            </div>
+            <!-- //상단 버튼 영역 -->
+
+            <!-- 상단 검색 영역 (상태 옵션 삭제됨) -->
+            <div class="search-area">
+              <div class="search--text">
+                <div class="control">
+                  <input type="text" id="keyword" placeholder="검색어를 입력하세요">
+                </div>
+                <button type="button" class="btn btn-primary" id="btnSearch">검색</button>
+              </div>
+            </div>
+            <!-- //상단 검색 영역 -->
+
+            <!-- 테이블 -->
+            <section class="table-area">
+              <div class="table-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <colgroup>
+                    <col width="44px"/> <!-- 체크 -->
+                    <col width="70px"/> <!-- 번호 -->
+                    <col width="140px"/> <!-- 등록일시 -->
+                    <col width="100px"/> <!-- 로고 -->
+                    <col width="*"/> <!-- 기업명 -->
+                    <col width="140px"/> <!-- 아이디 -->
+                    <col width="120px"/> <!-- 이름 -->
+                    <col width="140px"/> <!-- 이메일 -->
+                    <col width="130px"/> <!-- 연락처 -->
+                    <col width="140px"/> <!-- 홈페이지 -->
+                    <col width="150px"/> <!-- 자본금 -->
+                    <col width="150px"/> <!-- 매출액 -->
+                    <col width="120px"/> <!-- 관리자툴 -->
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>
+                        <div class="control">
+                          <input id="selectAll" type="checkbox" class="checked--all">
+                        </div>
+                      </th>
+                      <th>번호</th>
+                      <th>등록일시</th>
+                      <th>로고</th>
+                      <th>기업명</th>
+                      <th>아이디</th>
+                      <th>이름</th>
+                      <th>이메일</th>
+                      <th>연락처</th>
+                      <th>홈페이지</th>
+                      <th>자본금</th>
+                      <th>매출액</th>
+                      <th>관리자툴</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="table-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <colgroup>
+                    <col width="44px"/> <!-- 체크 -->
+                    <col width="70px"/> <!-- 번호 -->
+                    <col width="140px"/> <!-- 등록일시 -->
+                    <col width="100px"/> <!-- 로고 -->
+                    <col width="*"/> <!-- 기업명 -->
+                    <col width="140px"/> <!-- 아이디 -->
+                    <col width="120px"/> <!-- 이름 -->
+                    <col width="140px"/> <!-- 이메일 -->
+                    <col width="130px"/> <!-- 연락처 -->
+                    <col width="140px"/> <!-- 홈페이지 -->
+                    <col width="150px"/> <!-- 자본금 -->
+                    <col width="150px"/> <!-- 매출액 -->
+                    <col width="120px"/> <!-- 관리자툴 -->
+                  </colgroup>
+                  <tbody id="companyTableBody">
+                    <!-- 데이터가 여기에 동적으로 로드됩니다 -->
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <!-- //테이블 -->
+
+            <!-- 페이지네이션 영역 -->
+            <div class="page-size-selector">
+              <select id="pageSize">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+            <div class="pagination">
+              <!-- 페이지 버튼이 여기에 동적으로 로드됩니다 -->
+            </div>
+            <div class="pagination-info">
+              <!-- 페이지 정보가 여기에 표시됩니다 -->
+            </div>
+            <!-- //페이지네이션 영역 -->
+          </article>
+        </div>
+      </div>
+      <!-- //컨텐츠 영역 -->
+    </div>
+    <!-- //contents -->
+  </main>
+  <script src="./env-config.js"></script>
+  <script>
+    //const API_BASE_URL = 'http://localhost:8082/api/v1';
+    //const API_BASE_URL = 'http://13.125.187.22:8082/api/v1';
+    const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // API BASE URL
+      const API_BASE_URL = window.__CONFIG__.API_BASE_URL;
+
+      // 상태 관련 변수 및 로직은 제거됨
+      let selectedIds = [];
+      let companyItems = [];
+      let currentPage = 0;
+      let pageSize = 10;
+      let totalPages = 0;
+      let totalElements = 0;
+
+      // 초기 로드
+      loadCompanyItems();
+
+      // 이벤트 리스너 등록
+      document.getElementById('btnSearch').addEventListener('click', handleSearch);
+      document.getElementById('selectAll').addEventListener('change', handleSelectAllClick);
+      document.getElementById('btnBulkDelete').addEventListener('click', handleBulkDelete);
+      document.getElementById('btnLogout').addEventListener('click', handleLogout);
+      document.getElementById('pageSize').addEventListener('change', handlePageSizeChange);
+      document.getElementById('keyword').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          handleSearch();
+        }
+      });
+
+      // "등록" 버튼에 이벤트 리스너 추가
+      document.getElementById('addPaymentBtn').addEventListener('click', function() {
+        window.location.href = 'CompanyProfileDetail.html';
+      });
+
+      // 나머지 함수들은 그대로 유지
+      // 데이터 로드 함수 (상태 관련 파라미터 제거)
+      function loadCompanyItems() {
+        const keyword = document.getElementById('keyword').value;
+        let url = `${API_BASE_URL}/mdms/company-management?page=${currentPage}&size=${pageSize}`;
+        if (keyword) url += `&keyword=${keyword}`;
+
+        fetch(url)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('네트워크 응답이 정상이 아닙니다');
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  companyItems = data.content;
+                  totalPages = data.totalPages;
+                  totalElements = data.totalElements;
+                  currentPage = data.number;
+
+                  renderTable();
+                  renderPagination();
+                  updatePaginationInfo();
+                })
+                .catch(error => {
+                  console.error('데이터 로드 실패:', error);
+                  alert('데이터를 불러오는 중 오류가 발생했습니다.');
+                });
+      }
+
+      // 테이블 렌더링 함수
+      function renderTable() {
+        const tableBody = document.getElementById('companyTableBody');
+        tableBody.innerHTML = '';
+
+        if (companyItems.length === 0) {
+          const emptyRow = document.createElement('tr');
+          emptyRow.innerHTML = `
+            <td colspan="13" style="text-align: center; padding: 20px 0;">
+              데이터가 없습니다.
+            </td>
+          `;
+          tableBody.appendChild(emptyRow);
+          return;
+        }
+
+        companyItems.forEach((item, index) => {
+          const row = document.createElement('tr');
+          //const displayIndex = currentPage * pageSize + index + 1;
+          const displayIndex = totalElements - (currentPage * pageSize + index);
+
+          // 날짜 포매팅
+          const createdDate = new Date(item.createdAt);
+          const formattedDate = `${createdDate.getFullYear()}-${String(createdDate.getMonth() + 1).padStart(2, '0')}-${String(createdDate.getDate()).padStart(2, '0')} ${String(createdDate.getHours()).padStart(2, '0')}:${String(createdDate.getMinutes()).padStart(2, '0')}`;
+
+          // 금액 포매팅
+          function formatAmount(amount) {
+            if (!amount) return '-';
+            return new Intl.NumberFormat('ko-KR').format(amount) + '원';
+          }
+
+          row.innerHTML = `
+            <td>
+              <div class="control">
+                <input type="checkbox" class="checked--node" data-id="${item.id}" ${selectedIds.includes(item.id) ? 'checked' : ''}>
+              </div>
+            </td>
+            <td>${displayIndex}</td>
+            <td>${formattedDate}</td>
+            <td>
+              <div class="user__thumb">
+                <img src="${item.logoUrl || 'assets/images/default-logo.png'}" onerror="this.onerror=null; this.src='assets/images/default-logo.png'">
+              </div>
+            </td>
+            <td>${item.companyName || '-'}</td>
+            <td>${item.accountId || '-'}</td>
+            <td>${item.name || '-'}</td>
+            <td>${item.email || '-'}</td>
+            <td>${item.phone || '-'}</td>
+            <td>${item.website || '-'}</td>
+            <td>${formatAmount(item.capitalAmount)}</td>
+            <td>${formatAmount(item.revenueAmount)}</td>
+            <td>
+              <div class="admin--tool">
+                <button type="button" class="btn btn-warning btn-edit" data-id="${item.id}">수정</button>
+                <button type="button" class="btn btn-danger btn-delete" data-id="${item.id}">삭제</button>
+              </div>
+            </td>
+          `;
+          tableBody.appendChild(row);
+        });
+
+        // 체크박스, 수정, 삭제 버튼 이벤트 등록
+        document.querySelectorAll('.checked--node').forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+            const id = parseInt(this.getAttribute('data-id'));
+            handleCheckboxClick(id);
+          });
+        });
+
+        document.querySelectorAll('.btn-edit').forEach(button => {
+          button.addEventListener('click', function() {
+            const id = parseInt(this.getAttribute('data-id'));
+            handleEdit(id);
+          });
+        });
+
+        document.querySelectorAll('.btn-delete').forEach(button => {
+          button.addEventListener('click', function() {
+            const id = parseInt(this.getAttribute('data-id'));
+            handleDelete(id);
+          });
+        });
+      }
+
+      // 페이지네이션 렌더링 함수
+      function renderPagination() {
+        const paginationContainer = document.querySelector('.pagination');
+        paginationContainer.innerHTML = '';
+
+        // 첫 페이지 버튼
+        const firstPageBtn = document.createElement('button');
+        firstPageBtn.className = 'pagination-btn';
+        firstPageBtn.textContent = '<<';
+        firstPageBtn.disabled = currentPage === 0;
+        firstPageBtn.addEventListener('click', () => goToPage(0));
+        paginationContainer.appendChild(firstPageBtn);
+
+        // 이전 페이지 버튼
+        const prevPageBtn = document.createElement('button');
+        prevPageBtn.className = 'pagination-btn';
+        prevPageBtn.textContent = '<';
+        prevPageBtn.disabled = currentPage === 0;
+        prevPageBtn.addEventListener('click', () => goToPage(currentPage - 1));
+        paginationContainer.appendChild(prevPageBtn);
+
+        // 페이지 번호 버튼들
+        const maxPageButtons = 5;
+        const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons));
+        const endPage = Math.min(totalPages - 1, startPage + maxPageButtons - 1);
+
+        for (let i = startPage; i <= endPage; i++) {
+          const pageBtn = document.createElement('button');
+          pageBtn.className = 'pagination-btn';
+          if (i === currentPage) {
+            pageBtn.classList.add('active');
+          }
+          pageBtn.textContent = i + 1;
+          pageBtn.addEventListener('click', () => goToPage(i));
+          paginationContainer.appendChild(pageBtn);
+        }
+
+        // 다음 페이지 버튼
+        const nextPageBtn = document.createElement('button');
+        nextPageBtn.className = 'pagination-btn';
+        nextPageBtn.textContent = '>';
+        nextPageBtn.disabled = currentPage >= totalPages - 1;
+        nextPageBtn.addEventListener('click', () => goToPage(currentPage + 1));
+        paginationContainer.appendChild(nextPageBtn);
+
+        // 마지막 페이지 버튼
+        const lastPageBtn = document.createElement('button');
+        lastPageBtn.className = 'pagination-btn';
+        lastPageBtn.textContent = '>>';
+        lastPageBtn.disabled = currentPage >= totalPages - 1;
+        lastPageBtn.addEventListener('click', () => goToPage(totalPages - 1));
+        paginationContainer.appendChild(lastPageBtn);
+      }
+
+      // 페이지네이션 정보 업데이트
+      function updatePaginationInfo() {
+        const paginationInfo = document.querySelector('.pagination-info');
+        if (totalElements === 0) {
+          paginationInfo.textContent = '';
+        } else {
+          const start = currentPage * pageSize + 1;
+          const end = Math.min((currentPage + 1) * pageSize, totalElements);
+          paginationInfo.textContent = `전체 ${totalElements}개 항목 중 ${start}-${end}번 표시 중`;
+        }
+      }
+
+      // 페이지 이동 함수
+      function goToPage(page) {
+        if (page < 0 || page >= totalPages) return;
+        currentPage = page;
+        loadCompanyItems();
+        window.scrollTo(0, 0);
+      }
+
+      // 페이지 사이즈 변경 핸들러
+      function handlePageSizeChange() {
+        pageSize = parseInt(document.getElementById('pageSize').value);
+        currentPage = 0;
+        loadCompanyItems();
+      }
+
+      // 검색 이벤트 핸들러
+      function handleSearch() {
+        currentPage = 0;
+        loadCompanyItems();
+      }
+
+      // 전체 선택 이벤트 핸들러
+      function handleSelectAllClick(event) {
+        const isChecked = event.target.checked;
+        if (isChecked) {
+          selectedIds = companyItems.map(item => item.id);
+        } else {
+          selectedIds = [];
+        }
+        document.querySelectorAll('.checked--node').forEach(checkbox => {
+          checkbox.checked = isChecked;
+        });
+      }
+
+      // 개별 체크박스 이벤트 핸들러
+      function handleCheckboxClick(id) {
+        const index = selectedIds.indexOf(id);
+        if (index === -1) {
+          selectedIds.push(id);
+        } else {
+          selectedIds.splice(index, 1);
+        }
+        document.getElementById('selectAll').checked = companyItems.length > 0 && selectedIds.length === companyItems.length;
+      }
+
+      // 수정 이벤트 핸들러
+      function handleEdit(id) {
+        window.location.href = `/admin/CompanyProfileDetail.html?id=${id}`;
+      }
+
+      // 삭제 이벤트 핸들러
+      function handleDelete(id) {
+        if (confirm('이 기업정보를 삭제하시겠습니까?')) {
+          fetch(`${API_BASE_URL}/mdms/company-management/${id}`, {
+            method: 'DELETE'
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.message);
+            if (data.success) {
+              const index = selectedIds.indexOf(id);
+              if (index !== -1) {
+                selectedIds.splice(index, 1);
+              }
+              loadCompanyItems();
+            }
+          })
+          .catch(error => {
+            console.error('삭제 실패:', error);
+            alert('삭제 중 오류가 발생했습니다.');
+          });
+        }
+      }
+
+      // 일괄 삭제 이벤트 핸들러
+      function handleBulkDelete() {
+        if (selectedIds.length === 0) {
+          alert('삭제할 항목을 선택해주세요.');
+          return;
+        }
+        if (confirm(`선택한 ${selectedIds.length}개의 기업정보를 삭제하시겠습니까?`)) {
+          fetch(`${API_BASE_URL}/mdms/company-management/bulk-delete`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(selectedIds)
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.message);
+            if (data.success) {
+              selectedIds = [];
+              loadCompanyItems();
+            }
+          })
+          .catch(error => {
+            console.error('일괄 삭제 실패:', error);
+            alert('삭제 중 오류가 발생했습니다.');
+          });
+        }
+      }
+
+      // 로그아웃 이벤트 핸들러
+      function handleLogout() {
+        if (confirm('로그아웃 하시겠습니까?')) {
+          // 세션 스토리지 및 로컬 스토리지 클리어
+          sessionStorage.clear();
+          localStorage.removeItem('token');
+
+          // 로그인 페이지로 리다이렉트
+          window.location.href = '/admin/login.html';
+        }
+      }
+    });
+  </script>
+</body>
+</html>

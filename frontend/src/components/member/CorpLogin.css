@@ -1,0 +1,73 @@
+.corp_login_new .container-center-horizontal {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .corp_login_new .mem_container {
+    width: 450px;
+    margin: 0 auto;
+  }
+  
+  .corp_login_new .corp_login {
+    background-color: #fff;
+    padding: 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    text-align: center;
+  }
+  
+  .corp_login_new .title {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  .corp_login_new .loginTab {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .corp_login_new .loginTab a {
+    flex: 1;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.3s;
+  }
+  
+  .corp_login_new .loginTab a.active {
+    border-bottom: 2px solid #333;
+    font-weight: bold;
+  }
+  
+  .corp_login_new .login_form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .corp_login_new .input_field input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .corp_login_new .form_btn {
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .corp_login_new .links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  

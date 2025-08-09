@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.mdms.UserManagementMapper">
+
+    <insert id="insertUser" parameterType="com.yourjob.backend.entity.mdms.UserManagementCreateDto" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
+        INSERT INTO users (
+            account_id,
+            name,
+            phone,
+            email,
+            password_hash,
+            user_type,
+            company_name,
+            is_active,
+            is_banned,
+            created_at,
+            updated_at
+        ) VALUES (
+                     #{accountId},
+                     #{name},
+                     #{phone},
+                     #{email},
+                     #{password},
+                     #{userType},
+                     #{companyName},
+                     #{isActive},
+                     #{isBanned},
+                     NOW(),
+                     NOW()
+                 )
+    </insert>
+
+    <update id="updateUser">
+        UPDATE users
+        SET account_id = #{dto.accountId},
+        name = #{dto.name},
+        phone = #{dto.phone},
+        email = #{dto.email},
+        user_type = #{dto.userType},
+        is_active = #{dto.isActive},
+        is_banned = #{dto.isBanned},
+        <if test="dto.password != null and dto.password != ''">
+            password_hash = #{dto.password},
+        </if>
+        <if test="dto.companyName != null and dto.companyName != ''">
+            company_name = #{dto.companyName},
+        </if>
+        updated_at = NOW()
+        WHERE user_id = #{userId}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM users
+        WHERE user_id = #{userId}
+    </delete>
+
+    <delete id="deleteUsers">
+        DELETE FROM users
+        WHERE user_id IN
+        <foreach collection="userIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

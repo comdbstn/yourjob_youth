@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yourjob.backend.mapper.AuthMapper">
+    <select id="selectList" resultType="com.yourjob.backend.entity.SignupResponse">
+        select * from users limit 10
+    </select>
+    <insert id="insertUser" parameterType="com.yourjob.backend.entity.SignupRequest" useGeneratedKeys="true" keyProperty="id">
+        insert into users
+        (user_type,
+         account_id,
+         password_hash,
+         name,
+         phone,
+         gender,
+         englishName,
+         birth,
+         nationality,
+         visa,
+         address,
+         address_detail,
+         email,
+         profile_image,
+        salt_yn)
+        VALUES (
+                   #{userType},
+                   #{email},
+                   #{password},
+                   #{name},
+                   #{phoneNumber},
+                   #{gender},
+                   #{englishName},
+                   #{birth},
+                   #{nationality},
+                   #{visaString},
+                   #{address},
+                   #{address_detail},
+                   #{email},
+                   #{profileImage},
+                   'Y')
+    </insert>
+    <select id="getUserCntByEmail" parameterType="com.yourjob.backend.entity.SignupRequest" resultType="int">
+        select count(*) from users where account_id = #{email}
+    </select>
+    <select id="getUserInfoByEmail" parameterType="com.yourjob.backend.entity.LoginRequest" resultType="map">
+        select user_id, user_type, name, email, company_name, account_id, password_hash, is_banned, salt_yn from users where account_id = #{email}
+    </select>
+    <update id="updateUsersProfile" parameterType="com.yourjob.backend.entity.UsersProfile">
+        update users set
+        name = #{name},
+        gender = #{gender},
+        englishName = #{englishName},
+        birth = #{birth},
+        nationality = #{nationality},
+        visa = #{visaStr},
+        address = #{address},
+        address_detail = #{address_detail},
+        email = #{email},
+        phone = #{phone}
+        where user_id = #{userid}
+    </update>
+    <update id="updateUsersProfileImgIdx" parameterType="map">
+        update users set
+        profile_imgidx = #{profileImgIdx}
+        where user_id = #{userId}
+    </update>
+    <update id="updateUsersHashedPwd" parameterType="map">
+        update users set
+        password_hash = #{hashedPassword},
+        salt_yn = #{saltYn}
+        where account_id = #{input_email}
+    </update>
+    <update id="updateUsersProfileImg" parameterType="map">
+        update users set
+            profile_image = #{profileImage}
+        where user_id = #{userId}
+    </update>
+    <insert id="insertCorpUser" parameterType="com.yourjob.backend.entity.CorpJoinRequest" useGeneratedKeys="true" keyProperty="userid">
+        insert into users
+        (account_id,
+        password_hash,
+        user_type,
+        name,
+        phone,
+        email,
+        company_name,
+        business_rgst_numb,
+        representative,
+        capital,
+        revenue,
+        netincome,
+        company_address,
+        corp_type,
+        employ_cnt
+        <if test='corpcertImgidx != null and corpcertImgidx != ""'>
+            ,corpcert_imgidx
+        </if>
+        )
+        VALUES (
+        #{accountId},
+        #{password},
+        'COMPANY',
+        #{managerName},
+        #{managerPhone},
+        #{managerEmail},
+        #{companyName},
+        #{businessRegistrationNumber},
+        #{representative},
+        #{capital},
+        #{revenue},
+        #{netIncome},
+        #{companyAddress},
+        #{corporateType},
+        #{employeeCount}
+        <if test='corpcertImgidx != null and corpcertImgidx != ""'>
+            ,#{corpcertImgidx},
+        </if>
+        )
+    </insert>
+    <select id="selectCorpUser" parameterType="com.yourjob.backend.entity.CorpLoginRequest" resultType="com.yourjob.backend.entity.CorpJoinRequest">
+        select
+        user_id as userid,
+        account_id as accountId,
+        password_hash as password,
+        user_type as usertype,
+        name as name,
+        phone as phone,
+        email as email,
+        company_name as companyName,
+        representative as representative,
+        business_rgst_numb as businessRegistrationNumber,
+        capital as capital,
+        revenue as revenue,
+        netincome as netIncome,
+        company_address as companyAddress,
+        employ_cnt as employeeCount,
+        corp_type as corporateType,
+        corpthmb_imgidx as corpthmbImgidx,
+        corpcert_imgidx as corpcertImgidx,
+        created_at as createdAt,
+        updated_at as updatedAt
+        from users where account_id = #{accountId}
+    </select>
+    <select id="getUserInfoByUserId" parameterType="int" resultType="map">
+        select
+        user_id as userid,
+        account_id as accountId,
+        password_hash as password,
+        user_type as usertype,
+        name as name,
+        gender as gender,
+        englishName as englishName,
+        birth as birth,
+        nationality as nationality,
+        visa as visa,
+        address as address,
+        address_detail as address_detail,
+        email as email,
+        phone as phone,
+        company_name as companyName,
+        business_rgst_numb as businessRegistrationNumber,
+        capital as capital,
+        revenue as revenue,
+        netincome as netIncome,
+        company_address as companyAddress,
+        employ_cnt as employeeCount,
+        profile_imgidx as profileImgIdx,
+        corp_type as corporateType,
+        created_at as createdAt,
+        updated_at as updatedAt,
+        profile_image as profileImage,
+        corp_logo_url as corpLogo_Url
+        from users where user_id = #{userid}
+    </select>
+    <select id="selectCorpUserCnt" parameterType="com.yourjob.backend.entity.CorpLoginRequest" resultType="int">
+        select
+        count(*)
+        from users where account_id = #{accountId}
+    </select>
+    <select id="findByOAuthProviderAndProviderId" resultType="map">
+        SELECT * FROM users
+        WHERE oauth_provider = #{provider} AND oauth_provider_id = #{providerId}
+            LIMIT 1
+    </select>
+    <select id="findByEmail" resultType="map">
+        select user_id, user_type, name, company_name, account_id, password_hash from users where account_id = #{email}
+    </select>
+    <insert id="insertUserFromOAuth" parameterType="com.yourjob.backend.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (
+            user_type, account_id, email, name, oauth_provider, oauth_provider_id,
+            is_active, is_banned, created_at, updated_at
+        )
+        VALUES (
+                   #{userType}, #{email}, #{email}, #{name}, #{oauthProvider}, #{oauthProviderId},
+                   #{isActive}, #{isBanned}, #{createdAt}, #{updatedAt}
+               )
+    </insert>
+    <select id="findIdByNameAndEmail" resultType="String">
+        SELECT account_id
+        FROM users
+        WHERE name = #{name} AND email = #{email}
+        LIMIT 1
+    </select>
+
+    <select id="checkUserExistsByIdAndEmail" resultType="int">
+        SELECT COUNT(*)
+        FROM users
+        WHERE account_id = #{accountId} AND email = #{email}
+    </select>
+
+    <update id="updatePasswordForUser">
+        UPDATE users
+        SET password_hash = #{newPassword}
+        WHERE account_id = #{accountId}
+    </update>
+
+
+</mapper>

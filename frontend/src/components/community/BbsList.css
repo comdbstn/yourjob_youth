@@ -1,0 +1,38 @@
+.bbsSearch.bbsSearch_area .searchbtn {
+  align-items: flex-start;
+  color: var(--linecol02);
+  display: flex;
+  justify-content: flex-end;
+  min-width: 1.25vw;
+  padding: 0.1vw 0.07vw;
+  background-color: transparent;
+}
+
+.bbstable .my-post {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.bbstable .my-post i {
+  margin-left: 4px;
+  color: #28a745;
+}
+
+.bbstable .post-actions {
+  display: inline-flex;
+  gap: 8px;
+  margin-left: 8px;
+}
+
+.bbstable .cell-subject {
+  position: relative;
+  height: 50px;
+}
+
+.bbstable .cell-subject:hover .post-actions {
+  opacity: 1;
+}
+
+.bbstable .post-actions {
+  transition: opacity 0.2s;
+}

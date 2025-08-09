@@ -1,0 +1,365 @@
+.MobileProfileView_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  .sectionHeader {
+    color: var(--txt_col_05, #333);
+    font-family: "Noto Sans KR";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: start;
+    width: calc(100% - 40px);
+  }
+}
+
+.MobileProfileView_container .postHeader {
+  width: calc(100% - 40px);
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: var(--bg_gr_03, #fbfbfb);
+  padding: 20px;
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans KR";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.MobileProfileView_container .profileSection {
+  width: calc(100% - 40px);
+  border-radius: 20px;
+  border: 1px solid var(--line_col_05, #eaeaea);
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  .profileHeader {
+    display: flex;
+    gap: 10px;
+    .imgBox {
+      width: 159px;
+      height: 171px;
+      flex-shrink: 0;
+      border-radius: 15px;
+      background: var(--bg_gr_02, #f5f5f5);
+      color: var(--txt_col_01, #a8a8a8);
+      font-family: "Noto Sans CJK KR";
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: normal;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .column {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+      .blueLabel {
+        display: flex;
+
+        height: 30px;
+        padding: 10px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+
+        color: #fff;
+        font-family: "Noto Sans KR";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        border-radius: 50px;
+        background: var(--primary, #2f80dc);
+      }
+      p:nth-child(2) {
+        color: var(--txt_col_05, #333);
+        font-family: "Noto Sans KR";
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -0.4px;
+      }
+      p:nth-child(3) {
+        color: var(--txt_col_01, #a8a8a8);
+        font-family: "Noto Sans KR";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        letter-spacing: -0.32px;
+      }
+    }
+  }
+  .infoGrid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    .gridRow {
+      display: flex;
+      flex-direction: column;
+      color: var(--txt_col_03, #777);
+      font-family: "Noto Sans KR";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+
+      p:nth-child(2) {
+        color: var(--txt_col_01, #a8a8a8);
+        font-family: "Noto Sans KR";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+    }
+  }
+}
+.MobileProfileView_container .infoSection {
+  margin-top: 20px;
+  width: calc(100% - 40px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  .gridRow {
+    width: 100%;
+
+    border-radius: 20px;
+    border: 1px solid var(--line_col_02, #cbcbcb);
+    background: #fff;
+    padding: 25px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+
+    p:nth-child(1) {
+      color: var(--txt_col_01, #a8a8a8);
+      text-align: start;
+      font-family: "Noto Sans KR";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    .textColumn {
+      display: flex;
+      flex-direction: column;
+      color: var(--txt_col_02, #8f8f8f);
+      text-align: start;
+      font-family: "Noto Sans KR";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      p:nth-child(1) {
+        color: var(--txt_col_05, #333);
+        text-align: start;
+        font-family: "Noto Sans KR";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+  }
+}
+.MobileProfileView_container .visaSection {
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  width: calc(100% - 40px);
+  background: #fff;
+  padding: 35px 20px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--txt_col_04, #535353);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+.MobileProfileView_container .listSection {
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  width: calc(100% - 40px);
+  padding: 25px 10px;
+  ul {
+    padding: 0 25px;
+    li {
+      padding: 10px 0;
+      border-bottom: #eaeaea 1px solid;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      p {
+        color: var(--txt_col_01, #a8a8a8);
+        font-family: "Noto Sans KR";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+      }
+      strong {
+        color: var(--txt_col_05, #333);
+        font-family: "Noto Sans KR";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .blueLabel {
+        color: var(--primary, #2f80dc);
+        font-family: "Noto Sans KR";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+  }
+}
+.MobileProfileView_container .langSkillSection {
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  width: calc(100% - 40px);
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  .row {
+    display: flex;
+    border-bottom: #eaeaea 1px solid;
+    div {
+      margin: 20px 0;
+    }
+
+    div:nth-child(1) {
+      width: 50%;
+      color: var(--txt_col_05, #333);
+      font-family: "Noto Sans KR";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+    }
+    div:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 50%;
+      color: var(--txt_col_02, #8f8f8f);
+      font-family: "Noto Sans KR";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      strong {
+        color: var(--txt_col_05, #333);
+        font-family: "Noto Sans KR";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+    }
+  }
+}
+.MobileProfileView_container .internFile {
+  width: calc(100% - 40px);
+  padding: 20px 0;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--txt_col_02, #8f8f8f);
+  font-family: "Noto Sans KR";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  gap: 10px;
+}
+.MobileProfileView_container .prioritySection {
+  width: calc(100% - 40px);
+  .gridSection {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    .gridRow {
+      height: 60px;
+      width: 100%;
+      border: #eaeaea 1px solid;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .gridRow:nth-child(odd) {
+      border-top: 1px solid var(--line_col_05, #eaeaea);
+      border-right: 1px solid var(--line_col_05, #eaeaea);
+      border-bottom: 1px solid var(--line_col_05, #eaeaea);
+      background: var(--bg_gr_03, #fbfbfb);
+      color: var(--txt_col_05, #333);
+      font-family: "Noto Sans KR";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .gridRow:nth-child(even) {
+      border-top: 1px solid var(--line_col_05, #eaeaea);
+      border-bottom: 1px solid var(--line_col_05, #eaeaea);
+      border-left: 1px solid var(--line_col_05, #eaeaea);
+      background: #fff;
+      border-top: 1px solid var(--line_col_05, #eaeaea);
+      border-bottom: 1px solid var(--line_col_05, #eaeaea);
+      border-left: 1px solid var(--line_col_05, #eaeaea);
+      background: #fff;
+      color: var(--txt_col_02, #8f8f8f);
+      font-family: "Noto Sans CJK KR";
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}
+.MobileProfileView_container .reportSection {
+  width: calc(100% - 40px);
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid var(--line_col_02, #cbcbcb);
+  background: #fff;
+  strong {
+    color: var(--txt_col_05, #333);
+    font-family: "Noto Sans CJK KR";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+  color: var(--txt_col_05, #333);
+  font-family: "Noto Sans CJK KR";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

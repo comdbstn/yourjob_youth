@@ -1,0 +1,62 @@
+$spaceamounts: (0, 4, 5, 8, 10, 15, 16, 20, 24, 25, 26, 28, 30, 32, 35, 36, 38, 40, 41, 44, 45, 50, 60, 65, 70, 80, 85, 90, 100, 110, 120, 150);
+$sides: (top, bottom, left, right);
+
+@each $space in $spaceamounts {
+	@each $side in $sides {
+		.m#{str-slice($side, 0, 1)}-#{$space} {
+			margin-#{$side}: #{$space}px !important;
+		}
+	
+		.p#{str-slice($side, 0, 1)}-#{$space} {
+			padding-#{$side}: #{$space}px !important;
+		}
+	}
+}
+
+.no-pd {
+	padding: 0 !important;
+}
+
+.is-align-left {
+	text-align: left !important;
+}
+
+.is-align-right {
+	text-align: right !important;
+}
+
+.is-align-center {
+	text-align: center !important;
+}
+
+
+// 배경색
+.bg--gray {
+	background-color: #f2f2f2;
+}
+.bg--white {
+	background-color: #fff;
+}
+
+// 컬래색
+.color-danger {
+	color: #ff4646;
+}
+
+// 높이
+.is-heightfull {
+	height: 100%;
+}
+
+.over-hidden {
+	overflow: hidden;
+	max-width: 100%;
+}
+
+.is-noellipsis {
+	overflow: visible !important;
+    text-overflow: inherit !important;
+    display: inherit !important;
+    -webkit-line-clamp: inherit !important;
+    -webkit-box-orient: inherit !important;
+}

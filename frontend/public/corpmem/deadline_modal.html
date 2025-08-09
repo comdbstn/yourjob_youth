@@ -1,0 +1,47 @@
+<!-- 모달창  -->
+<div id="addmodal">	
+	<div class="h_title">채용 공고를 마감하시겠습니까?</div>
+	<div class="s_title">마감하시면 채용공고가 게재되지 않습니다.<br>마감된 공고는 접수마감 리스트에서 확인하실 수 있습니다.</div>
+	<form name="chkForm" id="chkForm" method="post" autocomplete="off">
+		<div class="modal_sbtn mt25">
+			<div class="btnm">
+				<button type="button" id="deadline_ok" class="btns deadlineBtn">마감</button>
+				<a href="#close-modal" rel="modal:close"><button type="button" class="btns closeBtn">취소</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+$(document).ready(function() {
+	/*
+	//등록, 수정
+	$("#btn_insert").click(function(){
+		$('#btn_insert').attr('disabled');
+
+		var formData = $("form[name=chkForm]").serialize() ;
+
+		$.ajax({
+			type : 'post',
+			url : 'chkpwd.php',
+			data : formData,
+			dataType : 'json',
+			error: function(xhr, status, error){
+				alert(error);
+			},
+			success : function(result){
+				if (result.msg == "SUCCESS"){
+					$('#btn_insert').removeAttr('disabled');
+					$('#addmodal').modal().hide();
+					$("#chk").val(result.chk);
+					$("#chkForm").attr("action","boardView.php").submit();
+				}else{
+					alert(result.msg);
+					$('#btn_insert').removeAttr('disabled');
+				}
+			}
+		});
+
+	});
+	*/
+});
+</script>

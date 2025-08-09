@@ -1,0 +1,163 @@
+.input_default {
+  height: 60px;
+  border: #dbdbdb 1px solid;
+  width: 100%;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.input_default input {
+  font-size: 16px;
+}
+
+.blueBtn {
+  font-size: 16px;
+  height: 60px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #2f80dc;
+  text-wrap-mode: wrap;
+}
+
+.blueBtn.medium {
+  height: 50px;
+}
+
+.grayBtn {
+  font-size: 16px;
+  height: 60px;
+  width: 100%;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #545454;
+  text-wrap-mode: nowrap;
+}
+
+.mobile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.urJobHeaderLabel {
+  margin-top: 70px;
+  font-weight: 900;
+  font-size: 30px;
+  color: #2f80dc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switchTabs {
+  display: flex;
+  border-bottom: #cbcbcb 1px solid;
+  width: calc(100% - 20px);
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.switchTabs button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0;
+  font-size: 16px;
+}
+
+.switchTabs .selected {
+  border-bottom: black 3px solid;
+}
+
+.switchTabs .notSelected {
+  color: #cbcbcb;
+  border-bottom: transparent 3px solid;
+}
+
+.switchTabs.modify {
+  width: calc(100% - 40px);
+  margin-top: 48px;
+}
+
+.flexGap10 {
+  display: flex;
+  gap: 10px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+.flexJb {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexGap20 {
+  display: flex;
+  gap: 20px;
+}
+
+.flexColGap20 {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.wFullhFull {
+  width: 100%;
+  height: 100%;
+}
+
+.aspectSquare {
+  aspect-ratio: 1/1;
+}
+
+.notoSans {
+  font-family: var(--font-family-noto_sans_cjk_kr-medium);
+}
+
+.px-20 {
+  padding: 0 20px;
+}
+
+.siteH3Label {
+  margin: 35px 0;
+  color: var(--txt_col_05, #333);
+  text-align: center;
+  font-family: "Noto Sans KR";
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
+.tabContent.modify {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.mobile-container-mobileFindIdPwd .inputs.modify {
+  width: 100%;
+}
