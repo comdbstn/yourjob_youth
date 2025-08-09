@@ -20,5 +20,5 @@ EXPOSE $PORT 8082
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 ENV SERVER_PORT=${PORT:-8082}
 
-# Start application
-CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$SERVER_PORT -jar build/libs/*.jar"]
+# Start application - use the fat jar, not the plain jar
+CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$SERVER_PORT -jar build/libs/*-app.jar"]
