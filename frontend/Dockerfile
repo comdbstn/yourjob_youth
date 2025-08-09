@@ -48,8 +48,8 @@ RUN apk add --no-cache curl
 # Create nginx user for security
 RUN addgroup -g 1000 nginx-app && adduser -u 1000 -G nginx-app -h /app -D nginx-app
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy Railway-specific nginx configuration
+COPY nginx.railway.conf /etc/nginx/nginx.conf
 
 # Copy built files from builder stage
 COPY --from=builder /app/build /usr/share/nginx/html
@@ -61,15 +61,18 @@ RUN mkdir -p /etc/nginx/ssl
 RUN chown -R nginx:nginx /var/cache/nginx /var/log/nginx /etc/nginx/ssl
 RUN chown -R nginx:nginx /usr/share/nginx/html
 
-# Health check
+# Health check  
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-  CMD curl -f http://localhost:80 || exit 1
+  CMD curl -f http://localhost:${PORT:-80} || exit 1
 
 # Expose ports
-EXPOSE 80 443
+EXPOSE $PORT 80 443
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Railway uses PORT environment variable for frontend
+ENV PORT=${PORT:-80}
+
+# Start nginx with dynamic port
+CMD ["sh", "-c", "sed -i \"s/listen 80/listen $PORT/g\" /etc/nginx/nginx.conf && nginx -g 'daemon off;'"]
 
 # Development stage
 FROM node:20-alpine AS development

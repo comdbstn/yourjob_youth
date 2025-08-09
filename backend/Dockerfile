@@ -52,7 +52,7 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
   CMD curl -f http://localhost:8082/actuator/health || exit 1
 
 # Expose ports
-EXPOSE 8082 8443 5005
+EXPOSE $PORT 8082 8443 5005
 
 # JVM optimization for containers
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -XX:G1HeapRegionSize=16m -XX:+UseStringDeduplication -Djava.security.egd=file:/dev/./urandom"
@@ -60,8 +60,11 @@ ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -XX:+UseG1GC -
 # Application profile
 ENV SPRING_PROFILES_ACTIVE=production
 
+# Railway uses PORT environment variable
+ENV SERVER_PORT=${PORT:-8082}
+
 # Start application
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$SERVER_PORT -jar app.jar"]
 
 # Development stage
 FROM production AS development

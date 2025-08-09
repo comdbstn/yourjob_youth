@@ -1,50 +1,131 @@
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-frontend/.idea
-backend/.idea
+# =====================================================
+# YourJob Platform - Git Ignore File
+# =====================================================
 
-uploads
-uploads/
+# Environment files
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+*.env
 
-### VS Code ###
-.vscode/
-
-# .gitignore
-.DS_Store
+# Logs
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Node
+# Node modules
 node_modules/
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
+
+# Build outputs
 dist/
 build/
+target/
+out/
+*.jar
+*.war
+*.ear
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
 
 # Gradle
 .gradle/
-build/
-out/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
 
-# Etc
-bin/
+# Spring Boot
+*.pid
 
-.env
+# Database
+*.db
+*.sqlite
+*.db-journal
 
+# Docker
+.docker/
+
+# SSL/TLS
+ssl/
+*.pem
+*.crt
+*.key
+*.p12
+
+# Uploads & temp files
+uploads/
+temp/
+tmp/
+*.tmp
+*.temp
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Cache
+.cache/
+.npm/
+.yarn/
+*.tsbuildinfo
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
 bff/src/main/resources/firebase/
 
-gradle/
-gradlew
-gradlew.bat
+# AWS
+.aws/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+# Backup files
+*.backup
+*.bak
+*.old
+
+# Railway
+.railway/
+
+# Development files
+*.development
+dev-*
+test-*

@@ -152,10 +152,7 @@ services:
     depends_on:
       - bff
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ssl_certs:/etc/nginx/ssl:ro
+      - "3000:80"
     networks:
       - yourjob-network
     healthcheck:
