@@ -2,10 +2,14 @@
 nixPkgs = ["openjdk17"]
 
 [phases.build]
-cmds = ["./gradlew clean bootJar --no-daemon"]
+cmds = [
+    "./gradlew clean bootJar --no-daemon",
+    "ls -la build/libs/",
+    "echo 'JAR files:' && find build/libs -name '*.jar'"
+]
 
 [phases.start]
-cmd = "java -Dserver.port=$PORT -jar build/libs/bff-app.jar"
+cmd = "java -Dserver.port=$PORT -jar $(find build/libs -name '*bff-app*.jar' | head -1)"
 
 [variables]
 PORT = "8080"
