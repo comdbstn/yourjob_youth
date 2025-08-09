@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: yourjob-backend
+    env: docker
+    rootDir: backend
+    buildCommand: "./gradlew clean bootJar --no-daemon"
+    startCommand: "java -jar build/libs/*.jar"
+    plan: free
+    
+  - type: web  
+    name: yourjob-bff
+    env: docker
+    rootDir: bff
+    buildCommand: "./gradlew clean bootJar --no-daemon"
+    startCommand: "java -jar build/libs/*.jar"
+    plan: free
