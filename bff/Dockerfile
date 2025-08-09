@@ -1,4 +1,4 @@
-# Simple single-stage build for troubleshooting
+# Simple Spring Boot build  
 FROM gradle:8-jdk17-alpine
 
 # Set working directory
@@ -10,15 +10,15 @@ COPY . .
 # Install runtime dependencies
 RUN apk add --no-cache curl
 
-# Build and run in single stage
-RUN gradle clean build --no-daemon -x test --stacktrace
+# Build application (clean build without tests)
+RUN gradle clean bootJar --no-daemon
 
 # Expose port
-EXPOSE $PORT 8082
+EXPOSE $PORT 8081
 
 # Set JVM options
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
-ENV SERVER_PORT=${PORT:-8082}
+ENV SERVER_PORT=${PORT:-8081}
 
-# Start application - use the fat jar, not the plain jar
-CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$SERVER_PORT -jar build/libs/*-app.jar"]
+# Start application using bootJar output
+CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.port=$SERVER_PORT -jar build/libs/bff-app.jar"]
