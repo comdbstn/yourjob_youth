@@ -1,5 +1,3 @@
-[providers]
-
 [phases.setup]
 nixPkgs = ["openjdk17"]
 
