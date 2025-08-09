@@ -1,5 +1,5 @@
 # Multi-stage build for Kotlin/Spring Boot backend
-FROM gradle:7.6.2-jdk17-alpine AS builder
+FROM gradle:8-jdk17-alpine AS builder
 
 # Install build dependencies
 RUN apk add --no-cache curl
@@ -22,7 +22,7 @@ COPY src src
 RUN gradle clean build --no-daemon -x test
 
 # Production stage
-FROM openjdk:17-jre-alpine AS production
+FROM eclipse-temurin:17-jre-alpine AS production
 
 # Install runtime dependencies
 RUN apk add --no-cache curl netcat-openbsd tzdata
