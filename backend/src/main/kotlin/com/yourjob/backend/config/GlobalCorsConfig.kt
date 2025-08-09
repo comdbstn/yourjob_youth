@@ -9,11 +9,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class GlobalCorsConfig {
     @Bean
     fun corsConfigurer(): WebMvcConfigurer {
+        val allowedOriginsEnv = System.getenv("CORS_ALLOWED_ORIGINS") ?: "*"
+        val allowedOrigins = allowedOriginsEnv.split(",").map { it.trim() }.toTypedArray()
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
                 registry.addMapping("/**")
-                    .allowedOriginPatterns("*")
-                    .allowedMethods("*")
+                    .allowedOriginPatterns(*allowedOrigins)
+                    .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                     .allowedHeaders("*")
                     .allowCredentials(true)
             }

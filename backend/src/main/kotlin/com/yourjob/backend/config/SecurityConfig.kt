@@ -19,9 +19,19 @@ class SecurityConfig (
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { it.disable() }
+            // JWT + 세션 하이브리드이나, 기본은 STATELESS로 두고 필요 API에서 세션 사용
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .authorizeHttpRequests { requests ->
-                requests.anyRequest().permitAll()
+                requests
+                    .requestMatchers(
+                        "/", "/*", 
+                        "/health", 
+                        "/uploads/**",
+                        "/swagger-ui/**", 
+                        "/v3/api-docs/**",
+                        "/api/v1/auth/**"
+                    ).permitAll()
+                    .anyRequest().authenticated()
             }
             .oauth2Login { oauth2 ->
                 oauth2

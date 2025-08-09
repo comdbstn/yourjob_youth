@@ -1,16 +1,14 @@
 
 jwt:
-  secret: "your-very-long-secret-key-must-be-at-least-32-characters-long"
+  secret: ${JWT_SECRET:please-change-this-to-a-strong-32char-secret}
 
 
 spring:
   datasource:
-    #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    #url: jdbc:log4jdbc:mysql://urjob-dev.cmmgsfeigtah.ap-northeast-2.rds.amazonaws.com:3306/${DB_NAME:yourjobdb}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://urjob-dev.cmmgsfeigtah.ap-northeast-2.rds.amazonaws.com:3306/${DB_NAME:yourjobdb}
-    username: yourjob
-    password: rootpass
+    url: jdbc:mysql://${DB_HOST:db}:${DB_PORT:3306}/${DB_NAME:yourjobdb}?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: ${DB_USER:urjob}
+    password: ${DB_PASSWORD:rootpass}
     hikari:
       maximum-pool-size: 20
       minimum-idle: 5
@@ -35,7 +33,7 @@ spring:
   web:
     resources.static-locations: file:/app/uploads/
   mail:
-    host: email-smtp.us-east-1.amazonaws.com
+    host: ${SMTP_HOST:email-smtp.us-east-1.amazonaws.com}
     port: 587
     username: ${SMTP_USERNAME:your-smtp-username}
     password: ${SMTP_PASSWORD:your-smtp-password}
@@ -51,25 +49,21 @@ spring:
       client:
         registration:
           google:
-            #서비스 계정
-            client-id: 464036689081-2dgjkoq41uc8jpeujmsn9m19pc60d90c.apps.googleusercontent.com
-            client-secret: ${GOOGLE_CLIENT_SECRET:your-google-client-secret}
+            client-id: ${GOOGLE_CLIENT_ID:}
+            client-secret: ${GOOGLE_CLIENT_SECRET:}
             scope: profile, email
           kakao:
-            #서비스 계정
-            client-id: acb0b6540b4f7f1e590e328ff88cb069
-            client-secret: 4sZPJvNluBpGYiyrFWq7Z5amNA4hUwRJ
-            redirect-uri: "https://www.urjob.kr/login/oauth2/code/{registrationId}"
+            client-id: ${KAKAO_CLIENT_ID:}
+            client-secret: ${KAKAO_CLIENT_SECRET:}
+            redirect-uri: "${OAUTH_REDIRECT_URI:https://www.urjob.kr/login/oauth2/code/{registrationId}}"
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_post
             scope: profile_nickname, profile_image
-            #scope: profile_nickname, nickname, profile_image, account_email
             client-name: Kakao
           naver:
-            #서비스 계정
-            client-id: Qqa1tYvELw8X8kBAi7gR
-            client-secret: fhM8swCGot
-            redirect-uri: "https://www.urjob.kr/login/oauth2/code/{registrationId}"
+            client-id: ${NAVER_CLIENT_ID:}
+            client-secret: ${NAVER_CLIENT_SECRET:}
+            redirect-uri: "${OAUTH_REDIRECT_URI:https://www.urjob.kr/login/oauth2/code/{registrationId}}"
             authorization-grant-type: authorization_code
             scope: name, email, profile_image
             client-name: Naver
@@ -104,22 +98,22 @@ mybatis:
   type-aliases-package: com.yourjob.backend.entity
 
 server:
-  port: 8443
+  port: ${SERVER_PORT:8082}
   ssl:
-    enabled: true
-    key-store: classpath:www_urjob.kr.p12
-    key-store-password: urjob123
-    key-store-type: PKCS12
-    key-alias: tomcat
+    enabled: ${SERVER_SSL_ENABLED:false}
+    key-store: ${SERVER_SSL_KEY_STORE:}
+    key-store-password: ${SERVER_SSL_KEY_STORE_PASSWORD:}
+    key-store-type: ${SERVER_SSL_KEY_STORE_TYPE:PKCS12}
+    key-alias: ${SERVER_SSL_KEY_ALIAS:tomcat}
 
 servlet:
   multipart:
     enabled: true
-    location: C:\\Users\\admin\\dev
+    location: ${UPLOAD_TMP_DIR:/app/temp-uploads}
     max-request-size: 300MB
     max-file-size: 50MB
 
 properties:
   values:
-    domain: https://urjob.kr  # http에서 https로 변경
+    domain: ${APP_DOMAIN:https://localhost}
 

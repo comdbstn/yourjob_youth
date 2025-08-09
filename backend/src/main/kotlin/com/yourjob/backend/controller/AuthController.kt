@@ -95,6 +95,13 @@ class AuthController (
                 return ResponseEntity.status(403).body(mapOf("error" to "Only ADMIN type allowed"))
             }
 
+            // 보호: 운영에서는 별도의 세션 생성 토큰 헤더 필요
+            val adminSessionTokenHeader = request.getHeader("X-ADMIN-SESSION-TOKEN")
+            val expected = System.getenv("ADMIN_SESSION_TOKEN")
+            if (expected.isNullOrBlank() || adminSessionTokenHeader.isNullOrBlank() || adminSessionTokenHeader != expected) {
+                return ResponseEntity.status(401).body(mapOf("error" to "invalid admin session token"))
+            }
+
             val session = request.getSession(true)
 
             // 세션에 데이터 설정
@@ -140,9 +147,7 @@ class AuthController (
                 var input_email = loginRequest.email.toString()
                 var input_pwd = loginRequest.password.toString()
 
-                var user_info_password_hash = result_map["password_hash"].toString()
-                println("입력한 비밀번호 : " + input_pwd)
-                println("기존 유저정보 비밀번호 : " + user_info_password_hash)
+                val user_info_password_hash = result_map["password_hash"].toString()
 
                 if(result_map["is_banned"].toString() == "true") {
                     return ResponseEntity(HttpStatus.LOCKED)
