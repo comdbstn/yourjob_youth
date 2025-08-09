@@ -10,7 +10,7 @@
                     .modal({
                         escapeClose: true,
                         clickClose: true,
-						closeExisting: opt.closeExisting !== undefined ? opt.closeExisting : false, // 기존 모달 유지 여부
+						closeExisting: opt.closeExisting !== undefined ? opt.closeExisting : false, // close existing modal option
                     })
                     .addClass("animated faster").addClass(opt.animation || "jackInTheBox").addClass(opt.largeModal)
                     .on($.modal.CLOSE, function (event, modal) {
@@ -18,7 +18,7 @@
 
                         modal.elm.remove();
                     });
-                // 추가: large-modal 클래스 적용
+                // Add large-modal class option
             },
             error: function (res) {
                 if (opt.error) opt.error(res.responseText);
