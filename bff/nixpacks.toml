@@ -6,3 +6,6 @@ cmds = ["./gradlew clean bootJar --no-daemon"]
 
 [phases.start]
 cmd = "java -Dserver.port=$PORT -jar build/libs/bff-app.jar"
+
+[variables]
+PORT = "8080"
