@@ -9,7 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.slf4j.LoggerFactory
-import javax.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletRequest
 
 @RestController
 @RequestMapping("/api/admin/dashboard")

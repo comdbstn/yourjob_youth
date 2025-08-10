@@ -54,7 +54,7 @@ enum class PaymentStatus {
     PARTIAL_REFUNDED // 부분 환불
 }
 
-data class PaymentRequest(
+data class PremiumPaymentRequest(
     val premiumProductId: Int,
     val jobPostingId: Int?,
     val paymentMethod: String,
@@ -65,7 +65,7 @@ data class PaymentRequest(
     val customerPhone: String?
 )
 
-data class PaymentResponse(
+data class PremiumPaymentResponse(
     val paymentId: Int,
     val orderId: String,
     val orderName: String,
