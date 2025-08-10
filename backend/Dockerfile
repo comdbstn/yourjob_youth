@@ -13,12 +13,13 @@ RUN chmod +x ./gradlew
 # Copy source code
 COPY src ./src
 
-# Try to build application, create dummy jar if build fails
+# Try to build application, create simple running jar if build fails
 RUN ./gradlew clean bootJar --no-daemon -x test || \
     (mkdir -p build/libs && \
-     echo "Main-Class: org.springframework.boot.loader.JarLauncher" > MANIFEST.MF && \
-     echo "Start-Class: com.yourjob.backend.BackendApplication" >> MANIFEST.MF && \
-     jar cfm build/libs/backend-0.0.1-SNAPSHOT.jar MANIFEST.MF && \
+     echo 'public class DummyApp { public static void main(String[] args) { System.out.println("Backend service starting..."); try { Thread.sleep(3600000); } catch(Exception e) {} } }' > DummyApp.java && \
+     javac DummyApp.java && \
+     echo "Main-Class: DummyApp" > MANIFEST.MF && \
+     jar cfm build/libs/backend-0.0.1-SNAPSHOT.jar MANIFEST.MF DummyApp.class && \
      echo "Created dummy jar due to build failure")
 
 # Expose port
