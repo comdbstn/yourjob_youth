@@ -1,10 +1,8 @@
 services:
   - type: web
     name: yourjob-backend
-    runtime: java
+    env: docker
     rootDir: backend
-    buildCommand: "chmod +x ./gradlew && ./gradlew clean bootJar --no-daemon"
-    startCommand: "java -jar build/libs/*.jar"
     plan: free
     envVars:
       - key: SERVER_PORT
@@ -12,10 +10,8 @@ services:
     
   - type: web  
     name: yourjob-bff
-    runtime: java
+    env: docker
     rootDir: bff
-    buildCommand: "chmod +x ./gradlew && ./gradlew clean bootJar --no-daemon"  
-    startCommand: "java -jar build/libs/*.jar"
     plan: free
     envVars:
       - key: SERVER_PORT
