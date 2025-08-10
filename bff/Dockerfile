@@ -32,7 +32,8 @@ RUN ./gradlew clean bootJar --no-daemon -x test || \
      echo '                PrintWriter out = new PrintWriter(client.getOutputStream());' >> DummyApp.java && \
      echo '                out.println("HTTP/1.1 200 OK");' >> DummyApp.java && \
      echo '                out.println("Content-Type: text/plain");' >> DummyApp.java && \
-     echo '                out.println("Access-Control-Allow-Origin: *");' >> DummyApp.java && \
+     echo '                out.println("Access-Control-Allow-Origin: https://yourjob-youth.vercel.app");' >> DummyApp.java && \
+     echo '                out.println("Access-Control-Allow-Credentials: true");' >> DummyApp.java && \
      echo '                out.println("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");' >> DummyApp.java && \
      echo '                out.println("Access-Control-Allow-Headers: Content-Type, Authorization");' >> DummyApp.java && \
      echo '                out.println("");' >> DummyApp.java && \
