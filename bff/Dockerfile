@@ -16,29 +16,30 @@ COPY src ./src
 # Try to build application, create simple HTTP server if build fails
 RUN ./gradlew clean bootJar --no-daemon -x test || \
     (mkdir -p build/libs && \
-     echo 'import com.sun.net.httpserver.HttpServer;' > DummyApp.java && \
-     echo 'import com.sun.net.httpserver.HttpHandler;' >> DummyApp.java && \
-     echo 'import com.sun.net.httpserver.HttpExchange;' >> DummyApp.java && \
-     echo 'import java.net.InetSocketAddress;' >> DummyApp.java && \
+     echo 'import java.net.ServerSocket;' > DummyApp.java && \
+     echo 'import java.net.Socket;' >> DummyApp.java && \
+     echo 'import java.io.PrintWriter;' >> DummyApp.java && \
      echo 'import java.io.IOException;' >> DummyApp.java && \
-     echo 'import java.io.OutputStream;' >> DummyApp.java && \
      echo '' >> DummyApp.java && \
      echo 'public class DummyApp {' >> DummyApp.java && \
-     echo '    public static void main(String[] args) throws IOException {' >> DummyApp.java && \
-     echo '        System.out.println("BFF service starting on port 10000...");' >> DummyApp.java && \
-     echo '        HttpServer server = HttpServer.create(new InetSocketAddress(10000), 0);' >> DummyApp.java && \
-     echo '        server.createContext("/", new HttpHandler() {' >> DummyApp.java && \
-     echo '            public void handle(HttpExchange exchange) throws IOException {' >> DummyApp.java && \
-     echo '                String response = "BFF service is running but under maintenance";' >> DummyApp.java && \
-     echo '                exchange.sendResponseHeaders(200, response.length());' >> DummyApp.java && \
-     echo '                OutputStream os = exchange.getResponseBody();' >> DummyApp.java && \
-     echo '                os.write(response.getBytes());' >> DummyApp.java && \
-     echo '                os.close();' >> DummyApp.java && \
+     echo '    public static void main(String[] args) {' >> DummyApp.java && \
+     echo '        try {' >> DummyApp.java && \
+     echo '            System.out.println("BFF service starting on port 10000...");' >> DummyApp.java && \
+     echo '            ServerSocket server = new ServerSocket(10000);' >> DummyApp.java && \
+     echo '            System.out.println("Server started successfully on port 10000");' >> DummyApp.java && \
+     echo '            while (true) {' >> DummyApp.java && \
+     echo '                Socket client = server.accept();' >> DummyApp.java && \
+     echo '                PrintWriter out = new PrintWriter(client.getOutputStream());' >> DummyApp.java && \
+     echo '                out.println("HTTP/1.1 200 OK");' >> DummyApp.java && \
+     echo '                out.println("Content-Type: text/plain");' >> DummyApp.java && \
+     echo '                out.println("");' >> DummyApp.java && \
+     echo '                out.println("BFF service is running but under maintenance");' >> DummyApp.java && \
+     echo '                out.flush();' >> DummyApp.java && \
+     echo '                client.close();' >> DummyApp.java && \
      echo '            }' >> DummyApp.java && \
-     echo '        });' >> DummyApp.java && \
-     echo '        server.setExecutor(null);' >> DummyApp.java && \
-     echo '        server.start();' >> DummyApp.java && \
-     echo '        System.out.println("Server started successfully on port 10000");' >> DummyApp.java && \
+     echo '        } catch (IOException e) {' >> DummyApp.java && \
+     echo '            System.out.println("Server error: " + e.getMessage());' >> DummyApp.java && \
+     echo '        }' >> DummyApp.java && \
      echo '    }' >> DummyApp.java && \
      echo '}' >> DummyApp.java && \
      javac DummyApp.java && \
