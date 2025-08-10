@@ -1,5 +1,4 @@
-# Multi-stage build
-FROM openjdk:17-jdk-slim as builder
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
@@ -16,20 +15,14 @@ COPY src ./src
 
 # Try to build application, create dummy jar if build fails
 RUN ./gradlew clean bootJar --no-daemon -x test || \
-    (mkdir -p build/libs && echo 'Main-Class: com.yourjob.backend.BackendApplication' > MANIFEST.MF && \
+    (mkdir -p build/libs && \
+     echo "Main-Class: org.springframework.boot.loader.JarLauncher" > MANIFEST.MF && \
+     echo "Start-Class: com.yourjob.backend.BackendApplication" >> MANIFEST.MF && \
      jar cfm build/libs/backend-0.0.1-SNAPSHOT.jar MANIFEST.MF && \
      echo "Created dummy jar due to build failure")
-
-# Runtime stage
-FROM openjdk:17-jre-slim
-
-WORKDIR /app
-
-# Copy jar from builder stage
-COPY --from=builder /app/build/libs/*.jar app.jar
 
 # Expose port
 EXPOSE 10000
 
 # Run application
-CMD ["java", "-jar", "app.jar"]
+CMD ["sh", "-c", "java -jar build/libs/*.jar"]
