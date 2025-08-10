@@ -1,7 +1,7 @@
 services:
   - type: web
     name: yourjob-backend
-    env: java
+    runtime: java
     rootDir: backend
     buildCommand: "chmod +x ./gradlew && ./gradlew clean bootJar --no-daemon"
     startCommand: "java -jar build/libs/*.jar"
@@ -12,7 +12,7 @@ services:
     
   - type: web  
     name: yourjob-bff
-    env: java
+    runtime: java
     rootDir: bff
     buildCommand: "chmod +x ./gradlew && ./gradlew clean bootJar --no-daemon"  
     startCommand: "java -jar build/libs/*.jar"
