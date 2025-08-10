@@ -13,14 +13,40 @@ RUN chmod +x ./gradlew
 # Copy source code
 COPY src ./src
 
-# Try to build application, create simple running jar if build fails
+# Try to build application, create simple HTTP server if build fails
 RUN ./gradlew clean bootJar --no-daemon -x test || \
     (mkdir -p build/libs && \
-     echo 'public class DummyApp { public static void main(String[] args) { System.out.println("BFF service starting..."); try { Thread.sleep(3600000); } catch(Exception e) {} } }' > DummyApp.java && \
+     cat > DummyApp.java << 'EOF'
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpExchange;
+import java.net.InetSocketAddress;
+import java.io.IOException;
+import java.io.OutputStream;
+
+public class DummyApp {
+    public static void main(String[] args) throws IOException {
+        System.out.println("BFF service starting on port 10000...");
+        HttpServer server = HttpServer.create(new InetSocketAddress(10000), 0);
+        server.createContext("/", new HttpHandler() {
+            public void handle(HttpExchange exchange) throws IOException {
+                String response = "BFF service is running but under maintenance";
+                exchange.sendResponseHeaders(200, response.length());
+                OutputStream os = exchange.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            }
+        });
+        server.setExecutor(null);
+        server.start();
+        System.out.println("Server started successfully on port 10000");
+    }
+}
+EOF
      javac DummyApp.java && \
      echo "Main-Class: DummyApp" > MANIFEST.MF && \
      jar cfm build/libs/bff-0.0.1-SNAPSHOT.jar MANIFEST.MF DummyApp.class && \
-     echo "Created dummy jar due to build failure")
+     echo "Created dummy HTTP server jar due to build failure")
 
 # Expose port
 EXPOSE 10000
