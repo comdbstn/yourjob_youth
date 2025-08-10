@@ -31,13 +31,13 @@ RUN ./gradlew clean bootJar --no-daemon -x test || \
      echo '                Socket client = server.accept();' >> DummyApp.java && \
      echo '                PrintWriter out = new PrintWriter(client.getOutputStream());' >> DummyApp.java && \
      echo '                out.println("HTTP/1.1 200 OK");' >> DummyApp.java && \
-     echo '                out.println("Content-Type: text/plain");' >> DummyApp.java && \
+     echo '                out.println("Content-Type: application/json");' >> DummyApp.java && \
      echo '                out.println("Access-Control-Allow-Origin: https://yourjob-youth.vercel.app");' >> DummyApp.java && \
      echo '                out.println("Access-Control-Allow-Credentials: true");' >> DummyApp.java && \
      echo '                out.println("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");' >> DummyApp.java && \
      echo '                out.println("Access-Control-Allow-Headers: Content-Type, Authorization");' >> DummyApp.java && \
      echo '                out.println("");' >> DummyApp.java && \
-     echo '                out.println("Backend service is running but under maintenance");' >> DummyApp.java && \
+     echo '                out.println("{\"message\":\"Backend service is running but under maintenance\",\"data\":[],\"total\":0}");' >> DummyApp.java && \
      echo '                out.flush();' >> DummyApp.java && \
      echo '                client.close();' >> DummyApp.java && \
      echo '            }' >> DummyApp.java && \
