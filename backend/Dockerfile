@@ -1,4 +1,4 @@
-FROM openjdk:17-jre-slim
+FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
@@ -19,5 +19,5 @@ RUN ./gradlew clean bootJar --no-daemon
 # Expose port
 EXPOSE 10000
 
-# Run application
-CMD ["java", "-jar", "build/libs/*.jar"]
+# Find and run jar file
+CMD ["sh", "-c", "java -jar build/libs/*.jar"]
