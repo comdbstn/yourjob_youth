@@ -15,13 +15,13 @@ class ApplicationService (private var applicationMapper: ApplicationMapper) {
     fun selectCntMyApply(applicationRequest: ApplicationRequest): Int{
         return applicationMapper.selectCntMyApply(applicationRequest)
     }
-    fun selectListMyApply(mutableMap: MutableMap<String, Any>): List<ApplicationResponse?>?{
+    fun selectListMyApply(mutableMap: MutableMap<String, Any>): List<ApplicationResponse>? {
         return applicationMapper.selectListMyApply(mutableMap)
     }
     fun selectListMyApplyCnt(userid: Int): Int{
         return applicationMapper.selectListMyApplyCnt(userid)
     }
-    fun selectApplyListByJobId(jobid: Int): List<Volunteer?>?{
+    fun selectApplyListByJobId(jobid: Int): List<Volunteer>{
         return applicationMapper.selectApplyListByJobId(jobid)
     }
     fun selectApplyDetail(applicationId: Int): MutableMap<String, Any>{

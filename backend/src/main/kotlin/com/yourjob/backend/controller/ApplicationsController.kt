@@ -134,7 +134,7 @@ class ApplicationsController(private var applicationService: ApplicationService,
         }
     }
     @GetMapping("/my_applications")
-    fun api_v1_my_application_list(session: HttpSession, page: Int?, size: Int?): ResponseEntity<List<ApplicationResponse?>> {
+    fun api_v1_my_application_list(session: HttpSession, @RequestParam page: Int?, @RequestParam size: Int?): ResponseEntity<List<ApplicationResponse?>> {
         try{
             var user_id = session.getAttribute("userId")
             if (user_id == null){
@@ -154,7 +154,7 @@ class ApplicationsController(private var applicationService: ApplicationService,
         }
     }
     @GetMapping("/applications")
-    fun api_v1_application_list(applicationRequest: ApplicationRequest, session: HttpSession, page: Int?, size: Int?): ResponseEntity<List<ApplicationResponse?>> {
+    fun api_v1_application_list(applicationRequest: ApplicationRequest, session: HttpSession, @RequestParam page: Int?, @RequestParam size: Int?): ResponseEntity<List<ApplicationResponse?>> {
         try{
             var user_id = session.getAttribute("userId")
             if (user_id == null){
@@ -185,7 +185,7 @@ class ApplicationsController(private var applicationService: ApplicationService,
         }
     }
     @GetMapping("/applies")
-    fun api_v1_applies_list(applicationRequest: ApplicationRequest, session: HttpSession, page: Int, size: Int): ResponseEntity<Any> {
+    fun api_v1_applies_list(applicationRequest: ApplicationRequest, session: HttpSession, @RequestParam page: Int, @RequestParam size: Int): ResponseEntity<Any> {
         try{
             var user_id = session.getAttribute("userId")
             if (user_id == null){

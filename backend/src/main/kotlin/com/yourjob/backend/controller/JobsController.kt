@@ -45,15 +45,15 @@ class JobsController (
     fun api_vi_auth_jobs(
         session: HttpSession,
         request: HttpServletRequest,
-        searchType: String?,
-        query: String?,
-        country: String?,
-        jobType: String?, //직무 (기획 전략 등)
-        location: String?,//근무지역 (서울, 경기 등)
-        type: String?,    //채용형태 (정규직, 계약직 등)
-        company: String?, //기업형태 (level code로 전달됨 예: 11A00025)
-        page: Int,
-        size: Int
+        @RequestParam searchType: String?,
+        @RequestParam query: String?,
+        @RequestParam country: String?,
+        @RequestParam jobType: String?, //직무 (기획 전략 등)
+        @RequestParam location: String?,//근무지역 (서울, 경기 등)
+        @RequestParam type: String?,    //채용형태 (정규직, 계약직 등)
+        @RequestParam company: String?, //기업형태 (level code로 전달됨 예: 11A00025)
+        @RequestParam page: Int,
+        @RequestParam size: Int
     ): ResponseEntity<Any> {
         val user_id = session.getAttribute("userId")
 

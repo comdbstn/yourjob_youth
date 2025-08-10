@@ -49,7 +49,7 @@ class JoboffersController(
     }
 
     @GetMapping("/corpmem/job-offers")
-    fun api_v1_joboffers_list(session: HttpSession, page: Int?, size: Int?, status: String?, keyword: String?): ResponseEntity<Any> {
+    fun api_v1_joboffers_list(session: HttpSession, @RequestParam page: Int?, @RequestParam size: Int?, @RequestParam status: String?, @RequestParam keyword: String?): ResponseEntity<Any> {
         var user_id = session.getAttribute("userId")
         if (user_id == null) {
             return ResponseEntity(HttpStatus.UNAUTHORIZED)

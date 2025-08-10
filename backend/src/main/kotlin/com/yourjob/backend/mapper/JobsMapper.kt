@@ -3,26 +3,27 @@ package com.yourjob.backend.mapper
 import com.yourjob.backend.entity.JobRequest
 import com.yourjob.backend.entity.JobResponse
 import org.apache.ibatis.annotations.Mapper
+import org.apache.ibatis.annotations.Param
 import org.springframework.stereotype.Repository
 
 @Repository
 @Mapper
 interface JobsMapper {
-    fun selectJobList(query: String?, location: String?, page: Int, size: Int, offSetNumb: Int): List<JobResponse?>?
+    fun selectJobList(@Param("query") query: String?, @Param("location") location: String?, @Param("page") page: Int, @Param("size") size: Int, @Param("offSetNumb") offSetNumb: Int): List<JobResponse?>?
 
     fun selectJobSrchList(
-        op_jobType_arr: ArrayList<String>?,
-        op_location_arr: ArrayList<String>?,
-        op_type_arr: ArrayList<String>?,
-        op_company_arr: ArrayList<String>?, // operation_data_id 리스트
-        location: String?,
-        query: String?,
-        page: Int,
-        size: Int,
-        offSetNumb: Int
+        @Param("op_jobType_arr") op_jobType_arr: ArrayList<String>?,
+        @Param("op_location_arr") op_location_arr: ArrayList<String>?,
+        @Param("op_type_arr") op_type_arr: ArrayList<String>?,
+        @Param("op_company_arr") op_company_arr: ArrayList<String>?, // operation_data_id 리스트
+        @Param("location") location: String?,
+        @Param("query") query: String?,
+        @Param("page") page: Int,
+        @Param("size") size: Int,
+        @Param("offSetNumb") offSetNumb: Int
     ): List<JobResponse?>?
 
-    fun selectJobListCount(query: String?, location: String?, offSetNumb: Int): Int
+    fun selectJobListCount(@Param("query") query: String?, @Param("location") location: String?, @Param("offSetNumb") offSetNumb: Int): Int
 
     fun selectJobSrchListCount(
         op_jobType_arr: ArrayList<String>?,
