@@ -157,7 +157,7 @@ const Community: React.FC = () => {
                       onChange={handleInputChange}
                     >
                       <option value="">게시판</option>
-                      <option value="STUDENT">유학생 게시판</option>
+                      <option value="STUDENT">구직자 게시판</option>
                       <option value="MENTOR">멘토 게시판</option>
                     </select>
                   </div>
@@ -287,7 +287,7 @@ const Community: React.FC = () => {
                                   {post.status === 'VISIBLE' ? '노출' : '비노출'}
                                 </span>
                               </td>
-                              <td>{post.boardType === 'STUDENT' ? '유학생 게시판' : '멘토 게시판'}</td>
+                              <td>{post.boardType === 'STUDENT' ? '구직자 게시판' : '멘토 게시판'}</td>
                               <td>{post.author}</td>
                               <td>{post.title}</td>
                               <td>

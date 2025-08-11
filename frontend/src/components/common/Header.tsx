@@ -77,7 +77,7 @@ const Header: React.FC = () => {
               <Link to="/" className="title">
                 <img src="/img/logo.png" alt="logo" />
               </Link>
-              <div className="logo_txt">유학생 채용 플랫폼</div>
+              <div className="logo_txt">국내 종합 채용 플랫폼</div>
             </div>
             <form onSubmit={handleSearch} className="top_search">
               <div className="search_box">

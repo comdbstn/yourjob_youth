@@ -16,9 +16,9 @@ export const categoryMap: {
   } 
 } = {
   'all': { subTitle: '전체글', description: '모든 게시글을 확인하세요' },
-  'america': { subTitle: '미주', description: '미주 지역 유학생들의 이야기' },
-  'europe': { subTitle: '유럽', description: '유럽 지역 유학생들의 이야기' },
-  'asia': { subTitle: '아시아', description: '아시아 지역 유학생들의 이야기' },
-  'oceania': { subTitle: '오세아니아', description: '오세아니아 지역 유학생들의 이야기' },
-  'other': { subTitle: '기타', description: '기타 지역 유학생들의 이야기' },
+  'america': { subTitle: '미주', description: '미주 지역 취업 정보와 경험 공유' },
+  'europe': { subTitle: '유럽', description: '유럽 지역 취업 정보와 경험 공유' },
+  'asia': { subTitle: '아시아', description: '아시아 지역 취업 정보와 경험 공유' },
+  'oceania': { subTitle: '오세아니아', description: '오세아니아 지역 취업 정보와 경험 공유' },
+  'other': { subTitle: '기타', description: '기타 지역 취업 정보와 경험 공유' },
 }; 

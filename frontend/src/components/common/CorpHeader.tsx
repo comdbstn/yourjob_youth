@@ -65,7 +65,7 @@ const Header: React.FC = () => {
           <div className="container flex-row items-center">
             <div className="logo">
               <Link to="/" className="title"><img src="/img/logo.png" alt="logo" /></Link>
-              <div className="logo_txt">유학생 채용 플랫폼</div>
+              <div className="logo_txt">국내 종합 채용 플랫폼</div>
             </div>
             <form onSubmit={handleSearch} className="top_search">
               <div className="search_box">
@@ -74,7 +74,7 @@ const Header: React.FC = () => {
                   id="s_keyword" 
                   name="s_keyword" 
                   className="form-control search_form" 
-                  placeholder="유학생 채용정보를 검색해 보세요."
+                  placeholder="채용정보를 검색해 보세요."
                   value={searchKeyword}
                   onChange={(e) => setSearchKeyword(e.target.value)}
                 />
