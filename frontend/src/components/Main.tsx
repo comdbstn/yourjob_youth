@@ -83,10 +83,15 @@ const Main: React.FC = () => {
   const [locationData, setLocationData] = useState<JobpostDataItem[]>([]);
   useEffect(() => {
     const fetchData = async () => {
-      const domestic = await fetchJobpostData("00000012");
-      const overseas = await fetchJobpostData("00000013");
-      const combined = [...domestic, ...overseas];
-      setLocationData([...domestic, ...overseas]); // 기존 combined 용도
+      try {
+        const domestic = await fetchJobpostData("00000012") || [];
+        const overseas = await fetchJobpostData("00000013") || [];
+        const combined = [...(Array.isArray(domestic) ? domestic : []), ...(Array.isArray(overseas) ? overseas : [])];
+        setLocationData(combined);
+      } catch (error) {
+        console.error("Location data fetch failed:", error);
+        setLocationData([]);
+      }
     };
     fetchData();
   }, []);
