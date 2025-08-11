@@ -38,8 +38,8 @@ class JobPostingIntegrationService(
             val createdJob = jobsService.createJobPosting(jobRequest)
             
             // 출처 정보 저장
-            if (createdJob != null) {
-                saveJobPostingSource(createdJob.jobId, crawlerJob)
+            if (createdJob != null && createdJob.jobId != null) {
+                saveJobPostingSource(createdJob.jobId!!, crawlerJob)
                 logger.info("Successfully integrated crawler job ${crawlerJob.crawlerId} -> job posting ${createdJob.jobId}")
                 return true
             }
@@ -64,8 +64,8 @@ class JobPostingIntegrationService(
         jobRequest.requirements = buildJobRequirements(crawlerJob)
         jobRequest.location = cleanLocation(crawlerJob.location)
         jobRequest.countryCode = "KR"
-        jobRequest.salary = extractSalary(crawlerJob.salary)
-        jobRequest.deadline = parseDeadline(crawlerJob.deadline)
+        jobRequest.salary = extractSalary(crawlerJob.salary)?.toFloat()
+        jobRequest.deadline = parseDeadline(crawlerJob.deadline)?.toString()
         return jobRequest
     }
     

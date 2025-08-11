@@ -51,14 +51,14 @@ class AdvancedJobSearchService(
             
             // 검색 통계 정보 (첫 페이지일 때만)
             val searchStats = if (filter.page == 0) {
-                generateSearchStats(filter, totalCount)
+                generateSearchStats(filter, totalCount.toLong())
             } else null
             
             return JobSearchResult(
                 content = jobItems,
                 page = filter.page,
                 size = filter.size,
-                totalElements = totalCount,
+                totalElements = totalCount.toLong(),
                 totalPages = totalPages,
                 first = filter.page == 0,
                 last = filter.page >= totalPages - 1,

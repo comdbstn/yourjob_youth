@@ -161,7 +161,7 @@ class CrawlerService(
     }
     
     private fun updateJobStatus(crawlerId: Int, status: ProcessStatus, errorMessage: String? = null) {
-        crawlerMapper.updateJobStatus(crawlerId, status.name, errorMessage ?: "", LocalDateTime.now().toString())
+        crawlerMapper.updateJobStatus(crawlerId, status.name, errorMessage ?: "", LocalDateTime.now())
     }
     
     private fun passesFilter(job: CrawlerJob): Boolean {
