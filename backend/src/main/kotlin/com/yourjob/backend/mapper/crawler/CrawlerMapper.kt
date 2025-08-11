@@ -280,7 +280,7 @@ interface CrawlerMapper {
     // =====================================================
     
     /**
-     * 크롤러 작업 통계 조회
+     * 크롤러 작업 통계 조회 (날짜별)
      */
     @Select("""
         SELECT 
@@ -295,7 +295,7 @@ interface CrawlerMapper {
         GROUP BY site_name
         ORDER BY total_jobs DESC
     """)
-    fun getCrawlerStatistics(@Param("startDate") startDate: String): List<Map<String, Any>>
+    fun getCrawlerStatisticsByDate(@Param("startDate") startDate: String): List<Map<String, Any>>
     
     /**
      * 크롤러 성능 통계 조회
