@@ -1,7 +1,7 @@
 package com.yourjob.backend.service.crawler
 
 import com.yourjob.backend.entity.crawler.*
-import com.yourjob.backend.mapper.CrawlerMapper
+import com.yourjob.backend.mapper.crawler.CrawlerMapper
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.slf4j.LoggerFactory
