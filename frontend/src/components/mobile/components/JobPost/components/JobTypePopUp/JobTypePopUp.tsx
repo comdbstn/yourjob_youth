@@ -51,7 +51,7 @@ const JobTypePopUp: React.FC<JobTypePopUpProps> = ({
     tabs.forEach(({ key, dataType }) => {
       getLevelOneCode({ dataType })
         .then((res) => {
-          setCodesByKey((prev) => ({ ...prev, [key]: res.levelCodes }));
+          setCodesByKey((prev) => ({ ...prev, [key]: res.levelCodes || [] }));
         })
         .catch(console.error);
     });

@@ -67,7 +67,7 @@ const AcceptList: React.FC = () => {
         );
         if (response.ok) {
           const data = await response.json();
-          const options = data.levelCodes.map(
+          const options = (data.levelCodes || []).map(
             (category: { levelValue: string; code: string }) => ({
               value: category.levelValue,
               label: category.levelValue,
@@ -91,7 +91,7 @@ const AcceptList: React.FC = () => {
           // 대한민국 옵션 추가 및 API 응답의 국가 추가
           const options = [
             { value: "대한민국", label: "대한민국" },
-            ...data.levelCodes.map(
+            ...(data.levelCodes || []).map(
               (country: { levelValue: string; code: string }) => ({
                 value: country.levelValue,
                 label: country.levelValue,

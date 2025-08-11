@@ -662,7 +662,7 @@ export default function MobileJobPost() {
               switch (filterKey) {
                 case "planningOptions":
                   label =
-                    jobTypeData?.levelCodes.find((o) => o.code === valueId)
+                    jobTypeData?.levelCodes?.find((o) => o.code === valueId)
                       ?.levelValue ?? valueId;
                   break;
 
@@ -680,14 +680,14 @@ export default function MobileJobPost() {
 
                 case "employmentType":
                   label =
-                    operationTypeData?.levelCodes.find(
+                    operationTypeData?.levelCodes?.find(
                       (o) => o.code === valueId
                     )?.levelValue ?? valueId;
                   break;
 
                 case "companyType":
                   label =
-                    corpTypeData?.levelCodes.find((o) => o.code === valueId)
+                    corpTypeData?.levelCodes?.find((o) => o.code === valueId)
                       ?.levelValue ?? valueId;
                   break;
               }

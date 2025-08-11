@@ -517,17 +517,17 @@ const JoblistDom: React.FC = () => {
   }, [isSearched]);
   useEffect(() => {
     if (jobTypeData) {
-      setSelectedJob(parseMultiParam(jobType, jobTypeData.levelCodes));
+      setSelectedJob(parseMultiParam(jobType, jobTypeData.levelCodes || []));
     }
     if (domesticData && globalData) {
-      const locOpts = [...domesticData.levelCodes, ...globalData.levelCodes];
+      const locOpts = [...(domesticData.levelCodes || []), ...(globalData.levelCodes || [])];
       setSelectedLocation(parseMultiParam(locationParam, locOpts));
     }
     if (operationTypeData) {
-      setSelectedType(parseMultiParam(type, operationTypeData.levelCodes));
+      setSelectedType(parseMultiParam(type, operationTypeData.levelCodes || []));
     }
     if (corpTypeData) {
-      setSelectedCompany(parseMultiParam(company, corpTypeData.levelCodes));
+      setSelectedCompany(parseMultiParam(company, corpTypeData.levelCodes || []));
     }
 
     setCurrentPage(1);
