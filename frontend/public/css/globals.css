@@ -17,8 +17,10 @@ a {
 }
 
 .container {
-  width: 1280px;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 .container-center-horizontal {
@@ -158,6 +160,14 @@ nav {
   letter-spacing: -0.5px;
   line-height: normal;
   margin-top: 10px;
+  white-space: nowrap;
+  font-size: var(--font-size-s);
+}
+
+@media (max-width: 1200px) {
+  .logo .logo_txt {
+    font-size: 11px;
+  }
 }
 
 .top_search {

@@ -88,16 +88,60 @@
   .topWrap {
     flex-direction: column;
     gap: 20px;
+    align-items: center;
   }
   
   .user_box {
     width: 100%;
-    max-width: 100%;
+    max-width: 500px;
   }
   
   .fmWrap .urbest {
     width: 100%;
     max-width: 500px;
+  }
+  
+  .fmWrap {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .user_box {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+  
+  .fmWrap .urbest {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+  
+  .fmWrap .cardWrap {
+    max-width: 100%;
+    margin: 0 10px;
+  }
+  
+  .fmWrap .cardWrap .fmlBox {
+    width: 100%;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+}
+
+/* 중간 해상도 추가 반응형 */
+@media (max-width: 1000px) {
+  .fmWrap .cardWrap {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .fmWrap .cardWrap .fmlBox {
+    width: 100%;
   }
 }
 
@@ -342,6 +386,8 @@
 .fmWrap .cardWrap {
   gap: 25px;
   width: 848px;
+  flex: 1;
+  max-width: 848px;
 }
 
 .fmWrap .cardWrap .fmlBox {
@@ -435,6 +481,8 @@
   width: 407px;
   overflow: hidden;
   border-radius: 20px;
+  align-self: flex-start;
+  height: fit-content;
 }
 
 .fmWrap .urbest .hearder {

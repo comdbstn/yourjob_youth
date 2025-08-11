@@ -475,7 +475,7 @@ const Main: React.FC = () => {
       >
         <div
           className="main screen"
-          style={{ minWidth: "1280px", overflowX: "hidden" }}
+          style={{ width: "100%", maxWidth: "1280px", margin: "0 auto", overflowX: "hidden" }}
         >
           <div className="container">
             {/* 메인 배너 슬라이더 */}

@@ -88,8 +88,10 @@ dependencies {
     // 이메일 전송용 라이브러리
     implementation("org.springframework.boot:spring-boot-starter-mail")
     
+    // 헬스체크용
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    
     // 웹 크롤링용 라이브러리
     implementation("org.jsoup:jsoup:1.17.2")
-    implementation("org.seleniumhq.selenium:selenium-java:4.15.0")
-    implementation("org.seleniumhq.selenium:selenium-chrome-driver:4.15.0")
+    // Selenium 제거 - Render 메모리 제한으로 인한 빌드 실패 방지
 }
