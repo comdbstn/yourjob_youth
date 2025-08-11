@@ -102,7 +102,7 @@ class AdminDashboardController(
     @PutMapping("/alerts/{alertId}/read")
     fun markAlertAsRead(
         @PathVariable alertId: Int,
-        HttpServletRequest request
+        request: HttpServletRequest
     ): ResponseEntity<Map<String, Any>> {
         return try {
             val adminId = getAdminIdFromRequest(request)
@@ -131,7 +131,7 @@ class AdminDashboardController(
     @PutMapping("/alerts/{alertId}/resolve")
     fun resolveAlert(
         @PathVariable alertId: Int,
-        HttpServletRequest request
+        request: HttpServletRequest
     ): ResponseEntity<Map<String, Any>> {
         return try {
             val adminId = getAdminIdFromRequest(request)
@@ -160,7 +160,7 @@ class AdminDashboardController(
     @PostMapping("/alerts")
     fun createAlert(
         @RequestBody alertRequest: CreateAlertRequest,
-        HttpServletRequest request
+        request: HttpServletRequest
     ): ResponseEntity<AdminAlert> {
         return try {
             val alert = adminDashboardService.createAlert(
@@ -192,7 +192,7 @@ class AdminDashboardController(
     @PostMapping("/activities")
     fun logActivity(
         @RequestBody activityRequest: LogActivityRequest,
-        HttpServletRequest request
+        request: HttpServletRequest
     ): ResponseEntity<Map<String, String>> {
         return try {
             val adminId = getAdminIdFromRequest(request)
@@ -220,7 +220,7 @@ class AdminDashboardController(
         @RequestParam(required = false) startDate: String?,
         @RequestParam(required = false) endDate: String?,
         @RequestParam(defaultValue = "CSV") format: String,
-        HttpServletRequest request
+        request: HttpServletRequest
     ): ResponseEntity<ByteArray> {
         return try {
             val data = adminDashboardService.exportData(dataType, startDate, endDate, format)
@@ -293,7 +293,7 @@ class AdminDashboardController(
             logger.error("Error checking database health", e)
             ResponseEntity.ok(mapOf(
                 "status" to "error",
-                "error" to e.message,
+                "error" to (e.message ?: "Unknown error"),
                 "timestamp" to System.currentTimeMillis()
             ))
         }
@@ -303,7 +303,7 @@ class AdminDashboardController(
      * 캐시 무효화
      */
     @PostMapping("/cache/invalidate")
-    fun invalidateCache(HttpServletRequest request): ResponseEntity<Map<String, String>> {
+    fun invalidateCache(request: HttpServletRequest): ResponseEntity<Map<String, String>> {
         return try {
             adminDashboardService.invalidateDashboardCache()
             

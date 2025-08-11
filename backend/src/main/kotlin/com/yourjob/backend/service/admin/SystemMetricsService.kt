@@ -48,7 +48,7 @@ class SystemMetricsService(
      */
     private fun getCpuUsage(): Double {
         return try {
-            val cpuUsage = osBean.processCpuLoad * 100
+            val cpuUsage = (osBean as? com.sun.management.OperatingSystemMXBean)?.processCpuLoad?.times(100) ?: 0.0
             if (cpuUsage < 0) 0.0 else cpuUsage
         } catch (e: Exception) {
             logger.warn("Failed to get CPU usage", e)

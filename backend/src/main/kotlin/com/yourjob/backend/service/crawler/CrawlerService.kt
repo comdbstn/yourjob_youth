@@ -92,7 +92,9 @@ class CrawlerService(
             originalUrl = request.originalUrl,
             originalJobId = request.originalJobId,
             crawlStatus = CrawlStatus.CRAWLED,
-            processStatus = ProcessStatus.PENDING
+            processStatus = ProcessStatus.PENDING,
+            errorMessage = null,
+            processedAt = null
         )
         
         crawlerMapper.insertCrawlerJob(crawlerJob)
@@ -159,7 +161,7 @@ class CrawlerService(
     }
     
     private fun updateJobStatus(crawlerId: Int, status: ProcessStatus, errorMessage: String? = null) {
-        crawlerMapper.updateJobStatus(crawlerId, status.name, errorMessage, LocalDateTime.now())
+        crawlerMapper.updateJobStatus(crawlerId, status.name, errorMessage ?: "", LocalDateTime.now().toString())
     }
     
     private fun passesFilter(job: CrawlerJob): Boolean {
@@ -266,19 +268,21 @@ class CrawlerService(
     }
     
     fun retryFailedJobs(maxRetries: Int = 3): Int {
+        // TODO: getFailedJobsForRetry 메서드가 구현되면 활성화
+        /*
         val failedJobs = crawlerMapper.getFailedJobsForRetry(maxRetries)
         var retriedCount = 0
         
-        failedJobs.forEach { job ->
+        for (job in failedJobs) {
             CompletableFuture.supplyAsync({
                 if (processJob(job.crawlerId!!)) {
                     retriedCount++
-                } else {
-                    crawlerMapper.incrementRetryCount(job.crawlerId)
                 }
             }, executor)
         }
         
         return retriedCount
+        */
+        return 0
     }
 }

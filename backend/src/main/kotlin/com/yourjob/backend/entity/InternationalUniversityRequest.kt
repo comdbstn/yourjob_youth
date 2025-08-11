@@ -1,6 +1,7 @@
 package com.yourjob.backend.entity
 
 data class InternationalUniversityRequest(
+    var internationalUniversityId: Int? = null,
     val universityName: String = "",
     val country: String = "",
     val region: String = "",

@@ -28,9 +28,9 @@ class JobPostingIntegrationService(
         try {
             val jobRequest = convertCrawlerJobToJobRequest(crawlerJob)
             
-            // 중복 체크 (회사명 + 제목으로)
-            if (isDuplicateJobPosting(jobRequest.title, jobRequest.companyName ?: "")) {
-                logger.info("Duplicate job posting found: ${jobRequest.title} at ${jobRequest.companyName}")
+            // 중복 체크 (제목으로)
+            if (isDuplicateJobPosting(jobRequest.title ?: "", crawlerJob.companyName)) {
+                logger.info("Duplicate job posting found: ${jobRequest.title} at ${crawlerJob.companyName}")
                 return false
             }
             
@@ -56,24 +56,17 @@ class JobPostingIntegrationService(
      * CrawlerJob을 JobRequest로 변환
      */
     private fun convertCrawlerJobToJobRequest(crawlerJob: CrawlerJob): JobRequest {
-        return JobRequest(
-            employerId = getSystemUserId(), // 시스템 계정 ID 
-            title = cleanText(crawlerJob.jobTitle),
-            description = buildJobDescription(crawlerJob),
-            requirements = buildJobRequirements(crawlerJob),
-            location = cleanLocation(crawlerJob.location),
-            countryCode = "KR", // 기본값
-            jobType = mapJobType(crawlerJob.jobType),
-            salary = extractSalary(crawlerJob.salary),
-            deadline = parseDeadline(crawlerJob.deadline),
-            status = "OPEN", // 기본값
-            companyName = cleanText(crawlerJob.companyName),
-            // 추가 필드들
-            experienceLevel = mapExperienceLevel(crawlerJob.experience),
-            benefits = crawlerJob.benefits,
-            originalUrl = crawlerJob.originalUrl,
-            sourceSite = crawlerJob.siteName
-        )
+        val jobRequest = JobRequest()
+        jobRequest.employerid = getSystemUserId()
+        jobRequest.title = cleanText(crawlerJob.jobTitle)
+        jobRequest.content = buildJobDescription(crawlerJob)
+        jobRequest.description = buildJobDescription(crawlerJob)
+        jobRequest.requirements = buildJobRequirements(crawlerJob)
+        jobRequest.location = cleanLocation(crawlerJob.location)
+        jobRequest.countryCode = "KR"
+        jobRequest.salary = extractSalary(crawlerJob.salary)
+        jobRequest.deadline = parseDeadline(crawlerJob.deadline)
+        return jobRequest
     }
     
     /**

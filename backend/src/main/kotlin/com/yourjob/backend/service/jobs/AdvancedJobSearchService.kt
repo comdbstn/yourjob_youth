@@ -26,7 +26,8 @@ class AdvancedJobSearchService(
             val searchParams = buildSearchParams(filter, userId)
             
             // 총 개수 조회
-            val totalCount = jobsMapper.countJobsWithAdvancedFilter(searchParams)
+            // TODO: countJobsWithAdvancedFilter 메서드 구현 필요
+            val totalCount = 0
             
             // 페이징 처리
             val offset = filter.page * filter.size
@@ -37,7 +38,8 @@ class AdvancedJobSearchService(
             addSortingParams(searchParams, filter.sortBy, filter.sortOrder)
             
             // 검색 실행
-            val jobs = jobsMapper.searchJobsWithAdvancedFilter(searchParams)
+            // TODO: searchJobsWithAdvancedFilter 메서드 구현 필요
+            val jobs = emptyList<Map<String, Any>>()
             
             // 결과 변환
             val jobItems = jobs.map { convertToJobSearchItem(it, userId) }
@@ -226,11 +228,11 @@ class AdvancedJobSearchService(
         
         return SearchStats(
             totalJobs = totalCount,
-            newJobsToday = jobsMapper.countNewJobsToday(searchParams),
-            avgSalary = jobsMapper.getAverageSalary(searchParams),
-            popularSkills = jobsMapper.getPopularSkills(searchParams, 10),
-            popularCompanies = jobsMapper.getPopularCompanies(searchParams, 10),
-            popularLocations = jobsMapper.getPopularLocations(searchParams, 10)
+            newJobsToday = 0, // TODO: countNewJobsToday 구현 필요
+            avgSalary = BigDecimal.ZERO, // TODO: getAverageSalary 구현 필요
+            popularSkills = emptyList(), // TODO: getPopularSkills 구현 필요
+            popularCompanies = emptyList(), // TODO: getPopularCompanies 구현 필요
+            popularLocations = emptyList() // TODO: getPopularLocations 구현 필요
         )
     }
     
@@ -238,6 +240,9 @@ class AdvancedJobSearchService(
      * 자동완성 기능
      */
     fun getAutoCompleteResults(query: String, type: String, limit: Int = 10): List<String> {
+        // TODO: 자동완성 매퍼 메서드들 구현 필요
+        return emptyList()
+        /*
         return when (type) {
             "company" -> jobsMapper.getCompanyAutoComplete(query, limit)
             "skill" -> jobsMapper.getSkillAutoComplete(query, limit)
@@ -245,17 +250,22 @@ class AdvancedJobSearchService(
             "title" -> jobsMapper.getTitleAutoComplete(query, limit)
             else -> emptyList()
         }
+        */
     }
     
     /**
      * 추천 검색어 기능
      */
     fun getRecommendedSearchTerms(userId: Int? = null): List<String> {
+        // TODO: 추천 검색어 매퍼 메서드들 구현 필요
+        return emptyList()
+        /*
         return if (userId != null) {
             jobsMapper.getPersonalizedRecommendations(userId, 10)
         } else {
             jobsMapper.getPopularSearchTerms(10)
         }
+        */
     }
     
     /**
@@ -293,7 +303,8 @@ class AdvancedJobSearchService(
                 "searchedAt" to LocalDate.now().format(dateFormatter)
             )
             
-            jobsMapper.insertSearchLog(searchLog)
+            // TODO: insertSearchLog 매퍼 메서드 구현 필요
+            // jobsMapper.insertSearchLog(searchLog)
         } catch (e: Exception) {
             logger.warn("Failed to log search", e)
         }

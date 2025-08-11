@@ -305,14 +305,14 @@ class ResumeDetailService(
     // =====================================================
     fun getCompleteResumeDetails(resumeId: Int): Map<String, Any> {
         return mapOf(
-            "educations" to getEducationsByResumeId(resumeId),
-            "careers" to getCareersByResumeId(resumeId),
-            "certifications" to getCertificationsByResumeId(resumeId),
-            "languages" to resumeDetailMapper.getLanguagesByResumeId(resumeId),
-            "activities" to resumeDetailMapper.getActivitiesByResumeId(resumeId),
-            "awards" to resumeDetailMapper.getAwardsByResumeId(resumeId),
-            "selfIntroductions" to resumeDetailMapper.getSelfIntroductionsByResumeId(resumeId),
-            "employmentInfo" to resumeDetailMapper.getEmploymentInfoByResumeId(resumeId)
+            "educations" to (getEducationsByResumeId(resumeId) ?: emptyList<Any>()),
+            "careers" to (getCareersByResumeId(resumeId) ?: emptyList<Any>()),
+            "certifications" to (getCertificationsByResumeId(resumeId) ?: emptyList<Any>()),
+            "languages" to (resumeDetailMapper.getLanguagesByResumeId(resumeId) ?: emptyList<Any>()),
+            "activities" to (resumeDetailMapper.getActivitiesByResumeId(resumeId) ?: emptyList<Any>()),
+            "awards" to (resumeDetailMapper.getAwardsByResumeId(resumeId) ?: emptyList<Any>()),
+            "selfIntroductions" to (resumeDetailMapper.getSelfIntroductionsByResumeId(resumeId) ?: emptyList<Any>()),
+            "employmentInfo" to (resumeDetailMapper.getEmploymentInfoByResumeId(resumeId) ?: emptyMap<String, Any>())
         )
     }
 }

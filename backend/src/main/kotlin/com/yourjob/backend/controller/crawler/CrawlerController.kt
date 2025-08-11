@@ -20,13 +20,13 @@ class CrawlerController(
         return try {
             val result = webCrawlerService.crawlSite(siteName)
             
-            val response = mapOf(
+            val response: Map<String, Any> = mapOf(
                 "success" to result.success,
                 "siteName" to result.siteName,
                 "jobsFound" to result.jobsFound,
                 "executionTime" to "${result.executionTime}초",
                 "message" to if (result.success) "크롤링이 성공적으로 완료되었습니다." else "크롤링 중 오류가 발생했습니다.",
-                "error" to result.error
+                "error" to (result.error ?: "")
             )
             
             ResponseEntity.ok(response)
@@ -60,11 +60,11 @@ class CrawlerController(
                     "success" to result.success,
                     "jobsFound" to result.jobsFound,
                     "executionTime" to "${result.executionTime}초",
-                    "error" to result.error
+                    "error" to (result.error ?: "")
                 ))
             }
             
-            val response = mapOf(
+            val response: Map<String, Any> = mapOf(
                 "success" to true,
                 "message" to "전체 사이트 크롤링이 완료되었습니다.",
                 "totalJobsFound" to totalJobs,

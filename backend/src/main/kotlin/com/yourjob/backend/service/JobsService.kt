@@ -72,10 +72,10 @@ class JobsService (private var jobsMapper: JobsMapper){
             return JobResponse(
                 jobId = insertedId,
                 title = jobRequest.title,
-                companyName = jobRequest.companyName ?: "",
+                companyName = "", // JobRequest에 없으므로 빈 값
                 location = jobRequest.location,
-                salary = jobRequest.salary,
-                status = jobRequest.status ?: "OPEN"
+                salary = jobRequest.salary?.toString(),
+                status = "OPEN" // 기본값
             )
         }
         return null
