@@ -66,9 +66,39 @@
   display: flex;
   flex-shrink: 0;
   width: 407px;
-
+  max-width: 407px;
   gap: 100px;
   justify-content: center;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1400px) {
+  .user_box {
+    width: 350px;
+    max-width: 350px;
+    gap: 50px;
+  }
+  
+  .fmWrap .urbest {
+    width: 350px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .topWrap {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .user_box {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .fmWrap .urbest {
+    width: 100%;
+    max-width: 500px;
+  }
 }
 
 .user_box .line {

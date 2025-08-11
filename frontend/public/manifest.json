@@ -1,7 +1,7 @@
 {
-  "name": "유어잡 URJOB｜해외대 인재 채용 플랫폼",
+  "name": "유어잡 URJOB｜국내 종합 채용 플랫폼",
   "short_name": "URJOB",
-  "description": "유학생 맞춤 국내·해외법인 취업정보 제공",
+  "description": "국내 종합 채용정보 플랫폼 - 전문직, 인턴, 신입 채용정보 제공",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

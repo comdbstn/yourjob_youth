@@ -788,7 +788,7 @@ const Main: React.FC = () => {
                             인재풀 열람
                             <i className="fa-solid fa-angle-right"></i>
                           </p>
-                          <p>유학생 인재풀 열람, 포지션 제안 상품 안내</p>
+                          <p>구직자 인재풀 열람, 포지션 제안 상품 안내</p>
                         </Link>
                       </div>
                     </div>
