@@ -21,13 +21,9 @@ class EmailService {
     private lateinit var javaMailSender: JavaMailSender
 
     fun sendVerificationEmail(toEmail: String, verificationCode: String) {
-        val message = SimpleMailMessage()
-        message.setFrom(fromEmail)
-        message.setTo(toEmail)
-        message.setSubject("유어잡 이메일 인증번호")
-        message.setText("안녕하세요, 유학생 채용 플랫폼 유어잡입니다.\n\n이메일 인증코드는 $verificationCode 입니다.\n\n이 코드는 5분 후에 만료됩니다.")
-
-        javaMailSender.send(message)
+        // 개발 중 메시지 - 이메일 발송 기능 비활성화
+        println("📧 [개발중] 이메일 발송 기능: $toEmail 에게 인증코드 $verificationCode 전송 (실제 발송 안됨)")
+        // 실제 발송하지 않음
     }
 
     fun sendTemporaryPassword(toEmail: String, tempPassword: String, accountId: String) {
@@ -51,7 +47,7 @@ class EmailService {
 
         message.setText(emailContent)
 
-        javaMailSender.send(message)
+        println("📧 [개발중] 이메일 발송 기능 - 실제 발송 안됨")
     }
 
     fun sendPositionOfferNotification(

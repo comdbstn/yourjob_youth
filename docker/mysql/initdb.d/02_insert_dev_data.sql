@@ -40,13 +40,16 @@ VALUES
 
 INSERT INTO community_categories (name, description, created_at, updated_at)
 VALUES
-  ('General', 'General discussion', NOW(), NOW()),
-  ('Job Advice', 'Tips for job seekers', NOW(), NOW());
+  ('국내 채용', '국내 채용 관련 정보', NOW(), NOW()),
+  ('일반 토론', '자유 토론 게시판', NOW(), NOW()),
+  ('취업 정보', '취업 팁 및 정보 공유', NOW(), NOW()),
+  ('기업 리뷰', '기업 후기 및 면접 경험', NOW(), NOW()),
+  ('기타', '기타 정보', NOW(), NOW());
 
 INSERT INTO community_posts (user_id, category_id, title, content, views, likes, status, created_at, updated_at)
 VALUES
-  (1, 1, 'First Post', 'This is my first post on the community board.', 10, 2, 'ACTIVE', NOW(), NOW()),
-  (1, 2, 'Job Search Tips', 'Share your best job search tips here.', 20, 5, 'ACTIVE', NOW(), NOW());
+  (1, 1, '국내 채용 정보 공유합니다', '최근 채용 동향과 기업별 채용 정보를 공유하는 게시글입니다.', 10, 2, 'ACTIVE', NOW(), NOW()),
+  (1, 3, '취업 준비 꿀팁 모음', '이력서 작성부터 면접까지 취업 준비에 도움되는 정보들을 정리했습니다.', 20, 5, 'ACTIVE', NOW(), NOW());
 
 INSERT INTO community_comments (post_id, user_id, content, likes, parent_comment_id, created_at, updated_at)
 VALUES

@@ -97,6 +97,40 @@ interface CrawlerMapper {
     ): Int
     
     /**
+     * 크롤러 작업 업데이트
+     */
+    @Update("""
+        UPDATE crawler_jobs 
+        SET 
+            process_status = #{processStatus},
+            processed_at = #{processedAt},
+            duplicate_check = #{duplicateCheck},
+            error_message = #{errorMessage},
+            updated_at = NOW()
+        WHERE crawler_id = #{crawlerId}
+    """)
+    fun updateCrawlerJob(job: CrawlerJob): Int
+    
+    /**
+     * 작업 상태만 업데이트
+     */
+    @Update("""
+        UPDATE crawler_jobs 
+        SET 
+            process_status = #{status},
+            processed_at = #{processedAt},
+            error_message = #{errorMessage},
+            updated_at = NOW()
+        WHERE crawler_id = #{crawlerId}
+    """)
+    fun updateJobStatus(
+        @Param("crawlerId") crawlerId: Int,
+        @Param("status") status: String,
+        @Param("processedAt") processedAt: LocalDateTime?,
+        @Param("errorMessage") errorMessage: String?
+    ): Int
+    
+    /**
      * 중복 작업 확인
      */
     @Select("""
@@ -109,6 +143,26 @@ interface CrawlerMapper {
         @Param("siteName") siteName: String,
         @Param("originalJobId") originalJobId: String
     ): Int
+    
+    /**
+     * 중복 작업 조회
+     */
+    @Select("""
+        SELECT 
+            crawler_id, site_name, original_job_id, original_url, 
+            process_status, job_title, company_name, location, 
+            job_type, experience, salary, description,
+            requirements, benefits, deadline,
+            created_at, updated_at, processed_at, error_message
+        FROM crawler_jobs 
+        WHERE site_name = #{siteName} 
+        AND original_job_id = #{originalJobId}
+        LIMIT 1
+    """)
+    fun findDuplicateJob(
+        @Param("siteName") siteName: String,
+        @Param("originalJobId") originalJobId: String
+    ): CrawlerJob?
     
     // =====================================================
     // 크롤러 설정 관리
@@ -343,4 +397,138 @@ interface CrawlerMapper {
         @Param("siteName") siteName: String?,
         @Param("status") status: String?
     ): Long
+    
+    // ==============================================
+    // 없는 메서드들 추가
+    // ==============================================
+    
+    /**
+     * 크롤러 설정 전체 조회
+     */
+    @Select("""
+        <script>
+        SELECT 
+            config_id, site_name, base_url, is_active, crawl_interval,
+            max_pages, selectors, filters, last_crawled_at,
+            created_at, updated_at
+        FROM crawler_configs
+        <where>
+            <if test="activeOnly">AND is_active = 1</if>
+        </where>
+        ORDER BY site_name
+        </script>
+    """)
+    fun getCrawlerConfigs(@Param("activeOnly") activeOnly: Boolean): List<CrawlerConfig>
+    
+    /**
+     * 사이트별 크롤러 설정 조회
+     */
+    @Select("""
+        SELECT 
+            config_id, site_name, base_url, is_active, crawl_interval,
+            max_pages, selectors, filters, last_crawled_at,
+            created_at, updated_at
+        FROM crawler_configs 
+        WHERE site_name = #{siteName}
+    """)
+    fun getCrawlerConfigBySiteName(@Param("siteName") siteName: String): CrawlerConfig?
+    
+    /**
+     * 크롤러 설정 생성
+     */
+    @Insert("""
+        INSERT INTO crawler_configs (
+            site_name, base_url, is_active, crawl_interval,
+            max_pages, selectors, filters
+        ) VALUES (
+            #{siteName}, #{baseUrl}, #{isActive}, #{crawlInterval},
+            #{maxPages}, #{selectors}, #{filters}
+        )
+    """)
+    @Options(useGeneratedKeys = true, keyProperty = "configId")
+    fun insertCrawlerConfig(config: CrawlerConfig): Int
+    
+    /**
+     * 크롤러 통계 조회
+     */
+    @Select("""
+        <script>
+        SELECT 
+            site_name,
+            COUNT(*) as totalCrawled,
+            COUNT(CASE WHEN process_status = 'SUCCESS' THEN 1 END) as successCount,
+            COUNT(CASE WHEN process_status = 'FAILED' THEN 1 END) as failedCount,
+            COUNT(CASE WHEN process_status = 'DUPLICATE' THEN 1 END) as duplicateCount,
+            MAX(processed_at) as lastCrawledAt,
+            AVG(TIMESTAMPDIFF(SECOND, created_at, processed_at)) as avgProcessingTime
+        FROM crawler_jobs
+        <where>
+            <if test="siteName != null">AND site_name = #{siteName}</if>
+        </where>
+        GROUP BY site_name
+        </script>
+    """)
+    fun getCrawlerStatistics(@Param("siteName") siteName: String?): List<CrawlerStats>
+    
+    /**
+     * 일별 통계 업데이트
+     */
+    @Insert("""
+        INSERT INTO crawler_statistics (
+            site_name, stat_date, total_crawled, success_count, 
+            failed_count, avg_processing_time
+        ) VALUES (
+            #{siteName}, CURDATE(), 1, 
+            #{success}, 0, #{processingTime}
+        )
+        ON DUPLICATE KEY UPDATE
+            total_crawled = total_crawled + 1,
+            success_count = success_count + #{success},
+            failed_count = failed_count + (1 - #{success}),
+            avg_processing_time = (
+                (avg_processing_time * (total_crawled - 1) + #{processingTime}) / total_crawled
+            ),
+            updated_at = NOW()
+    """)
+    fun updateDailyStatistics(
+        @Param("siteName") siteName: String,
+        @Param("success") success: Boolean,
+        @Param("processingTime") processingTime: Double?
+    ): Int
+    
+    /**
+     * 중복 채용공고 확인
+     */
+    @Select("""
+        SELECT COUNT(*) 
+        FROM job_postings 
+        WHERE title LIKE CONCAT('%', #{title}, '%')
+        AND company_name LIKE CONCAT('%', #{companyName}, '%')
+        AND created_at > DATE_SUB(NOW(), INTERVAL 7 DAY)
+    """)
+    fun checkDuplicateJobPosting(
+        @Param("title") title: String,
+        @Param("companyName") companyName: String
+    ): Int
+    
+    /**
+     * 채용공고 출처 정보 저장
+     */
+    @Insert("""
+        INSERT INTO job_posting_sources (
+            job_id, crawler_id, source_type, original_site,
+            original_url, original_job_id
+        ) VALUES (
+            #{jobId}, #{crawlerId}, #{sourceType}, #{originalSite},
+            #{originalUrl}, #{originalJobId}
+        )
+    """)
+    fun insertJobPostingSource(
+        @Param("jobId") jobId: Int,
+        @Param("crawlerId") crawlerId: Int?,
+        @Param("sourceType") sourceType: String,
+        @Param("originalSite") originalSite: String,
+        @Param("originalUrl") originalUrl: String,
+        @Param("originalJobId") originalJobId: String
+    ): Int
 }

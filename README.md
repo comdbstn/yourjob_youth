@@ -1,6 +1,6 @@
-# YourJob Platform
+# YourJob Platform - 국내 채용 플랫폼
 
-A comprehensive job platform built with modern technologies including Kotlin/Spring Boot backend, React/TypeScript frontend, and extensive features for job seekers and employers.
+국내 취업에 특화된 종합 채용 플랫폼입니다. Kotlin/Spring Boot 백엔드, React/TypeScript 프론트엔드로 구축되었으며, 구직자와 기업을 위한 다양한 기능을 제공합니다.
 
 ## 🚀 Features
 

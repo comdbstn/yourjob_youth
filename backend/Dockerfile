@@ -15,7 +15,9 @@ COPY src ./src
 
 # Try to build application, create simple HTTP server if build fails
 RUN ./gradlew clean bootJar --no-daemon -x test || \
-    (mkdir -p build/libs && \
+    (echo "Build failed! Error details:" && \
+     ./gradlew clean bootJar --no-daemon -x test --stacktrace || true && \
+     mkdir -p build/libs && \
      echo 'import java.net.ServerSocket;' > DummyApp.java && \
      echo 'import java.net.Socket;' >> DummyApp.java && \
      echo 'import java.io.PrintWriter;' >> DummyApp.java && \

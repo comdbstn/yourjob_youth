@@ -4,7 +4,7 @@ import com.yourjob.backend.entity.crawler.CrawlerJob
 import com.yourjob.backend.entity.JobRequest
 import com.yourjob.backend.entity.JobResponse
 import com.yourjob.backend.service.JobsService
-import com.yourjob.backend.mapper.CrawlerMapper
+import com.yourjob.backend.mapper.crawler.CrawlerMapper
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.slf4j.LoggerFactory

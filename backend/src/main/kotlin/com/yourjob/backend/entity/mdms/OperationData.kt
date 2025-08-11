@@ -1,16 +1,12 @@
 package com.yourjob.backend.entity.mdms
 
 import jakarta.persistence.*
-import lombok.Getter
-import lombok.Setter
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "operation_data")
-@Getter
-@Setter
 data class OperationData(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

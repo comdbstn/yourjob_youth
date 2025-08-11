@@ -1,13 +1,9 @@
 package com.yourjob.backend.entity.payment
 
 import jakarta.persistence.*
-import lombok.Getter
-import lombok.Setter
 import java.time.LocalDateTime
 
 @Entity
-@Getter
-@Setter
 @Table(name = "payments")
 data class Payment(
     @Id

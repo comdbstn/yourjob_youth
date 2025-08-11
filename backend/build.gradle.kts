@@ -87,4 +87,9 @@ dependencies {
 
     // 이메일 전송용 라이브러리
     implementation("org.springframework.boot:spring-boot-starter-mail")
+    
+    // 웹 크롤링용 라이브러리
+    implementation("org.jsoup:jsoup:1.17.2")
+    implementation("org.seleniumhq.selenium:selenium-java:4.15.0")
+    implementation("org.seleniumhq.selenium:selenium-chrome-driver:4.15.0")
 }

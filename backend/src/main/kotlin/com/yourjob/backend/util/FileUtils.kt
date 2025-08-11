@@ -40,23 +40,8 @@ class FileUtils(
     }
 
     fun fileSave(rootpath: String, type: String, yeardate: String, file: MultipartFile): String {
-        // 파일이 null이거나 비어 있는지 확인
-        if (file.isEmpty) {
-            throw IOException("파일이 비어 있습니다")
-        }
-
-        // S3 사용할 경우
-        if (useS3) {
-            // S3 경로 구성 (uploads/banners/2025-04-19)
-            val s3Path = "$rootpath/$type/$yeardate"
-
-            // S3에 파일 업로드하고 UUID 반환
-            return s3StorageService.uploadFile(s3Path, file)
-        }
-        // 로컬 저장소 사용할 경우
-        else {
-            return saveToLocalStorage(rootpath, type, yeardate, file)
-        }
+        // 개발 중 메시지 - 파일 업로드 기능 비활성화
+        throw RuntimeException("파일 업로드 기능은 현재 개발 중입니다. 나중에 다시 시도해주세요.")
     }
 
     private fun saveToLocalStorage(rootpath: String, type: String, yeardate: String, file: MultipartFile): String {

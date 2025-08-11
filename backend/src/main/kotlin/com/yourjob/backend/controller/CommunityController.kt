@@ -28,21 +28,18 @@ class CommunityController (
 //                user_id = 30
 //                //return ResponseEntity(HttpStatus.UNAUTHORIZED)
 //            }
-            var categoryId = 99
-            if(country == "america"){
-                categoryId = 1
-            }else if (country == "europe"){
-                categoryId = 2
-            }else if (country == "asia"){
-                categoryId = 3
-            }else if (country == "oceania"){
-                categoryId = 4
+            var categoryId = 1 // 기본값: 일반 카테고리
+            if(country == "domestic"){
+                categoryId = 1 // 국내 채용 관련
+            }else if (country == "general"){
+                categoryId = 2 // 일반 토론
+            }else if (country == "career"){
+                categoryId = 3 // 취업 정보
+            }else if (country == "review"){
+                categoryId = 4 // 기업 리뷰
             }else if (country == "other"){
-                categoryId = 5
+                categoryId = 5 // 기타
             }
-            //europe
-            //asia
-            //oceania
             var offSetNumb = getOffSetNumb(page, size)
             var mMap = mutableMapOf<String, Any>()
             mMap.put("searchType", searchType)
@@ -100,21 +97,18 @@ class CommunityController (
 //                user_id = 30
 //                //return ResponseEntity(HttpStatus.UNAUTHORIZED)
 //            }
-            var categoryId = 99
-            if(country == "america"){
-                categoryId = 1
-            }else if (country == "europe"){
-                categoryId = 2
-            }else if (country == "asia"){
-                categoryId = 3
-            }else if (country == "oceania"){
-                categoryId = 4
+            var categoryId = 1 // 기본값: 일반 카테고리
+            if(country == "domestic"){
+                categoryId = 1 // 국내 채용 관련
+            }else if (country == "general"){
+                categoryId = 2 // 일반 토론
+            }else if (country == "career"){
+                categoryId = 3 // 취업 정보
+            }else if (country == "review"){
+                categoryId = 4 // 기업 리뷰
             }else if (country == "other"){
-                categoryId = 5
+                categoryId = 5 // 기타
             }
-            //europe
-            //asia
-            //oceania
             var offSetNumb = getOffSetNumb(page, size)
             var mMap = mutableMapOf<String, Any>()
             mMap.put("searchType", searchType)

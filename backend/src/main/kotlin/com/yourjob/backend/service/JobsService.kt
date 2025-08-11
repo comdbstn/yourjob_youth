@@ -61,6 +61,25 @@ class JobsService (private var jobsMapper: JobsMapper){
     fun insertJob(jobRequest: JobRequest): Int{
         return jobsMapper.insertJob(jobRequest)
     }
+    
+    /**
+     * 크롤러 통합용 채용공고 생성
+     */
+    fun createJobPosting(jobRequest: JobRequest): JobResponse? {
+        val insertedId = jobsMapper.insertJob(jobRequest)
+        if (insertedId > 0) {
+            // 생성된 채용공고 정보 반환 (임시 구현)
+            return JobResponse(
+                jobId = insertedId,
+                title = jobRequest.title,
+                companyName = jobRequest.companyName ?: "",
+                location = jobRequest.location,
+                salary = jobRequest.salary,
+                status = jobRequest.status ?: "OPEN"
+            )
+        }
+        return null
+    }
     fun insertJobScrap(mutableMap: MutableMap<String, Any>): Int{
         return jobsMapper.insertJobScrap(mutableMap)
     }

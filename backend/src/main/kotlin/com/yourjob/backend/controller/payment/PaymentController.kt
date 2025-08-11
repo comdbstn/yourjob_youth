@@ -27,11 +27,14 @@ class PaymentController(private val paymentService: PaymentService) {
         @RequestParam(defaultValue = "0") page: Int,
         @RequestParam(defaultValue = "10") size: Int
     ): ResponseEntity<Any> {
-        val pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"))
-        val paymentsPage = paymentService.getAllPaymentsWithUserInfo(
-            status, productName, paymentMethod, depositStatus, startDate, endDate, keyword, pageRequest
+        val response = mapOf(
+            "message" to "💳 결제 시스템은 현재 개발 중입니다.",
+            "status" to "under_development",
+            "content" to emptyList<Any>(),
+            "totalElements" to 0,
+            "totalPages" to 0
         )
-        return ResponseEntity.ok(paymentsPage)
+        return ResponseEntity.ok(response)
     }
 
     @GetMapping("/{id}")

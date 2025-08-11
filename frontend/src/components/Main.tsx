@@ -152,13 +152,13 @@ const Main: React.FC = () => {
           },
         );
         setCommunityList(
-          response.data.posts.map((post: any) => ({
+          response.data?.posts?.map((post: any) => ({
             id: post.id,
             idx: post.idx,
             title: post.title,
             commentCount: post.commentCount,
             likes: post.likes,
-          })),
+          })) || [],
         );
       } catch (error) {
         console.error("커뮤니티 목록 가져오기 실패:", error);
@@ -184,11 +184,11 @@ const Main: React.FC = () => {
           },
         });
         setBestJobList(
-          response.data.map((job: JobPost) => ({
+          response.data?.map((job: JobPost) => ({
             id: job.id,
             title: job.title,
             thumbnail: job.logo_url,
-          })),
+          })) || [],
         );
       } catch (error) {
         console.error("인기 공고 목록 가져오기 실패:", error);
@@ -210,13 +210,13 @@ const Main: React.FC = () => {
           },
         });
         setDomesticJobList(
-          response.data.content.map((job: JobPost) => ({
+          response.data?.content?.map((job: JobPost) => ({
             id: job.id,
             title: job.title,
             thumbnail: job.logo_url,
             startDate: job.startDate,
             endDate: job.endDate,
-          })),
+          })) || [],
         );
       } catch (error) {
         console.error("국내 공고 목록 가져오기 실패:", error);
@@ -238,13 +238,13 @@ const Main: React.FC = () => {
           },
         });
         setOverseasJobList(
-          response.data.content.map((job: JobPost) => ({
+          response.data?.content?.map((job: JobPost) => ({
             id: job.id,
             title: job.title,
             thumbnail: job.logo_url,
             startDate: job.startDate,
             endDate: job.endDate,
-          })),
+          })) || [],
         );
       } catch (error) {
         console.error("해외 공고 목록 가져오기 실패:", error);
@@ -266,7 +266,7 @@ const Main: React.FC = () => {
           },
         });
         setVvipJobList(
-          response.data.content.map((job: JobPost) => ({
+          response.data?.content?.map((job: JobPost) => ({
             id: job.id,
             title: job.title,
             companyName: job.companyName,
@@ -275,7 +275,7 @@ const Main: React.FC = () => {
             startDate: job.startDate,
             endDate: job.endDate,
             wrkcndtnLctRgnStr: job.wrkcndtnLctRgnStr,
-          })),
+          })) || [],
         );
       } catch (error) {
         console.error("VVIP 공고 목록 가져오기 실패:", error);
@@ -297,7 +297,7 @@ const Main: React.FC = () => {
           },
         });
         setVipJobList(
-          response.data.content.map((job: JobPost) => ({
+          response.data?.content?.map((job: JobPost) => ({
             id: job.id,
             title: job.title,
             companyName: job.companyName,
@@ -306,7 +306,7 @@ const Main: React.FC = () => {
             startDate: job.startDate,
             endDate: job.endDate,
             wrkcndtnLctRgnStr: job.wrkcndtnLctRgnStr,
-          })),
+          })) || [],
         );
       } catch (error) {
         console.error("VIP 공고 목록 가져오기 실패:", error);
@@ -328,7 +328,7 @@ const Main: React.FC = () => {
           },
         });
         setSpecialJobList(
-          response.data.content.map((job: JobPost) => ({
+          response.data?.content?.map((job: JobPost) => ({
             id: job.id,
             title: job.title,
             companyName: job.companyName,
@@ -336,7 +336,7 @@ const Main: React.FC = () => {
             startDate: job.startDate,
             endDate: job.endDate,
             wrkcndtnLctRgnStr: job.wrkcndtnLctRgnStr,
-          })),
+          })) || [],
         );
       } catch (error) {
         console.error("SPECIAL 공고 목록 가져오기 실패:", error);
@@ -353,7 +353,7 @@ const Main: React.FC = () => {
           },
         });
 
-        setMainBanners(response.data?.content);
+        setMainBanners(response.data?.content || []);
         // setMainBanners(
         //   banners.filter(
         //     (banner: Banner) => banner.groupName === BannerGroup.MAIN_A,
@@ -384,7 +384,7 @@ const Main: React.FC = () => {
           },
         });
 
-        setSubBanners(response.data?.content);
+        setSubBanners(response.data?.content || []);
       } catch (error) {
         console.error("서브 배너 목록 가져오기 실패:", error);
       }
@@ -400,7 +400,7 @@ const Main: React.FC = () => {
           },
         });
 
-        setCorpAdBanners(response.data?.content);
+        setCorpAdBanners(response.data?.content || []);
       } catch (error) {
         console.error("기업광고 배너 목록 가져오기 실패:", error);
       }
