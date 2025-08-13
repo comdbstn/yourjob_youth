@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: yourjob-bff
+    runtime: java
+    plan: free
+    buildCommand: "./gradlew clean bootJar --no-daemon -x test"
+    startCommand: "java -Dserver.port=$PORT -jar build/libs/*.jar"
+    envVars:
+      - key: BACKEND_URL
+        value: https://yourjob-backend.onrender.com
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SERVER_PORT
+        value: $PORT

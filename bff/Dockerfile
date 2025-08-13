@@ -24,9 +24,9 @@ RUN ./gradlew clean bootJar --no-daemon -x test || \
      echo 'public class DummyApp {' >> DummyApp.java && \
      echo '    public static void main(String[] args) {' >> DummyApp.java && \
      echo '        try {' >> DummyApp.java && \
-     echo '            System.out.println("BFF service starting on port 10000...");' >> DummyApp.java && \
-     echo '            ServerSocket server = new ServerSocket(10000);' >> DummyApp.java && \
-     echo '            System.out.println("Server started successfully on port 10000");' >> DummyApp.java && \
+     echo '            System.out.println("BFF service starting on port 8081...");' >> DummyApp.java && \
+     echo '            ServerSocket server = new ServerSocket(8081);' >> DummyApp.java && \
+     echo '            System.out.println("Server started successfully on port 8081");' >> DummyApp.java && \
      echo '            while (true) {' >> DummyApp.java && \
      echo '                Socket client = server.accept();' >> DummyApp.java && \
      echo '                PrintWriter out = new PrintWriter(client.getOutputStream());' >> DummyApp.java && \
@@ -52,7 +52,7 @@ RUN ./gradlew clean bootJar --no-daemon -x test || \
      echo "Created dummy HTTP server jar due to build failure")
 
 # Expose port
-EXPOSE 10000
+EXPOSE 8081
 
 # Run application
-CMD ["sh", "-c", "java -jar build/libs/*.jar"]
+CMD ["sh", "-c", "java -Dserver.port=8081 -jar build/libs/*.jar"]

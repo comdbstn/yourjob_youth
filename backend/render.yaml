@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: yourjob-backend
+    runtime: java
+    plan: free
+    buildCommand: "./gradlew clean bootJar --no-daemon -x test"
+    startCommand: "java -Dserver.port=$PORT -jar build/libs/*.jar"
+    envVars:
+      - key: DB_HOST
+        value: dpg-your-db-host
+      - key: DB_NAME
+        value: yourjobdb
+      - key: DB_USER
+        value: urjob
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: yourjob-db
+          property: password
+      - key: REDIS_HOST
+        value: redis-your-host
+      - key: REDIS_PASSWORD
+        value: redispass
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_ENV
+        value: production
+    
+databases:
+  - name: yourjob-db
+    databaseName: yourjobdb
+    user: urjob
+    plan: free

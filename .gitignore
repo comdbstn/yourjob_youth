@@ -129,3 +129,4 @@ bff/src/main/resources/firebase/
 *.development
 dev-*
 test-*
+.vercel

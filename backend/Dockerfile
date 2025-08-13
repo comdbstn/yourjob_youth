@@ -17,7 +17,7 @@ COPY src ./src
 RUN ./gradlew clean bootJar --no-daemon -x test
 
 # Expose port
-EXPOSE 10000
+EXPOSE 8082
 
 # Run application
-CMD ["sh", "-c", "java -jar build/libs/*.jar"]
+CMD ["sh", "-c", "java -Dserver.port=8082 -jar build/libs/*.jar"]
