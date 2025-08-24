@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './AuthModal.css';
+
+// Kakao SDK 타입 선언
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 
 interface User {
   id: string;
@@ -34,6 +41,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuccess })
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [kakaoInitialized, setKakaoInitialized] = useState(false);
   
   const [loginForm, setLoginForm] = useState<LoginForm>({
     email: '',
@@ -50,6 +58,28 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuccess })
   });
 
   const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://simple-backend-77yddgdmr-comdbstns-projects.vercel.app';
+
+  // Kakao SDK 초기화
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';
+    script.async = true;
+    
+    script.onload = () => {
+      if (window.Kakao) {
+        if (!window.Kakao.isInitialized()) {
+          window.Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY);
+        }
+        setKakaoInitialized(true);
+      }
+    };
+    
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -129,6 +159,69 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuccess })
     } finally {
       setLoading(false);
     }
+  };
+
+  // 카카오 로그인 처리
+  const handleKakaoLogin = () => {
+    if (!kakaoInitialized || !window.Kakao) {
+      setError('카카오 로그인을 준비 중입니다. 잠시 후 다시 시도해주세요.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    window.Kakao.Auth.login({
+      success: async (authObj: any) => {
+        try {
+          // 카카오 사용자 정보 가져오기
+          window.Kakao.API.request({
+            url: '/v2/user/me',
+            success: async (userObj: any) => {
+              try {
+                const kakaoUser = {
+                  kakaoId: userObj.id.toString(),
+                  email: userObj.kakao_account?.email || `kakao${userObj.id}@yourjob.com`,
+                  name: userObj.kakao_account?.profile?.nickname || '카카오사용자',
+                  profileImage: userObj.kakao_account?.profile?.profile_image_url || null,
+                  provider: 'KAKAO'
+                };
+
+                // 백엔드로 카카오 로그인 정보 전송
+                const response = await axios.post(`${API_BASE_URL}/api/auth/kakao-login`, kakaoUser);
+
+                if (response.data.success) {
+                  localStorage.setItem('auth_token', response.data.token);
+                  localStorage.setItem('user_info', JSON.stringify(response.data.user));
+                  onAuthSuccess(response.data.user, response.data.token);
+                  onClose();
+                  resetForms();
+                } else {
+                  setError(response.data.message || '카카오 로그인에 실패했습니다.');
+                }
+              } catch (error: any) {
+                console.error('카카오 로그인 처리 오류:', error);
+                setError('카카오 로그인 중 오류가 발생했습니다.');
+              }
+            },
+            fail: (error: any) => {
+              console.error('카카오 사용자 정보 조회 실패:', error);
+              setError('카카오 사용자 정보를 가져오는데 실패했습니다.');
+            }
+          });
+        } catch (error) {
+          console.error('카카오 로그인 오류:', error);
+          setError('카카오 로그인 중 오류가 발생했습니다.');
+        } finally {
+          setLoading(false);
+        }
+      },
+      fail: (error: any) => {
+        console.error('카카오 인증 실패:', error);
+        setError('카카오 로그인에 실패했습니다.');
+        setLoading(false);
+      }
+    });
   };
 
   const resetForms = () => {
@@ -225,6 +318,24 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuccess })
 
               <button type="submit" className="auth-submit" disabled={loading}>
                 {loading ? '로그인 중...' : '로그인'}
+              </button>
+
+              <div className="auth-divider">
+                <span>또는</span>
+              </div>
+
+              <button 
+                type="button"
+                className="kakao-login-btn"
+                onClick={handleKakaoLogin}
+                disabled={loading || !kakaoInitialized}
+              >
+                <img 
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwIDNDNS4wMjk0NCAzIDEgNi4xMzQwMSAxIDEwQzEgMTIuMTM0IDIuMTA1MjcgMTMuOTc4IDMuODA3NSAxNS4wNzIxTDMuMDAzNzUgMTcuNjQ4OEMzLjAwMzc1IDE3LjY0ODggMi44ODQ1IDE4LjA3NzMgMy4zMTMwNCAxNy42NDg4TDYuNDI5NjkgMTUuNzM1M0M3LjU4MDEgMTYuMDU4MyA4LjgwMTMxIDE2LjIyIDEwIDE2LjIyQzE0Ljk3MDYgMTYuMjIgMTkgMTMuMDg2IDE5IDEwQzE5IDYuOTEzOTcgMTQuOTcwNiAzIDEwIDNaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K"
+                  alt="카카오"
+                  className="kakao-icon"
+                />
+                카카오로 로그인
               </button>
 
               <div className="auth-demo-accounts">

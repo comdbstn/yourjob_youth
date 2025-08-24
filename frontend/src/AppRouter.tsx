@@ -105,6 +105,7 @@ import ScrollToTop from "./components/mobile/scrollToTop/ScrollToTop";
 import SessionValidator from "./SessionValidator";
 import NotFoundView from "./components/notfound/NotFoundView";
 import MyPage from "./components/profile/MyPage";
+import KakaoCallback from "./components/auth/KakaoCallback";
 
 function RedirectToLogin() {
   useEffect(() => {
@@ -185,6 +186,10 @@ const AppRouter: React.FC = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicyView />} />
         <Route path="/terms/service" element={<TermsView />} />
         <Route path="/terms/privacy" element={<PrivacyPolicyView />} />
+        
+        {/* Auth Callbacks */}
+        <Route path="/oauth/kakao/callback" element={<KakaoCallback />} />
+        
         {/* Mobile */}
         <Route path="/m" element={<MobileMain />} />
         <Route path="/m/termsView" element={<MobileTermsView />} />

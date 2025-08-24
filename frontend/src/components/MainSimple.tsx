@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "./layout/Layout";
 import AuthModal from "./auth/AuthModal";
-import "../../public/css/main.css";
+import "./MainSimple.css";
 
 interface Job {
   id: number;
@@ -75,138 +75,106 @@ const MainSimple: React.FC = () => {
 
   return (
     <Layout>
-      <main>
-        {/* 메인 섹션 */}
-        <section className="main-section" style={{ padding: '2rem 0', background: '#f8fafc' }}>
-          <div className="container">
-            <h1 style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2.5rem', color: '#2d3748' }}>
-              유어잡에서 당신의 꿈을 찾으세요
+      <main className="main-container">
+        {/* Hero Section */}
+        <section className="hero-section">
+          <div className="hero-content">
+            <h1 className="hero-title">
+              꿈이 현실이 되는 곳,<br />
+              <span className="highlight">유어잡</span>에서 시작하세요
             </h1>
-            <p style={{ textAlign: 'center', marginBottom: '3rem', fontSize: '1.2rem', color: '#718096' }}>
-              국내 최고의 채용 플랫폼에서 다양한 기회를 만나보세요
+            <p className="hero-subtitle">
+              월 방문자 100만+, 수천 개의 기업이 믿고 사용하는 채용 플랫폼
             </p>
+            <div className="hero-search">
+              <input 
+                type="search" 
+                placeholder="직무, 회사를 검색해보세요" 
+                className="hero-search-input"
+              />
+              <button className="hero-search-btn">검색</button>
+            </div>
+          </div>
+          <div className="hero-background"></div>
+        </section>
+
+        {/* Job Categories */}
+        <section className="categories-section">
+          <div className="container">
+            <h2 className="section-title">직무별 채용정보</h2>
+            <div className="categories-grid">
+              <div className="category-card">
+                <div className="category-icon">💼</div>
+                <div className="category-name">개발·프로그래밍</div>
+                <div className="category-count">1,234개</div>
+              </div>
+              <div className="category-card">
+                <div className="category-icon">🎨</div>
+                <div className="category-name">디자인</div>
+                <div className="category-count">567개</div>
+              </div>
+              <div className="category-card">
+                <div className="category-icon">📱</div>
+                <div className="category-name">기획·전략</div>
+                <div className="category-count">890개</div>
+              </div>
+              <div className="category-card">
+                <div className="category-icon">📈</div>
+                <div className="category-name">마케팅·광고</div>
+                <div className="category-count">456개</div>
+              </div>
+              <div className="category-card">
+                <div className="category-icon">💰</div>
+                <div className="category-name">영업</div>
+                <div className="category-count">789개</div>
+              </div>
+              <div className="category-card">
+                <div className="category-icon">🏢</div>
+                <div className="category-name">경영·비즈니스</div>
+                <div className="category-count">345개</div>
+              </div>
+              <div className="category-card">
+                <div className="category-icon">⚙️</div>
+                <div className="category-name">서비스</div>
+                <div className="category-count">612개</div>
+              </div>
+              <div className="category-card">
+                <div className="category-icon">🎓</div>
+                <div className="category-name">전문직</div>
+                <div className="category-count">234개</div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* 채용공고 섹션 */}
-        <section className="jobs-section" style={{ padding: '3rem 0' }}>
+        {/* Featured Jobs Section */}
+        <section className="featured-section">
           <div className="container">
-            <div className="flex-row" style={{ justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '2rem', color: '#2d3748' }}>최신 채용공고</h2>
-              <Link 
-                to="/jobs" 
-                style={{ 
-                  color: '#667eea', 
-                  textDecoration: 'none', 
-                  fontSize: '1.1rem',
-                  fontWeight: '500'
-                }}
-              >
-                전체보기 →
-              </Link>
+            <div className="section-header">
+              <h2 className="section-title">모두가 주목하고 있어요!</h2>
+              <Link to="/jobs" className="view-all-link">전체보기 →</Link>
             </div>
-
-            <div className="jobs-grid" style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-              gap: '2rem' 
-            }}>
-              {jobs.map((job) => (
+            <div className="featured-jobs-grid">
+              {jobs.slice(0, 4).map((job) => (
                 <div 
                   key={job.id}
-                  className="job-card"
-                  style={{
-                    background: 'white',
-                    borderRadius: '12px',
-                    padding: '1.5rem',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                    border: '1px solid #e2e8f0',
-                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                    cursor: 'pointer'
-                  }}
+                  className="featured-job-card"
                   onClick={() => navigate(`/jobs/${job.id}`)}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.05)';
-                  }}
                 >
-                  <div style={{ marginBottom: '1rem' }}>
-                    <h3 style={{ 
-                      fontSize: '1.25rem', 
-                      fontWeight: '600', 
-                      color: '#2d3748',
-                      marginBottom: '0.5rem',
-                      lineHeight: '1.4'
-                    }}>
-                      {job.title}
-                    </h3>
-                    <p style={{ 
-                      color: '#4a5568', 
-                      fontSize: '1rem',
-                      fontWeight: '500',
-                      marginBottom: '0.5rem'
-                    }}>
-                      {job.company}
-                    </p>
-                    <p style={{ color: '#718096', fontSize: '0.9rem' }}>
-                      {job.location} • {job.category}
-                    </p>
+                  <div className="job-image">
+                    <img 
+                      src={job.image_url || 'https://via.placeholder.com/300x200?text=Company'}
+                      alt={job.company}
+                      onError={(e) => {
+                        e.currentTarget.src = 'https://via.placeholder.com/300x200?text=' + encodeURIComponent(job.company);
+                      }}
+                    />
+                    <div className="job-badge">신입</div>
                   </div>
-
-                  <div style={{ marginBottom: '1rem' }}>
-                    <p style={{ 
-                      color: '#4a5568', 
-                      fontSize: '0.9rem',
-                      lineHeight: '1.5'
-                    }}>
-                      {job.description.substring(0, 100)}{job.description.length > 100 ? '...' : ''}
-                    </p>
-                  </div>
-
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem' }}>
-                    {job.skills.slice(0, 3).map((skill, index) => (
-                      <span 
-                        key={index}
-                        style={{
-                          background: '#edf2f7',
-                          color: '#4a5568',
-                          fontSize: '0.8rem',
-                          padding: '0.25rem 0.75rem',
-                          borderRadius: '9999px',
-                          fontWeight: '500'
-                        }}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    paddingTop: '1rem',
-                    borderTop: '1px solid #e2e8f0'
-                  }}>
-                    {job.salary && (
-                      <span style={{ 
-                        color: '#667eea', 
-                        fontSize: '0.9rem',
-                        fontWeight: '600'
-                      }}>
-                        {job.salary}
-                      </span>
-                    )}
-                    <span style={{ 
-                      color: '#a0aec0', 
-                      fontSize: '0.8rem'
-                    }}>
-                      {job.deadline || '상시채용'}
-                    </span>
+                  <div className="job-info">
+                    <h3 className="job-title">{job.title}</h3>
+                    <p className="job-company">{job.company}</p>
+                    <p className="job-location">{job.location}</p>
                   </div>
                 </div>
               ))}
@@ -214,42 +182,109 @@ const MainSimple: React.FC = () => {
           </div>
         </section>
 
-        {/* CTA 섹션 */}
-        <section style={{ 
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          padding: '4rem 0',
-          color: 'white',
-          textAlign: 'center'
-        }}>
+        {/* Latest Jobs Section */}
+        <section className="latest-section">
           <div className="container">
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
-              지금 바로 시작하세요
-            </h2>
-            <p style={{ fontSize: '1.2rem', marginBottom: '2rem', opacity: '0.9' }}>
-              수많은 기업들이 당신을 기다리고 있습니다
-            </p>
-            <Link 
-              to="/jobs"
-              style={{
-                display: 'inline-block',
-                background: 'white',
-                color: '#667eea',
-                padding: '1rem 2rem',
-                borderRadius: '8px',
-                textDecoration: 'none',
-                fontWeight: '600',
-                fontSize: '1.1rem',
-                transition: 'transform 0.2s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              모든 채용공고 보기
-            </Link>
+            <div className="section-header">
+              <h2 className="section-title">지금 뜨고 있는 포지션</h2>
+              <Link to="/jobs" className="view-all-link">전체보기 →</Link>
+            </div>
+            <div className="latest-jobs-grid">
+              {jobs.slice(4, 10).map((job) => (
+                <div 
+                  key={job.id}
+                  className="job-item"
+                  onClick={() => navigate(`/jobs/${job.id}`)}
+                >
+                  <div className="job-logo">
+                    <img 
+                      src={job.image_url}
+                      alt={job.company}
+                    />
+                  </div>
+                  <div className="job-content">
+                    <h3 className="job-title">{job.title}</h3>
+                    <p className="job-company">{job.company}</p>
+                    <div className="job-meta">
+                      <span className="job-location">{job.location}</span>
+                      <span className="job-experience">{job.experience || '경력무관'}</span>
+                    </div>
+                  </div>
+                  <div className="job-salary">
+                    {job.salary || '급여협의'}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Recommended Jobs by Level */}
+        <section className="recommended-section">
+          <div className="container">
+            <div className="section-header">
+              <h2 className="section-title">효과로 검증하는 역량별 포지션</h2>
+            </div>
+            <div className="level-tabs">
+              <button className="level-tab active">신입</button>
+              <button className="level-tab">1-3년</button>
+              <button className="level-tab">3-5년</button>
+              <button className="level-tab">5-10년</button>
+            </div>
+            <div className="recommended-jobs-grid">
+              {jobs.slice(0, 6).map((job) => (
+                <div 
+                  key={job.id}
+                  className="recommended-job-card"
+                  onClick={() => navigate(`/jobs/${job.id}`)}
+                >
+                  <div className="job-header">
+                    <img 
+                      src={job.image_url}
+                      alt={job.company}
+                      className="company-logo"
+                    />
+                    <div>
+                      <h3 className="job-title">{job.title}</h3>
+                      <p className="job-company">{job.company}</p>
+                    </div>
+                  </div>
+                  <p className="job-description">
+                    {job.description.substring(0, 80)}...
+                  </p>
+                  <div className="job-skills">
+                    {job.skills.slice(0, 3).map((skill, index) => (
+                      <span key={index} className="skill-tag">{skill}</span>
+                    ))}
+                  </div>
+                  <div className="job-footer">
+                    <span className="job-location">{job.location}</span>
+                    <span className="job-salary">{job.salary || '급여협의'}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="cta-section">
+          <div className="container">
+            <div className="cta-content">
+              <h2>지금 바로 합류하세요!</h2>
+              <p>이미 수십만 명의 직장인이 유어잡을 통해 새로운 기회를 잡았습니다</p>
+              <div className="cta-buttons">
+                <button 
+                  className="cta-btn primary"
+                  onClick={() => setIsAuthModalOpen(true)}
+                >
+                  회원가입하고 시작하기
+                </button>
+                <Link to="/jobs" className="cta-btn secondary">
+                  채용공고 둘러보기
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </main>

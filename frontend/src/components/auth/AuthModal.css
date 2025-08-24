@@ -266,6 +266,70 @@
   background: #5a6268;
 }
 
+/* Social Login Styles */
+.auth-divider {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #a0aec0;
+  font-size: 0.9rem;
+}
+
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.auth-divider span {
+  background: white;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.kakao-login-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: #fee500;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.kakao-login-btn:hover:not(:disabled) {
+  background: #fdd835;
+  transform: translateY(-1px);
+}
+
+.kakao-login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.kakao-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.kakao-login-btn:disabled .kakao-icon {
+  opacity: 0.6;
+}
+
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .auth-modal {
