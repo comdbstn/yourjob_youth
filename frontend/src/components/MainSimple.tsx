@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "./layout/Layout";
+import AuthModal from "./auth/AuthModal";
 import "../../public/css/main.css";
 
 interface Job {
@@ -25,6 +26,17 @@ const MainSimple: React.FC = () => {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  // 로그인 상태 확인
+  useEffect(() => {
+    const token = localStorage.getItem('auth_token');
+    const userInfo = localStorage.getItem('user_info');
+    if (token && userInfo) {
+      setUser(JSON.parse(userInfo));
+    }
+  }, []);
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -45,6 +57,11 @@ const MainSimple: React.FC = () => {
 
     fetchJobs();
   }, []);
+
+  const handleAuthSuccess = (user: any, token: string) => {
+    setUser(user);
+    setIsAuthModalOpen(false);
+  };
 
   if (loading) {
     return (
@@ -236,6 +253,12 @@ const MainSimple: React.FC = () => {
           </div>
         </section>
       </main>
+      
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onAuthSuccess={handleAuthSuccess}
+      />
     </Layout>
   );
 };

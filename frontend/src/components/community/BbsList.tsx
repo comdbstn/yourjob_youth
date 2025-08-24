@@ -5,7 +5,7 @@ import PostingPagination from "../common/PostingPagination";
 import SearchSelectBox from "../common/SearchSelectBox";
 import { formatDate } from "../../utils/dateUtils";
 import { getCommaSeparatedNumber } from "../../utils/numberUtils";
-import { axiosInstance } from "../../api/axios";
+import axios from 'axios';
 import "./BbsList.css";
 import { categoryIdMap, categoryMap } from "../../constants/category";
 import { MetaTagHelmet } from "../common/MetaTagHelmet";
@@ -77,53 +77,90 @@ const BbsList: React.FC = () => {
     size: number
   ) => {
     try {
-      const response = await axiosInstance.get("/api/v1/community/posts", {
-        params: {
-          country: searchParams.category,
-          searchType: searchParams.type,
-          query: searchParams.keyword,
-          page,
-          size,
-        },
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://simple-backend-l7ze9pm9u-comdbstns-projects.vercel.app';
+      
+      let categoryParam = '';
+      if (searchParams.category !== 'all') {
+        switch (searchParams.category) {
+          case 'general': categoryParam = 'GENERAL'; break;
+          case 'question': categoryParam = 'QUESTION'; break;
+          case 'career': categoryParam = 'CAREER'; break;
+          case 'interview': categoryParam = 'INTERVIEW'; break;
+          case 'company': categoryParam = 'COMPANY'; break;
+          case 'news': categoryParam = 'NEWS'; break;
+          case 'tip': categoryParam = 'TIP'; break;
+        }
+      }
+
+      const params: any = {
+        page,
+        limit: size,
+        sort: 'latest'
+      };
+      
+      if (categoryParam) {
+        params.category = categoryParam;
+      }
+      
+      if (searchParams.keyword) {
+        params.search = searchParams.keyword;
+      }
+
+      const response = await axios.get(`${API_BASE_URL}/api/community/posts`, {
+        params
       });
 
-      const mappedBbsList: BbsProps[] = response.data.posts.map(
-        (post: any) => ({
-          categoryId: post.categoryId,
-          id: post.id,
-          subTitle: (function () {
-            switch (post.categoryId) {
-              case 1:
-                return "미주";
-              case 2:
-                return "유럽";
-              case 3:
-                return "아시아";
-              case 4:
-                return "오세아니아";
-              case 5:
-                return "기타";
-              default:
-                return "";
-            }
-          })(),
-          title: post.title,
-          writer: post.writer,
-          date: formatDate(new Date(post.date), "YY.MM.DD"),
-          views: getCommaSeparatedNumber(post.views),
-          likes: getCommaSeparatedNumber(post.likes),
-          commentCount: post.commentCount,
-          isNotice: post.isNotice,
-          isMine: post.isMine,
-        })
-      );
+      if (response.data.success) {
+        const mappedBbsList: BbsProps[] = response.data.data.map(
+          (post: any) => ({
+            categoryId: getCategoryId(post.category),
+            id: post.id,
+            subTitle: getCategoryName(post.category),
+            title: post.title,
+            writer: post.authorName,
+            date: formatDate(new Date(post.createdAt), "YY.MM.DD"),
+            views: getCommaSeparatedNumber(post.viewCount),
+            likes: getCommaSeparatedNumber(post.likeCount),
+            commentCount: post.commentCount,
+            isNotice: false,
+            isMine: false,
+          })
+        );
 
-      setBbsList(mappedBbsList);
-      setCurrentPage(response.data.currentPage);
-      setTotalElements(response.data.totalElements);
-      setTotalPages(response.data.totalPages);
+        setBbsList(mappedBbsList);
+        setCurrentPage(page);
+        setTotalElements(response.data.total || mappedBbsList.length);
+        setTotalPages(Math.ceil((response.data.total || mappedBbsList.length) / size));
+      }
     } catch (error) {
       console.error("게시글 목록을 불러오는데 실패했습니다:", error);
+      setBbsList([]);
+    }
+  };
+
+  const getCategoryId = (category: string): number => {
+    switch (category) {
+      case 'GENERAL': return 1;
+      case 'QUESTION': return 2;
+      case 'CAREER': return 3;
+      case 'INTERVIEW': return 4;
+      case 'COMPANY': return 5;
+      case 'NEWS': return 6;
+      case 'TIP': return 7;
+      default: return 1;
+    }
+  };
+
+  const getCategoryName = (category: string): string => {
+    switch (category) {
+      case 'GENERAL': return '일반';
+      case 'QUESTION': return '질문';
+      case 'CAREER': return '커리어';
+      case 'INTERVIEW': return '면접후기';
+      case 'COMPANY': return '회사리뷰';
+      case 'NEWS': return '취업뉴스';
+      case 'TIP': return '꿀팁';
+      default: return '일반';
     }
   };
 
@@ -138,17 +175,23 @@ const BbsList: React.FC = () => {
     setIsSearched(!!keyword);
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = async (id: number) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      axiosInstance
-        .delete(`/api/v1/community/posts/${id}`)
-        .then(() => {
-          fetchUserCommunity(searchParams, currentPage, size);
-        })
-        .catch((error) => {
-          console.error("게시글 삭제에 실패했습니다:", error);
-          alert("게시글 삭제에 실패했습니다. 다시 시도해주세요.");
+      try {
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://simple-backend-l7ze9pm9u-comdbstns-projects.vercel.app';
+        const token = localStorage.getItem('auth_token');
+        
+        await axios.delete(`${API_BASE_URL}/api/community/posts/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
+        
+        fetchUserCommunity(searchParams, currentPage, size);
+      } catch (error) {
+        console.error("게시글 삭제에 실패했습니다:", error);
+        alert("게시글 삭제에 실패했습니다. 다시 시도해주세요.");
+      }
     }
   };
 
@@ -164,13 +207,13 @@ const BbsList: React.FC = () => {
   const startNo = totalElements - (currentPage - 1) * size;
   return (
     <Layout>
-      <MetaTagHelmet title="유학생 게시판" description="유학생 게시판" />
+      <MetaTagHelmet title="구직자 커뮤니티" description="구직자 커뮤니티" />
       <div className="container-center-horizontal">
         <div className="jobpost screen">
           <div className="container">
             <div className="flex-con">
               <div className="sidebar item_start">
-                <div className="sidebar-title">유학생 게시판</div>
+                <div className="sidebar-title">구직자 커뮤니티</div>
                 <ul className="snb-list mb2">
                   {Object.keys(categoryMap).map((key) => (
                     <li key={key}>
@@ -194,20 +237,12 @@ const BbsList: React.FC = () => {
                     </li>
                   ))}
                 </ul>
-                <div className="sidebar-title">멘토링</div>
-                <ul className="snb-list">
-                  <li>
-                    <Link to="/community/mentolist" className="item_start">
-                      대기업 인사담당자 Q&A
-                    </Link>
-                  </li>
-                </ul>
               </div>
 
               <div className="flex-col">
                 <div className="pageTitle">
                   <div className="conTitle">
-                    <div className="titDetailSch">유학생 게시판</div>
+                    <div className="titDetailSch">구직자 커뮤니티</div>
                     <div className="subtit">
                       <span className="line">{subTitle}</span>
                       <span>{description}</span>

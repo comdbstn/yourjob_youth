@@ -335,84 +335,14 @@ const AcceptList: React.FC = () => {
 
   return (
     <Layout>
-      <MetaTagHelmet title="합격자소서 목록" description="합격자소서 목록" />
+      <MetaTagHelmet title="합격자소서" description="성공적인 취업을 위한 자소서 비법 공유" />
       <div className="container-center-horizontal">
         <div className="accept screen">
           <div className="container">
             <div className="SearchForm">
               <div className="titDetailSch">합격자소서</div>
-              <ul className="select_nav">
-                <li>지원분야</li>
-                <li>졸업국가</li>
-              </ul>
-              <ul className="select_box">
-                <li>
-                  <SelectBoxScroll
-                    options={jobCategoryOptions}
-                    activeValues={activeFieldValues}
-                    onSelect={handleFieldSelect}
-                  />
-                </li>
-                <li>
-                  <SelectBoxScroll
-                    options={countryOptions}
-                    activeValues={activeCountryValues}
-                    onSelect={handleCountrySelect}
-                  />
-                </li>
-              </ul>
-
-              <div className="job_search_box">
-                <div className="choice_box">
-                  {selectedFields.map((field, index) => (
-                    <div className="choice_flex" key={`field-${index}`}>
-                      <div className="choice_txt">{field.label}</div>
-                      <button
-                        type="button"
-                        className="job_search_tag_btn"
-                        onClick={() => handleRemoveFilter("field", field)}
-                      >
-                        <i className="fa-solid fa-xmark">
-                          <span>삭제</span>
-                        </i>
-                      </button>
-                    </div>
-                  ))}
-
-                  {selectedCountries.map((country, index) => (
-                    <div className="choice_flex" key={`country-${index}`}>
-                      <div className="choice_txt">{country.label}</div>
-                      <button
-                        type="button"
-                        className="job_search_tag_btn"
-                        onClick={() => handleRemoveFilter("country", country)}
-                      >
-                        <i className="fa-solid fa-xmark">
-                          <span>삭제</span>
-                        </i>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-                <div className="choice_reset">
-                  <button
-                    type="button"
-                    className="choice_flex job_search_reset_btn"
-                    onClick={handleResetFilters}
-                  >
-                    <div className="choice_txt rotate">초기화</div>
-                    <i className="fa-solid fa-rotate rotate">
-                      <span>삭제</span>
-                    </i>
-                  </button>
-                  <button
-                    type="button"
-                    className="choice_btn choice_btn_search"
-                    onClick={handleSearch}
-                  >
-                    조건 검색하기
-                  </button>
-                </div>
+              <div className="subtitle-text">
+                성공적인 취업을 위한 자소서 비법을 공유합니다.
               </div>
             </div>
 

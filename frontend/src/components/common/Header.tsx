@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { UserType } from "../../types/user";
+import AuthModal from "../auth/AuthModal";
 
 const Header: React.FC = () => {
   const location = useLocation();
@@ -16,7 +17,11 @@ const Header: React.FC = () => {
   const searchParams = new URLSearchParams(location.search);
   const keyword = isJobsPage ? searchParams.get("keyword") || "" : "";
   const [searchKeyword, setSearchKeyword] = useState(keyword);
-  const token = localStorage.getItem("token");
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  
+  // 로그인 상태 확인
+  const token = localStorage.getItem("auth_token") || localStorage.getItem("token");
   const userId = sessionStorage.getItem("userId");
   const userType = sessionStorage.getItem("userType") as UserType;
   const isLoggedIn = token || userId;
@@ -39,6 +44,22 @@ const Header: React.FC = () => {
   useEffect(() => {
     setSearchKeyword(keyword);
   }, [keyword]);
+
+  // 로그인 상태 체크
+  useEffect(() => {
+    const authToken = localStorage.getItem('auth_token');
+    const userInfo = localStorage.getItem('user_info');
+    if (authToken && userInfo) {
+      setUser(JSON.parse(userInfo));
+    }
+  }, []);
+
+  const handleAuthSuccess = (user: any, token: string) => {
+    setUser(user);
+    setIsAuthModalOpen(false);
+    // 페이지 새로고침으로 헤더 상태 업데이트
+    window.location.reload();
+  };
 
   /**
    * Handle user logout
@@ -133,65 +154,83 @@ const Header: React.FC = () => {
                 </Link>
               </li>
             </ul>
-            {isMainPage ? (
-              <ul className="userNav">
-                {!isLoggedIn && (
+            <ul className="userNav">
+              {isLoggedIn ? (
+                userType === UserType.JOB_SEEKER ? (
                   <>
                     <li>
-                      <Link to="/member/join">회원가입</Link>
+                      <Link to="/mypage">
+                        <i className="fa-regular fa-user"></i>
+                      </Link>
+                    </li>
+                    <li>
+                      <button onClick={handleLogout} className="logOut">
+                        로그아웃
+                      </button>
                     </li>
                   </>
-                )}
-              </ul>
-            ) : (
-              <ul className="userNav">
-                {isLoggedIn ? (
-                  userType === UserType.JOB_SEEKER ? (
-                    <>
-                      <li>
-                        <Link to="/mypage">
-                          <i className="fa-regular fa-user"></i>
-                        </Link>
-                      </li>
-                      <li>
-                        <button onClick={handleLogout} className="logOut">
-                          로그아웃
-                        </button>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li>
-                        <Link to="/corpmem/productmypage">유료 이용내역</Link>
-                      </li>
-                      <li>
-                        <Link to="/corpmem/mypage">
-                          <i className="fa-regular fa-user"></i>
-                        </Link>
-                      </li>
-                      <li>
-                        <button onClick={handleLogout} className="logOut">
-                          로그아웃
-                        </button>
-                      </li>
-                    </>
-                  )
                 ) : (
                   <>
                     <li>
-                      <Link to="/member/join">회원가입</Link>
+                      <Link to="/corpmem/productmypage">유료 이용내역</Link>
                     </li>
                     <li>
-                      <Link to="/member/userlogin">로그인</Link>
+                      <Link to="/corpmem/mypage">
+                        <i className="fa-regular fa-user"></i>
+                      </Link>
+                    </li>
+                    <li>
+                      <button onClick={handleLogout} className="logOut">
+                        로그아웃
+                      </button>
                     </li>
                   </>
-                )}
-              </ul>
-            )}
+                )
+              ) : (
+                <>
+                  <li>
+                    <Link to="/member/join">회원가입</Link>
+                  </li>
+                  <li>
+                    <button 
+                      onClick={() => setIsAuthModalOpen(true)}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#4a5568',
+                        fontWeight: '500',
+                        padding: '0.5rem 1rem',
+                        borderRadius: '6px',
+                        transition: 'all 0.2s ease',
+                        cursor: 'pointer',
+                        fontSize: 'inherit',
+                        textDecoration: 'none'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = '#f7fafc';
+                        e.currentTarget.style.color = '#3182ce';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = 'none';
+                        e.currentTarget.style.color = '#4a5568';
+                      }}
+                    >
+                      로그인
+                    </button>
+                  </li>
+                </>
+              )}
+            </ul>
           </div>
         </div>
         </nav>
       </header>
+      
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        onAuthSuccess={handleAuthSuccess}
+      />
       
       <style>{`
         header {
@@ -269,7 +308,7 @@ const Header: React.FC = () => {
         
         .top_search_btn {
           padding: 0.75rem;
-          background: #667eea;
+          background: #3182ce;
           border: none;
           cursor: pointer;
           display: flex;
@@ -302,7 +341,7 @@ const Header: React.FC = () => {
         
         .menunavi a:hover,
         .menunavi a.active {
-          color: #667eea;
+          color: #3182ce;
         }
         
         .menunavi a.active::after {
@@ -311,8 +350,8 @@ const Header: React.FC = () => {
           bottom: 0;
           left: 0;
           right: 0;
-          height: 2px;
-          background: #667eea;
+          height: 3px;
+          background: #3182ce;
         }
         
         .userNav {
@@ -335,7 +374,7 @@ const Header: React.FC = () => {
         
         .userNav a:hover {
           background: #f7fafc;
-          color: #667eea;
+          color: #3182ce;
         }
         
         .logOut {
@@ -351,8 +390,8 @@ const Header: React.FC = () => {
         
         .logOut:hover {
           background: #f7fafc;
-          border-color: #667eea;
-          color: #667eea;
+          border-color: #3182ce;
+          color: #3182ce;
         }
         
         @media (max-width: 768px) {
