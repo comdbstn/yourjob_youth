@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {axiosInstance} from "./api/axios";
 import axios from "axios";
 
 const API_URL =
-    process.env.REACT_APP_API_BASE_URL || "http://13.125.187.22:8082";
+    process.env.REACT_APP_MAIN_API_URL || process.env.REACT_APP_API_URL || "http://localhost:8082";
 
 type SessionInfo = {
     userId: string;
@@ -49,6 +49,9 @@ const SessionValidator: React.FC = () => {
     };
 
     useEffect(() => {
+        // 임시로 세션 검증 비활성화 (메인 백엔드 없이 테스트)
+        return;
+        
         const validateSession = async () => {
             // 로그인, 회원가입 페이지는 제외
             const skipPaths = ["/oauth2/redirect", "/member/userlogin"];
@@ -75,7 +78,7 @@ const SessionValidator: React.FC = () => {
                 const sessionCreated = await createAdminSession();
             } else {
                 try {
-                    const response = await fetch(`${API_URL}/api/v1/auth/auth/session-check`, {
+                    const response = await fetch(`${API_URL}/api/v1/auth/session-check`, {
                         credentials: "include",
                     });
 

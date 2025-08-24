@@ -62,17 +62,35 @@ module.exports = {
     port: 3000,
     historyApiFallback: true,
     allowedHosts: "all",
+    // macOS optimized dev server settings
     client: {
-      overlay: true,
-      webSocketURL: "ws://0.0.0.0:80/ws",
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+      webSocketURL: process.env.NODE_ENV === 'development' 
+        ? "ws://localhost:3000/ws" 
+        : "ws://0.0.0.0:80/ws",
     },
+    // Optimized for macOS performance
+    watchFiles: {
+      paths: ['src/**/*'],
+      options: {
+        ignored: /node_modules/,
+      },
+    },
+    // Hot module replacement for better development experience
+    hot: true,
+    liveReload: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public", "index.html"),
     }),
     new Dotenv({
-      path: "./.env",
+      path: process.env.NODE_ENV === 'development' && process.platform === 'darwin' 
+        ? "./.env.macos" 
+        : "./.env",
       safe: false,
       defaults: true,
       systemvars: true, // 시스템 환경변수(REACT_APP_*)도 빌드 타임에 사용

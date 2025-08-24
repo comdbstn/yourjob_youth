@@ -6,7 +6,7 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import Main from "./components/Main";
+import Main from "./components/MainSimple";
 import MpApply from "./components/mypage/ApplyPage";
 import MpMyPage from "./components/mypage/Mypage";
 import MpProfile from "./components/mypage/Profile";

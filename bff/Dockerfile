@@ -1,8 +1,12 @@
-FROM openjdk:17-jdk-slim
+# Multi-stage build optimized for macOS Docker
+FROM openjdk:17-jdk-slim AS builder
 
 WORKDIR /app
 
-# Copy gradle files
+# Install necessary packages
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Copy gradle files for dependency caching
 COPY build.gradle.kts settings.gradle.kts gradle.properties ./
 COPY gradle ./gradle
 COPY gradlew ./
@@ -10,49 +14,60 @@ COPY gradlew ./
 # Make gradlew executable
 RUN chmod +x ./gradlew
 
+# Download dependencies (cached layer)
+RUN ./gradlew dependencies --no-daemon || true
+
 # Copy source code
 COPY src ./src
 
-# Try to build application, create simple HTTP server if build fails
-RUN ./gradlew clean bootJar --no-daemon -x test || \
-    (mkdir -p build/libs && \
-     echo 'import java.net.ServerSocket;' > DummyApp.java && \
-     echo 'import java.net.Socket;' >> DummyApp.java && \
-     echo 'import java.io.PrintWriter;' >> DummyApp.java && \
-     echo 'import java.io.IOException;' >> DummyApp.java && \
-     echo '' >> DummyApp.java && \
-     echo 'public class DummyApp {' >> DummyApp.java && \
-     echo '    public static void main(String[] args) {' >> DummyApp.java && \
-     echo '        try {' >> DummyApp.java && \
-     echo '            System.out.println("BFF service starting on port 8081...");' >> DummyApp.java && \
-     echo '            ServerSocket server = new ServerSocket(8081);' >> DummyApp.java && \
-     echo '            System.out.println("Server started successfully on port 8081");' >> DummyApp.java && \
-     echo '            while (true) {' >> DummyApp.java && \
-     echo '                Socket client = server.accept();' >> DummyApp.java && \
-     echo '                PrintWriter out = new PrintWriter(client.getOutputStream());' >> DummyApp.java && \
-     echo '                out.println("HTTP/1.1 200 OK");' >> DummyApp.java && \
-     echo '                out.println("Content-Type: application/json");' >> DummyApp.java && \
-     echo '                out.println("Access-Control-Allow-Origin: https://yourjob-youth.vercel.app");' >> DummyApp.java && \
-     echo '                out.println("Access-Control-Allow-Credentials: true");' >> DummyApp.java && \
-     echo '                out.println("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");' >> DummyApp.java && \
-     echo '                out.println("Access-Control-Allow-Headers: Content-Type, Authorization");' >> DummyApp.java && \
-     echo '                out.println("");' >> DummyApp.java && \
-     echo '                out.println("{\"message\":\"BFF service is running but under maintenance\",\"data\":[],\"total\":0}");' >> DummyApp.java && \
-     echo '                out.flush();' >> DummyApp.java && \
-     echo '                client.close();' >> DummyApp.java && \
-     echo '            }' >> DummyApp.java && \
-     echo '        } catch (IOException e) {' >> DummyApp.java && \
-     echo '            System.out.println("Server error: " + e.getMessage());' >> DummyApp.java && \
-     echo '        }' >> DummyApp.java && \
-     echo '    }' >> DummyApp.java && \
-     echo '}' >> DummyApp.java && \
-     javac DummyApp.java && \
-     echo "Main-Class: DummyApp" > MANIFEST.MF && \
-     jar cfm build/libs/bff-0.0.1-SNAPSHOT.jar MANIFEST.MF DummyApp.class && \
-     echo "Created dummy HTTP server jar due to build failure")
+# Build application with optimized settings for Docker
+RUN ./gradlew clean bootJar --no-daemon -x test --parallel
+
+# Production stage
+FROM openjdk:17-jre-slim AS production
+
+WORKDIR /app
+
+# Install curl for health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user for security
+RUN addgroup --system --gid 1001 yourjob && \
+    adduser --system --uid 1001 --gid 1001 yourjob
+
+# Copy built application
+COPY --from=builder /app/build/libs/*.jar app.jar
+
+# Change ownership
+RUN chown yourjob:yourjob app.jar
+
+# Switch to non-root user
+USER yourjob
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:8081/health || exit 1
 
 # Expose port
 EXPOSE 8081
 
+# JVM optimization for container
+ENV JAVA_OPTS="-Xmx512m -Xms256m -XX:+UseG1GC -XX:G1HeapRegionSize=16m -XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
+
 # Run application
-CMD ["sh", "-c", "java -Dserver.port=8081 -jar build/libs/*.jar"]
+CMD ["sh", "-c", "java $JAVA_OPTS -Dserver.port=8081 -jar app.jar"]
+
+# Development stage for macOS
+FROM builder AS development
+
+# Install development tools
+RUN apt-get update && apt-get install -y vim curl netcat && rm -rf /var/lib/apt/lists/*
+
+# Enable debug port
+EXPOSE 5005
+
+# Development JVM options
+ENV JAVA_OPTS="-Xmx512m -Xms256m -XX:+UseG1GC -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+
+# Run with development profile
+CMD ["sh", "-c", "java $JAVA_OPTS -Dspring.profiles.active=local -Dserver.port=8081 -jar build/libs/*.jar"]

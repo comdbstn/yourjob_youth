@@ -33,11 +33,31 @@ success() {
 dev_start() {
     log "Starting development environment..."
     
+    # Check if Docker is installed
+    if ! command -v docker &> /dev/null; then
+        error "Docker is not installed. Please install Docker Desktop for macOS"
+        echo "Visit: https://docs.docker.com/desktop/mac/install/"
+        exit 1
+    fi
+    
+    # Check if Docker is running
+    if ! docker info &> /dev/null; then
+        error "Docker is not running. Please start Docker Desktop"
+        exit 1
+    fi
+    
     # Set development build target
     export BUILD_TARGET=development
     
+    # Use macOS optimized Docker Compose file
+    local compose_file="docker-compose.macos.yml"
+    if [ ! -f "$compose_file" ]; then
+        log "Using default docker-compose.yml file"
+        compose_file="docker-compose.yml"
+    fi
+    
     # Start essential services only for development
-    docker-compose up -d db redis
+    docker-compose -f "$compose_file" up -d db redis
     
     log "Database and Redis are starting up..."
     log "You can now run the backend and frontend locally for development"
@@ -51,7 +71,14 @@ dev_start() {
 # Stop development environment
 dev_stop() {
     log "Stopping development environment..."
-    docker-compose down
+    
+    # Use macOS optimized compose file if available
+    local compose_file="docker-compose.macos.yml"
+    if [ ! -f "$compose_file" ]; then
+        compose_file="docker-compose.yml"
+    fi
+    
+    docker-compose -f "$compose_file" down
     success "Development environment stopped"
 }
 
@@ -99,18 +126,34 @@ backend_dev() {
     
     cd backend || { error "Backend directory not found"; exit 1; }
     
+    # Make gradlew executable
+    chmod +x ./gradlew
+    
+    # Check Java version for macOS compatibility
+    if ! command -v java &> /dev/null; then
+        error "Java is not installed. Please install Java 17+ for macOS"
+        echo "Visit: https://adoptium.net/temurin/releases/"
+        exit 1
+    fi
+    
     case ${1:-run} in
         build)
             log "Building backend..."
-            ./gradlew build
+            ./gradlew build --no-daemon --parallel
             ;;
         test)
             log "Running backend tests..."
-            ./gradlew test
+            ./gradlew test --no-daemon
             ;;
         run)
             log "Running backend in development mode..."
-            ./gradlew bootRun --args='--spring.profiles.active=local'
+            export SPRING_PROFILES_ACTIVE=local
+            ./gradlew bootRun --no-daemon
+            ;;
+        debug)
+            log "Running backend in debug mode..."
+            export SPRING_PROFILES_ACTIVE=local
+            ./gradlew bootRun --debug-jvm --no-daemon
             ;;
         *)
             error "Unknown backend command: $1"
@@ -151,10 +194,28 @@ frontend_dev() {
     
     cd frontend || { error "Frontend directory not found"; exit 1; }
     
+    # Check Node.js version for macOS compatibility
+    if ! command -v node &> /dev/null; then
+        error "Node.js is not installed. Please install Node.js 18+ for macOS"
+        echo "Visit: https://nodejs.org/en/download/"
+        exit 1
+    fi
+    
+    # Check Node.js version
+    local node_version=$(node -v | cut -d'v' -f2 | cut -d'.' -f1)
+    if [ "$node_version" -lt 18 ]; then
+        warning "Node.js version is $node_version. Recommended: 18+"
+    fi
+    
     case ${1:-run} in
         install)
             log "Installing frontend dependencies..."
-            npm install
+            # Use npm ci for faster, reliable installs on macOS
+            if [ -f "package-lock.json" ]; then
+                npm ci
+            else
+                npm install
+            fi
             ;;
         build)
             log "Building frontend..."
@@ -166,7 +227,13 @@ frontend_dev() {
             ;;
         run)
             log "Running frontend development server..."
+            # Set environment for development
+            export NODE_ENV=development
             npm start
+            ;;
+        lint)
+            log "Linting frontend code..."
+            npx eslint src --ext .js,.jsx,.ts,.tsx || warning "ESLint not configured"
             ;;
         *)
             error "Unknown frontend command: $1"

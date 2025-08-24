@@ -1,7 +1,7 @@
 {
   "name": "유어잡 URJOB｜국내 종합 채용 플랫폼",
   "short_name": "URJOB",
-  "description": "국내 종합 채용정보 플랫폼 - 전문직, 인턴, 신입 채용정보 제공",
+  "description": "국내 종합 채용 플랫폼 - 신입, 경력, 인턴 채용정보 제공",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

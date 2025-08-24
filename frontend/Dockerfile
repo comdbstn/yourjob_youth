@@ -48,8 +48,10 @@ RUN apk add --no-cache curl
 # Create nginx user for security
 RUN addgroup -g 1000 nginx-app && adduser -u 1000 -G nginx-app -h /app -D nginx-app
 
-# Copy Railway-specific nginx configuration
-COPY nginx.railway.conf /etc/nginx/nginx.conf
+# Copy nginx configuration (fallback to default if railway config not found)
+COPY nginx.conf /etc/nginx/nginx.conf 2>/dev/null || \
+COPY nginx.railway.conf /etc/nginx/nginx.conf 2>/dev/null || \
+echo "Using default nginx configuration"
 
 # Copy built files from builder stage
 COPY --from=builder /app/build /usr/share/nginx/html

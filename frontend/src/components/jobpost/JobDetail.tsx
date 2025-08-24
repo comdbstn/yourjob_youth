@@ -1,595 +1,486 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import Layout from "../layout/Layout";
-import "../../../public/css/jobpost.css";
-import {
-  formatDate,
-  getDdayString,
-  isPreviousDate,
-} from "../../utils/dateUtils";
-import ScrapModal from "./ScrapModal";
-import { axiosInstance } from "../../api/axios";
-import { jobpostApi } from "../../api/jobpost";
-import ApplyModal from "./ApplyModal";
-import { JobPostDetailResponse } from "../../types/jobPost";
-import { UserType } from "../../types/user";
-import { fetchJobpostData, JobpostDataItem } from "../../api/jobpostData";
-import { useAlert } from "../../contexts/AlertContext";
-import { MetaTagHelmet } from "../common/MetaTagHelmet";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import Layout from '../layout/Layout';
+import axios from 'axios';
+
+interface Job {
+  id: number;
+  title: string;
+  company: string;
+  location: string;
+  category: string;
+  description: string;
+  apply_url?: string;
+  image_url?: string;
+  salary?: string;
+  experience?: string;
+  skills: string[];
+  employment_type?: string;
+  deadline?: string;
+  posting_date?: string;
+  benefits: string[];
+}
 
 const JobDetail: React.FC = () => {
-  const [jobTypeLabelData, setJobTypeLabelData] = useState<JobpostDataItem[]>(
-    []
-  );
-  useEffect(() => {
-    const fetchData = async () => {
-      const jobTypeData = await fetchJobpostData("00000010");
-      setJobTypeLabelData(jobTypeData);
-    };
-    fetchData();
-  }, []);
-  // 직무
-  const [jobTypeData, setJobTypeData] = useState<JobpostDataItem[]>([]);
-  // 스킬
-  const [skillData, setSkillData] = useState<JobpostDataItem[]>([]);
-  // 핵심역량
-  const [capabilityData, setCapabilityData] = useState<JobpostDataItem[]>([]);
-  // 자격증
-  const [licenseData, setLicenseData] = useState<JobpostDataItem[]>([]);
-  // 지역 (국내+해외)
-  const [locationData, setLocationData] = useState<JobpostDataItem[]>([]);
-
-  // 추가로 필요한 데이터들
-  // 우대조건
-  const [preferenceData, setPreferenceData] = useState<JobpostDataItem[]>([]);
-  // 외국어
-  const [languageData, setLanguageData] = useState<JobpostDataItem[]>([]);
-  // 우대전공
-  const [majorData, setMajorData] = useState<JobpostDataItem[]>([]);
-  // 업종
-  const [industryData, setIndustryData] = useState<JobpostDataItem[]>([]);
-
-  //
-  const [isBring, setIsBring] = useState<boolean>(false);
-
-  // 데이터 fetch
-  useEffect(() => {
-    const fetchData = async () => {
-      const jobTypeData = await fetchJobpostData("00000009");
-      const skillTypeData = await fetchJobpostData("00000015");
-      const capabilityData = await fetchJobpostData("00000020");
-      const licenseData = await fetchJobpostData("00000018");
-      // 지역데이터
-      const domestic = await fetchJobpostData("00000012");
-      const overseas = await fetchJobpostData("00000013");
-      const combined = [...domestic, ...overseas];
-      //
-      const preferenceData = await fetchJobpostData("00000014");
-      const languageData = await fetchJobpostData("00000017");
-      const majorData = await fetchJobpostData("00000019");
-      const industryData = await fetchJobpostData("00000016");
-      setJobTypeData(jobTypeData);
-      setSkillData(skillTypeData);
-      setCapabilityData(capabilityData);
-      setLicenseData(licenseData);
-      setLocationData(combined);
-
-      setPreferenceData(preferenceData);
-      setLanguageData(languageData);
-      setMajorData(majorData);
-      setIndustryData(industryData);
-    };
-
-    fetchData();
-  }, []);
   const { id } = useParams<{ id: string }>();
-  const userType = sessionStorage.getItem("userType") as UserType;
-  const userId = sessionStorage.getItem("userId");
-  const [isScrapModalOpen, setIsScrapModalOpen] = useState(false);
-  const [jobDetailProps, setJobDetailProps] = useState<JobPostDetailResponse>(
-    {} as JobPostDetailResponse
-  );
+  const navigate = useNavigate();
+  const [job, setJob] = useState<Job | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
+
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
 
   useEffect(() => {
-    fetchJobDetail();
-  }, [id]);
+    const fetchJobDetail = async () => {
+      if (!id) {
+        navigate('/jobs');
+        return;
+      }
 
-  // 채용공고 상세 정보 조회
-  const fetchJobDetail = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`${API_BASE_URL}/api/jobs/${id}`);
+        
+        if (response.data.success && response.data.data) {
+          setJob(response.data.data);
+        } else {
+          console.log('Job not found, redirecting to jobs list');
+          navigate('/jobs');
+          return;
+        }
+      } catch (err) {
+        console.error('Job detail fetch error:', err);
+        console.log('Redirecting to jobs list due to error');
+        // 채용공고를 찾을 수 없으면 목록 페이지로 리다이렉트
+        navigate('/jobs');
+        return;
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobDetail();
+  }, [id, navigate]);
+
+  const formatDate = (dateString?: string) => {
+    if (!dateString || dateString === 'nan') return '상시채용';
     try {
-      const response = await axiosInstance.get(`/api/v1/jobs/${id}`);
-      setJobDetailProps(response.data);
-    } catch (error) {
-      navigate("/notfound");
-      console.error("Error fetching job detail:", error);
+      return new Date(dateString).toLocaleDateString('ko-KR');
+    } catch {
+      return dateString;
     }
   };
 
-  const openScrapModal = () => {
-    if (!userId) {
-      alert("로그인해 주세요.");
-      navigate("/member/userlogin");
-    }
-
-    if (jobDetailProps.isScraped) {
-      // 이미 스크랩된 경우 바로 스크랩 취소
-      jobpostApi
-        .toggleScrap(Number(id))
-        .then(() => {
-          fetchJobDetail();
-        })
-        .catch((error: Error) => {
-          console.error("Error toggling scrap:", error);
-        });
-    } else {
-      // 스크랩되지 않은 경우 모달 표시
-      setIsScrapModalOpen(true);
-    }
-  };
-
-  const closeScrapModal = () => {
-    setIsScrapModalOpen(false);
-  };
-  const navigate = useNavigate();
-  const handleScrap = () => {
-    closeScrapModal();
-    fetchJobDetail();
-    navigate("/mypage/scrap");
-  };
-  const [isApplyModalOpen, setIsApplyModalOpen] = useState(false);
-  const [applyJobId, setApplyJobId] = useState<number | null>(null);
-  const [applyCompanyName, setApplyCompanyName] = useState("");
-  const [applyJobTitle, setApplyJobTitle] = useState("");
-  const { customAlert } = useAlert();
-  const handleApply = (
-    jobId: number | undefined,
-    companyName: string,
-    jobTitle: string
-  ) => {
-    // if (!jobId) return; // jobId가 undefined / 0일 땐 아무 동작 안 함
-    if (!userId) {
-      customAlert({
-        content: "로그인해 주세요.",
-        onConfirm() {
-          navigate("/member/userlogin");
-        },
-      });
-      return;
-    }
-
-    setApplyJobId(jobId ?? 0);
-    setApplyCompanyName(companyName);
-    setApplyJobTitle(jobTitle);
-    setIsApplyModalOpen(true);
-  };
-  const closeApplyModal = () => {
-    setIsApplyModalOpen(false);
-  };
-  const mapCodesToLabels = (
-    codes: string | string[] = [],
-    list: JobpostDataItem[],
-    getLabel: (item: JobpostDataItem) => string = (item) => item.level1 ?? ""
-  ): string[] => {
-    // codes가 array가 아니면 배열로 감싸준다
-    const codeArray = Array.isArray(codes) ? codes : [codes];
-
-    return codeArray.map((code) => {
-      const found = list.find((item) => item.operationDataId === code);
-      return found ? getLabel(found) : code;
-    });
-  };
-  return (
-    <Layout>
-      <MetaTagHelmet
-        title={jobDetailProps?.title || "채용공고 상세"}
-        description={jobDetailProps?.content || "채용공고 상세"}
-        ogTitle={jobDetailProps?.title || "채용공고 상세"}
-        ogDescription={jobDetailProps?.content || "채용공고 상세"}
-      />
-      <div className="container-center-horizontal">
-        <div className="jobpost screen">
-          <div className="container">
-            {/* detail */}
-            <div className="flex-con item_column item_center">
-              {/* detail top */}
-              <div className="jobdetail">
-                <div className="logo_area">
-                  <div className="urjob">
-                    <img
-                      style={{
-                        width: "175px",
-                        height: "175px",
-                        objectFit: "contain",
-                      }}
-                      src={jobDetailProps?.logo_url || "/img/f_logo.png"}
-                      alt="회사 로고"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = "/img/f_logo.png";
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="detail_con">
-                  <div className="detail_header">
-                    <p className="stxt">{jobDetailProps?.companyInfo?.name}</p>
-                    {userType !== UserType.COMPANY && (
-                      <button
-                        type="button"
-                        className="s_btn"
-                        onClick={openScrapModal}
-                      >
-                        <i
-                          className={
-                            jobDetailProps.isScraped
-                              ? "fa-solid fa-star scraped"
-                              : "fa-solid fa-star"
-                          }
-                        ></i>
-                      </button>
-                    )}
-                  </div>
-                  <p className="htxt">{jobDetailProps?.title}</p>
-                  <div className="detail-group">
-                    <div className="decol">
-                      {jobDetailProps?.career?.type && (
-                        <dl
-                          style={{
-                            display:
-                              jobDetailProps.career?.type &&
-                              jobDetailProps.career.type !== ""
-                                ? undefined
-                                : "none",
-                          }}
-                        >
-                          <dt className="colw2 text-nowrap">경력</dt>
-                          <dd>{jobDetailProps.career?.type}</dd>
-                        </dl>
-                      )}
-                      {jobDetailProps?.qualification?.education?.level && (
-                        <dl
-                          style={{
-                            display:
-                              jobDetailProps.qualification?.education?.level &&
-                              jobDetailProps.qualification.education.level !==
-                                ""
-                                ? undefined
-                                : "none",
-                          }}
-                        >
-                          <dt className="colw2 text-nowrap">학력</dt>
-                          <dd>
-                            {jobDetailProps.qualification?.education?.level}
-                          </dd>
-                        </dl>
-                      )}
-                      {jobDetailProps?.qualification?.preferences?.language &&
-                        jobDetailProps?.qualification?.preferences?.language
-                          .length > 0 &&
-                        !(
-                          jobDetailProps?.qualification?.preferences?.language
-                            .length === 1 &&
-                          jobDetailProps?.qualification?.preferences
-                            ?.language[0] === ""
-                        ) && (
-                          <>
-                            {(() => {
-                              const langs =
-                                jobDetailProps.qualification?.preferences?.language
-                                  ?.filter((l) => l)
-                                  .join(", ") || "";
-                              return (
-                                <dl
-                                  style={{
-                                    display: langs ? undefined : "none",
-                                  }}
-                                >
-                                  <dt className="colw2 text-nowrap">외국어</dt>
-                                  {/* <dd>{langs}</dd> */}
-                                  <dd>
-                                    {(jobDetailProps.qualification?.preferences
-                                      ?.language?.length ?? 0) > 0
-                                      ? jobDetailProps
-                                          .qualification!.preferences!.language!.map(
-                                            (code) => {
-                                              const found = languageData.find(
-                                                (i) =>
-                                                  i.operationDataId === code
-                                              );
-                                              return found?.level1 ?? code;
-                                            }
-                                          )
-                                          .join(", ")
-                                      : "외국어"}
-                                  </dd>
-                                </dl>
-                              );
-                            })()}
-                          </>
-                        )}
-                    </div>
-                    <div className="decol">
-                      <dl
-                        style={{
-                          display: jobDetailProps?.jobType ? undefined : "none",
-                        }}
-                      >
-                        <dt className="colw3 text-nowrap">근무형태</dt>
-
-                        <dd>
-                          {" "}
-                          {mapCodesToLabels(
-                            jobDetailProps.jobType,
-                            jobTypeLabelData
-                          ).join(", ")}
-                        </dd>
-                      </dl>
-
-                      <dl
-                        style={{
-                          display: jobDetailProps?.workConditions?.location
-                            ?.address
-                            ? undefined
-                            : "none",
-                        }}
-                      >
-                        <dt className="colw3 text-nowrap">근무지역</dt>
-                        <dd>
-                          {jobDetailProps?.workConditions?.location?.address}
-                        </dd>
-                      </dl>
-
-                      <dl
-                        style={{
-                          display: jobDetailProps?.workConditions?.workingDay
-                            ?.type
-                            ? undefined
-                            : "none",
-                        }}
-                      >
-                        <dt className="colw3 text-nowrap">근무요일</dt>
-                        <dd>
-                          {jobDetailProps?.workConditions?.workingDay?.type}
-                        </dd>
-                      </dl>
-
-                      <dl
-                        style={{
-                          display: jobDetailProps?.workConditions?.salary?.type
-                            ? undefined
-                            : "none",
-                        }}
-                      >
-                        <dt className="colw3 text-nowrap">급여</dt>
-                        <dd>{jobDetailProps?.workConditions?.salary?.type}</dd>
-                      </dl>
-                    </div>
-
-                    <div className="decol colw4">
-                      <dl
-                        style={{
-                          display: jobDetailProps?.applicationPeriod?.start
-                            ?.date
-                            ? undefined
-                            : "none",
-                        }}
-                      >
-                        <dt className="colw2 text-nowrap">시작일</dt>
-                        <dd>
-                          {formatDate(
-                            new Date(
-                              jobDetailProps?.applicationPeriod?.start?.date
-                            ),
-                            "yyyy.MM.DD"
-                          )}
-                        </dd>
-                      </dl>
-
-                      <dl
-                        style={{
-                          display: jobDetailProps?.applicationPeriod?.end?.date
-                            ? undefined
-                            : "none",
-                        }}
-                      >
-                        <dt className="colw2 text-nowrap">마감일</dt>
-                        <dd>
-                          {formatDate(
-                            new Date(
-                              jobDetailProps?.applicationPeriod?.end?.date
-                            ),
-                            "yyyy.MM.DD"
-                          )}
-                        </dd>
-                      </dl>
-                    </div>
-
-                    <div className="decol colw1">
-                      <div className="dday">
-                        {getDdayString(
-                          jobDetailProps?.applicationPeriod?.end?.date
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* detail top end */}
-
-              <div className="detailBtn">
-                {userType !== UserType.COMPANY && (
-                  <>
-                    {" "}
-                    {jobDetailProps.applicationPeriod &&
-                    isPreviousDate(
-                      jobDetailProps.applicationPeriod.end.date
-                    ) ? (
-                      <>
-                        {" "}
-                        {jobDetailProps.url ? (
-                          <button
-                            type="button"
-                            className="h_btn"
-                            onClick={() => {
-                              if (!userId) {
-                                alert("로그인 후 지원해주세요.");
-                                navigate("/member/join");
-                              } else {
-                                window.open(
-                                  jobDetailProps?.applicationMethod?.homepage
-                                );
-                              }
-                            }}
-                          >
-                            홈페이지 지원
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            style={{ background: "#2F80DC" }}
-                            onClick={() =>
-                              handleApply(
-                                jobDetailProps.id ?? 0,
-                                jobDetailProps.companyInfo.name,
-                                jobDetailProps.title
-                              )
-                            }
-                          >
-                            즉시지원
-                          </button>
-                        )}
-                      </>
-                    ) : (
-                      <button
-                        type="button"
-                        className="h_btn"
-                        onClick={() => {}}
-                      >
-                        채용 마감
-                      </button>
-                    )}
-                  </>
-                )}
-                {userType === UserType.JOB_SEEKER && (
-                  <button
-                    type="button"
-                    className="s_btn"
-                    onClick={openScrapModal}
-                  >
-                    <i
-                      className={
-                        jobDetailProps.isScraped
-                          ? "fa-solid fa-star scraped"
-                          : "fa-regular fa-star"
-                      }
-                    ></i>
-                    스크랩
-                  </button>
-                )}
-                <button onClick={() => navigate(-1)}>목록</button>
-              </div>
-
-              {/* 모집요강 */}
-              <div
-                className="detail_content item_column"
-                dangerouslySetInnerHTML={{ __html: jobDetailProps?.content }}
-              ></div>
-              {/* 모집요강 end */}
-
-              <div className="detailBtn">
-                {userType !== UserType.COMPANY && (
-                  <>
-                    {" "}
-                    {jobDetailProps.applicationPeriod &&
-                    isPreviousDate(
-                      jobDetailProps.applicationPeriod.end.date
-                    ) ? (
-                      <>
-                        {" "}
-                        {jobDetailProps.url ? (
-                          <button
-                            type="button"
-                            className="h_btn"
-                            onClick={() => {
-                              if (!userId) {
-                                alert("로그인 후 지원해주세요.");
-                                navigate("/member/join");
-                              } else {
-                                window.open(
-                                  jobDetailProps?.applicationMethod?.homepage
-                                );
-                              }
-                            }}
-                          >
-                            홈페이지 지원
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            style={{ background: "#2F80DC" }}
-                            onClick={() =>
-                              handleApply(
-                                jobDetailProps.id ?? 0,
-                                jobDetailProps.companyInfo.name,
-                                jobDetailProps.title
-                              )
-                            }
-                          >
-                            즉시지원
-                          </button>
-                        )}
-                      </>
-                    ) : (
-                      <button
-                        type="button"
-                        className="h_btn"
-                        onClick={() => {}}
-                      >
-                        채용 마감
-                      </button>
-                    )}
-                  </>
-                )}
-
-                {userType === UserType.JOB_SEEKER && (
-                  <button
-                    type="button"
-                    className="s_btn"
-                    onClick={openScrapModal}
-                  >
-                    <i
-                      className={
-                        jobDetailProps.isScraped
-                          ? "fa-solid fa-star scraped"
-                          : "fa-regular fa-star"
-                      }
-                    ></i>
-                    스크랩
-                  </button>
-                )}
-              </div>
-            </div>
-            {/* detail end */}
+  if (loading) {
+    return (
+      <Layout>
+        <div className="job-detail-container">
+          <div className="loading-state">
+            <div className="spinner"></div>
+            <p>채용공고를 불러오는 중...</p>
           </div>
         </div>
+      </Layout>
+    );
+  }
+
+  if (error || !job) {
+    return (
+      <Layout>
+        <div className="job-detail-container">
+          <div className="error-state">
+            <p>{error || '채용공고를 찾을 수 없습니다.'}</p>
+            <button onClick={() => navigate('/jobs')}>채용공고 목록으로 돌아가기</button>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  return (
+    <Layout>
+      <div className="job-detail-container">
+        <div className="job-detail-header">
+          <button className="back-button" onClick={() => navigate('/jobs')}>
+            ← 목록으로 돌아가기
+          </button>
+        </div>
+
+        <div className="job-detail-content">
+          <div className="job-main-info">
+            <div className="company-logo">
+              {job.image_url && !job.image_url.includes('default.svg') ? (
+                <img src={job.image_url} alt={job.company} />
+              ) : (
+                <div className="logo-fallback">🏢</div>
+              )}
+            </div>
+
+            <div className="job-basic-info">
+              <h1 className="job-title">{job.title}</h1>
+              <h2 className="company-name">{job.company}</h2>
+              <div className="job-meta">
+                <span className="location">📍 {job.location}</span>
+                <span className="category">🏷️ {job.category}</span>
+                <span className="deadline">⏰ 마감일: {formatDate(job.deadline)}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="job-details-grid">
+            <div className="detail-section">
+              <h3>급여</h3>
+              <p>{job.salary || '협의'}</p>
+            </div>
+
+            <div className="detail-section">
+              <h3>경력</h3>
+              <p>{job.experience || '미표시'}</p>
+            </div>
+
+            <div className="detail-section">
+              <h3>고용형태</h3>
+              <p>{job.employment_type || '미표시'}</p>
+            </div>
+
+            <div className="detail-section">
+              <h3>등록일</h3>
+              <p>{formatDate(job.posting_date)}</p>
+            </div>
+          </div>
+
+          <div className="job-description">
+            <h3>채용공고 상세</h3>
+            <div className="description-content">
+              {job.description}
+            </div>
+          </div>
+
+          {job.skills && job.skills.length > 0 && (
+            <div className="job-skills">
+              <h3>필요 기술</h3>
+              <div className="skills-container">
+                {job.skills.map((skill, index) => (
+                  <span key={index} className="skill-tag">{skill}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {job.benefits && job.benefits.length > 0 && (
+            <div className="job-benefits">
+              <h3>복리후생</h3>
+              <div className="benefits-container">
+                {job.benefits.map((benefit, index) => (
+                  <span key={index} className="benefit-tag">{benefit}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="job-actions">
+            {job.apply_url && (
+              <a
+                href={job.apply_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="apply-button primary"
+              >
+                지원하기 🔗
+              </a>
+            )}
+            <button 
+              className="back-button secondary"
+              onClick={() => navigate('/jobs')}
+            >
+              목록으로 돌아가기
+            </button>
+          </div>
+        </div>
+
+        <style>{`
+          .job-detail-container {
+            min-height: 100vh;
+            background: #f8fafc;
+            padding: 2rem 0;
+          }
+
+          .job-detail-header {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem 1rem;
+          }
+
+          .back-button {
+            background: none;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+          }
+
+          .back-button:hover {
+            background: #f7fafc;
+            border-color: #667eea;
+            color: #667eea;
+          }
+
+          .back-button.secondary {
+            background: #f7fafc;
+            margin-left: 1rem;
+          }
+
+          .job-detail-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+          }
+
+          .job-main-info {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+          }
+
+          .company-logo {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background: #f7fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .company-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+          }
+
+          .logo-fallback {
+            font-size: 2.5rem;
+          }
+
+          .job-basic-info {
+            flex: 1;
+          }
+
+          .job-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+          }
+
+          .company-name {
+            font-size: 1.3rem;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 1rem;
+          }
+
+          .job-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+          }
+
+          .job-meta span {
+            color: #718096;
+            font-size: 0.95rem;
+          }
+
+          .job-details-grid {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+          }
+
+          .detail-section h3 {
+            font-size: 1rem;
+            color: #718096;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+          }
+
+          .detail-section p {
+            font-size: 1.1rem;
+            color: #2d3748;
+            font-weight: 600;
+          }
+
+          .job-description,
+          .job-skills,
+          .job-benefits {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          }
+
+          .job-description h3,
+          .job-skills h3,
+          .job-benefits h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+          }
+
+          .description-content {
+            color: #4a5568;
+            line-height: 1.6;
+            font-size: 1rem;
+          }
+
+          .skills-container,
+          .benefits-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+          }
+
+          .skill-tag {
+            background: rgba(72, 187, 120, 0.1);
+            color: #48bb78;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+          }
+
+          .benefit-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+          }
+
+          .job-actions {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+          }
+
+          .apply-button {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.2s ease;
+          }
+
+          .apply-button.primary {
+            background: #48bb78;
+            color: white;
+          }
+
+          .apply-button.primary:hover {
+            background: #38a169;
+          }
+
+          .loading-state,
+          .error-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            margin: 2rem auto;
+            max-width: 600px;
+          }
+
+          .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+          }
+
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          .error-state button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+          }
+
+          .error-state button:hover {
+            background: #5a6fd8;
+          }
+
+          @media (max-width: 768px) {
+            .job-main-info {
+              flex-direction: column;
+              text-align: center;
+            }
+
+            .company-logo {
+              align-self: center;
+            }
+
+            .job-details-grid {
+              grid-template-columns: 1fr;
+            }
+
+            .job-meta {
+              justify-content: center;
+            }
+
+            .job-actions {
+              padding: 1.5rem;
+            }
+
+            .apply-button {
+              width: 100%;
+              margin-bottom: 1rem;
+            }
+
+            .back-button.secondary {
+              width: 100%;
+              margin-left: 0;
+            }
+          }
+        `}</style>
       </div>
-      {isScrapModalOpen && id && (
-        <ScrapModal
-          jobPostId={Number(id)}
-          isOpen={isScrapModalOpen}
-          onClose={closeScrapModal}
-          onConfirm={handleScrap}
-        />
-      )}
-      {isApplyModalOpen && (
-        <ApplyModal
-          isOpen={isApplyModalOpen}
-          onClose={() => setIsApplyModalOpen(false)}
-          jobId={Number(id)} // non-null 단언
-          companyName={applyCompanyName}
-          jobTitle={applyJobTitle}
-        />
-      )}
     </Layout>
   );
 };

@@ -1,29 +1,23 @@
-// frontend/src/components/member/UserLogin.tsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import firebaseApp from "../../firebaseConfig";
 import "./UserLogin.css";
 import "../../styles/nomal.css";
-import { firebaseOAuth, oauthCallback } from "../../app/slices/authSlice";
-import type { AppDispatch } from "../../app/store";
 import { axiosInstance } from "../../api/axios";
-import axios from "axios";
 import useMobile from "../../hooks/useMobile";
 import { useAlert } from "../../contexts/AlertContext";
 import { MetaTagHelmet } from "../common/MetaTagHelmet";
 
 const UserLogin: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const isMobile = useMobile();
+  const { customAlert } = useAlert();
+  
   const [activeTab, setActiveTab] = useState<"normal" | "corp">(
     (() => {
       const searchParams = new URLSearchParams(window.location.search);
       return (searchParams.get("tab") as "normal" | "corp") || "normal";
     })()
   );
-  const [showEmailPopup, setShowEmailPopup] = useState(false);
 
   const [emailLogin, setEmailLogin] = useState({
     email: "",
@@ -35,510 +29,449 @@ const UserLogin: React.FC = () => {
     password: "",
   });
 
-  const API_URL =
-    process.env.REACT_APP_API_BASE_URL || "https://localhost:8082";
-  const OAUTH2_REDIRECT_URI = "https://www.urjob.kr/oauth2/redirect";
-  //const API_URL = "http://13.125.187.22:8082";
-  //const OAUTH2_REDIRECT_URI = "http://13.125.187.22:3000/oauth2/redirect";
-  const handleNaverLogin = async (): Promise<void> => {
+  const [loading, setLoading] = useState(false);
+
+  const API_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8082";
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
     try {
-      const redirectUri = OAUTH2_REDIRECT_URI; // 예: http://localhost:3000/oauth2/redirect
-      const loginUrl =
-        API_URL +
-        `/api/v1/oauth/authorization/naver?redirect_uri=${encodeURIComponent(
-          redirectUri
-        )}`;
-
-      window.location.href = loginUrl;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        alert(
-          "OAuth 로그인 실패: " +
-            (error.response?.data?.message ||
-              error.message ||
-              "알 수 없는 오류")
-        );
-      } else {
-        alert(
-          "OAuth 로그인 실패: " +
-            ((error as Error).message || "알 수 없는 오류")
-        );
-      }
-    }
-  };
-
-  const handleGoogleLogin = async (): Promise<void> => {
-    try {
-      const redirectUri = OAUTH2_REDIRECT_URI; // 예: http://localhost:3000/oauth2/redirect
-      const loginUrl =
-        API_URL +
-        `/api/v1/oauth/authorization/google?redirect_uri=${encodeURIComponent(
-          redirectUri
-        )}`;
-
-      window.location.href = loginUrl;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        alert(
-          "OAuth 로그인 실패: " +
-            (error.response?.data?.message ||
-              error.message ||
-              "알 수 없는 오류")
-        );
-      } else {
-        alert(
-          "OAuth 로그인 실패: " +
-            ((error as Error).message || "알 수 없는 오류")
-        );
-      }
-    }
-  };
-
-  const handleKakoLogin = async (): Promise<void> => {
-    try {
-      const redirectUri = OAUTH2_REDIRECT_URI; // 예: http://localhost:3000/oauth2/redirect
-      const loginUrl =
-        API_URL +
-        `/api/v1/oauth/authorization/kakao?redirect_uri=${encodeURIComponent(
-          redirectUri
-        )}`;
-
-      window.location.href = loginUrl;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        alert(
-          "OAuth 로그인 실패: " +
-            (error.response?.data?.message ||
-              error.message ||
-              "알 수 없는 오류")
-        );
-      } else {
-        alert(
-          "OAuth 로그인 실패: " +
-            ((error as Error).message || "알 수 없는 오류")
-        );
-      }
-    }
-  };
-
-  /*const handleGoogleLogin = async (): Promise<void> => {
-    const auth = getAuth(firebaseApp);
-    const provider = new GoogleAuthProvider();
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const idToken = await result.user.getIdToken();
-      dispatch(firebaseOAuth(idToken))
-        .unwrap()
-        .then(() => {
-          alert("Google 로그인 성공");
-          navigate("/");
-        })
-        .catch((err: string) => {
-          alert("Google 로그인 실패: " + err);
-        });
-    } catch (error: any) {
-      alert("Google 로그인 오류: " + error.message);
-    }
-  };*/
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEmailLogin((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCorpEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCorpLogin((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleEmailLogin = async (): Promise<void> => {
-    try {
-      const { email, password } = emailLogin;
-      if (email === "" || password === "") {
-        customAlert({
-          content: "계정과 비밀번호를 입력해주세요.",
-        });
+      const loginData = activeTab === "normal" ? emailLogin : corpLogin;
+      
+      if (!loginData.email || !loginData.password) {
+        customAlert({ content: "이메일과 비밀번호를 입력해주세요." });
         return;
       }
+
       const response = await axiosInstance.post("/api/v1/auth/login", {
-        email,
-        password,
+        email: loginData.email,
+        password: loginData.password,
+        userType: activeTab === "normal" ? "JOB_SEEKER" : "COMPANY"
       });
 
-      const { token, userId, userType } = response.data;
+      if (response.data.success) {
+        // 로그인 성공
+        localStorage.setItem("token", response.data.data.token);
+        localStorage.setItem("userId", response.data.data.userId);
+        localStorage.setItem("userType", activeTab === "normal" ? "JOB_SEEKER" : "COMPANY");
+        
+        sessionStorage.setItem("userId", response.data.data.userId);
+        sessionStorage.setItem("userType", activeTab === "normal" ? "JOB_SEEKER" : "COMPANY");
 
-      // 토큰 저장
-      localStorage.setItem("token", token);
-      localStorage.setItem("userId", userId);
-      localStorage.setItem("userType", userType);
-      sessionStorage.setItem("userId", userId);
-      sessionStorage.setItem("userType", userType);
-
-      navigate("/");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        let errorMessage =
-          error.response?.data?.message || error.message || "알 수 없는 오류";
-
-        if (error.response?.status === 403) {
-          errorMessage = "비밀번호가 일치하지 않습니다.";
+        customAlert({ content: "로그인 되었습니다." });
+        
+        // 리다이렉트
+        if (activeTab === "normal") {
+          navigate("/");
+        } else {
+          navigate("/corpmem/mypage");
         }
-
-        if (error.response?.status === 423) {
-          errorMessage = "차단된 유저입니다. 관리자에게 문의하세요.";
-        }
-
-        if (
-          error.response?.status === 400 &&
-          error.response?.data?.message?.includes("기업회원")
-        ) {
-          errorMessage = "기업회원은 기업회원 로그인을 이용해주세요.";
-        }
-
-        alert(`이메일 로그인 실패: ${errorMessage}`);
       } else {
-        alert(
-          `이메일 로그인 실패: ${(error as Error).message || "알 수 없는 오류"}`
-        );
+        customAlert({ content: response.data.message || "로그인에 실패했습니다." });
       }
+    } catch (error: any) {
+      console.error("로그인 오류:", error);
+      if (error.response?.status === 401) {
+        customAlert({ content: "이메일 또는 비밀번호가 올바르지 않습니다." });
+      } else {
+        customAlert({ content: "로그인 중 오류가 발생했습니다. 다시 시도해주세요." });
+      }
+    } finally {
+      setLoading(false);
     }
   };
-  const { customAlert } = useAlert();
-  const handleCorpEmailLogin = async (): Promise<void> => {
-    try {
-      const { email, password } = corpLogin;
 
-      if (email === "" || password === "") {
-        customAlert({
-          content: "계정과 비밀번호를 입력해주세요.",
-        });
-        return;
-      }
-
-      const response = await axiosInstance.post("/api/v1/auth/corplogin", {
-        email,
-        password,
-      });
-
-      const { token, userId, userType } = response.data;
-
-      // 토큰 저장
-      localStorage.setItem("token", token);
-      localStorage.setItem("userId", userId);
-      localStorage.setItem("userType", userType);
-      sessionStorage.setItem("userId", userId);
-      sessionStorage.setItem("userType", userType);
-
-      navigate("/corpmem/mypage");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        let errorMessage =
-          error.response?.data?.message || error.message || "알 수 없는 오류";
-        if (error.response?.status === 403) {
-          errorMessage = "비밀번호가 일치하지 않습니다.";
-        }
-        alert("계정 혹은 비밀번호가 일치하지 않습니다");
-      } else {
-        alert(
-          `기업 이메일 로그인 실패: ${
-            (error as Error).message || "알 수 없는 오류"
-          }`
-        );
-      }
+  const handleInputChange = (field: string, value: string) => {
+    if (activeTab === "normal") {
+      setEmailLogin(prev => ({ ...prev, [field]: value }));
+    } else {
+      setCorpLogin(prev => ({ ...prev, [field]: value }));
     }
   };
-  const isMobile = useMobile();
+
+  const currentLogin = activeTab === "normal" ? emailLogin : corpLogin;
 
   return (
     <>
       {isMobile ? (
-        <>
-          <div className="container-center-horizontal">
-            <div className="login_container_mobile">
-              <div className="header">
-                <p className="notosanskr-normal-block-30px">URJOB</p>
-              </div>
-              <div className="main_btns">
-                <button>
-                  <img
-                    className="naver_icon"
-                    src="/img/vector-1.svg"
-                    alt="naver_icon"
-                  />{" "}
-                  <p>네이버로 로그인</p>
-                </button>
-                <button>
-                  <img
-                    className="kakao_icon"
-                    src="/img/group-1124@2x.png"
-                    alt="kakao_icon"
-                  />
-                  <p>카카오톡으로 로그인</p>
-                </button>
-                {/* <button>
-                  <img
-                    className="apple_icon"
-                    src="/img/group-5@2x.png"
-                    alt="apple_icon"
-                  />
-                  <p>Apple로 로그인</p>
-                </button> */}
-                <button>
-                  <img
-                    className="gmail_icon"
-                    src="/img/group-1122@2x.png"
-                    alt="gmail_icon"
-                  />
-                  <p>Google로 로그인</p>
-                </button>
-              </div>
-              <p className="mt-15 mb-15 or">or</p>
-              <button className="bottomBtn">기업회원 로그인</button>
-              <button className="mt-15 bottomLabel">
-                <Link to="/member/join">회원가입</Link>
+        <div className="mobile-login-container">
+          <MetaTagHelmet title="로그인" description="로그인" />
+          <div className="mobile-login">
+            <Link to="/" className="mobile-logo">
+              <img src="/img/logo.png" alt="로고" />
+            </Link>
+            
+            <div className="mobile-login-tabs">
+              <button
+                className={activeTab === "normal" ? "active" : ""}
+                onClick={() => setActiveTab("normal")}
+              >
+                일반회원
+              </button>
+              <button
+                className={activeTab === "corp" ? "active" : ""}
+                onClick={() => setActiveTab("corp")}
+              >
+                기업회원
               </button>
             </div>
+
+            <form onSubmit={handleEmailLogin} className="mobile-login-form">
+              <div className="form-group">
+                <input
+                  type="email"
+                  placeholder="이메일 주소"
+                  value={currentLogin.email}
+                  onChange={(e) => handleInputChange("email", e.target.value)}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  placeholder="비밀번호"
+                  value={currentLogin.password}
+                  onChange={(e) => handleInputChange("password", e.target.value)}
+                  required
+                />
+              </div>
+              <button 
+                type="submit" 
+                className="login-button"
+                disabled={loading}
+              >
+                {loading ? "로그인 중..." : "로그인"}
+              </button>
+            </form>
+
+            <div className="mobile-login-links">
+              <Link to="/member/join">회원가입</Link>
+              <Link to="/member/find-password">비밀번호 찾기</Link>
+            </div>
           </div>
-        </>
+        </div>
       ) : (
-        <>
-          {" "}
-          <div className="container-center-horizontal">
-            <MetaTagHelmet title="로그인" description="로그인" />
-            <div className="login_container">
-              <div className="login">
-                <Link to="/" className="title">
-                  <img src="/img/logo.png"></img>
-                </Link>
+        <div className="container-center-horizontal">
+          <MetaTagHelmet title="로그인" description="로그인" />
+          <div className="login_container">
+            <div className="login">
+              <Link to="/" className="title">
+                <img src="/img/logo.png" alt="로고" />
+              </Link>
 
-                <div className="loginTab">
-                  <a
-                    href="#!"
-                    className={activeTab === "normal" ? "active" : ""}
-                    onClick={() => {
-                      setActiveTab("normal");
-                      navigate("/member/userlogin?tab=normal");
-                    }}
-                  >
-                    일반회원
-                  </a>
-                  <a
-                    href="#!"
-                    className={activeTab === "corp" ? "active" : ""}
-                    onClick={() => {
-                      setActiveTab("corp");
-                      navigate("/member/userlogin?tab=corp");
-                    }}
-                  >
-                    기업회원
-                  </a>
+              <div className="loginTab">
+                <a
+                  href="#!"
+                  className={activeTab === "normal" ? "active" : ""}
+                  onClick={() => {
+                    setActiveTab("normal");
+                    navigate("/member/userlogin?tab=normal");
+                  }}
+                >
+                  일반회원
+                </a>
+                <a
+                  href="#!"
+                  className={activeTab === "corp" ? "active" : ""}
+                  onClick={() => {
+                    setActiveTab("corp");
+                    navigate("/member/userlogin?tab=corp");
+                  }}
+                >
+                  기업회원
+                </a>
+              </div>
+
+              <form onSubmit={handleEmailLogin} className="email-login-form">
+                <div className="input-group">
+                  <label>이메일</label>
+                  <input
+                    type="email"
+                    placeholder="이메일을 입력하세요"
+                    value={currentLogin.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    required
+                  />
                 </div>
+                <div className="input-group">
+                  <label>비밀번호</label>
+                  <input
+                    type="password"
+                    placeholder="비밀번호를 입력하세요"
+                    value={currentLogin.password}
+                    onChange={(e) => handleInputChange("password", e.target.value)}
+                    required
+                  />
+                </div>
+                <button 
+                  type="submit" 
+                  className="login-submit-button"
+                  disabled={loading}
+                >
+                  {loading ? "로그인 중..." : "로그인"}
+                </button>
+              </form>
 
-                {activeTab === "normal" && (
-                  <>
-                    <div className="social_login_buttons">
-                      <button
-                        type="button"
-                        className="naverBtn overlap"
-                        onClick={handleNaverLogin}
-                      >
-                        <img
-                          className="naver_icon"
-                          src="/img/vector-1.svg"
-                          alt="naver_icon"
-                        />
-                        <div className="text white_txt">네이버로 로그인</div>
-                      </button>
-                      <button
-                        type="button"
-                        className="kakaoBtn overlap"
-                        onClick={handleKakoLogin}
-                      >
-                        <img
-                          className="kakao_icon"
-                          src="/img/group-1124@2x.png"
-                          alt="kakao_icon"
-                        />
-                        <div className="text">카카오톡으로 로그인</div>
-                      </button>
-                      {/* <button
-                        type="button"
-                        className="appleBtn overlap"
-                        onClick={() => alert("Apple 로그인 기능 미구현")}
-                      >
-                        <img
-                          className="apple_icon"
-                          src="/img/group-5@2x.png"
-                          alt="apple_icon"
-                        />
-                        <div className="text white_txt">Apple로 로그인</div>
-                      </button> */}
-                      <button
-                        type="button"
-                        className="gmailBtn overlap"
-                        onClick={handleGoogleLogin}
-                      >
-                        <img
-                          className="gmail_icon"
-                          src="/img/group-1122@2x.png"
-                          alt="gmail_icon"
-                        />
-                        <div className="text">Google로 로그인</div>
-                      </button>
-                      <button
-                        type="button"
-                        className="emailLoginBtn overlap"
-                        onClick={() => setShowEmailPopup(true)}
-                      >
-                        <img
-                          className="email_icon"
-                          src="/img/group-1123@2x.png"
-                          alt="email_icon"
-                        />
-                        <div className="text">이메일로 로그인</div>
-                      </button>
-                    </div>
-
-                    {showEmailPopup && (
-                      <div className="email_login_popup formBox">
-                        <div className="popup_content">
-                          <form
-                            onSubmit={(e) => {
-                              e.preventDefault();
-                              handleEmailLogin();
-                            }}
-                          >
-                            <input
-                              type="email"
-                              name="email"
-                              className="form-control input"
-                              placeholder="이메일 주소"
-                              value={emailLogin.email}
-                              onChange={handleEmailChange}
-                            />
-                            <input
-                              type="password"
-                              name="password"
-                              className="form-control input"
-                              placeholder="비밀번호"
-                              value={emailLogin.password}
-                              onChange={handleEmailChange}
-                            />
-                            <div className="button_container">
-                              <button type="submit" className="btn btn-primary">
-                                로그인
-                              </button>
-                              <button
-                                type="button"
-                                className="btn btn-secondary"
-                                onClick={() => setShowEmailPopup(false)}
-                              >
-                                닫기
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                    )}
-                    <div
-                      style={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <div
-                        className="signup_link"
-                        style={{ textAlign: "start", width: "100px" }}
-                      >
-                        <Link
-                          to="/member/join"
-                          className="signup_link_txt"
-                          style={{ width: "50px", textAlign: "start" }}
-                        >
-                          회원가입
-                        </Link>
-                      </div>
-                      <div
-                        className="signup_link"
-                        style={{ textAlign: "start", width: "180px" }}
-                      >
-                        <Link
-                          to="/member/findidpwd?gbn=user"
-                          className="signup_link_txt"
-                        >
-                          아이디 | 비밀번호 찾기
-                        </Link>
-                      </div>
-                    </div>
-                  </>
-                )}
-
-                {activeTab === "corp" && (
-                  <>
-                    <div className="email_login_popup formBox">
-                      <div className="popup_content">
-                        <form
-                          onSubmit={(e) => {
-                            e.preventDefault();
-                            handleCorpEmailLogin();
-                          }}
-                        >
-                          <label className="label" htmlFor="email">
-                            아이디
-                          </label>
-                          <input
-                            type="text"
-                            name="email"
-                            className="form-control input"
-                            style={{ marginBottom: "10px", marginTop: "10px" }}
-                            placeholder="아이디"
-                            value={corpLogin.email}
-                            onChange={handleCorpEmailChange}
-                          />
-                          <label className="label" htmlFor="password">
-                            비밀번호
-                          </label>
-                          <input
-                            type="password"
-                            name="password"
-                            className="form-control input"
-                            style={{ marginBottom: "10px", marginTop: "10px" }}
-                            placeholder="비밀번호"
-                            value={corpLogin.password}
-                            onChange={handleCorpEmailChange}
-                          />
-                          <div className="button_container">
-                            <button
-                              type="submit"
-                              className="btn btn-primary"
-                              style={{ margin: "auto", width: "100%" }}
-                            >
-                              기업회원 로그인
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-
-                    <div className="signup_link">
-                      <Link
-                        to="/member/findidpwd?gbn=company"
-                        className="signup_link_txt"
-                      >
-                        아이디 찾기 | 비밀번호 찾기
-                      </Link>
-                      <div style={{ flexGrow: 1 }}></div>
-                      <Link to="/member/corpjoin" className="signup_link_txt">
-                        기업회원 회원가입
-                      </Link>
-                    </div>
-                  </>
-                )}
+              <div className="login-links">
+                <Link to="/member/join" className="signup-link">
+                  아직 회원이 아니신가요? <strong>회원가입</strong>
+                </Link>
+                <Link to="/member/find-password" className="forgot-password">
+                  비밀번호를 잊으셨나요?
+                </Link>
               </div>
             </div>
           </div>
-        </>
+
+          <style>{`
+            .container-center-horizontal {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+              background: #f8fafc;
+              padding: 2rem;
+            }
+
+            .login_container {
+              background: white;
+              border-radius: 12px;
+              box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+              padding: 3rem;
+              width: 100%;
+              max-width: 450px;
+            }
+
+            .title {
+              display: flex;
+              justify-content: center;
+              margin-bottom: 2rem;
+            }
+
+            .title img {
+              height: 60px;
+            }
+
+            .loginTab {
+              display: flex;
+              border-bottom: 1px solid #e2e8f0;
+              margin-bottom: 2rem;
+            }
+
+            .loginTab a {
+              flex: 1;
+              padding: 1rem;
+              text-align: center;
+              text-decoration: none;
+              color: #718096;
+              font-weight: 500;
+              border-bottom: 2px solid transparent;
+              transition: all 0.2s;
+            }
+
+            .loginTab a.active {
+              color: #667eea;
+              border-bottom-color: #667eea;
+            }
+
+            .loginTab a:hover {
+              color: #667eea;
+            }
+
+            .email-login-form {
+              margin-bottom: 2rem;
+            }
+
+            .input-group {
+              margin-bottom: 1.5rem;
+            }
+
+            .input-group label {
+              display: block;
+              margin-bottom: 0.5rem;
+              font-weight: 500;
+              color: #2d3748;
+            }
+
+            .input-group input {
+              width: 100%;
+              padding: 0.75rem 1rem;
+              border: 2px solid #e2e8f0;
+              border-radius: 8px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+            }
+
+            .input-group input:focus {
+              outline: none;
+              border-color: #667eea;
+            }
+
+            .login-submit-button {
+              width: 100%;
+              padding: 0.875rem;
+              background: #667eea;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-size: 1rem;
+              font-weight: 600;
+              cursor: pointer;
+              transition: background 0.2s;
+            }
+
+            .login-submit-button:hover:not(:disabled) {
+              background: #5a6fd8;
+            }
+
+            .login-submit-button:disabled {
+              background: #a0aec0;
+              cursor: not-allowed;
+            }
+
+            .login-links {
+              text-align: center;
+              padding-top: 1.5rem;
+              border-top: 1px solid #e2e8f0;
+            }
+
+            .signup-link {
+              display: block;
+              color: #4a5568;
+              text-decoration: none;
+              margin-bottom: 1rem;
+            }
+
+            .signup-link strong {
+              color: #667eea;
+            }
+
+            .signup-link:hover strong {
+              text-decoration: underline;
+            }
+
+            .forgot-password {
+              color: #718096;
+              text-decoration: none;
+              font-size: 0.9rem;
+            }
+
+            .forgot-password:hover {
+              color: #667eea;
+              text-decoration: underline;
+            }
+
+            .mobile-login-container {
+              min-height: 100vh;
+              background: #f8fafc;
+              padding: 2rem 1rem;
+            }
+
+            .mobile-login {
+              max-width: 400px;
+              margin: 0 auto;
+            }
+
+            .mobile-logo {
+              display: flex;
+              justify-content: center;
+              margin-bottom: 2rem;
+            }
+
+            .mobile-logo img {
+              height: 50px;
+            }
+
+            .mobile-login-tabs {
+              display: flex;
+              background: white;
+              border-radius: 8px;
+              margin-bottom: 2rem;
+              overflow: hidden;
+            }
+
+            .mobile-login-tabs button {
+              flex: 1;
+              padding: 1rem;
+              background: white;
+              border: none;
+              color: #718096;
+              font-weight: 500;
+              cursor: pointer;
+            }
+
+            .mobile-login-tabs button.active {
+              background: #667eea;
+              color: white;
+            }
+
+            .mobile-login-form {
+              background: white;
+              border-radius: 12px;
+              padding: 2rem;
+              margin-bottom: 2rem;
+            }
+
+            .form-group {
+              margin-bottom: 1.5rem;
+            }
+
+            .form-group input {
+              width: 100%;
+              padding: 0.875rem;
+              border: 2px solid #e2e8f0;
+              border-radius: 8px;
+              font-size: 1rem;
+            }
+
+            .form-group input:focus {
+              outline: none;
+              border-color: #667eea;
+            }
+
+            .login-button {
+              width: 100%;
+              padding: 0.875rem;
+              background: #667eea;
+              color: white;
+              border: none;
+              border-radius: 8px;
+              font-size: 1rem;
+              font-weight: 600;
+              cursor: pointer;
+            }
+
+            .login-button:disabled {
+              background: #a0aec0;
+            }
+
+            .mobile-login-links {
+              display: flex;
+              justify-content: space-between;
+              background: white;
+              border-radius: 8px;
+              padding: 1rem;
+            }
+
+            .mobile-login-links a {
+              color: #667eea;
+              text-decoration: none;
+              font-size: 0.9rem;
+            }
+
+            @media (max-width: 768px) {
+              .container-center-horizontal {
+                padding: 1rem;
+              }
+              
+              .login_container {
+                padding: 2rem;
+              }
+            }
+          `}</style>
+        </div>
       )}
     </>
   );

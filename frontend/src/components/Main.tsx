@@ -15,6 +15,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useAlert } from "../contexts/AlertContext";
 import { fetchJobpostData, JobpostDataItem } from "../api/jobpostData";
 import CompanyLogo from "./common/CompanyLogo";
+import axios from "axios";
 
 interface CommunityProps {
   id: number;
@@ -129,6 +130,9 @@ const Main: React.FC = () => {
   const [vvipJobList, setVvipJobList] = useState<VvipJobProps[]>([]);
   const [vipJobList, setVipJobList] = useState<VipJobProps[]>([]);
   const [specialJobList, setSpecialJobList] = useState<SpecialJobProps[]>([]);
+  const [recentJobs, setRecentJobs] = useState<any[]>([]);
+  const [jobStats, setJobStats] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
   const [mainBanners, setMainBanners] = useState<Banner[]>([]);
   const [subBanners, setSubBanners] = useState<Banner[]>([]);
   const [corpAdBanners, setCorpAdBanners] = useState<Banner[]>([]);
@@ -174,177 +178,162 @@ const Main: React.FC = () => {
   }, [communityTab]);
 
   useEffect(() => {
+    const fetchJobStats = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/stats`);
+        if (response.data.success) {
+          setJobStats(response.data.data);
+        }
+      } catch (error) {
+        console.error('통계 정보 가져오기 실패:', error);
+      }
+    };
+
+    const fetchRecentJobs = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/jobs?limit=8`);
+        if (response.data.success) {
+          setRecentJobs(response.data.data);
+        }
+      } catch (error) {
+        console.error('최신 공고 가져오기 실패:', error);
+      }
+    };
+
     const fetchBestJobList = async () => {
       try {
-        // TODO: 인기공고 조건 필요
-        const response = await axiosInstance.get("/api/v1/jobs", {
-          params: {
-            page: 1,
-            size: 10,
-            searchType: "title",
-            query: "",
-            country: "all",
-            location: "all",
-            jobType: "all",
-          },
-        });
-        setBestJobList(
-          response.data?.map((job: JobPost) => ({
-            id: job.id,
-            title: job.title,
-            thumbnail: job.logo_url,
-          })) || [],
-        );
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/jobs?limit=10`);
+        
+        if (response.data.success && response.data.data) {
+          setBestJobList(
+            response.data.data.map((job: any) => ({
+              id: job.id,
+              title: job.title,
+              thumbnail: job.image_url || '/img/default-company.png',
+            })) || []
+          );
+        }
       } catch (error) {
-        console.error("인기 공고 목록 가져오기 실패:", error);
+        console.error('인기 공고 목록 가져오기 실패:', error);
+        setBestJobList([]);
       }
     };
 
     const fetchDomesticJobList = async () => {
       try {
-        // TODO: 국내 공고 조건 필요
-        const response = await axiosInstance.get("/api/v1/jobs", {
-          params: {
-            page: 1,
-            size: 4,
-            searchType: "title",
-            query: "",
-            country: "국내",
-            location: "all",
-            jobType: "all",
-          },
-        });
-        setDomesticJobList(
-          response.data?.content?.map((job: JobPost) => ({
-            id: job.id,
-            title: job.title,
-            thumbnail: job.logo_url,
-            startDate: job.startDate,
-            endDate: job.endDate,
-          })) || [],
-        );
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/jobs?limit=4`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setDomesticJobList(
+            result.data.map((job: any) => ({
+              id: job.id,
+              title: job.title,
+              thumbnail: job.image_url || '/img/default-company.png',
+              startDate: job.posting_date || new Date().toISOString(),
+              endDate: job.deadline || '상시채용',
+            })) || []
+          );
+        }
       } catch (error) {
-        console.error("국내 공고 목록 가져오기 실패:", error);
+        console.error('국내 공고 목록 가져오기 실패:', error);
+        setDomesticJobList([]);
       }
     };
 
     const fetchOverseasJobList = async () => {
       try {
-        // TODO: 해외 공고 조건 필요
-        const response = await axiosInstance.get("/api/v1/jobs", {
-          params: {
-            page: 1,
-            size: 4,
-            searchType: "title",
-            query: "",
-            country: "해외",
-            location: "all",
-            jobType: "all",
-          },
-        });
-        setOverseasJobList(
-          response.data?.content?.map((job: JobPost) => ({
-            id: job.id,
-            title: job.title,
-            thumbnail: job.logo_url,
-            startDate: job.startDate,
-            endDate: job.endDate,
-          })) || [],
-        );
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/jobs?limit=4`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setOverseasJobList(
+            result.data.slice(0, 4).map((job: any) => ({
+              id: job.id,
+              title: job.title,
+              thumbnail: job.image_url || '/img/default-company.png',
+              startDate: job.posting_date || new Date().toISOString(),
+              endDate: job.deadline || '상시채용',
+            })) || []
+          );
+        }
       } catch (error) {
-        console.error("해외 공고 목록 가져오기 실패:", error);
+        console.error('해외 공고 목록 가져오기 실패:', error);
+        setOverseasJobList([]);
       }
     };
 
     const fetchVvipJobList = async () => {
       try {
-        // TODO: VVIP 공고 조건 필요
-        const response = await axiosInstance.get("/api/v1/jobs", {
-          params: {
-            page: 1,
-            size: 20,
-            searchType: "vvip",
-            query: "",
-            country: "all",
-            location: "all",
-            jobType: "all",
-          },
-        });
-        setVvipJobList(
-          response.data?.content?.map((job: JobPost) => ({
-            id: job.id,
-            title: job.title,
-            companyName: job.companyName,
-            address: job.address,
-            thumbnail: job.logo_url,
-            startDate: job.startDate,
-            endDate: job.endDate,
-            wrkcndtnLctRgnStr: job.wrkcndtnLctRgnStr,
-          })) || [],
-        );
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/jobs?limit=5`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setVvipJobList(
+            result.data.slice(0, 5).map((job: any) => ({
+              id: job.id,
+              title: job.title,
+              companyName: job.company,
+              address: job.location,
+              thumbnail: job.image_url || '/img/default-company.png',
+              startDate: job.posting_date || new Date().toISOString(),
+              endDate: job.deadline || '상시채용',
+              wrkcndtnLctRgnStr: job.location,
+            })) || []
+          );
+        }
       } catch (error) {
-        console.error("VVIP 공고 목록 가져오기 실패:", error);
+        console.error('VVIP 공고 목록 가져오기 실패:', error);
+        setVvipJobList([]);
       }
     };
 
     const fetchVipJobList = async () => {
       try {
-        // TODO: VIP 공고 조건 필요
-        const response = await axiosInstance.get("/api/v1/jobs", {
-          params: {
-            page: 1,
-            size: 40,
-            searchType: "vip",
-            query: "",
-            country: "all",
-            location: "all",
-            jobType: "all",
-          },
-        });
-        setVipJobList(
-          response.data?.content?.map((job: JobPost) => ({
-            id: job.id,
-            title: job.title,
-            companyName: job.companyName,
-            address: job.address,
-            thumbnail: job.logo_url,
-            startDate: job.startDate,
-            endDate: job.endDate,
-            wrkcndtnLctRgnStr: job.wrkcndtnLctRgnStr,
-          })) || [],
-        );
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/jobs?limit=8`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setVipJobList(
+            result.data.slice(0, 8).map((job: any) => ({
+              id: job.id,
+              title: job.title,
+              companyName: job.company,
+              address: job.location,
+              thumbnail: job.image_url || '/img/default-company.png',
+              startDate: job.posting_date || new Date().toISOString(),
+              endDate: job.deadline || '상시채용',
+              wrkcndtnLctRgnStr: job.location,
+            })) || []
+          );
+        }
       } catch (error) {
-        console.error("VIP 공고 목록 가져오기 실패:", error);
+        console.error('VIP 공고 목록 가져오기 실패:', error);
+        setVipJobList([]);
       }
     };
 
     const fetchSpecialJobList = async () => {
       try {
-        // TODO: SPECIAL 공고 조건 필요
-        const response = await axiosInstance.get("/api/v1/jobs", {
-          params: {
-            page: 1,
-            size: 50,
-            searchType: "special",
-            query: "",
-            country: "all",
-            location: "all",
-            jobType: "all",
-          },
-        });
-        setSpecialJobList(
-          response.data?.content?.map((job: JobPost) => ({
-            id: job.id,
-            title: job.title,
-            companyName: job.companyName,
-            address: job.address,
-            startDate: job.startDate,
-            endDate: job.endDate,
-            wrkcndtnLctRgnStr: job.wrkcndtnLctRgnStr,
-          })) || [],
-        );
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080'}/api/jobs?limit=6`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setSpecialJobList(
+            result.data.slice(0, 6).map((job: any) => ({
+              id: job.id,
+              title: job.title,
+              companyName: job.company,
+              address: job.location,
+              startDate: job.posting_date || new Date().toISOString(),
+              endDate: job.deadline || '상시채용',
+              wrkcndtnLctRgnStr: job.location,
+            })) || []
+          );
+        }
       } catch (error) {
-        console.error("SPECIAL 공고 목록 가져오기 실패:", error);
+        console.error('SPECIAL 공고 목록 가져오기 실패:', error);
+        setSpecialJobList([]);
       }
     };
 
@@ -411,12 +400,22 @@ const Main: React.FC = () => {
       }
     };
 
-    fetchBestJobList();
-    fetchDomesticJobList();
-    fetchOverseasJobList();
-    fetchVvipJobList();
-    fetchVipJobList();
-    fetchSpecialJobList();
+    const loadAllData = async () => {
+      setLoading(true);
+      await Promise.all([
+        fetchJobStats(),
+        fetchRecentJobs(),
+        fetchBestJobList(),
+        fetchDomesticJobList(),
+        fetchOverseasJobList(),
+        fetchVvipJobList(),
+        fetchVipJobList(),
+        fetchSpecialJobList()
+      ]);
+      setLoading(false);
+    };
+    
+    loadAllData();
 
     if (userType === UserType.COMPANY) {
       fetchMainBanners(BannerGroup.MAIN_B);
@@ -478,8 +477,160 @@ const Main: React.FC = () => {
           style={{ width: "100%", maxWidth: "1280px", margin: "0 auto", overflowX: "hidden" }}
         >
           <div className="container">
+            {/* Hero Section */}
+            <div className="hero-section" style={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              borderRadius: '20px',
+              padding: '3rem',
+              marginBottom: '2rem',
+              color: 'white',
+              textAlign: 'center'
+            }}>
+              <h1 style={{fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '1rem'}}>🚀 국내 종합 채용 플랫폼</h1>
+              <p style={{fontSize: '1.2rem', opacity: 0.9, marginBottom: '2rem'}}>실시간 크롤링으로 최신 채용정보를 가장 빠르게 만나보세요</p>
+              
+              {/* 실시간 통계 */}
+              {jobStats && (
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '3rem',
+                  marginBottom: '2rem'
+                }}>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{fontSize: '2rem', fontWeight: 'bold'}}>{jobStats.total_jobs}</div>
+                    <div style={{opacity: 0.8}}>실시간 채용공고</div>
+                  </div>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{fontSize: '2rem', fontWeight: 'bold'}}>{Object.keys(jobStats.categories).length}</div>
+                    <div style={{opacity: 0.8}}>다양한 직군</div>
+                  </div>
+                  <div style={{textAlign: 'center'}}>
+                    <div style={{fontSize: '2rem', fontWeight: 'bold'}}>{Object.keys(jobStats.locations).length}</div>
+                    <div style={{opacity: 0.8}}>전국 지역</div>
+                  </div>
+                </div>
+              )}
+              
+              {/* 검색 바 */}
+              <div style={{
+                background: 'white',
+                borderRadius: '50px',
+                padding: '1rem',
+                display: 'flex',
+                alignItems: 'center',
+                maxWidth: '600px',
+                margin: '0 auto',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
+              }}>
+                <input 
+                  type="text" 
+                  placeholder="회사명이나 직무를 검색해보세요"
+                  style={{
+                    flex: 1,
+                    border: 'none',
+                    outline: 'none',
+                    fontSize: '1rem',
+                    color: '#333',
+                    padding: '0 1rem'
+                  }}
+                />
+                <Link 
+                  to="/jobs" 
+                  style={{
+                    background: '#667eea',
+                    color: 'white',
+                    padding: '0.8rem 1.5rem',
+                    borderRadius: '25px',
+                    textDecoration: 'none',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  검색하기
+                </Link>
+              </div>
+            </div>
+
+            {/* 빠른 메뉴 */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '1rem',
+              marginBottom: '3rem'
+            }}>
+              <Link to="/jobs" style={{
+                background: 'white',
+                borderRadius: '15px',
+                padding: '1.5rem',
+                textAlign: 'center',
+                textDecoration: 'none',
+                color: '#333',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                transition: 'transform 0.2s ease'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div style={{fontSize: '2rem', marginBottom: '0.5rem'}}>💼</div>
+                <div style={{fontWeight: 'bold', marginBottom: '0.3rem'}}>채용공고</div>
+                <div style={{fontSize: '0.9rem', color: '#666'}}>최신 채용정보 확인</div>
+              </Link>
+              
+              <Link to="/community/bbslist" style={{
+                background: 'white',
+                borderRadius: '15px',
+                padding: '1.5rem',
+                textAlign: 'center',
+                textDecoration: 'none',
+                color: '#333',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                transition: 'transform 0.2s ease'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div style={{fontSize: '2rem', marginBottom: '0.5rem'}}>💬</div>
+                <div style={{fontWeight: 'bold', marginBottom: '0.3rem'}}>커뮤니티</div>
+                <div style={{fontSize: '0.9rem', color: '#666'}}>취업 정보 공유</div>
+              </Link>
+              
+              <Link to="/accept/acceptlist" style={{
+                background: 'white',
+                borderRadius: '15px',
+                padding: '1.5rem',
+                textAlign: 'center',
+                textDecoration: 'none',
+                color: '#333',
+                boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                transition: 'transform 0.2s ease'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <div style={{fontSize: '2rem', marginBottom: '0.5rem'}}>📝</div>
+                <div style={{fontWeight: 'bold', marginBottom: '0.3rem'}}>합격자소서</div>
+                <div style={{fontSize: '0.9rem', color: '#666'}}>합격 자소서 모음</div>
+              </Link>
+              
+              {!isLoggedIn && (
+                <Link to="/member/join" style={{
+                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  borderRadius: '15px',
+                  padding: '1.5rem',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  color: 'white',
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                  transition: 'transform 0.2s ease'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                  <div style={{fontSize: '2rem', marginBottom: '0.5rem'}}>🎯</div>
+                  <div style={{fontWeight: 'bold', marginBottom: '0.3rem'}}>회원가입</div>
+                  <div style={{fontSize: '0.9rem', opacity: 0.9}}>지금 시작하세요!</div>
+                </Link>
+              )}
+            </div>
+
             {/* 메인 배너 슬라이더 */}
-            <div className="flex-row topWrap mb30">
+            <div className="flex-row topWrap mb30" style={{display: 'none'}}>
               <div className="swiper topSwiper">
                 <div className="swiper-wrapper">
                   {mainBanners.length === 0 ? (
@@ -659,26 +810,64 @@ const Main: React.FC = () => {
                   </div>
                 </div>
               ) : (
-                // 로그인 전 화면
-                <div className="user_box">
-                  <div className="flex-row card">
-                    <img
-                      className="icon"
-                      src="/img/group-2230@2x.png"
-                      alt="일반회원"
-                    />
-                    <div className="txt">일반회원</div>
-                    <Link to="member/userlogin">로그인</Link>
+                // 로그인 전 화면 - 현대적 디자인
+                <div style={{
+                  background: 'white',
+                  borderRadius: '15px',
+                  padding: '2rem',
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                  minWidth: '300px'
+                }}>
+                  <h3 style={{textAlign: 'center', marginBottom: '1.5rem', color: '#2d3748'}}>지금 시작하세요!</h3>
+                  
+                  <div style={{marginBottom: '1rem'}}>
+                    <Link to="/member/userlogin" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '1rem',
+                      background: '#f8fafc',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      color: '#333',
+                      transition: 'all 0.2s ease',
+                      marginBottom: '0.8rem'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = '#e2e8f0'}
+                    onMouseOut={(e) => e.currentTarget.style.background = '#f8fafc'}>
+                      <div style={{fontSize: '1.8rem', marginRight: '1rem'}}>👤</div>
+                      <div>
+                        <div style={{fontWeight: 'bold', marginBottom: '0.2rem'}}>일반회원 로그인</div>
+                        <div style={{fontSize: '0.85rem', color: '#718096'}}>구직자를 위한 서비스</div>
+                      </div>
+                    </Link>
+                    
+                    <Link to="/member/userlogin?tab=corp" style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '1rem',
+                      background: '#f8fafc',
+                      borderRadius: '10px',
+                      textDecoration: 'none',
+                      color: '#333',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => e.currentTarget.style.background = '#e2e8f0'}
+                    onMouseOut={(e) => e.currentTarget.style.background = '#f8fafc'}>
+                      <div style={{fontSize: '1.8rem', marginRight: '1rem'}}>🏢</div>
+                      <div>
+                        <div style={{fontWeight: 'bold', marginBottom: '0.2rem'}}>기업회원 로그인</div>
+                        <div style={{fontSize: '0.85rem', color: '#718096'}}>채용담당자를 위한 서비스</div>
+                      </div>
+                    </Link>
                   </div>
-                  <div className="line"></div>
-                  <div className="flex-row card">
-                    <img
-                      className="icon"
-                      src="/img/crop_icon.png"
-                      alt="기업회원"
-                    />
-                    <div className="txt">기업회원</div>
-                    <Link to="/member/userlogin?tab=corp">로그인</Link>
+                  
+                  <div style={{textAlign: 'center', paddingTop: '1rem', borderTop: '1px solid #e2e8f0'}}>
+                    <span style={{color: '#718096', fontSize: '0.9rem'}}>아직 회원이 아니신가요? </span>
+                    <Link to="/member/join" style={{
+                      color: '#667eea',
+                      textDecoration: 'none',
+                      fontWeight: 'bold'
+                    }}>회원가입</Link>
                   </div>
                 </div>
               )}
@@ -846,32 +1035,6 @@ const Main: React.FC = () => {
                   <li className={`${communityTab === "all" ? "active" : ""}`}>
                     <button onClick={() => setCommunityTab("all")}>Best</button>
                   </li>
-                  <li
-                    className={`${communityTab === "america" ? "active" : ""}`}
-                  >
-                    <button onClick={() => setCommunityTab("america")}>
-                      미주
-                    </button>
-                  </li>
-                  <li
-                    className={`${communityTab === "europe" ? "active" : ""}`}
-                  >
-                    <button onClick={() => setCommunityTab("europe")}>
-                      유럽
-                    </button>
-                  </li>
-                  <li className={`${communityTab === "asia" ? "active" : ""}`}>
-                    <button onClick={() => setCommunityTab("asia")}>
-                      아시아
-                    </button>
-                  </li>
-                  <li
-                    className={`${communityTab === "oceania" ? "active" : ""}`}
-                  >
-                    <button onClick={() => setCommunityTab("oceania")}>
-                      오세아니아
-                    </button>
-                  </li>
                 </ul>
                 <div className="best_box">
                   <ul>
@@ -905,9 +1068,149 @@ const Main: React.FC = () => {
           </div>
           {/* container end */}
 
+          {/* 최신 채용공고 섬션 */}
+          <div style={{marginBottom: '3rem'}}>
+            <h2 style={{fontSize: '1.8rem', fontWeight: 'bold', marginBottom: '1.5rem', color: '#2d3748'}}>
+              🔥 실시간 최신 채용공고
+            </h2>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: '1.5rem',
+              marginBottom: '2rem'
+            }}>
+              {loading ? (
+                Array.from({length: 4}).map((_, index) => (
+                  <div key={index} style={{
+                    background: '#f0f0f0',
+                    borderRadius: '15px',
+                    padding: '1.5rem',
+                    height: '200px',
+                    animation: 'pulse 1.5s ease-in-out infinite alternate'
+                  }}>
+                    <div style={{background: '#ddd', height: '20px', borderRadius: '10px', marginBottom: '10px'}}></div>
+                    <div style={{background: '#ddd', height: '15px', borderRadius: '8px', marginBottom: '10px', width: '70%'}}></div>
+                    <div style={{background: '#ddd', height: '15px', borderRadius: '8px', width: '50%'}}></div>
+                  </div>
+                ))
+              ) : recentJobs.length === 0 ? (
+                <div style={{
+                  gridColumn: '1 / -1',
+                  textAlign: 'center',
+                  padding: '3rem',
+                  color: '#666'
+                }}>
+                  채용공고를 불러오는 중입니다...
+                </div>
+              ) : (
+                recentJobs.slice(0, 4).map((job) => (
+                  <Link to={`/jobs`} key={job.id} style={{
+                    background: 'white',
+                    borderRadius: '15px',
+                    padding: '1.5rem',
+                    textDecoration: 'none',
+                    color: '#333',
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                    transition: 'all 0.3s ease',
+                    border: '1px solid #e2e8f0'
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-5px)';
+                    e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 15px rgba(0,0,0,0.1)';
+                  }}>
+                    <div style={{display: 'flex', alignItems: 'center', marginBottom: '1rem'}}>
+                      <div style={{
+                        width: '50px',
+                        height: '50px',
+                        borderRadius: '10px',
+                        background: '#f7fafc',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: '1rem',
+                        fontSize: '1.5rem'
+                      }}>
+                        {job.image_url && !job.image_url.includes('default') ? (
+                          <img src={job.image_url} alt={job.company} style={{width: '100%', height: '100%', borderRadius: '10px', objectFit: 'cover'}} />
+                        ) : (
+                          '🏢'
+                        )}
+                      </div>
+                      <div>
+                        <div style={{fontWeight: 'bold', color: '#667eea', fontSize: '0.9rem'}}>{job.company}</div>
+                        <div style={{fontSize: '0.8rem', color: '#718096'}}>{job.location}</div>
+                      </div>
+                    </div>
+                    <h3 style={{fontWeight: 'bold', marginBottom: '0.8rem', lineHeight: '1.4'}}>{job.title}</h3>
+                    <div style={{display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem'}}>
+                      <span style={{background: '#e6fffa', color: '#38b2ac', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.8rem'}}>{job.employment_type || '정규직'}</span>
+                      <span style={{background: '#fef5e7', color: '#d69e2e', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.8rem'}}>{job.experience || '경력무관'}</span>
+                    </div>
+                    <div style={{fontSize: '0.85rem', color: '#4a5568'}}>{job.salary || '급여협의'}</div>
+                  </Link>
+                ))
+              )}
+            </div>
+            <div style={{textAlign: 'center'}}>
+              <Link to="/jobs" style={{
+                display: 'inline-block',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: 'white',
+                padding: '1rem 2rem',
+                borderRadius: '25px',
+                textDecoration: 'none',
+                fontWeight: 'bold',
+                transition: 'transform 0.2s ease'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+                모든 채용공고 보기 →
+              </Link>
+            </div>
+          </div>
+
           <section className="main_section">
             <div className="container">
               {/* 금주의 인기광고 */}
+              <style>{`
+                @keyframes pulse {
+                  0% { opacity: 1; }
+                  100% { opacity: 0.4; }
+                }
+                
+                .hero-section h1 {
+                  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }
+                
+                .quick-menu-card:hover {
+                  transform: translateY(-5px);
+                  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+                }
+                
+                .job-card:hover {
+                  transform: translateY(-3px);
+                  box-shadow: 0 12px 35px rgba(0,0,0,0.15) !important;
+                }
+                
+                @media (max-width: 768px) {
+                  .hero-section {
+                    padding: 2rem 1rem !important;
+                  }
+                  
+                  .hero-section h1 {
+                    font-size: 1.8rem !important;
+                  }
+                  
+                  .hero-section .stats-grid {
+                    flex-direction: column;
+                    gap: 1rem !important;
+                  }
+                }
+              `}</style>
               <div className="hitpublic">
                 <h2>
                   금주의 인기공고
@@ -947,7 +1250,7 @@ const Main: React.FC = () => {
                         {bestJobList.map((job) => (
                           <SwiperSlide key={`best-${job.id}`}>
                             <div className="card">
-                              <Link to={`jobs/${job.id}`}>
+                              <Link to={`/jobs`}>
                                 <div className="imgBox">
                                   <CompanyLogo logoUrl={job.thumbnail} />
                                 </div>
@@ -964,7 +1267,7 @@ const Main: React.FC = () => {
               </div>
               {/* 금주의 인기광고 end */}
 
-              {/* 국내채용, 해외채용 */}
+              {/* 국내채용, 글로벌채용 */}
               <div className="flex-row jobdev">
                 {/* 국내채용 */}
                 <div className="col2 card">
@@ -987,7 +1290,7 @@ const Main: React.FC = () => {
                     ) : (
                       domesticJobList.map((job) => (
                         <div className="card_item" key={`domestic-${job.id}`}>
-                          <Link to={`jobs/${job.id}`}>
+                          <Link to={`/jobs`}>
                             <div className="logoBox">
                               <CompanyLogo logoUrl={job.thumbnail} />
                             </div>
@@ -1011,7 +1314,7 @@ const Main: React.FC = () => {
                 {/* 해외채용 */}
                 <div className="col2 card">
                   <h2 className="flex-row" onClick={() => navigate("/jobs")}>
-                    해외채용
+                    글로벌채용
                     <img className="jobimg" src="/img/frame-140.svg" alt="" />
                   </h2>
                   <div className="flex-row card_body">
@@ -1019,13 +1322,13 @@ const Main: React.FC = () => {
                     {overseasJobList.length === 0 ? (
                       <div className="card_item">
                         <div className="txt">
-                          <p>해외 공고가 없습니다.</p>
+                          <p>글로벌 공고가 없습니다.</p>
                         </div>
                       </div>
                     ) : (
                       overseasJobList.map((job) => (
                         <div className="card_item" key={`overseas-${job.id}`}>
-                          <Link to={`jobs/${job.id}`}>
+                          <Link to={`/jobs`}>
                             <div className="logoBox">
                               <CompanyLogo logoUrl={job.thumbnail} />
                             </div>
@@ -1044,9 +1347,9 @@ const Main: React.FC = () => {
                     {/* loop end */}
                   </div>
                 </div>
-                {/* 해외채용 end */}
+                {/* 글로벌채용 end */}
               </div>
-              {/* 국내채용, 해외채용 end */}
+              {/* 국내채용, 글로벌채용 end */}
             </div>
           </section>
 
@@ -1062,7 +1365,7 @@ const Main: React.FC = () => {
                   </div>
                 ) : (
                   vvipJobList.map((job, index) => (
-                    <Link to={`jobs/${job.id}`} key={`vvip-${job.id}-${index}`}>
+                    <Link to={`/jobs`} key={`vvip-${job.id}-${index}`}>
                       <div className="card line add-hover">
                         <div className="img_box">
                           <CompanyLogo logoUrl={job.thumbnail} className="comimg" />
@@ -1108,7 +1411,7 @@ const Main: React.FC = () => {
                   </div>
                 ) : (
                   vipJobList.map((job) => (
-                    <Link to={`jobs/${job.id}`} key={`vip-${job.id}`}>
+                    <Link to={`/jobs`} key={`vip-${job.id}`}>
                       <div className="card add-hover">
                         <div className="img_box">
                           <CompanyLogo logoUrl={job.thumbnail} className="comimg" />
@@ -1153,7 +1456,7 @@ const Main: React.FC = () => {
                   </div>
                 ) : (
                   specialJobList.map((job) => (
-                    <Link to={`jobs/${job.id}`} key={`special-${job.id}`}>
+                    <Link to={`/jobs`} key={`special-${job.id}`}>
                       <div className="card speclal add-hover">
                         <div className="jobInfo_flex">
                           <div className="infogroup">

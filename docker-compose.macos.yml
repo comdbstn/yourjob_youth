@@ -1,0 +1,324 @@
+version: '3.8'
+
+services:
+  # MySQL Database - macOS optimized
+  db:
+    image: mysql:8.0
+    container_name: yourjob-mysql
+    restart: unless-stopped
+    platform: linux/amd64  # Explicit platform for Apple Silicon
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: ${DB_NAME:-yourjobdb}
+      MYSQL_USER: ${DB_USER:-urjob}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-rootpass}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    networks:
+      - yourjob-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    # macOS Memory optimization
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  # Redis for caching and session storage - macOS optimized
+  redis:
+    image: redis:7-alpine
+    container_name: yourjob-redis
+    restart: unless-stopped
+    platform: linux/amd64
+    command: redis-server --requirepass ${REDIS_PASSWORD:-redispass} --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - yourjob-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      timeout: 3s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+  # Backend API - macOS optimized
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET:-production}
+    container_name: yourjob-backend
+    restart: unless-stopped
+    platform: linux/amd64
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "8082:8082"
+      - "8443:8443"
+      - "5006:5005"  # Debug port for development
+    environment:
+      # Database configuration
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_NAME: ${DB_NAME:-yourjobdb}
+      DB_USER: ${DB_USER:-urjob}
+      DB_PASSWORD: ${DB_PASSWORD:-rootpass}
+      
+      # Redis configuration
+      REDIS_HOST: ${REDIS_HOST:-redis}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-redispass}
+      
+      # JWT configuration
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-minimum-32-characters-long}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400000}
+      
+      # Email configuration
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME}
+      SMTP_PASSWORD: ${SMTP_PASSWORD}
+      
+      # AWS S3 configuration
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION:-ap-northeast-2}
+      AWS_S3_BUCKET: ${AWS_S3_BUCKET}
+      
+      # Payment gateway
+      TOSS_CLIENT_KEY: ${TOSS_CLIENT_KEY}
+      TOSS_SECRET_KEY: ${TOSS_SECRET_KEY}
+      
+      # Application settings
+      APP_ENV: ${APP_ENV:-production}
+      APP_DEBUG: ${APP_DEBUG:-false}
+      API_RATE_LIMIT: ${API_RATE_LIMIT:-1000}
+      
+      # JVM settings for macOS
+      JAVA_OPTS: "-Xmx1g -Xms512m -XX:+UseG1GC -XX:G1HeapRegionSize=16m"
+      
+    volumes:
+      - app_uploads:/app/uploads
+      - app_logs:/app/logs
+      - ssl_certs:/app/ssl
+      # Cached volume for better performance on macOS
+      - backend_cache:/app/.gradle
+    networks:
+      - yourjob-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1.5G
+        reservations:
+          memory: 512M
+
+  # BFF (Backend for Frontend) - macOS optimized
+  bff:
+    build:
+      context: ./bff
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET:-production}
+    container_name: yourjob-bff
+    restart: unless-stopped
+    platform: linux/amd64
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8081:8081"
+    environment:
+      BACKEND_URL: ${BACKEND_URL:-http://backend:8082}
+      JWT_SECRET: ${JWT_SECRET:-your-super-secret-jwt-key-minimum-32-characters-long}
+      API_RATE_LIMIT: ${API_RATE_LIMIT:-1000}
+      JAVA_OPTS: "-Xmx512m -Xms256m -XX:+UseG1GC"
+    volumes:
+      - bff_cache:/app/.gradle
+    networks:
+      - yourjob-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # Frontend - macOS optimized
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET:-production}
+      args:
+        - REACT_APP_API_BASE_URL=${REACT_APP_API_BASE_URL:-http://localhost:8082}
+        - REACT_APP_BFF_BASE_URL=${REACT_APP_BFF_BASE_URL:-http://localhost:8081}
+        - REACT_APP_FIREBASE_API_KEY=${REACT_APP_FIREBASE_API_KEY}
+        - REACT_APP_FIREBASE_AUTH_DOMAIN=${REACT_APP_FIREBASE_AUTH_DOMAIN}
+        - REACT_APP_FIREBASE_PROJECT_ID=${REACT_APP_FIREBASE_PROJECT_ID}
+        - REACT_APP_FIREBASE_STORAGE_BUCKET=${REACT_APP_FIREBASE_STORAGE_BUCKET}
+        - REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${REACT_APP_FIREBASE_MESSAGING_SENDER_ID}
+        - REACT_APP_FIREBASE_APP_ID=${REACT_APP_FIREBASE_APP_ID}
+    container_name: yourjob-frontend
+    restart: unless-stopped
+    platform: linux/amd64
+    depends_on:
+      - bff
+    ports:
+      - "3000:3000"
+    volumes:
+      # Cached volume for better performance on macOS
+      - frontend_cache:/app/node_modules
+    networks:
+      - yourjob-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+  # Nginx Reverse Proxy - macOS optimized
+  nginx:
+    image: nginx:alpine
+    container_name: yourjob-nginx
+    restart: unless-stopped
+    platform: linux/amd64
+    depends_on:
+      - frontend
+      - backend
+      - bff
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - ssl_certs:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx
+    networks:
+      - yourjob-network
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
+  # Monitoring - Prometheus (optional)
+  prometheus:
+    image: prom/prometheus
+    container_name: yourjob-prometheus
+    restart: unless-stopped
+    platform: linux/amd64
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - yourjob-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+    profiles:
+      - monitoring
+
+  # Monitoring - Grafana (optional)
+  grafana:
+    image: grafana/grafana
+    container_name: yourjob-grafana
+    restart: unless-stopped
+    platform: linux/amd64
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./docker/grafana/dashboards:/var/lib/grafana/dashboards
+      - ./docker/grafana/provisioning:/etc/grafana/provisioning
+    ports:
+      - "3001:3000"
+    networks:
+      - yourjob-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+    profiles:
+      - monitoring
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+  app_uploads:
+    driver: local
+  app_logs:
+    driver: local
+  ssl_certs:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  backend_cache:
+    driver: local
+  bff_cache:
+    driver: local
+  frontend_cache:
+    driver: local
+
+networks:
+  yourjob-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
