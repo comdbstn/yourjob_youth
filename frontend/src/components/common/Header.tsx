@@ -155,42 +155,30 @@ const Header: React.FC = () => {
               </li>
             </ul>
             <ul className="userNav">
-              {isLoggedIn ? (
-                userType === UserType.JOB_SEEKER ? (
-                  <>
-                    <li>
-                      <Link to="/mypage">
-                        <i className="fa-regular fa-user"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <button onClick={handleLogout} className="logOut">
-                        로그아웃
-                      </button>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li>
-                      <Link to="/corpmem/productmypage">유료 이용내역</Link>
-                    </li>
-                    <li>
-                      <Link to="/corpmem/mypage">
-                        <i className="fa-regular fa-user"></i>
-                      </Link>
-                    </li>
-                    <li>
-                      <button onClick={handleLogout} className="logOut">
-                        로그아웃
-                      </button>
-                    </li>
-                  </>
-                )
-              ) : (
+              {user ? (
                 <>
                   <li>
-                    <Link to="/member/join">회원가입</Link>
+                    <Link to="/mypage">
+                      <i className="fa-regular fa-user"></i>
+                      마이페이지
+                    </Link>
                   </li>
+                  <li>
+                    <button 
+                      onClick={() => {
+                        localStorage.removeItem('auth_token');
+                        localStorage.removeItem('user_info');
+                        setUser(null);
+                        window.location.reload();
+                      }} 
+                      className="logOut"
+                    >
+                      로그아웃
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
                   <li>
                     <button 
                       onClick={() => setIsAuthModalOpen(true)}

@@ -104,6 +104,7 @@ import MobileNewResumeDetail from "./components/corpmem/NewResumeDetail/Mobile/M
 import ScrollToTop from "./components/mobile/scrollToTop/ScrollToTop";
 import SessionValidator from "./SessionValidator";
 import NotFoundView from "./components/notfound/NotFoundView";
+import MyPage from "./components/profile/MyPage";
 
 function RedirectToLogin() {
   useEffect(() => {
@@ -119,7 +120,7 @@ const AppRouter: React.FC = () => {
       <SessionValidator />
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/mypage" element={<MpMyPage />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/apply" element={<MpApply />} />
         <Route path="/mypage/resume" element={<MpResume />} />
         <Route path="/mypage/resume/write" element={<MpResumeWrite />} />

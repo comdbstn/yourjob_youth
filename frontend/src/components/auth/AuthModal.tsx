@@ -49,7 +49,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onAuthSuccess })
     userType: 'JOBSEEKER'
   });
 
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080';
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://simple-backend-77yddgdmr-comdbstns-projects.vercel.app';
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
